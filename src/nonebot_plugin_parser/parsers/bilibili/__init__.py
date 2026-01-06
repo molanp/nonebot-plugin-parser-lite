@@ -299,9 +299,16 @@ class BilibiliParser(BaseParser):
                     "title": "资源失效",
                 }
 
+        # 获取标题和文本
+        dynamic_title = dynamic_info.title or "B站动态"
+        dynamic_text = dynamic_info.text
+        
+        # 如果标题和文本内容一致，则将文本置空，避免重复展示
+        final_text = dynamic_text if dynamic_text and dynamic_text != dynamic_title else None
+        
         return self.result(
-            title=dynamic_info.title or "B站动态",
-            text=dynamic_info.text,
+            title=dynamic_title,
+            text=final_text,
             timestamp=dynamic_info.timestamp,
             author=author,
             contents=contents,
@@ -441,17 +448,27 @@ class BilibiliParser(BaseParser):
             "content_id": str(opus_data.item.id_str),
         }
 
-        # 使用从动态内容中提取的文本作为标题，优先于默认的"xxx的动态-哔哩哔哩"
-        # 如果有提取到文本内容，使用它作为标题
-        # 否则使用作者名+动态作为标题
-        final_title = full_text if full_text else f"{author_name}的图文动态"
+        # 优先使用basic.title作为标题，如果没有则使用提取的文本或默认值
+        # 如果标题和文本内容一致，则将文本置空，避免重复展示
+        basic_title = opus_data.item.basic.title if opus_data.item.basic else None
+        
+        # 提取原始标题，移除默认的"xxx的动态-哔哩哔哩"格式
+        original_title = basic_title
+        if original_title and f"{author_name}的动态 - 哔哩哔哩" in original_title:
+            original_title = None
+        
+        # 确定最终标题
+        final_title = original_title or full_text or f"{author_name}的哔哩哔哩动态"
+        
+        # 如果标题和文本内容一致，则将文本置空
+        final_text = full_text if full_text and full_text != final_title else None
         
         return self.result(
             title=final_title,
             author=author,
             timestamp=opus_data.timestamp,
             contents=contents,
-            text=full_text,
+            text=final_text,
             extra=extra_data,
         )
 
