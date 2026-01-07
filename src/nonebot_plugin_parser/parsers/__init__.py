@@ -9,6 +9,7 @@ from .bilibili import BilibiliParser as BilibiliParser
 from .kuaishou import KuaiShouParser as KuaiShouParser
 from ..download import YTDLP_DOWNLOADER
 from .xiaohongshu import XiaoHongShuParser as XiaoHongShuParser
+from .taptap import TapTapParser as TapTapParser
 
 if YTDLP_DOWNLOADER is not None:
     from .tiktok import TikTokParser as TikTokParser
@@ -37,4 +38,13 @@ __all__ = [
     "Platform",
     "VideoContent",
     "handle",
+    "NGAParser",
+    "AcfunParser",
+    "WeiBoParser",
+    "DouyinParser",
+    "TwitterParser",
+    "BilibiliParser",
+    "KuaiShouParser",
+    "XiaoHongShuParser",
+    "TapTapParser",
 ]

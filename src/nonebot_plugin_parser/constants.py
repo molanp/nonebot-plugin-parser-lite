@@ -40,6 +40,7 @@ class PlatformEnum(str, Enum):
     WEIBO = "weibo"
     XIAOHONGSHU = "xiaohongshu"
     YOUTUBE = "youtube"
+    TAPTAP = "taptap"
 
     def __str__(self) -> str:
         return self.value
