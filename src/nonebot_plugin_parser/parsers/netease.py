@@ -132,8 +132,8 @@ class NCMParser(BaseParser):
         except Exception as e:
             raise ParseException(f"网易云音乐解析失败: {e}")
     
-    @handle("music.163.com", r"https?://[^]*?music\.163\.com.*?(?:id=\d+|song/\d+)")
-    @handle("163cn.tv", r"https?://[^]*?163cn\.tv/[a-zA-Z0-9]+")
+    @handle("music.163.com", r"https?://[^\s]*?music\.163\.com.*?(?:id=\d+|song/\d+)")
+    @handle("163cn.tv", r"https?://[^\s]*?163cn\.tv/[a-zA-Z0-9]+")
     async def _parse_netease(self, searched: Match[str]):
         """解析网易云音乐分享链接"""
         share_url = searched.group(0)

@@ -74,7 +74,7 @@ class KuGouParser(BaseParser):
         # 只保留字母(a-zA-Z)、数字(0-9)和汉字(\u4e00-\u9fa5)
         return re.sub(r"[^\w\u4e00-\u9fa5]", "", title)
     
-    @handle("kugou.com", r"https?://[^]*?kugou\.com.*?(?:/share/[a-zA-Z0-9]+\.html|(?:id|chain)=[a-zA-Z0-9]+)")
+    @handle("kugou.com", r"https?://[^\s]*?kugou\.com.*?(?:/share/[a-zA-Z0-9]+\.html|(?:id|chain)=[a-zA-Z0-9]+)")
     async def _parse_kugou_share(self, searched: Match[str]):
         """解析酷狗分享链接"""
         share_url = searched.group(0)
