@@ -52,12 +52,16 @@ class NCMParser(BaseParser):
         # 获取网易云歌曲id
         matched = re.search(r"(?:\?|&)id=(\d+)", ncm_url)
         if not matched:
+            # 尝试从歌曲链接中提取id
+            matched = re.search(r"song/(\d+)", ncm_url)
+        
+        if not matched:
             raise ParseException(f"无效网易云链接: {ncm_url}")
         
         ncm_id = matched.group(1)
         logger.info(f"成功提取ID: {ncm_id} 来自 {ncm_url}")
         
-        # 使用API解析
+        # 使用新API解析
         try:
             # 尝试多种音质直到成功
             for quality in self.audio_qualities:
@@ -65,61 +69,45 @@ class NCMParser(BaseParser):
                     from httpx import AsyncClient
                     
                     headers = COMMON_HEADER.copy()
+                    headers.update({
+                        "Content-Type": "application/json",
+                        "User-Agent": "API-Client/1.0"
+                    })
+                    
                     async with AsyncClient(headers=headers, verify=False, timeout=self.timeout) as client:
-                        api_url = f"https://api.cenguigui.cn/api/netease/music_v1.php?id={ncm_id}&type=json&level={quality}"
-                        resp = await client.get(api_url)
+                        api_url = "https://api.bugpk.com/api/163_music"
+                        # 使用GET请求，参数包括ids、level和type
+                        params = {
+                            "ids": ncm_id,
+                            "level": quality,
+                            "type": "json"
+                        }
+                        resp = await client.get(api_url, params=params)
                         resp.raise_for_status()
                         data = resp.json()
                         
                         # 检查接口返回状态
-                        if data.get("code") != 200:
-                            logger.warning(f"网易云接口返回错误: {data.get('msg')}，尝试下一种音质")
+                        if data.get("status") != 200:
+                            logger.warning(f"网易云接口返回错误: {data}，尝试下一种音质")
                             continue
                             
-                        music_data = data["data"]
-                        ncm_title = music_data["name"]
-                        ncm_singer = music_data["artist"]
-                        ncm_cover = music_data["pic"]
-                        ncm_music_url = music_data["url"]
+                        logger.info(f"使用音质: {quality} 解析成功: {data['name']} - {data['ar_name']}")
+                        audio_info = f"音质: {quality} | 大小: {data.get('size', '')}"
                         
-                        # 验证音乐URL有效性
-                        if not ncm_music_url.startswith("http"):
-                            logger.warning(f"无效音乐URL: {ncm_music_url}，尝试下一种音质")
-                            continue
-                            
-                        logger.info(f"使用音质: {quality} 解析成功: {ncm_title} - {ncm_singer}")
-                        audio_info = f"音质: {music_data['format']} | 大小: {music_data['size']} | 时长: {music_data['duration']}"
-                        
-                        # 提取MV信息（如果存在）
-                        mv_info = {}
-                        if "mv_info" in music_data and music_data["mv_info"].get("mv"):
-                            mv_info = {
-                                "url": music_data["mv_info"]["mv"],
-                                "size": music_data["mv_info"].get("size", ""),
-                                "quality": f"{music_data['mv_info'].get('br', '')}P",
-                                "duration": music_data.get("duration", "")
-                            }
-                            # 验证MV有效性
-                            if not mv_info["url"].startswith("http"):
-                                logger.warning(f"无效MV URL: {mv_info['url']}，忽略")
-                                mv_info = {}
-                            else:
-                                logger.info(f"找到MV: {mv_info['url']} ({mv_info['quality']})")
-                        
-                        # 提取歌词信息（如果存在）
+                        # 提取歌词信息
                         lyric = ""
-                        if "lyric" in music_data and music_data["lyric"]:
-                            lyric = music_data["lyric"]
+                        if "lyric" in data and data["lyric"]:
+                            lyric = data["lyric"]
                             logger.info(f"找到歌词，长度: {len(lyric)}字符")
                         
                         # 成功获取，返回结果
                         return {
-                            "title": ncm_title,
-                            "author": ncm_singer,
+                            "title": data["name"],
+                            "author": data["ar_name"],
                             "audio_info": audio_info,
-                            "cover_url": ncm_cover,
-                            "audio_url": ncm_music_url,
-                            "mv_info": mv_info,
+                            "cover_url": data["pic"],
+                            "audio_url": data["url"],
+                            "mv_info": {},  # 新API没有返回MV信息
                             "lyric": lyric
                         }
                 except Exception as e:
