@@ -58,7 +58,7 @@ class TapTapParser(BaseParser):
                         logger.debug(f"页面包含 __NUXT_DATA__: {'__NUXT_DATA__' in response_text}")
                         
                         # 尝试多种方式提取 Nuxt 数据
-                        nuxt_data = None
+                        nuxt_data: list = []  # 明确类型标注为列表
                         
                         # 方式1: 尝试原始的 __NUXT_DATA__ 提取
                         if "__NUXT_DATA__" in response_text:
@@ -77,11 +77,15 @@ class TapTapParser(BaseParser):
                                         # 提取json数据部分
                                         json_match = re.search(r'__NUXT_DATA__\s*=\s*(\[.*?\])', match.group(1), re.DOTALL)
                                         if json_match:
-                                            nuxt_data = json.loads(json_match.group(1))
-                                            break
+                                            parsed_data = json.loads(json_match.group(1))
+                                            if isinstance(parsed_data, list):
+                                                nuxt_data = parsed_data
+                                                break
                                         # 尝试直接解析整个匹配内容
-                                        nuxt_data = json.loads(match.group(1))
-                                        break
+                                        parsed_data = json.loads(match.group(1))
+                                        if isinstance(parsed_data, list):
+                                            nuxt_data = parsed_data
+                                            break
                                     except json.JSONDecodeError as e:
                                         logger.debug(f"解析 Nuxt 数据失败，尝试下一个正则表达式: {e}")
                                         continue
@@ -92,7 +96,9 @@ class TapTapParser(BaseParser):
                             match = re.search(r'window\.__NUXT__\s*=\s*(\[.*?\])', response_text, re.DOTALL)
                             if match:
                                 try:
-                                    nuxt_data = json.loads(match.group(1))
+                                    parsed_data = json.loads(match.group(1))
+                                    if isinstance(parsed_data, list):
+                                        nuxt_data = parsed_data
                                 except json.JSONDecodeError as e:
                                     logger.debug(f"解析 window.__NUXT__ 失败: {e}")
                         
@@ -102,7 +108,9 @@ class TapTapParser(BaseParser):
                             match = re.search(r'window\.__NUXT_DATA__\s*=\s*(\[.*?\])', response_text, re.DOTALL)
                             if match:
                                 try:
-                                    nuxt_data = json.loads(match.group(1))
+                                    parsed_data = json.loads(match.group(1))
+                                    if isinstance(parsed_data, list):
+                                        nuxt_data = parsed_data
                                 except json.JSONDecodeError as e:
                                     logger.debug(f"解析 window.__NUXT_DATA__ 失败: {e}")
                         
@@ -116,7 +124,7 @@ class TapTapParser(BaseParser):
                             raise ParseException(f"无法找到 Nuxt 数据: {url}")
                         
                         # 确保返回的是列表
-                        return nuxt_data if isinstance(nuxt_data, list) else []
+                        return nuxt_data
             
             except Exception as e:
                 retry_count += 1
@@ -126,6 +134,10 @@ class TapTapParser(BaseParser):
                 
                 logger.warning(f"获取 Nuxt 数据失败，正在重试 ({retry_count}/{max_retries}) | url: {url}, error: {e}")
                 await asyncio.sleep(1 * retry_count)  # 指数退避
+        
+        # 这个代码路径理论上不会执行，因为循环中要么返回要么抛出异常
+        # 但为了类型检查通过，我们添加一个兜底返回
+        return []
     
     async def _parse_post_detail(self, post_id: str) -> Dict[str, Any]:
         """解析动态详情"""
