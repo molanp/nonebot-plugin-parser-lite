@@ -49,7 +49,20 @@ class ToutiaoParser(BaseParser):
                     raise ParseException("今日头条接口返回空内容")
                     
                 try:
-                    data = resp.json()
+                    # 获取原始响应文本
+                    response_text = resp.text
+                    
+                    # 提取JSON部分 - 找到第一个{和最后一个}，忽略前面的HTML警告
+                    json_start = response_text.find('{')
+                    json_end = response_text.rfind('}') + 1
+                    
+                    if json_start != -1 and json_end != -1:
+                        # 提取纯JSON字符串
+                        pure_json = response_text[json_start:json_end]
+                        data = json.loads(pure_json)
+                    else:
+                        # 如果找不到JSON结构，尝试直接解析
+                        data = resp.json()
                 except json.JSONDecodeError as e:
                     # 记录响应内容以便调试
                     logger.error(f"今日头条接口返回无效JSON: {resp.text[:100]}...")
@@ -60,8 +73,8 @@ class ToutiaoParser(BaseParser):
                     raise ParseException(f"今日头条接口返回错误: {data.get('msg', '未知错误')}")
                     
                 video_data = data.get("data")
-                if not video_data:
-                    raise ParseException("今日头条接口返回空数据")
+                if not video_data or not isinstance(video_data, dict):
+                    raise ParseException("今日头条接口返回无效数据")
                     
                 logger.info(f"今日头条解析成功: {video_data.get('title', '未知标题')} - {video_data.get('author', '未知作者')}")
                 
