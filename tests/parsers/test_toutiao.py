@@ -41,8 +41,9 @@ async def test_toutiao_parse():
         logger.debug(f"作者: {result.author.name}")
         logger.debug(f"内容数量: {len(result.contents)}")
         
-        # 检查是否包含视频内容 (使用hasattr检查，避免导入VideoContent)
-        video_contents = [content for content in result.contents if hasattr(content, 'video_url')]
+        # 检查是否包含视频内容
+        from nonebot_plugin_parser.parsers.data import VideoContent
+        video_contents = [content for content in result.contents if isinstance(content, VideoContent)]
         assert len(video_contents) > 0, "应该能提取视频内容"
     
     logger.success("今日头条解析成功")

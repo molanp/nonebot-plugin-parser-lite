@@ -2,12 +2,12 @@
 
 import pytest
 from nonebot import logger
-from nonebot_plugin_parser.parsers.data import AudioContent
 
 @pytest.mark.asyncio
 async def test_kuwo_parse():
-    """测试酷我音乐解析"""
+    """测试酷我音乐解析"""# 测试酷我音乐解析
     from nonebot_plugin_parser.parsers import KuWoParser
+    from nonebot_plugin_parser.parsers.data import AudioContent
 
     # 测试酷我音乐链接
     urls = [

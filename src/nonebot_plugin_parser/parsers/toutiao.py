@@ -18,7 +18,8 @@ class ToutiaoParser(BaseParser):
     # 平台信息
     platform: ClassVar[Platform] = Platform(name=PlatformEnum.TOUTIAO, display_name="今日头条")
     
-    @handle("toutiao.com", r"https?://[^\s]*?(?:toutiao\.com|ixigua\.com)/(?:is|video)/(?:[a-zA-Z0-9]+)/")
+    @handle("ixigua.com", r"https?://[^\s]*?(?:toutiao\.com|ixigua\.com)/(?:is|video)/[^\s/]+/?")
+    @handle("toutiao.com", r"https?://[^\s]*?(?:toutiao\.com|ixigua\.com)/(?:is|video)/[^\s/]+/?")
     async def _parse_toutiao_share(self, searched: Match[str]):
         """解析今日头条分享链接"""
         share_url = searched.group(0)
