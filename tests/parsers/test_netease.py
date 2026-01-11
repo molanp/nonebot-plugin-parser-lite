@@ -39,12 +39,10 @@ async def test_netease_parse():
         logger.debug(f"内容数量: {len(result.contents)}")
         
         # 检查是否包含音频内容
-        audio_contents = [content for content in result.contents if hasattr(content, 'audio_url')]
-        assert len(audio_contents) > 0, "应该能提取音频内容"
+        assert len(result.audio_contents) > 0, "应该能提取音频内容"
         
         # 检查是否包含封面图片
-        img_contents = [content for content in result.contents if hasattr(content, 'img_url')]
-        assert len(img_contents) > 0, "应该能提取封面图片"
+        assert len(result.img_contents) > 0, "应该能提取封面图片"
         
     logger.success("网易云音乐解析成功")
 
