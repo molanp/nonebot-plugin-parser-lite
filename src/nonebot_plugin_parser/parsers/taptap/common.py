@@ -40,11 +40,18 @@ class TapTapParser(BaseParser):
             "sec-fetch-site": "same-origin"
         }
     
-    def _resolve_nuxt_value(self, root_data: list, value: Any) -> Any:
-        """Nuxt数据解压"""
+    def _resolve_nuxt_value(self, root_data: list, value: Any, depth: int = 0) -> Any:
+        """Nuxt数据解压，支持递归解析嵌套索引"""
+        if depth > 10:  # 防止无限递归
+            return value
+        
         if isinstance(value, int):
             if 0 <= value < len(root_data):
-                return root_data[value]
+                resolved = root_data[value]
+                # 如果解析后的值仍然是整数索引，继续递归解析
+                if isinstance(resolved, int):
+                    return self._resolve_nuxt_value(root_data, resolved, depth + 1)
+                return resolved
             return value
         return value
     
@@ -80,6 +87,7 @@ class TapTapParser(BaseParser):
                     "best_format": video_info.get("info", {}).get("best_format_name")
                 }
                 
+                logger.debug(f"API 返回的 video_info: {video_info}")
                 logger.info(f"成功获取视频信息: video_id={video_id}, best_format={result['best_format']}")
                 return result
                 
@@ -223,12 +231,18 @@ class TapTapParser(BaseParser):
             if 'pin_video' in item:
                 pin_video = self._resolve_nuxt_value(data, item['pin_video'])
                 if isinstance(pin_video, dict) and 'video_id' in pin_video:
-                    video_id = pin_video['video_id']
+                    video_id = self._resolve_nuxt_value(data, pin_video['video_id'])
                     break
         
         if video_id:
-            logger.info(f"找到视频 ID: {video_id}, 尝试通过 API 获取视频信息")
-            video_info = await self._fetch_video_info_from_api(str(video_id))
+            # 确保video_id是字符串类型，递归解析后可能得到的是索引
+            resolved_video_id = self._resolve_nuxt_value(data, video_id)
+            if isinstance(resolved_video_id, int):
+                resolved_video_id = self._resolve_nuxt_value(data, resolved_video_id)
+            video_id_str = str(resolved_video_id) if resolved_video_id is not None else str(video_id)
+            
+            logger.info(f"找到视频 ID: {video_id_str}, 尝试通过 API 获取视频信息")
+            video_info = await self._fetch_video_info_from_api(video_id_str)
             if video_info and video_info.get('video_url'):
                 result['videos'].append(video_info['video_url'])
                 logger.info(f"成功通过 API 获取视频链接: {video_info['best_format']}")
