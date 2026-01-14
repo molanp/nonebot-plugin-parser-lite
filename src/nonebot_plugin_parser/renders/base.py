@@ -86,14 +86,32 @@ class BaseRenderer(ABC):
                         try:
                             path = await cont.get_path()
                             logger.debug(f"立即发送{type(cont).__name__}: {path}")
+                            sent_as_file = False
+                            
                             if isinstance(cont, VideoContent):
-                                yield UniMessage(UniHelper.video_seg(path))
-                                if pconfig.need_upload:
-                                    yield UniMessage(UniHelper.file_seg(path))
+                                try:
+                                    # 尝试直接发送视频
+                                    yield UniMessage(UniHelper.video_seg(path))
+                                    # 如果需要上传视频文件，且没有因为大小问题发送失败
+                                    if pconfig.need_upload_video:
+                                        await UniMessage(UniHelper.file_seg(path)).send()
+                                except Exception as e:
+                                    # 直接发送失败，可能是因为文件太大，尝试使用群文件发送
+                                    logger.debug(f"直接发送视频失败，尝试使用群文件发送: {e}")
+                                    await UniMessage(UniHelper.file_seg(path)).send()
+                                    sent_as_file = True
                             elif isinstance(cont, AudioContent):
-                                yield UniMessage(UniHelper.record_seg(path))
-                                if pconfig.need_upload:
-                                    yield UniMessage(UniHelper.file_seg(path))
+                                try:
+                                    # 尝试直接发送音频
+                                    yield UniMessage(UniHelper.record_seg(path))
+                                    # 如果需要上传音频文件，且没有因为大小问题发送失败
+                                    if pconfig.need_upload_audio:
+                                        await UniMessage(UniHelper.file_seg(path)).send()
+                                except Exception as e:
+                                    # 直接发送失败，可能是因为文件太大，尝试使用群文件发送
+                                    logger.debug(f"直接发送音频失败，尝试使用群文件发送: {e}")
+                                    await UniMessage(UniHelper.file_seg(path)).send()
+                                    sent_as_file = True
                         except (DownloadLimitException, ZeroSizeException):
                             continue
                         except DownloadException:

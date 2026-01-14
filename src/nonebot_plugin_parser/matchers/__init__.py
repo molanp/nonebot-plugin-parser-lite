@@ -304,13 +304,27 @@ async def handle_group_msg_emoji_like(event):
                     logger.debug(f"下载并发送延迟媒体: {path}")
                 
                 if media_type == VideoContent:
-                    await UniMessage(UniHelper.video_seg(path)).send()
-                    if pconfig.need_upload:
+                    try:
+                        # 尝试直接发送视频
+                        await UniMessage(UniHelper.video_seg(path)).send()
+                        # 如果需要上传视频文件，且没有因为大小问题发送失败
+                        if pconfig.need_upload_video:
+                            await UniMessage(UniHelper.file_seg(path)).send()
+                    except Exception as e:
+                        # 直接发送失败，可能是因为文件太大，尝试使用群文件发送
+                        logger.debug(f"直接发送视频失败，尝试使用群文件发送: {e}")
                         await UniMessage(UniHelper.file_seg(path)).send()
                     sent = True
                 elif media_type == AudioContent:
-                    await UniMessage(UniHelper.record_seg(path)).send()
-                    if pconfig.need_upload:
+                    try:
+                        # 尝试直接发送音频
+                        await UniMessage(UniHelper.record_seg(path)).send()
+                        # 如果需要上传音频文件，且没有因为大小问题发送失败
+                        if pconfig.need_upload_audio:
+                            await UniMessage(UniHelper.file_seg(path)).send()
+                    except Exception as e:
+                        # 直接发送失败，可能是因为文件太大，尝试使用群文件发送
+                        logger.debug(f"直接发送音频失败，尝试使用群文件发送: {e}")
                         await UniMessage(UniHelper.file_seg(path)).send()
                     sent = True
             except Exception as e:

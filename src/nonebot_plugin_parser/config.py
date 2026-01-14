@@ -37,7 +37,11 @@ class Config(BaseModel):
     parser_proxy: str | None = None
     """代理"""
     parser_need_upload: bool = False
-    """是否需要上传音视频文件"""
+    """是否需要上传音视频文件（兼容旧配置）"""
+    parser_need_upload_audio: bool = False
+    """是否需要上传音频文件"""
+    parser_need_upload_video: bool = False
+    """是否需要上传视频文件"""
     parser_send_lyrics: bool = True
     """是否发送歌词"""
     parser_combine_message: bool = True
@@ -159,8 +163,18 @@ class Config(BaseModel):
 
     @property
     def need_upload(self) -> bool:
-        """是否需要上传音视频文件"""
+        """是否需要上传音视频文件（兼容旧配置）"""
         return self.parser_need_upload
+
+    @property
+    def need_upload_audio(self) -> bool:
+        """是否需要上传音频文件"""
+        return self.parser_need_upload_audio or self.parser_need_upload
+
+    @property
+    def need_upload_video(self) -> bool:
+        """是否需要上传视频文件"""
+        return self.parser_need_upload_video or self.parser_need_upload
 
     @property
     def use_base64(self) -> bool:
