@@ -1,0 +1,508 @@
+{
+    "data": {
+        "moment": {
+            "id_str": "756802464929287464",
+            "created_time": 1767488568,
+            "edited_time": 1767488568,
+            "publish_time": 1767488568,
+            "commented_time": 1768575786,
+            "author": {
+                "user": {
+                    "id": 575971932,
+                    "name": "梦里¢下雪¢",
+                    "avatar": "https://img3-tc.tapimg.com/avatars/etag/FkUNVEjHCirH5-8H31prcJCRNibL.png/_tap_avatar.jpg",
+                    "medium_avatar": "https://img3-tc.tapimg.com/avatars/etag/FkUNVEjHCirH5-8H31prcJCRNibL.png/_tap_avatar_m.jpg",
+                    "avatar_pendant": ""
+                }
+            },
+            "topic": {
+                "id_str": "48783772",
+                "type": 1,
+                "title": "狂战10w层测试",
+                "summary": "20周目全身红装(戒指除外)狂战残血1回合秒梦魇魔\n①周目全身橙装狂战残血照样1回合秒梦魇魔(没上王女，被先手秒杀了一次)\n可以看出，后期狂战照样不弱。只是需要控血。",
+                "pin_video": {
+                    "video_id": 5432954,
+                    "play_log": {
+                        "video_id": "5432954",
+                        "paramId": "5432954",
+                        "paramType": "videoDetail",
+                        "subjectId": "48783772",
+                        "subjectType": "topicDetail"
+                    },
+                    "thumbnail": {
+                        "url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageMogr2/thumbnail/1080x9999%3E/quality/80/format/jpg/interlace/1/strip/meta-keep-list/VXNlckNvbW1lbnQ%3D/ignore-error/1\u0026t=1",
+                        "medium_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageMogr2/thumbnail/720x9999%3E/quality/80/format/jpg/interlace/1/strip/meta-keep-list/VXNlckNvbW1lbnQ%3D/ignore-error/1\u0026t=1",
+                        "small_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageMogr2/thumbnail/360x9999%3E/quality/80/format/jpg/interlace/1/strip/meta-keep-list/VXNlckNvbW1lbnQ%3D/ignore-error/1\u0026t=1",
+                        "original_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg",
+                        "original_format": "jpeg",
+                        "width": 720,
+                        "height": 1280,
+                        "color": "0x998070",
+                        "original_size": 118752
+                    },
+                    "duration": 81
+                }
+            },
+            "stat": {
+                "pv_total": 25128,
+                "play_total": 16021,
+                "ups": 132,
+                "comments": 116,
+                "favorites": 80,
+                "supports": 0,
+                "feedback_status": 0
+            },
+            "group": {
+                "id": 1115,
+                "app_id": 15386,
+                "title": "魔窟-无尽的地下城",
+                "intro": "",
+                "has_treasure": false,
+                "has_official": false,
+                "icon": {
+                    "url": "https://img.tapimg.com/market/images/6dbaaf5abd536ef9335dd1dba385108e.png/appicon?t=1",
+                    "medium_url": "https://img.tapimg.com/market/images/6dbaaf5abd536ef9335dd1dba385108e.png/appicon_m?t=1",
+                    "small_url": "https://img.tapimg.com/market/images/6dbaaf5abd536ef9335dd1dba385108e.png/appicon_s?t=1",
+                    "original_url": "https://img.tapimg.com/market/images/6dbaaf5abd536ef9335dd1dba385108e.png",
+                    "original_format": "png",
+                    "width": 270,
+                    "height": 270,
+                    "color": "0x457c90",
+                    "original_size": 506705
+                },
+                "moderators": [
+                    {
+                        "id": 505309,
+                        "name": "海狗游戏工作室",
+                        "avatar": "https://img3-tc.tapimg.com/avatars/etag/FsECicPkIdhrhC8eqi_wRljfCbuK.jpg/_tap_avatar.jpg",
+                        "medium_avatar": "https://img3-tc.tapimg.com/avatars/etag/FsECicPkIdhrhC8eqi_wRljfCbuK.jpg/_tap_avatar_m.jpg",
+                        "avatar_pendant": "",
+                        "verified": {
+                            "type": "developer",
+                            "reason": "《魔窟-无尽的地下城》开发者",
+                            "url": "https://img.tapimg.com/market/images/e8fb44ab9fb5f5fe04a1474416f3c15e.png"
+                        },
+                        "badges": [
+                            {
+                                "id": 60,
+                                "title": "编辑部替补",
+                                "description": "在平台玩过10款编辑推荐的游戏",
+                                "is_wear": true,
+                                "icon": {
+                                    "small": "https://img.tapimg.com/market/images/de437bcaae7c6da524614d190ac2be12.png",
+                                    "middle": "https://img.tapimg.com/market/images/f44be8f8899673552a596ef63e001b01.png",
+                                    "large": "https://img.tapimg.com/market/images/38e0dc98372ad7a2f5b058d8b486be9c.png",
+                                    "small_border": "https://img.tapimg.com/market/images/2870c22788d7458d574c427fb17dedb7.png"
+                                },
+                                "style": {
+                                    "background_image": "https://img.tapimg.com/market/images/27be4a8ce4a2f6919faaa2deb98c4d5d.png",
+                                    "background_color": "0x53CCAF",
+                                    "font_color": "0xFFFFFF",
+                                    "border_background_color": "0x15C06E"
+                                },
+                                "time": 1702001195,
+                                "unlock_tips": "4877.2万人拥有该徽章",
+                                "level": 2,
+                                "status": 1
+                            }
+                        ]
+                    }
+                ],
+                "stat": {
+                    "favorite_count": 506042,
+                    "topic_count": 6002,
+                    "elite_topic_count": 9,
+                    "recent_topic_count": 1,
+                    "official_topic_count": 5,
+                    "top_topic_count": 0,
+                    "video_count": 0,
+                    "user_moment_count": 6817,
+                    "app_moment_count": 5,
+                    "image_moment_count": 311,
+                    "treasure_count": 0,
+                    "topic_page_view": 0,
+                    "feed_count": 6002,
+                    "topic_pv_total": 0
+                },
+                "web_url": "/app/15386/topic"
+            },
+            "labels": [
+                {
+                    "name": "综合",
+                    "uri": "taptap://taptap.com/group?app_id=15386\u0026index=feed",
+                    "web_url": "/app/15386/topic",
+                    "type": 0
+                }
+            ],
+            "app": {
+                "id": 15386,
+                "identifier": "com.clovare.MogulAndroid",
+                "itunes_id": "1564840808",
+                "title": "魔窟-无尽的地下城",
+                "title_labels": [],
+                "icon": {
+                    "url": "https://img.tapimg.com/market/images/6dbaaf5abd536ef9335dd1dba385108e.png/appicon?t=1",
+                    "medium_url": "https://img.tapimg.com/market/images/6dbaaf5abd536ef9335dd1dba385108e.png/appicon_m?t=1",
+                    "small_url": "https://img.tapimg.com/market/images/6dbaaf5abd536ef9335dd1dba385108e.png/appicon_s?t=1",
+                    "original_url": "https://img.tapimg.com/market/images/6dbaaf5abd536ef9335dd1dba385108e.png",
+                    "original_format": "png",
+                    "width": 270,
+                    "height": 270,
+                    "color": "0x457c90",
+                    "original_size": 506705
+                },
+                "price": {
+                    "apple": "￥1",
+                    "taptap_current": "",
+                    "discount_rate": 0
+                },
+                "uri": {
+                    "google": "",
+                    "google_play": "",
+                    "apple": "https://apps.apple.com/cn/app/id1564840808?ct=Tap15386",
+                    "download_site": "http://www.seadogame.com/?utm_source=TapTap\u0026utm_medium=OfficialWebsite\u0026utm_campaign=Android"
+                },
+                "can_view": true,
+                "released_time": 1509431816,
+                "button_flag": 1,
+                "style": 0,
+                "hidden_button": false,
+                "is_deny_minors": false,
+                "stat": {
+                    "rating": {
+                        "score": "8.1",
+                        "max": 10,
+                        "latest_score": "10",
+                        "latest_version_score": "8.8",
+                        "latest_review_count": 1,
+                        "latest_version_review_count": 44
+                    },
+                    "vote_info": {
+                        "1": 263,
+                        "2": 139,
+                        "3": 375,
+                        "4": 712,
+                        "5": 1615
+                    },
+                    "hits_total": 891653,
+                    "play_total": 36964,
+                    "bought_count": 0,
+                    "feed_count": 6262,
+                    "reserve_count": 5842,
+                    "recent_sandbox_played_count": 0,
+                    "album_count": 183,
+                    "review_count": 3118,
+                    "topic_count": 6002,
+                    "video_count": 77,
+                    "official_topic_count": 5,
+                    "official_video_count": 0,
+                    "official_album_count": 0,
+                    "fans_count": 503834,
+                    "hits_total_val": 891653,
+                    "pc_sale_count": 0,
+                    "pc_download_count": 0,
+                    "wish_count": 25,
+                    "level_like_count": 0
+                },
+                "ad_banner": {
+                    "url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg?imageView2/0/w/1080/h/608/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "medium_url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg?imageView2/0/w/720/h/405/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "small_url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg?imageView2/0/w/360/h/203/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "original_url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg",
+                    "original_format": "jpeg",
+                    "width": 1920,
+                    "height": 1080,
+                    "color": "0x73626a",
+                    "original_size": 434584
+                },
+                "top_banner": {
+                    "url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg?imageView2/0/w/1080/h/608/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "medium_url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg?imageView2/0/w/720/h/405/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "small_url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg?imageView2/0/w/360/h/203/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "original_url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg",
+                    "original_format": "jpeg",
+                    "width": 1920,
+                    "height": 1080,
+                    "color": "0x73626a",
+                    "original_size": 434584
+                },
+                "banner": {
+                    "url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg?imageView2/0/w/1080/h/608/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "medium_url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg?imageView2/0/w/720/h/405/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "small_url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg?imageView2/0/w/360/h/203/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "original_url": "https://img.tapimg.com/market/images/47cc5566e7641757adf1d137a881906d_crop_1920x1080a0a0_thumbnail_1920x1080.jpg",
+                    "original_format": "jpeg",
+                    "width": 1920,
+                    "height": 1080,
+                    "color": "0x73626a",
+                    "original_size": 434584
+                },
+                "tags": [
+                    {
+                        "id": 227392,
+                        "value": "单机",
+                        "uri": "taptap://taptap.com/library?tag=%E5%8D%95%E6%9C%BA",
+                        "web_url": "/tag/%E5%8D%95%E6%9C%BA"
+                    },
+                    {
+                        "id": 228057,
+                        "value": "地牢",
+                        "uri": "taptap://taptap.com/library?tag=%E5%9C%B0%E7%89%A2",
+                        "web_url": "/tag/%E5%9C%B0%E7%89%A2"
+                    },
+                    {
+                        "id": 87161,
+                        "value": "冒险",
+                        "uri": "taptap://taptap.com/library?tag=%E5%86%92%E9%99%A9",
+                        "web_url": "/tag/%E5%86%92%E9%99%A9"
+                    }
+                ],
+                "log": {
+                    "follow": {
+                        "uri": "https://tap-snow.cn-beijing.dualstack.log.aliyuncs.com/logstores/logs/track.gif",
+                        "params": {
+                            "type": "follow",
+                            "APIVersion": "0.6.0",
+                            "paramId": 15386,
+                            "paramType": "appDetail"
+                        }
+                    },
+                    "open": {
+                        "uri": "https://tap-snow.cn-beijing.dualstack.log.aliyuncs.com/logstores/logs/track.gif",
+                        "params": {
+                            "type": "open",
+                            "APIVersion": "0.6.0",
+                            "paramId": 15386,
+                            "paramType": "appDetail"
+                        }
+                    },
+                    "page_view": {
+                        "uri": "https://tap-snow.cn-beijing.dualstack.log.aliyuncs.com/logstores/logs/track.gif",
+                        "params": {
+                            "type": "pageView",
+                            "APIVersion": "0.6.0",
+                            "paramId": 15386,
+                            "paramType": "appDetail"
+                        }
+                    },
+                    "play": {
+                        "uri": "https://tap-snow.cn-beijing.dualstack.log.aliyuncs.com/logstores/logs/track.gif",
+                        "params": {
+                            "type": "appRedirect",
+                            "APIVersion": "0.6.0",
+                            "paramId": 15386,
+                            "paramType": "appDetail"
+                        }
+                    },
+                    "reserve": {
+                        "uri": "https://tap-snow.cn-beijing.dualstack.log.aliyuncs.com/logstores/logs/track.gif",
+                        "params": {
+                            "type": "appReserve",
+                            "APIVersion": "0.6.0",
+                            "paramId": 15386,
+                            "paramType": "appDetail"
+                        }
+                    },
+                    "unfollow": {
+                        "uri": "https://tap-snow.cn-beijing.dualstack.log.aliyuncs.com/logstores/logs/track.gif",
+                        "params": {
+                            "type": "unfollow",
+                            "APIVersion": "0.6.0",
+                            "paramId": 15386,
+                            "paramType": "appDetail"
+                        }
+                    },
+                    "unreserved": {
+                        "uri": "https://tap-snow.cn-beijing.dualstack.log.aliyuncs.com/logstores/logs/track.gif",
+                        "params": {
+                            "type": "appUnreserved",
+                            "APIVersion": "0.6.0",
+                            "paramId": 15386,
+                            "paramType": "appDetail"
+                        }
+                    }
+                },
+                "event_log": {
+                    "paramId": 15386,
+                    "paramType": "appDetail"
+                },
+                "can_buy_redeem_code": {
+                    "flag": false
+                },
+                "show_module": [
+                    {
+                        "key": "score",
+                        "value": true
+                    },
+                    {
+                        "key": "review",
+                        "value": true
+                    }
+                ],
+                "complaint": {
+                    "uri": "taptap://taptap.com/to?url=https%3A%2F%2Fwww.taptap.cn%2Fcomplaint%3Fid%3D15386%26type%3Dapp",
+                    "web_url": "/complaint?id=15386\u0026type=app",
+                    "url": "https://www.taptap.cn/complaint?id=15386\u0026type=app"
+                },
+                "serial_number": {
+                    "number_exists": false,
+                    "button_action": 0
+                },
+                "rec_text": "无限轮回，无限等级，无穷装备，以及无尽的挑战",
+                "readable_id": "%E9%AD%94%E7%AA%9F-%E6%97%A0%E5%B0%BD%E7%9A%84%E5%9C%B0%E4%B8%8B%E5%9F%8E-15386",
+                "supported_platforms": [
+                    {
+                        "key": "android"
+                    },
+                    {
+                        "key": "ios"
+                    }
+                ],
+                "m_button_map": {},
+                "description": {
+                    "text": "《魔窟》是一款暗黑风格的迷宫探险游戏。同时也是一款Roguelike类型的高策略..."
+                },
+                "editor_choice": true,
+                "stat_key": "download_count",
+                "include_app_product_type_complete": false,
+                "is_console_game": false,
+                "is_level": false,
+                "level_rating_enabled": false,
+                "emulator_status": 1
+            },
+            "sharing": {
+                "url": "https://www.taptap.cn/moment/756802464929287464",
+                "title": "狂战10w层测试",
+                "description": "20周目全身红装(戒指除外)狂战残血1回合秒梦魇魔\n①周目全身橙装狂战残血照样1回合秒梦魇魔(没上王...",
+                "image": {
+                    "url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageMogr2/thumbnail/1080x9999%3E/quality/80/format/jpg/interlace/1/strip/meta-keep-list/VXNlckNvbW1lbnQ%3D/ignore-error/1\u0026t=1",
+                    "medium_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageMogr2/thumbnail/720x9999%3E/quality/80/format/jpg/interlace/1/strip/meta-keep-list/VXNlckNvbW1lbnQ%3D/ignore-error/1\u0026t=1",
+                    "small_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageMogr2/thumbnail/360x9999%3E/quality/80/format/jpg/interlace/1/strip/meta-keep-list/VXNlckNvbW1lbnQ%3D/ignore-error/1\u0026t=1",
+                    "original_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg",
+                    "original_format": "jpeg",
+                    "width": 720,
+                    "height": 1280,
+                    "color": "0x998070",
+                    "original_size": 118752
+                },
+                "message_params": {
+                    "obj_type": "topic",
+                    "obj_id": "48783772"
+                }
+            },
+            "log": {
+                "page_view": {
+                    "uri": "https://tap-snow.cn-beijing.dualstack.log.aliyuncs.com/logstores/logs/track.gif",
+                    "params": {
+                        "type": "pageView",
+                        "APIVersion": "0.6.0",
+                        "paramId": "48783772",
+                        "paramType": "topicDetail",
+                        "subjectId": "15386",
+                        "subjectType": "appDetail"
+                    }
+                }
+            },
+            "event_log": {
+                "paramType": "topicDetail",
+                "paramId": "48783772",
+                "subjectType": "appDetail",
+                "subjectId": "15386"
+            },
+            "complaint": {
+                "uri": "taptap://taptap.com/to?url=https%3A%2F%2Fwww.taptap.cn%2Fcomplaint%3Fid%3D756802464929287464%26type%3Dmoment",
+                "web_url": "/complaint?id=756802464929287464\u0026type=moment",
+                "url": "https://www.taptap.cn/complaint?id=756802464929287464\u0026type=moment"
+            },
+            "seo": {
+                "title": "狂战10w层测试 - 魔窟-无尽的地下城 - TapTap",
+                "keywords": "魔窟-无尽的地下城戒指,魔窟-无尽的地下城王女,魔窟-无尽的地下城狂战",
+                "description": "狂战10w层测试，20周目全身红装(戒指除外)狂战残血1回合秒梦魇魔，①周目全身橙装狂战残血照样1回合秒梦魇魔(没上王女，后期狂战照样不弱",
+                "index": false,
+                "mobile_adapt_info": {
+                    "zh_CN": "https://www.taptap.cn/topic/48783772"
+                }
+            },
+            "map_info": {
+                "points": [],
+                "map_moment_status": 0,
+                "self_points": []
+            },
+            "aigc_type": 0,
+            "honor_title": "佛系摸鱼",
+            "honor_obj_id": "1",
+            "honor_obj_type": "group_honor"
+        },
+        "first_post": {
+            "id": 370520902,
+            "id_str": "370520902",
+            "is_topic": true,
+            "position": 1,
+            "updated_time": 1767488985,
+            "created_time": 1767488568,
+            "complaint": {
+                "uri": "taptap://taptap.com/to?url=https%3A%2F%2Fwww.taptap.cn%2Fcomplaint%3Fid%3D370520902%26type%3Dpost",
+                "web_url": "/complaint?id=370520902\u0026type=post",
+                "url": "https://www.taptap.cn/complaint?id=370520902\u0026type=post"
+            },
+            "contents": {
+                "json": [
+                    {
+                        "type": "paragraph",
+                        "children": [
+                            {
+                                "text": "20周目全身红装(戒指除外)狂战残血1回合秒梦魇魔"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "children": [
+                            {
+                                "text": "①周目全身橙装狂战残血照样1回合秒梦魇魔(没上王女，被先手秒杀了一次)"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "children": [
+                            {
+                                "text": "可以看出，后期狂战照样不弱。只是需要控血。"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "data_type": "topic"
+        },
+        "content_suggest": {
+            "keyword": "魔窟无尽的地下城 狂战10w层测试",
+            "prefix": "猜你想搜",
+            "session_id": "28ace559-c0b5-425a-b50b-26338a605181",
+            "day_icon": {
+                "url": "https://img.tapimg.com/market/images/6fa8eeabce96920c955f643b434dec51.png?imageView2/1/w/270/q/80/interlace/1/ignore-error/1\u0026t=1",
+                "medium_url": "https://img.tapimg.com/market/images/6fa8eeabce96920c955f643b434dec51.png?imageView2/1/w/180/q/80/interlace/1/ignore-error/1\u0026t=1",
+                "small_url": "https://img.tapimg.com/market/images/6fa8eeabce96920c955f643b434dec51.png?imageView2/1/w/90/q/80/interlace/1/ignore-error/1\u0026t=1",
+                "original_url": "https://img.tapimg.com/market/images/6fa8eeabce96920c955f643b434dec51.png",
+                "original_format": "png",
+                "width": 270,
+                "height": 270,
+                "color": "0x686d73",
+                "original_size": 1247
+            },
+            "night_icon": {
+                "url": "https://img.tapimg.com/market/images/a605d5ef0bd396853a01011800867218.png?imageView2/1/w/270/q/80/interlace/1/ignore-error/1\u0026t=1",
+                "medium_url": "https://img.tapimg.com/market/images/a605d5ef0bd396853a01011800867218.png?imageView2/1/w/180/q/80/interlace/1/ignore-error/1\u0026t=1",
+                "small_url": "https://img.tapimg.com/market/images/a605d5ef0bd396853a01011800867218.png?imageView2/1/w/90/q/80/interlace/1/ignore-error/1\u0026t=1",
+                "original_url": "https://img.tapimg.com/market/images/a605d5ef0bd396853a01011800867218.png",
+                "original_format": "png",
+                "width": 270,
+                "height": 270,
+                "color": "0x999999",
+                "original_size": 862
+            }
+        }
+    },
+    "now": 1768576512,
+    "success": true
+}

@@ -1,6 +1,7 @@
 import asyncio
 import json
 import re
+import httpx
 from datetime import datetime
 from typing import Optional, Dict, Any, List, Set
 
@@ -139,6 +140,23 @@ class TapTapParser(BaseParser):
         # 但为了类型检查通过，我们添加一个兜底返回
         return []
     
+    async def _fetch_api_data(self, post_id: str) -> Optional[Dict[str, Any]]:
+        """从TapTap API获取动态详情"""
+        api_url = f"https://www.taptap.cn/webapiv2/moment/v3/detail"
+        params = {
+            "id": post_id,
+            "X-UA": "V=1&PN=WebApp&LANG=zh_CN&VN_CODE=102&LOC=CN&PLT=PC&DS=Android&UID=f69478c8-27a3-4581-877b-45ade0e61b0b&OS=Windows&OSV=10&DT=PC"
+        }
+        
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.get(api_url, params=params, headers=self.headers)
+                response.raise_for_status()
+                return response.json()
+        except Exception as e:
+            logger.error(f"[TapTap] API请求失败: {e}")
+            return None
+    
     async def _parse_post_detail(self, post_id: str) -> Dict[str, Any]:
         """解析动态详情"""
         url = f"{self.base_url}/moment/{post_id}"
@@ -158,9 +176,102 @@ class TapTapParser(BaseParser):
             "stats": {
                 "likes": 0,
                 "comments": 0,
-                "shares": 0
+                "shares": 0,
+                "views": 0,
+                "plays": 0
             }
         }
+        
+        # 首先尝试使用API获取数据
+        api_data = await self._fetch_api_data(post_id)
+        if api_data and api_data.get("success"):
+            logger.info(f"[TapTap] 使用API获取数据成功")
+            moment_data = api_data.get("data", {}).get("moment", {})
+            
+            # 提取标题
+            topic = moment_data.get("topic", {})
+            result["title"] = topic.get("title", "TapTap 动态分享")
+            
+            # 提取文本内容
+            first_post = api_data.get("data", {}).get("first_post", {})
+            contents = first_post.get("contents", {})
+            json_contents = contents.get("json", [])
+            
+            text_parts = []
+            # 从topic.summary提取初始文本
+            if topic.get("summary"):
+                text_parts.append(topic["summary"])
+            
+            # 从contents.json提取完整文本
+            for content_item in json_contents:
+                if content_item.get("type") == "paragraph":
+                    children = content_item.get("children", [])
+                    for child in children:
+                        if isinstance(child, dict) and "text" in child:
+                            text_parts.append(child["text"])
+            
+            if text_parts:
+                result["summary"] = "\n".join(text_parts)
+            
+            # 提取作者信息
+            author_data = moment_data.get("author", {})
+            user_data = author_data.get("user", {})
+            result["author"]["name"] = user_data.get("name", "")
+            result["author"]["avatar"] = user_data.get("avatar", "")
+            
+            # 提取发布时间
+            result["publish_time"] = moment_data.get("publish_time", "")
+            
+            # 提取统计信息
+            stats_data = moment_data.get("stat", {})
+            result["stats"]["likes"] = stats_data.get("ups", 0)  # 修复：使用ups作为点赞数据
+            result["stats"]["comments"] = stats_data.get("comments", 0)
+            result["stats"]["shares"] = stats_data.get("shares", 0) or 0
+            result["stats"]["views"] = stats_data.get("pv_total", 0)
+            result["stats"]["plays"] = stats_data.get("play_total", 0)
+            
+            # 提取视频信息
+            pin_video = topic.get("pin_video", {})
+            if pin_video:
+                video_id = pin_video.get("video_id")
+                if video_id:
+                    logger.debug(f"[TapTap] 从API获取到视频ID: {video_id}")
+                    # 将视频ID保存到结果中，以便后续浏览器解析时使用
+                    result["video_id"] = video_id
+                    
+                    # 使用video_id获取视频链接
+                    play_info_url = f"https://www.taptap.cn/video/v1/play-info"
+                    play_info_params = {
+                        "video_id": video_id
+                    }
+                    
+                    try:
+                        async with httpx.AsyncClient(timeout=10.0) as client:
+                            play_response = await client.get(play_info_url, params=play_info_params, headers=self.headers)
+                            play_response.raise_for_status()
+                            play_data = play_response.json()
+                            
+                            if play_data.get("data") and play_data["data"].get("url"):
+                                real_url = play_data["data"]["url"]
+                                result["videos"].append(real_url)
+                                logger.success(f"[TapTap] 从play-info接口获取到视频链接: {real_url[:50]}...")
+                    except Exception as e:
+                        logger.error(f"[TapTap] 获取视频play-info失败: {e}")
+                        # 如果play-info接口失败，继续使用浏览器解析兜底
+                        pass
+            
+            # 图片处理 - 从视频封面或其他地方提取图片
+            sharing_data = moment_data.get("sharing", {})
+            image_data = sharing_data.get("image", {})
+            if image_data:
+                image_url = image_data.get("original_url")
+                if image_url:
+                    result["images"].append(image_url)
+            
+            logger.debug(f"API解析结果: videos={len(result['videos'])}, images={len(result['images'])}")
+            return result
+        
+        logger.info(f"[TapTap] API获取数据失败，回退到浏览器解析")
         
         # 使用 set 自动去重完全相同的 URL
         captured_videos: Set[str] = set()
@@ -235,6 +346,9 @@ class TapTapParser(BaseParser):
                 
                 # 补全标题、文本内容、作者信息和发布时间
                 if data:
+                    # 提取所有可能的文本内容
+                    all_text_parts = []
+                    
                     for item in data:
                         if not isinstance(item, dict):
                             continue
@@ -261,7 +375,8 @@ class TapTapParser(BaseParser):
                             if title and isinstance(title, str):
                                 result['title'] = title
                             if summary and isinstance(summary, str):
-                                result['summary'] = summary
+                                # 将摘要添加到所有文本部分
+                                all_text_parts.append(summary)
                         
                         # 处理包含 stat 字段的对象，提取统计信息
                         if 'stat' in item:
@@ -279,18 +394,30 @@ class TapTapParser(BaseParser):
                                 # 提取播放数
                                 result['stats']['plays'] = stat_obj.get('play_total', 0)
                         
+                        # 直接处理包含统计数据的对象
+                        if 'supports' in item or 'likes' in item:
+                            # 提取点赞数
+                            result['stats']['likes'] = item.get('supports', 0) or item.get('likes', 0)
+                            # 提取评论数
+                            result['stats']['comments'] = item.get('comments', 0)
+                            # 提取分享数
+                            result['stats']['shares'] = item.get('shares', 0)
+                            # 提取浏览数
+                            result['stats']['views'] = item.get('pv_total', 0)
+                            # 提取播放数
+                            result['stats']['plays'] = item.get('play_total', 0)
+                        
                         # 处理包含 contents 字段的对象，提取额外文本内容
                         if 'contents' in item:
                             contents = self._resolve_nuxt_value(data, item['contents'])
                             if isinstance(contents, list):
-                                text_parts = []
                                 for content_item in contents:
                                     if isinstance(content_item, dict):
                                         # 处理文本内容
                                         if 'text' in content_item:
                                             text = self._resolve_nuxt_value(data, content_item['text'])
                                             if text and isinstance(text, str):
-                                                text_parts.append(text)
+                                                all_text_parts.append(text)
                                         # 处理段落内容
                                         elif content_item.get('type') == 'paragraph':
                                             children = content_item.get('children')
@@ -299,22 +426,31 @@ class TapTapParser(BaseParser):
                                                     if isinstance(child, dict) and 'text' in child:
                                                         child_text = self._resolve_nuxt_value(data, child['text'])
                                                         if child_text and isinstance(child_text, str):
-                                                            text_parts.append(child_text)
+                                                            all_text_parts.append(child_text)
                                         # 处理带有text引用的内容项
                                         elif 'text' in self._resolve_nuxt_value(data, content_item):
                                             text = self._resolve_nuxt_value(data, content_item['text'])
                                             if text and isinstance(text, str):
-                                                text_parts.append(text)
-                                
-                                # 将contents中的文本内容合并到summary中，不管summary是否已有内容
-                                if text_parts:
-                                    if result['summary']:
-                                        # 如果已经有summary，将contents内容追加到后面
-                                        result['summary'] = result['summary'] + '\n' + '\n'.join(text_parts)
-                                    else:
-                                        # 如果没有summary，直接使用contents内容
-                                        result['summary'] = '\n'.join(text_parts)
-                            
+                                                all_text_parts.append(text)
+                        
+                        # 处理包含 description 字段的对象，可能包含文本内容
+                        if 'description' in item:
+                            description = self._resolve_nuxt_value(data, item['description'])
+                            if description and isinstance(description, str):
+                                all_text_parts.append(description)
+                        
+                        # 处理包含 content 字段的对象，可能包含文本内容
+                        if 'content' in item:
+                            content = self._resolve_nuxt_value(data, item['content'])
+                            if content and isinstance(content, str):
+                                all_text_parts.append(content)
+                        
+                        # 处理包含 body 字段的对象，可能包含文本内容
+                        if 'body' in item:
+                            body = self._resolve_nuxt_value(data, item['body'])
+                            if body and isinstance(body, str):
+                                all_text_parts.append(body)
+                        
                         # 提取发布时间
                         if 'created_at' in item or 'publish_time' in item:
                             publish_time = self._resolve_nuxt_value(data, item.get('created_at') or item.get('publish_time'))
@@ -339,6 +475,18 @@ class TapTapParser(BaseParser):
                             result['author']['honor_obj_id'] = self._resolve_nuxt_value(data, item['honor_obj_id']) or ''
                         if 'honor_obj_type' in item:
                             result['author']['honor_obj_type'] = self._resolve_nuxt_value(data, item['honor_obj_type']) or ''
+                    
+                    # 合并所有文本部分，去重并保留顺序
+                    seen_text = set()
+                    unique_text_parts = []
+                    for text in all_text_parts:
+                        if text not in seen_text:
+                            seen_text.add(text)
+                            unique_text_parts.append(text)
+                    
+                    # 构建完整的摘要
+                    if unique_text_parts:
+                        result['summary'] = '\n'.join(unique_text_parts)
                     
                     if not result['title']:
                         result['title'] = "TapTap 动态分享"

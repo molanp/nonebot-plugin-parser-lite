@@ -316,18 +316,26 @@
                 <div class="author-info">
                     {% if result.author.avatar %}
                     <img src="{{ result.author.avatar }}" class="author-avatar">
+                    {% else %}
+                    <div class="author-avatar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
                     {% endif %}
                     <div class="author-details">
                         <h3>{{ result.author.name }}</h3>
                         <div class="author-meta">
                             {% if result.timestamp %}
-                            <span class="time-text">{{ result.formartted_datetime }}</span>
+                            <span class="time-text">{{ result.formatted_datetime }}</span>
                             {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="qrcode-placeholder">
+                    {% if result.url %}
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{ result.url }}" 
+                         alt="QR Code" 
+                         style="width: 80px; height: 80px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    {% else %}
                     <i class="fas fa-qrcode qrcode-icon"></i>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}
@@ -421,6 +429,12 @@
             </div>
             <div class="footer-info">
                 <span>{{ result.url }}</span>
+                {% if render_time %}
+                <span style="margin-left: 15px; color: rgba(255,255,255,0.6); font-size: 11px;">
+                    <i class="fas fa-clock" style="margin-right: 4px;"></i>
+                    渲染时间: {{ render_time }}
+                </span>
+                {% endif %}
             </div>
         </div>
     </div>
