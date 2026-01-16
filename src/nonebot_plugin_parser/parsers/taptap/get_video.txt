@@ -2,52 +2,52 @@
     "data": {
         "list": [
             {
-                "video_id": 5439579,
+                "video_id": 5432954,
                 "play_url": {
-                    "url": "https://pl.taptap.cn/hls/lqvdGTHO0FXLfXEvbr2iecMr_hCx.m3u8?device_id=f69478c8-27a3-4581-877b-45ade0e61b0b\u0026sign=dd115ae836cf3d0eaa3d45a4f05bafd394ce6fa8\u0026ts=1768420749",
-                    "url_h265": "https://pl.taptap.cn/hls/lqvdGTHO0FXLfXEvbr2iecMr_hCx.h265.m3u8?device_id=f69478c8-27a3-4581-877b-45ade0e61b0b\u0026sign=47d9ccaf0bdef9f31edb2a4376da1824b861d0e4\u0026ts=1768420749",
-                    "url_expires": 1768420749
+                    "url": "https://pl.taptap.cn/hls/lsDWlwZ61fLx4xyCMIJMIouqTvkg.m3u8?device_id=6a5a7508-f0cc-48aa-818a-2a836028fc51\u0026sign=2ead810d16bc214ee3c285cb6f5a3b631573839c\u0026ts=1768570177",
+                    "url_h265": "https://pl.taptap.cn/hls/lsDWlwZ61fLx4xyCMIJMIouqTvkg.h265.m3u8?device_id=6a5a7508-f0cc-48aa-818a-2a836028fc51\u0026sign=b8dc3972d71c98928c9c94acce6817d5b609a4b1\u0026ts=1768570177",
+                    "url_expires": 1768570177
                 },
                 "info": {
-                    "aspect_ratio": 1.77778,
-                    "best_format_name": "1080p",
-                    "duration": 85
+                    "aspect_ratio": 0.5625,
+                    "best_format_name": "",
+                    "duration": 81
                 },
                 "thumbnail": {
-                    "url": "https://img.tapimg.com/video-picture/tid-695f53762238e66def54f0bc/first.jpg?imageView2/0/w/1080/h/608/format/jpg/interlace/1/ignore-error/1\u0026t=1",
-                    "medium_url": "https://img.tapimg.com/video-picture/tid-695f53762238e66def54f0bc/first.jpg?imageView2/0/w/720/h/405/format/jpg/interlace/1/ignore-error/1\u0026t=1",
-                    "small_url": "https://img.tapimg.com/video-picture/tid-695f53762238e66def54f0bc/first.jpg?imageView2/0/w/360/h/203/format/jpg/interlace/1/ignore-error/1\u0026t=1",
-                    "original_url": "https://img.tapimg.com/video-picture/tid-695f53762238e66def54f0bc/first.jpg",
+                    "url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageView2/0/w/1080/h/608/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "medium_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageView2/0/w/720/h/405/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "small_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageView2/0/w/360/h/203/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "original_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg",
                     "original_format": "jpeg",
-                    "width": 1920,
-                    "height": 1080,
-                    "color": "0x828e78",
-                    "original_size": 151810
+                    "width": 720,
+                    "height": 1280,
+                    "color": "0x998070",
+                    "original_size": 118752
                 },
                 "raw_cover": {
-                    "url": "https://img.tapimg.com/video-picture/tid-695f53762238e66def54f0bc/first.jpg?imageView2/0/w/1080/h/608/format/jpg/interlace/1/ignore-error/1\u0026t=1",
-                    "medium_url": "https://img.tapimg.com/video-picture/tid-695f53762238e66def54f0bc/first.jpg?imageView2/0/w/720/h/405/format/jpg/interlace/1/ignore-error/1\u0026t=1",
-                    "small_url": "https://img.tapimg.com/video-picture/tid-695f53762238e66def54f0bc/first.jpg?imageView2/0/w/360/h/203/format/jpg/interlace/1/ignore-error/1\u0026t=1",
-                    "original_url": "https://img.tapimg.com/video-picture/tid-695f53762238e66def54f0bc/first.jpg",
+                    "url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageView2/0/w/1080/h/608/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "medium_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageView2/0/w/720/h/405/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "small_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg?imageView2/0/w/360/h/203/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "original_url": "https://img.tapimg.com/video-picture/tid-6959bc3a42e88fc2e05e370f/first.jpg",
                     "original_format": "jpeg",
-                    "width": 1920,
-                    "height": 1080,
-                    "color": "0x828e78",
-                    "original_size": 151810
+                    "width": 720,
+                    "height": 1280,
+                    "color": "0x998070",
+                    "original_size": 118752
                 },
                 "trace_log": {
-                    "video_id": 5439579
+                    "video_id": 5432954
                 },
                 "play_log": {
-                    "video_id": 5439579,
-                    "paramId": 5439579,
+                    "video_id": 5432954,
+                    "paramId": 5432954,
                     "paramType": "videoDetail"
                 },
                 "preview_animation": {
-                    "url": "https://img.tapimg.com/video-preview/anim-Fhn_LYs60iC8qqEeaMdT5qbhrtch.webp",
-                    "medium_url": "https://img.tapimg.com/video-preview/anim-FuoPAamshGlOug67GpUJbZMAtTK5.webp",
-                    "small_url": "https://img.tapimg.com/video-preview/anim-FnZhX3WFME7RVVH81k7Z-KS_tzqT.webp?imageView2/0/w/360/h/203/format/jpg/interlace/1/ignore-error/1\u0026t=1",
-                    "original_url": "https://img.tapimg.com/video-preview/anim-FnZhX3WFME7RVVH81k7Z-KS_tzqT.webp",
+                    "url": "https://img.tapimg.com/video-preview/anim-FvDF0hPBV90aJf_QJl_oyt5bLAZT.webp",
+                    "medium_url": "https://img.tapimg.com/video-preview/anim-Fgmi94-i3cRSZ61q0jN1D7ua5DLo.webp",
+                    "small_url": "https://img.tapimg.com/video-preview/anim-FslpWUeUA0pODi67myLpBfVz86-L.webp?imageView2/0/w/360/h/203/format/jpg/interlace/1/ignore-error/1\u0026t=1",
+                    "original_url": "https://img.tapimg.com/video-preview/anim-FslpWUeUA0pODi67myLpBfVz86-L.webp",
                     "color": "0xffffff"
                 },
                 "status": {
@@ -56,6 +56,6 @@
             }
         ]
     },
-    "now": 1768406349,
+    "now": 1768555777,
     "success": true
 }

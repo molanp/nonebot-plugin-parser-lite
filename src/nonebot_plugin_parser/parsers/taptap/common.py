@@ -314,34 +314,121 @@ class TapTapParser(BaseParser):
         
         # 如果找到了视频 ID，尝试通过 API 获取视频信息
         if video_id:
+            # 过滤掉明显无效的视频 ID
+            try:
+                video_id_int = int(video_id)
+                # 视频 ID 应该是较大的数字，过滤掉太小的 ID
+                if video_id_int < 10000:
+                    logger.warning(f"视频 ID {video_id} 看起来无效，跳过 API 调用")
+                    video_id = None
+            except ValueError:
+                logger.warning(f"视频 ID {video_id} 不是有效数字，跳过 API 调用")
+                video_id = None
+        
+        if video_id:
             logger.info(f"找到视频 ID: {video_id}, 尝试通过 API 获取视频信息")
             try:
-                # 构建 API URL
-                api_url = f"https://www.taptap.cn/webapiv2/video/info?video_id={video_id}"
+                # 使用正确的 API 端点获取视频信息
+                api_url = f"https://www.taptap.cn/webapiv2/video-resource/v1/multi-get?video_ids={video_id}&X-UA=V%3D1%26PN%3DWebApp%26LANG%3Dzh_CN%26VN_CODE%3D102%26LOC%3DCN%26PLT%3DPC%26DS%3DAndroid%26UID%3D6a5a7508-f0cc-48aa-818a-2a836028fc51%26OS%3DWindows%26OSV%3D10%26DT%3DPC"
                 
                 # 创建 httpx 客户端
                 import httpx
                 async with httpx.AsyncClient() as client:
                     response = await client.get(api_url, headers=self.headers, timeout=10)
                     response.raise_for_status()
-                    video_info = response.json().get('data', {})
                     
-                    logger.debug(f"API 返回的 video_info: {video_info}")
+                    # 解析 API 响应
+                    api_response = response.json()
+                    logger.debug(f"API 返回: {api_response}")
                     
-                    # 提取视频链接
-                    if video_info and isinstance(video_info, dict):
-                        play_url = video_info.get('play_url', {})
-                        if isinstance(play_url, dict):
-                            # 获取不同格式的视频链接
-                            for url_key in ['url', 'url_h265']:
-                                if url_key in play_url:
-                                    video_url = play_url[url_key]
-                                    if isinstance(video_url, str) and video_url.startswith('http'):
-                                        if video_url not in result['videos']:
-                                            result['videos'].append(video_url)
-                                            logger.info(f"成功获取视频链接: {video_url}")
+                    # 检查响应是否成功
+                    if api_response.get('success'):
+                        data = api_response.get('data', {})
+                        video_list = data.get('list', [])
+                        
+                        # 遍历视频列表
+                        for video_item in video_list:
+                            if isinstance(video_item, dict):
+                                # 检查 best_format_name（为空则忽略）
+                                best_format_name = video_item.get('info', {}).get('best_format_name', '')
+                                if best_format_name:
+                                    logger.info(f"视频最佳格式: {best_format_name}")
+                                
+                                # 提取视频链接
+                                play_url = video_item.get('play_url', {})
+                                if isinstance(play_url, dict):
+                                    # 获取不同格式的视频链接
+                                    for url_key in ['url', 'url_h265']:
+                                        if url_key in play_url:
+                                            video_url = play_url[url_key]
+                                            if isinstance(video_url, str) and video_url.startswith('http'):
+                                                if video_url not in result['videos']:
+                                                    result['videos'].append(video_url)
+                                                    logger.info(f"成功获取视频链接: {video_url}")
             except Exception as e:
                 logger.error(f"通过 API 获取视频信息失败: {e}")
+        
+        # 如果仍然没有找到视频链接，尝试从页面中提取替代的m3u8链接
+        if not result['videos']:
+            logger.info("尝试从页面中提取替代的m3u8链接")
+            
+            # 清晰度优先级：2208 1080P > 2206 720P > 2204 540P > 2202 360P
+            quality_priority = ['2208', '2206', '2204', '2202']
+            
+            # 首先提取基础的hls路径
+            base_hls_url = None
+            
+            def find_base_hls_url(obj):
+                """查找基础的hls路径"""
+                nonlocal base_hls_url
+                if base_hls_url:
+                    return
+                
+                if isinstance(obj, dict):
+                    for k, v in obj.items():
+                        if isinstance(v, str) and '.m3u8' in v and 'pl.taptap.cn/hls/' in v:
+                            # 提取基础路径，例如从 https://pl.taptap.cn/hls/xxx.m3u8?xxx 提取 https://pl.taptap.cn/hls/xxx/
+                            hls_base = v.split('.m3u8')[0]
+                            if '/hls/' in hls_base:
+                                # 提取最后一个斜杠前的部分
+                                hls_path = hls_base.rsplit('/', 1)[0] + '/'
+                                base_hls_url = hls_path
+                                logger.info(f"找到基础hls路径: {base_hls_url}")
+                                return
+                        else:
+                            find_base_hls_url(v)
+                elif isinstance(obj, list):
+                    for item in obj:
+                        find_base_hls_url(item)
+            
+            # 查找基础hls路径
+            find_base_hls_url(data)
+            
+            # 如果找到基础hls路径，构建不同清晰度的链接
+            if base_hls_url:
+                for quality in quality_priority:
+                    # 构建不同清晰度的m3u8链接
+                    m3u8_url = f"{base_hls_url}{quality}.m3u8"
+                    result['videos'].append(m3u8_url)
+                    logger.info(f"添加清晰度 {quality} 的视频链接: {m3u8_url}")
+            else:
+                # 直接搜索所有m3u8链接
+                def deep_search_all_m3u8(obj):
+                    """深度搜索所有m3u8链接"""
+                    if isinstance(obj, dict):
+                        for k, v in obj.items():
+                            if isinstance(v, str) and '.m3u8' in v and v.startswith('http'):
+                                if v not in result['videos']:
+                                    result['videos'].append(v)
+                                    logger.info(f"直接从页面提取到m3u8链接: {v}")
+                            else:
+                                deep_search_all_m3u8(v)
+                    elif isinstance(obj, list):
+                        for item in obj:
+                            deep_search_all_m3u8(item)
+                
+                # 深度搜索所有数据中的m3u8链接
+                deep_search_all_m3u8(data)
         
         result["images"] = images
         logger.debug(f"解析结果: videos={len(result['videos'])}, images={len(images)}")
