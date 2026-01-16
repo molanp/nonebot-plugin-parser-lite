@@ -171,22 +171,29 @@ class StreamDownloader:
             
             # 2. 下载并追加写入
             downloaded_bytes = 0
-            async with self.client.stream("GET", m3u8_url, headers=self.headers, follow_redirects=True) as response:
-                response.raise_for_status()
-                
-                with self.get_progress_bar(video_name, len(ts_urls) * 1024 * 1024) as bar:
-                    async with aiofiles.open(temp_ts_path, "wb") as f:
-                        for i, ts_url in enumerate(ts_urls):
-                            for retry in range(3):
-                                try:
-                                    async with self.client.stream("GET", ts_url, headers=self.headers, timeout=15) as resp:
-                                        if resp.status == 200:
-                                            async for chunk in resp.aiter_bytes():
-                                                await f.write(chunk)
-                                                downloaded_bytes += len(chunk)
-                                            break
-                                except Exception:
-                                    await asyncio.sleep(1)
+            # 准备用于 ts 下载的 headers，确保包含必要的验证信息
+            ts_headers = self.headers.copy()
+            # 如果是 TapTap 的链接，添加特定的 headers
+            if "taptap.cn" in m3u8_url:
+                ts_headers["Referer"] = "https://www.taptap.cn/"
+                ts_headers["Origin"] = "https://www.taptap.cn"
+            
+            with self.get_progress_bar(video_name, len(ts_urls) * 1024 * 1024) as bar:
+                async with aiofiles.open(temp_ts_path, "wb") as f:
+                    for i, ts_url in enumerate(ts_urls):
+                        for retry in range(3):
+                            try:
+                                async with self.client.stream("GET", ts_url, headers=ts_headers, timeout=15, follow_redirects=True) as resp:
+                                    if resp.status == 200:
+                                        async for chunk in resp.aiter_bytes():
+                                            await f.write(chunk)
+                                            downloaded_bytes += len(chunk)
+                                            bar.update(len(chunk))
+                                        break
+                                # 检查 resp.status
+                            except Exception as e:
+                                logger.debug(f"下载 ts 文件失败，重试中 ({retry+1}/3): {ts_url}, error: {e}")
+                                await asyncio.sleep(1)
             
             # 3. 校验文件大小 (防止空文件送给 FFmpeg)
             if downloaded_bytes < 1024:
@@ -214,6 +221,7 @@ class StreamDownloader:
         """智能解析 m3u8，支持 Master Playlist (嵌套) 和 Media Playlist"""
         from urllib.parse import urljoin
         
+        logger.info(f"[StreamDownloader] 开始解析 m3u8: {m3u8_url}")
         content = await self._fetch_text(m3u8_url)
         base_url = m3u8_url.rsplit('/', 1)[0] + '/'
         
@@ -251,13 +259,21 @@ class StreamDownloader:
             else:
                 ts_urls.append(urljoin(base_url, line))
         
+        logger.info(f"[StreamDownloader] m3u8 解析完成，共找到 {len(ts_urls)} 个 ts 文件")
         return ts_urls
     
     async def _fetch_text(self, url: str) -> str:
         """辅助函数：获取文本内容"""
-        async with self.client.stream("GET", url, headers=self.headers, timeout=10) as resp:
-            resp.raise_for_status()
-            return await resp.atext()
+        # 准备请求 headers
+        fetch_headers = self.headers.copy()
+        if "taptap.cn" in url:
+            fetch_headers["Referer"] = "https://www.taptap.cn/"
+            fetch_headers["Origin"] = "https://www.taptap.cn"
+        
+        async with self.client.get(url, headers=fetch_headers, timeout=10, follow_redirects=True) as resp:
+            if resp.status != 200:
+                raise Exception(f"请求失败: {resp.status}")
+            return await resp.text()
     
     async def _has_ffmpeg(self) -> bool:
         try:
