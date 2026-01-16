@@ -347,14 +347,26 @@
         .comment-author-row {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
             margin-bottom: 8px;
+        }
+        
+        .comment-author-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .comment-author {
             font-weight: 600;
             font-size: 14px;
             color: var(--dark-color);
+        }
+        
+        .comment-badge {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
         }
         
         .comment-time {
@@ -468,6 +480,12 @@
                     {% if child.type == "tap_emoji" and child.info and child.info.img %}
                         {% set img_url = child.info.img.url %}
                         {% set text = text + '<img src="' + img_url + '" alt="emoji" style="display:inline-block;vertical-align:middle;width:20px;height:20px;margin:0 2px;">' %}
+                    {% elif child.type and child.children %}
+                        {% for emoji_child in child.children %}
+                            {% if emoji_child.text %}
+                                {% set text = text + emoji_child.text %}
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -702,9 +720,18 @@
                 <img src="{{ comment.author.avatar }}" alt="用户头像" class="comment-avatar">
                 <div class="comment-content">
                     <div class="comment-author-row">
+                        <div class="comment-author-section">
                             <span class="comment-author">{{ comment.author.name }}</span>
-                            <span class="comment-time">{{ comment.formatted_time }}</span>
+                            {% if comment.author.badges and comment.author.badges|length > 0 %}
+                                {% for badge in comment.author.badges %}
+                                    {% if badge.icon and badge.icon.small %}
+                                        <img src="{{ badge.icon.small }}" alt="徽章" class="comment-badge">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
+                        <span class="comment-time">{{ comment.formatted_time }}</span>
+                    </div>
                     <div class="comment-text">
                         {{ parse_comment_content(comment.contents.json) }}
                     </div>
@@ -730,11 +757,20 @@
                         <div class="reply-item">
                             <img src="{{ reply.author.avatar }}" alt="回复者头像" class="reply-avatar">
                             <div class="reply-content">
-                                <div class="reply-author-row">
-                                    <span class="reply-author">{{ reply.author.name }}</span>
-                                    <span class="reply-time">{{ reply.formatted_time }}</span>
+                                <div class="comment-author-row">
+                                    <div class="comment-author-section">
+                                        <span class="comment-author">{{ reply.author.name }}</span>
+                                        {% if reply.author.badges and reply.author.badges|length > 0 %}
+                                            {% for badge in reply.author.badges %}
+                                                {% if badge.icon and badge.icon.small %}
+                                                    <img src="{{ badge.icon.small }}" alt="徽章" class="comment-badge">
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <span class="comment-time">{{ reply.formatted_time }}</span>
                                 </div>
-                                <div class="reply-text">
+                                <div class="comment-text">
                                     {{ parse_comment_content(reply.contents.json) }}
                                 </div>
                                 <div class="comment-stats">
