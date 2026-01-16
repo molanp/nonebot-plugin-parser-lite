@@ -291,6 +291,8 @@ async def handle_group_msg_emoji_like(event):
 
         # 发送延迟的媒体内容
         sent = False
+        remaining_media = []
+        
         for media_type, media_item in result.media_contents:
             try:
                 path = None
@@ -299,9 +301,31 @@ async def handle_group_msg_emoji_like(event):
                     path = media_item
                     logger.debug(f"发送已下载的延迟媒体: {path}")
                 else:
-                    # 是 MediaContent 类型，需要先获取 Path
-                    path = await media_item.get_path()
-                    logger.debug(f"下载并发送延迟媒体: {path}")
+                    # 是 MediaContent 类型，尝试获取 Path
+                    # 检查媒体内容是否已经下载完成
+                    if isinstance(media_item.path_task, Path):
+                        # 已经下载完成
+                        path = media_item.path_task
+                        logger.debug(f"发送已下载完成的延迟媒体: {path}")
+                    else:
+                        # 尚未下载完成，启动下载任务并等待
+                        logger.debug(f"媒体尚未下载完成，启动下载任务")
+                        # 发送"正在下载"的表情反馈（使用用户指定的表情ID 282）
+                        try:
+                            if liked_message_id:
+                                await message_reaction("282", message_id=str(liked_message_id))
+                        except Exception as e:
+                            logger.warning(f"Failed to send downloading reaction: {e}")
+                        
+                        # 等待下载完成
+                        try:
+                            path = await media_item.get_path()
+                            logger.debug(f"下载完成并发送延迟媒体: {path}")
+                        except Exception as download_e:
+                            logger.error(f"下载延迟媒体失败: {download_e}")
+                            # 添加到剩余媒体列表，以便后续重试
+                            remaining_media.append((media_type, media_item))
+                            continue
                 
                 if media_type == VideoContent:
                     try:
@@ -329,9 +353,15 @@ async def handle_group_msg_emoji_like(event):
                     sent = True
             except Exception as e:
                 logger.error(f"发送延迟媒体失败: {e}")
+                # 添加到剩余媒体列表，以便后续重试
+                remaining_media.append((media_type, media_item))
         
-        # 清空当前结果的媒体内容
-        result.media_contents.clear()
+        # 更新媒体内容列表，保留未发送成功的媒体
+        result.media_contents = remaining_media
+        
+        # 如果所有媒体都发送成功，清空媒体内容列表
+        if not remaining_media:
+            result.media_contents.clear()
 
         # 发送对应的表情
         if sent:

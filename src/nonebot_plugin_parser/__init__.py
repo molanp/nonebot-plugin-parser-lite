@@ -9,6 +9,7 @@ require("nonebot_plugin_uninfo")
 from .utils import safe_unlink
 from .config import Config, pconfig
 from .matchers import clear_result_cache
+from .api import parse_url
 
 __plugin_meta__ = PluginMetadata(
     name="链接分享解析 Alconna 版",
