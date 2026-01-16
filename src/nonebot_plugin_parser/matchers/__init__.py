@@ -299,6 +299,7 @@ async def handle_group_msg_emoji_like(event):
         # 发送延迟的媒体内容
         sent = False
         remaining_media = []
+        current_sent = False  # 记录当前媒体是否发送成功
         
         for media_type, media_item in result.media_contents:
             try:
@@ -341,11 +342,16 @@ async def handle_group_msg_emoji_like(event):
                         # 如果需要上传视频文件，且没有因为大小问题发送失败
                         if pconfig.need_upload_video:
                             await UniMessage(UniHelper.file_seg(path)).send()
+                        current_sent = True
                     except Exception as e:
                         # 直接发送失败，可能是因为文件太大，尝试使用群文件发送
                         logger.debug(f"直接发送视频失败，尝试使用群文件发送: {e}")
-                        await UniMessage(UniHelper.file_seg(path)).send()
-                    sent = True
+                        try:
+                            await UniMessage(UniHelper.file_seg(path)).send()
+                            current_sent = True
+                        except Exception as file_e:
+                            logger.error(f"使用群文件发送视频失败: {file_e}")
+                            current_sent = False
                 elif media_type == AudioContent:
                     try:
                         # 尝试直接发送音频
@@ -353,11 +359,22 @@ async def handle_group_msg_emoji_like(event):
                         # 如果需要上传音频文件，且没有因为大小问题发送失败
                         if pconfig.need_upload_audio:
                             await UniMessage(UniHelper.file_seg(path)).send()
+                        current_sent = True
                     except Exception as e:
                         # 直接发送失败，可能是因为文件太大，尝试使用群文件发送
                         logger.debug(f"直接发送音频失败，尝试使用群文件发送: {e}")
-                        await UniMessage(UniHelper.file_seg(path)).send()
+                        try:
+                            await UniMessage(UniHelper.file_seg(path)).send()
+                            current_sent = True
+                        except Exception as file_e:
+                            logger.error(f"使用群文件发送音频失败: {file_e}")
+                            current_sent = False
+                
+                if current_sent:
                     sent = True
+                else:
+                    # 发送失败，添加到剩余媒体列表，以便后续重试
+                    remaining_media.append((media_type, media_item))
             except Exception as e:
                 logger.error(f"发送延迟媒体失败: {e}")
                 # 添加到剩余媒体列表，以便后续重试
@@ -366,13 +383,15 @@ async def handle_group_msg_emoji_like(event):
         # 更新媒体内容列表，保留未发送成功的媒体
         result.media_contents = remaining_media
         
-        # 如果所有媒体都发送成功，清空媒体内容列表并从缓存中移除消息ID
+        # 只有当所有媒体都发送成功时，才从缓存中移除消息ID
         if not remaining_media:
-            result.media_contents.clear()
             # 从缓存中移除已处理的消息ID，避免重复发送
             if str(liked_message_id) in _MSG_ID_RESULT_MAP:
                 del _MSG_ID_RESULT_MAP[str(liked_message_id)]
                 logger.debug(f"从_MSG_ID_RESULT_MAP中移除消息ID: {liked_message_id}")
+        else:
+            # 如果还有未发送成功的媒体，更新缓存中的解析结果
+            _MSG_ID_RESULT_MAP[str(liked_message_id)] = result
 
         # 发送对应的表情
         if sent:
