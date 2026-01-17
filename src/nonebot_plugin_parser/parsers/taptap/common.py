@@ -318,18 +318,19 @@ class TapTapParser(BaseParser):
                 })
                 
                 if item_type == "paragraph":
+                    paragraph_text = []
                     children = content_item.get("children", [])
                     for child in children:
                         if isinstance(child, dict):
-                            if "text" in child and child["text"]:
-                                text_parts.append(child["text"])
+                            if "text" in child:
+                                paragraph_text.append(child["text"])
                             # 处理表情
                             elif child.get("type") == "tap_emoji":
                                 img_info = child.get("info", {}).get("img", {})
                                 original_url = img_info.get("original_url")
                                 if original_url:
                                     # 将表情转换为HTML img标签，与文字一起渲染
-                                    text_parts.append(f'<img src="{original_url}" alt="表情" style="width: 20px; height: 20px; vertical-align: middle; margin: 0 2px; object-fit: contain;">')
+                                    paragraph_text.append(f'<img src="{original_url}" alt="表情" style="width: 20px; height: 20px; vertical-align: middle; margin: 0 2px; object-fit: contain;">')
                             # 处理话题标签
                             elif child.get("type") == "hashtag":
                                 tag_text = child.get("text", "")
@@ -339,10 +340,15 @@ class TapTapParser(BaseParser):
                                         # 移除URL中的空格
                                         web_url = web_url.strip()
                                         # 将话题标签转换为HTML超链接
-                                        text_parts.append(f'<a href="{web_url}" style="color: #3498db; text-decoration: none; background-color: #f0f8ff; padding: 2px 6px; border-radius: 4px; font-weight: 500; margin: 0 2px;">{tag_text}</a>')
+                                        paragraph_text.append(f'<a href="{web_url}" style="color: #3498db; text-decoration: none; background-color: #f0f8ff; padding: 2px 6px; border-radius: 4px; font-weight: 500; margin: 0 2px;">{tag_text}</a>')
                                     else:
                                         # 如果没有URL，只显示标签文本
-                                        text_parts.append(f'<span style="color: #3498db; background-color: #f0f8ff; padding: 2px 6px; border-radius: 4px; font-weight: 500; margin: 0 2px;">{tag_text}</span>')
+                                        paragraph_text.append(f'<span style="color: #3498db; background-color: #f0f8ff; padding: 2px 6px; border-radius: 4px; font-weight: 500; margin: 0 2px;">{tag_text}</span>')
+                    # 拼接当前段落内容，并添加换行符
+                    if paragraph_text:
+                        text_parts.append("" .join(paragraph_text))
+                        # 添加换行符，区分不同段落
+                        text_parts.append("<br>")
                 
                 elif item_type == "image":
                     image_info = content_item.get("info", {}).get("image", {})
@@ -351,7 +357,10 @@ class TapTapParser(BaseParser):
                         result["images"].append(original_url)
             
             if text_parts:
-                result["summary"] = "".join(text_parts)
+                # 如果最后一个元素是换行符，移除它
+                if text_parts[-1] == "<br>":
+                    text_parts.pop()
+                result["summary"] = "" .join(text_parts)
             
             api_success = True
             logger.debug(f"API解析结果: videos={len(result['videos'])}, images={len(result['images'])}, content_items={len(result['content_items'])}")
