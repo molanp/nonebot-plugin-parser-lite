@@ -317,9 +317,10 @@
             color: var(--secondary-color);
         }
         
+        /* 主评论样式 */
         .comment-item {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px dashed #eee;
@@ -331,62 +332,82 @@
             padding-bottom: 0;
         }
         
-        .comment-avatar {
-            width: 48px;
-            height: 48px;
+        /* 通用头像样式 */
+        .comment-avatar, .reply-avatar {
             border-radius: 50%;
             object-fit: cover;
             flex-shrink: 0;
             margin-top: 2px;
         }
         
-        .comment-content {
-            flex: 1;
+        .comment-avatar {
+            width: 48px;
+            height: 48px;
         }
         
-        .comment-author-row {
+        .reply-avatar {
+            width: 40px;
+            height: 40px;
+        }
+        
+        /* 通用内容区域样式 */
+        .comment-content, .reply-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 通用作者信息行样式 */
+        .comment-author-row, .reply-author-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 8px;
         }
         
-        .comment-author-section {
+        /* 通用作者信息左侧 */
+        .comment-author-section, .reply-author-section {
             display: flex;
             align-items: center;
             gap: 8px;
+            flex: 1;
         }
         
-        .comment-author {
+        /* 通用作者名称 */
+        .comment-author, .reply-author {
             font-weight: 600;
-            font-size: 14px;
             color: var(--dark-color);
         }
         
-        .comment-badge {
-            width: 16px;
-            height: 16px;
-            object-fit: contain;
+        .comment-author {
+            font-size: 14px;
         }
         
-        .comment-time {
+        .reply-author {
+            font-size: 13px;
+        }
+        
+        /* 徽章样式 */
+        .comment-badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-left: 6px;
+        }
+        
+        /* 通用时间样式 */
+        .comment-time, .reply-time {
             font-size: 12px;
             color: var(--gray-color);
+            white-space: nowrap;
         }
         
-        .comment-honor {
-            font-size: 12px;
-            color: var(--secondary-color);
-            margin-left: 8px;
+        .reply-time {
+            font-size: 11px;
         }
         
-        .comment-meta {
-            font-size: 12px;
-            color: #999;
-            margin-top: 4px;
-        }
-        
-        .comment-text {
+        /* 通用评论内容 */
+        .comment-text, .reply-text {
             font-size: 15px;
             line-height: 1.6;
             color: #444;
@@ -394,6 +415,12 @@
             word-wrap: break-word;
         }
         
+        .reply-text {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        /* 通用统计信息 */
         .comment-stats {
             display: flex;
             gap: 20px;
@@ -409,7 +436,7 @@
         
         /* 回复区域 */
         .comment-replies {
-            margin-left: 0;
+            margin-left: 64px; /* 48px头像 + 16px间距 */
             margin-top: 15px;
         }
         
@@ -427,46 +454,6 @@
             padding-bottom: 0;
         }
         
-        .reply-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
-            margin-top: 2px;
-            margin-left: 63px;
-        }
-        
-        .reply-content {
-            flex: 1;
-        }
-        
-        .reply-author-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
-        }
-        
-        .reply-author {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--dark-color);
-        }
-        
-        .reply-time {
-            font-size: 11px;
-            color: var(--gray-color);
-        }
-        
-        .reply-text {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #444;
-            margin-bottom: 8px;
-            word-wrap: break-word;
-        }
-        
         /* 表情样式 */
         .comment-text img,
         .reply-text img {
@@ -475,6 +462,21 @@
             width: 20px;
             height: 20px;
             margin: 0 2px;
+            object-fit: contain;
+        }
+        
+        /* 确保表情和文字等高 */
+        .comment-text,
+        .reply-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .comment-text span,
+        .reply-text span {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -735,7 +737,7 @@
                             {% if comment.author.badges and comment.author.badges|length > 0 %}
                                 {% for badge in comment.author.badges %}
                                     {% if badge.title %}
-                                        <span class="comment-badge" style="background-color: {{ badge.style.background_color }}; color: {{ badge.style.font_color }}; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-left: 6px;">
+                                        <span class="comment-badge" style="background-color: {{ badge.style.background_color }}; color: {{ badge.style.font_color }};">
                                             {{ badge.title }}
                                         </span>
                                     {% endif %}
@@ -780,15 +782,15 @@
                         <div class="reply-item">
                             <img src="{{ reply.author.avatar }}" alt="回复者头像" class="reply-avatar">
                             <div class="reply-content">
-                                <div class="comment-author-row">
-                                    <div class="comment-author-section">
-                                        <span class="comment-author">{{ reply.author.name }}</span>
+                                <div class="reply-author-row">
+                                    <div class="reply-author-section">
+                                        <span class="reply-author">{{ reply.author.name }}</span>
                                         
                                         {# 回复者徽章展示 #}
                                         {% if reply.author.badges and reply.author.badges|length > 0 %}
                                             {% for badge in reply.author.badges %}
                                                 {% if badge.title %}
-                                                    <span class="comment-badge" style="background-color: {{ badge.style.background_color }}; color: {{ badge.style.font_color }}; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-left: 6px;">
+                                                    <span class="comment-badge" style="background-color: {{ badge.style.background_color }}; color: {{ badge.style.font_color }};">
                                                         {{ badge.title }}
                                                     </span>
                                                 {% endif %}
@@ -800,7 +802,7 @@
                                             <span class="comment-honor">{{ reply.author.honor_title }}</span>
                                         {% endif %}
                                     </div>
-                                    <span class="comment-time">{{ reply.formatted_time }}</span>
+                                    <span class="reply-time">{{ reply.formatted_time }}</span>
                                 </div>
                                 
                                 {# 回复者个性签名/其他信息展示 #}
@@ -808,7 +810,7 @@
                                     <div class="comment-meta">{{ reply.author.description }}</div>
                                 {% endif %}
                                 
-                                <div class="comment-text">
+                                <div class="reply-text">
                                     {{ reply.content }}
                                 </div>
                                 <div class="comment-stats">
