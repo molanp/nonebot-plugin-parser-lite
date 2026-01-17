@@ -301,13 +301,15 @@
         /* 评论区域 */
         .comments-section {
             padding: 0 30px 30px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
         }
         
         .comments-header {
             font-size: 18px;
             font-weight: 700;
             color: var(--dark-color);
-            margin-bottom: 20px;
+            margin: 20px 0;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -317,113 +319,117 @@
             color: var(--secondary-color);
         }
         
-        /* 主评论样式 */
-        .comment-item {
+        /* ========== 评论样式重构 ========== */
+        
+        /* 主评论容器 */
+        .comment-container {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px dashed #eee;
         }
         
-        .comment-item:last-child {
+        .comment-container:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
         
-        /* 通用头像样式 */
-        .comment-avatar, .reply-avatar {
-            border-radius: 50%;
-            object-fit: cover;
+        /* 头像区域 */
+        .comment-avatar-wrapper {
             flex-shrink: 0;
-            margin-top: 2px;
-        }
-        
-        .comment-avatar {
             width: 48px;
             height: 48px;
         }
         
-        .reply-avatar {
-            width: 40px;
-            height: 40px;
+        .comment-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f0f0f0;
         }
         
-        /* 通用内容区域样式 */
-        .comment-content, .reply-content {
+        /* 评论内容区域 */
+        .comment-content-wrapper {
             flex: 1;
-            display: flex;
-            flex-direction: column;
+            min-width: 0; /* 防止内容溢出 */
         }
         
-        /* 通用作者信息行样式 */
-        .comment-author-row, .reply-author-row {
+        /* 作者信息行 */
+        .comment-author-row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 8px;
         }
         
-        /* 通用作者信息左侧 */
-        .comment-author-section, .reply-author-section {
+        .comment-author-info {
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
             flex: 1;
         }
         
-        /* 通用作者名称 */
-        .comment-author, .reply-author {
+        .comment-author-name {
             font-weight: 600;
-            color: var(--dark-color);
-        }
-        
-        .comment-author {
             font-size: 14px;
-        }
-        
-        .reply-author {
-            font-size: 13px;
+            color: var(--dark-color);
+            line-height: 1.2;
         }
         
         /* 徽章样式 */
         .comment-badge {
             padding: 2px 8px;
             border-radius: 12px;
-            font-size: 12px;
-            margin-left: 6px;
-        }
-        
-        /* 通用时间样式 */
-        .comment-time, .reply-time {
-            font-size: 12px;
-            color: var(--gray-color);
+            font-size: 11px;
+            font-weight: 500;
+            line-height: 1.2;
             white-space: nowrap;
         }
         
-        .reply-time {
-            font-size: 11px;
+        .comment-honor {
+            font-size: 12px;
+            color: #e67e22;
+            background-color: #fdf2e9;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
         }
         
-        /* 通用评论内容 */
-        .comment-text, .reply-text {
-            font-size: 15px;
+        /* 评论时间 */
+        .comment-time {
+            font-size: 12px;
+            color: var(--gray-color);
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+        
+        /* 评论内容 */
+        .comment-text {
+            font-size: 14px;
             line-height: 1.6;
             color: #444;
             margin-bottom: 10px;
             word-wrap: break-word;
         }
         
-        .reply-text {
-            font-size: 14px;
-            margin-bottom: 8px;
+        /* 处理表情图片 */
+        .comment-text img.emoji {
+            display: inline-block;
+            vertical-align: middle;
+            width: 20px;
+            height: 20px;
+            margin: 0 1px;
+            object-fit: contain;
         }
         
-        /* 通用统计信息 */
+        /* 统计信息 */
         .comment-stats {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             font-size: 12px;
             color: var(--gray-color);
         }
@@ -431,16 +437,19 @@
         .comment-stat {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
         
-        /* 回复区域 */
+        /* ========== 回复样式 ========== */
+        
         .comment-replies {
-            margin-left: 64px; /* 48px头像 + 16px间距 */
             margin-top: 15px;
+            margin-left: 12px; /* 与主评论内容对齐 */
+            padding-left: 48px; /* 头像宽度 + 间距 */
+            border-left: 2px solid #f0f0f0;
         }
         
-        .reply-item {
+        .reply-container {
             display: flex;
             gap: 12px;
             margin-bottom: 15px;
@@ -448,59 +457,96 @@
             border-bottom: 1px dashed #f0f0f0;
         }
         
-        .reply-item:last-child {
+        .reply-container:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
         
-        /* 表情样式 */
-        .comment-text img,
-        .reply-text img {
+        /* 回复头像区域 */
+        .reply-avatar-wrapper {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            margin-top: 2px;
+        }
+        
+        .reply-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f0f0f0;
+        }
+        
+        /* 回复内容区域 */
+        .reply-content-wrapper {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        /* 回复作者信息行 */
+        .reply-author-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .reply-author-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+        
+        .reply-author-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--dark-color);
+            line-height: 1.2;
+        }
+        
+        /* 回复时间 */
+        .reply-time {
+            font-size: 11px;
+            color: var(--gray-color);
+            white-space: nowrap;
+            margin-left: 6px;
+        }
+        
+        /* 回复内容 */
+        .reply-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #555;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+        }
+        
+        /* 回复中的表情图片 */
+        .reply-text img.emoji {
             display: inline-block;
             vertical-align: middle;
-            width: 20px;
-            height: 20px;
-            margin: 0 2px;
+            width: 18px;
+            height: 18px;
+            margin: 0 1px;
             object-fit: contain;
         }
         
-        /* 确保表情和文字等高 */
-        .comment-text,
-        .reply-text {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .comment-text span,
-        .reply-text span {
-            display: inline-flex;
-            align-items: center;
-            vertical-align: middle;
+        /* 个性签名/描述 */
+        .comment-meta {
+            font-size: 12px;
+            color: var(--gray-color);
+            margin: 4px 0 8px;
+            line-height: 1.4;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
-    {# === 宏定义：解析评论内容 === #}
-    {% macro parse_comment_content(content_json) %}
-    {% set text = "" %}
-    {% if content_json %}
-        {% for item in content_json %}
-            {% if item.type == "paragraph" %}
-                {% for child in item.children %}
-                    {% if child.text %}
-                        {% set text = text + child.text %}
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-    {% elif content_json is string %}
-        {% set text = content_json %}
-    {% endif %}
-    {{ text }}
-    {% endmacro %}
-    
     {# === 宏定义：渲染卡片 === #}
     {% macro render_card(result) %}
     
@@ -726,12 +772,18 @@
             </div>
             
             {% for comment in comments %}
-            <div class="comment-item">
-                <img src="{{ comment.author.avatar }}" alt="用户头像" class="comment-avatar">
-                <div class="comment-content">
+            <div class="comment-container">
+                {# 左侧头像 #}
+                <div class="comment-avatar-wrapper">
+                    <img src="{{ comment.author.avatar }}" alt="用户头像" class="comment-avatar">
+                </div>
+                
+                {# 右侧内容 #}
+                <div class="comment-content-wrapper">
+                    {# 作者信息行 #}
                     <div class="comment-author-row">
-                        <div class="comment-author-section">
-                            <span class="comment-author">{{ comment.author.name }}</span>
+                        <div class="comment-author-info">
+                            <span class="comment-author-name">{{ comment.author.name }}</span>
                             
                             {# 徽章展示 #}
                             {% if comment.author.badges and comment.author.badges|length > 0 %}
@@ -757,9 +809,12 @@
                         <div class="comment-meta">{{ comment.author.description }}</div>
                     {% endif %}
                     
+                    {# 评论内容 #}
                     <div class="comment-text">
                         {{ comment.content }}
                     </div>
+                    
+                    {# 统计信息 #}
                     <div class="comment-stats">
                         {% if comment.ups %}
                         <span class="comment-stat">
@@ -779,12 +834,18 @@
                     {% if comment.child_posts and comment.child_posts|length > 0 %}
                     <div class="comment-replies">
                         {% for reply in comment.child_posts %}
-                        <div class="reply-item">
-                            <img src="{{ reply.author.avatar }}" alt="回复者头像" class="reply-avatar">
-                            <div class="reply-content">
+                        <div class="reply-container">
+                            {# 回复左侧头像 #}
+                            <div class="reply-avatar-wrapper">
+                                <img src="{{ reply.author.avatar }}" alt="回复者头像" class="reply-avatar">
+                            </div>
+                            
+                            {# 回复右侧内容 #}
+                            <div class="reply-content-wrapper">
+                                {# 回复作者信息行 #}
                                 <div class="reply-author-row">
-                                    <div class="reply-author-section">
-                                        <span class="reply-author">{{ reply.author.name }}</span>
+                                    <div class="reply-author-info">
+                                        <span class="reply-author-name">{{ reply.author.name }}</span>
                                         
                                         {# 回复者徽章展示 #}
                                         {% if reply.author.badges and reply.author.badges|length > 0 %}
@@ -810,9 +871,12 @@
                                     <div class="comment-meta">{{ reply.author.description }}</div>
                                 {% endif %}
                                 
+                                {# 回复内容 #}
                                 <div class="reply-text">
                                     {{ reply.content }}
                                 </div>
+                                
+                                {# 回复统计信息 #}
                                 <div class="comment-stats">
                                     {% if reply.ups %}
                                     <span class="comment-stat">
