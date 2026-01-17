@@ -215,7 +215,8 @@ class TapTapParser(BaseParser):
             "comments": [],
             "seo_keywords": "",
             "footer_images": [],
-            "app": {}
+            "app": {},
+            "extra": {}
         }
         
         api_success = False
@@ -347,24 +348,22 @@ class TapTapParser(BaseParser):
                             # 处理普通文本
                             elif "text" in child:
                                 paragraph_text.append(child["text"])
+                        # 处理字符串类型的child
+                        elif isinstance(child, str):
+                            paragraph_text.append(child)
                     # 拼接当前段落内容，并添加换行符
                     if paragraph_text:
                         text_parts.append("" .join(paragraph_text))
                         # 添加换行符，区分不同段落
                         text_parts.append("<br>")
-                
+
                 elif item_type == "image":
                     image_info = content_item.get("info", {}).get("image", {})
                     original_url = image_info.get("original_url")
                     if original_url:
                         result["images"].append(original_url)
             
-            if text_parts:
-                # 如果最后一个元素是换行符，移除它
-                if text_parts[-1] == "<br>":
-                    text_parts.pop()
-                result["summary"] = "" .join(text_parts)
-            
+
             api_success = True
             logger.debug(f"API解析结果: videos={len(result['videos'])}, images={len(result['images'])}, content_items={len(result['content_items'])}")
         else:
@@ -963,7 +962,8 @@ class TapTapParser(BaseParser):
             "comments": [],
             "seo_keywords": "",
             "footer_images": [],
-            "app": {}
+            "app": {},
+            "extra": {}
         }
         
         # 从API获取评论详情
@@ -1151,29 +1151,35 @@ class TapTapParser(BaseParser):
         # 评论时间已经在_fetch_comments中格式化好了，这里直接使用
         formatted_comments = detail.get('comments', [])
         
-        # 构建解析结果
+        # 构建解析结果，先准备extra数据
+        extra_data = {
+            "stats": detail["stats"],
+            "images": detail["images"],  # 将图片列表放入extra，用于模板渲染
+            "content_items": detail.get("content_items", []),
+            "author": detail.get("author", {}),
+            "created_time": detail.get("created_time", ""),
+            "publish_time": detail.get("publish_time", ""),
+            "formatted_created_time": formatted_created_time,
+            "formatted_publish_time": formatted_publish_time,
+            "video_cover": detail.get("video_cover", ""),
+            "app": detail.get("app", {}),  # 添加游戏信息
+            "seo_keywords": detail.get("seo_keywords", ""),  # 添加SEO关键词
+            "footer_images": detail.get("footer_images", []),  # 添加footer_images
+            "comments": formatted_comments  # 添加格式化后的评论数据
+        }
+        
+        # 合并原始detail中的extra字段内容，用于标识游戏评论
+        if detail.get("extra"):
+            extra_data.update(detail["extra"])
+        
         result = self.result(
-            title=detail['title'],
-            text=detail['summary'],
-            url=detail['url'],
+            title=detail["title"],
+            text=detail["summary"],
+            url=detail["url"],
             author=author,
             timestamp=timestamp,
             contents=contents,
-            extra={
-                'stats': detail['stats'],
-                'images': detail['images'],  # 将图片列表放入extra，用于模板渲染
-                'content_items': detail.get('content_items', []),
-                'author': detail.get('author', {}),
-                'created_time': detail.get('created_time', ''),
-                'publish_time': detail.get('publish_time', ''),
-                'formatted_created_time': formatted_created_time,
-                'formatted_publish_time': formatted_publish_time,
-                'video_cover': detail.get('video_cover', ''),
-                'app': detail.get('app', {}),  # 添加游戏信息
-                'seo_keywords': detail.get('seo_keywords', ''),  # 添加SEO关键词
-                'footer_images': detail.get('footer_images', []),  # 添加footer_images
-                'comments': formatted_comments  # 添加格式化后的评论数据
-            }
+            extra=extra_data
         )
         
         # 设置media_contents，用于延迟发送

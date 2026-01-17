@@ -575,6 +575,12 @@
             
             <!-- 类型标签或SEO关键词 -->
             <div class="tag type-tag" style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+                {% if extra.extra and extra.extra.review %}
+                <!-- 评论详情，显示游戏评论标签 -->
+                <i class="fas fa-comment"></i>
+                <span>游戏评论</span>
+                {% else %}
+                <!-- 普通动态，显示原有标签 -->
                 {% set has_footer_images = extra.footer_images is defined and extra.footer_images|length > 0 %}
                 {% if has_footer_images and extra.seo_keywords and extra.seo_keywords != '' %}
                 <span>{{ extra.seo_keywords }}</span>
@@ -584,6 +590,7 @@
                 {% else %}
                 <i class="fas fa-images"></i>
                 <span>图文</span>
+                {% endif %}
                 {% endif %}
             </div>
             
