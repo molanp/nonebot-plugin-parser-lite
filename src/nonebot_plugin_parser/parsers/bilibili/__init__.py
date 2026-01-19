@@ -278,6 +278,11 @@ class BilibiliParser(BaseParser):
 
                 # 获取源动态的所有图片列表
                 orig_images = orig_item.image_urls
+                
+                # 下载源动态的图片并添加到contents列表中
+                for image_url in orig_images:
+                    img_task = DOWNLOADER.download_img(image_url, ext_headers=self.headers)
+                    contents.append(ImageContent(img_task))
 
                 # 构造 origin 字典
                 extra_data["origin"] = {
