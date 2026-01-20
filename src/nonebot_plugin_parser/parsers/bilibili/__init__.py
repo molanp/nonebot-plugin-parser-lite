@@ -214,7 +214,22 @@ class BilibiliParser(BaseParser):
         from .dynamic import DynamicData
 
         dynamic = Dynamic(dynamic_id, await self.credential)
-        dynamic_info = convert(await dynamic.get_info(), DynamicData).item
+        
+        # 获取动态信息
+        dynamic_info_data = await dynamic.get_info()
+        
+        # 【新增】如果是专栏文章，使用 opus 接口解析
+        if dynamic.is_article:
+            dynamic_info = convert(dynamic_info_data, DynamicData).item
+            basic = dynamic_info.basic
+            if basic and basic.get("jump_url"):
+                import re
+                match = re.search(r"/opus/(\d+)", basic["jump_url"])
+                if match:
+                    opus_id = int(match.group(1))
+                    return await self.parse_opus(opus_id)
+        
+        dynamic_info = convert(dynamic_info_data, DynamicData).item
 
         author = self.create_author(dynamic_info.name, dynamic_info.avatar)
 
@@ -262,12 +277,21 @@ class BilibiliParser(BaseParser):
                 major_info = orig_item.modules.major_info
 
                 # 尝试判断源动态类型
+                is_article = False
                 if major_info:
                     major_type = major_info.get("type")
                     if major_type == "MAJOR_TYPE_ARCHIVE":
                         orig_type_tag = "视频"
                     elif major_type == "MAJOR_TYPE_OPUS":
                         orig_type_tag = "图文"
+                        # 【新增】检查是否是专栏文章
+                        opus_data = major_info.get("opus", {})
+                        if opus_data and opus_data.get("jump_url"):
+                            import re
+                            match = re.search(r"/opus/(\d+)", opus_data["jump_url"])
+                            if match:
+                                is_article = True
+                                orig_type_tag = "专栏"
                     elif major_type == "MAJOR_TYPE_DRAW":
                         orig_type_tag = "图文"
 
@@ -279,10 +303,32 @@ class BilibiliParser(BaseParser):
                 # 获取源动态的所有图片列表
                 orig_images = orig_item.image_urls
                 
-                # 下载源动态的图片并添加到contents列表中
-                for image_url in orig_images:
-                    img_task = DOWNLOADER.download_img(image_url, ext_headers=self.headers)
-                    contents.append(ImageContent(img_task))
+                # 【新增】如果是专栏文章，使用 opus 解析获取完整内容
+                if is_article:
+                    opus_data = major_info.get("opus", {})
+                    if opus_data and opus_data.get("jump_url"):
+                        import re
+                        match = re.search(r"/opus/(\d+)", opus_data["jump_url"])
+                        if match:
+                            opus_id = int(match.group(1))
+                            try:
+                                opus_result = await self.parse_opus(opus_id)
+                                # 将专栏内容添加到 contents
+                                contents.extend(opus_result.contents)
+                                # 更新源动态信息为完整的解析结果
+                                if opus_result.title:
+                                    extra_data["origin"]["title"] = opus_result.title
+                                if opus_result.text:
+                                    extra_data["origin"]["text"] = opus_result.text
+                                if opus_result.author:
+                                    extra_data["origin"]["author"] = opus_result.author.name
+                            except Exception as e:
+                                logger.warning(f"解析转发专栏失败: {e}")
+                else:
+                    # 下载源动态的图片并添加到contents列表中
+                    for image_url in orig_images:
+                        img_task = DOWNLOADER.download_img(image_url, ext_headers=self.headers)
+                        contents.append(ImageContent(img_task))
 
                 # 构造 origin 字典
                 extra_data["origin"] = {
