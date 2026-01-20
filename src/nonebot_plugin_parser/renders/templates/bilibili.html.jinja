@@ -399,6 +399,220 @@
         }
         .footer-info { display: flex; gap: 15px; align-items: center; }
         .footer-brand { font-weight: 600; letter-spacing: 0.5px; color: white; display: flex; gap: 8px; align-items: center;}
+        
+        /* 评论区域 */
+        .comments-section {
+            padding: 0 30px 30px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+        
+        .comments-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .comments-header i {
+            color: var(--secondary-color);
+        }
+        
+        /* ========== 评论样式 ========== */
+        
+        /* 主评论容器 */
+        .comment-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .comment-container:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        /* 头像区域 */
+        .comment-avatar-wrapper {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+        }
+        
+        .comment-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f0f0f0;
+        }
+        
+        /* 评论内容区域 */
+        .comment-content-wrapper {
+            flex: 1;
+            min-width: 0; /* 防止内容溢出 */
+        }
+        
+        /* 作者信息行 */
+        .comment-author-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .comment-author-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+        
+        .comment-author-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--dark-color);
+            line-height: 1.2;
+        }
+        
+        /* 评论时间 */
+        .comment-time {
+            font-size: 12px;
+            color: var(--gray-color);
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+        
+        /* 评论内容 */
+        .comment-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+        
+        /* 处理评论中的图片 */
+        .comment-text img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 5px 0;
+        }
+        
+        /* 统计信息 */
+        .comment-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--gray-color);
+        }
+        
+        .comment-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* ========== 回复样式 ========== */
+        
+        .comment-replies {
+            margin-top: 15px;
+            margin-left: 12px; /* 与主评论内容对齐 */
+            padding-left: 48px; /* 头像宽度 + 间距 */
+            border-left: 2px solid #f0f0f0;
+        }
+        
+        .reply-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+        
+        .reply-container:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        /* 回复头像区域 */
+        .reply-avatar-wrapper {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            margin-top: 2px;
+        }
+        
+        .reply-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f0f0f0;
+        }
+        
+        /* 回复内容区域 */
+        .reply-content-wrapper {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        /* 回复作者信息行 */
+        .reply-author-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .reply-author-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+        
+        .reply-author-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--dark-color);
+            line-height: 1.2;
+        }
+        
+        /* 回复时间 */
+        .reply-time {
+            font-size: 11px;
+            color: var(--gray-color);
+            white-space: nowrap;
+            margin-left: 6px;
+        }
+        
+        /* 回复内容 */
+        .reply-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #555;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+        }
+        
+        /* 回复中的图片 */
+        .reply-text img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin: 4px 0;
+        }
     </style>
 </head>
 <body>
@@ -607,6 +821,101 @@
         </div>
         {% endif %}
         </div>
+        
+        {# --- 评论区域 --- #}
+        {% set comments = result.comments if result.comments else [] %}
+        {% if not comments and extra.comments %}
+            {% set comments = extra.comments %}
+        {% endif %}
+        
+        {% if comments and comments|length > 0 %}
+        <div class="comments-section">
+            <div class="comments-header">
+                <i class="fas fa-comments"></i> 评论 ({{ comments|length }})
+            </div>
+            
+            {% for comment in comments %}
+            <div class="comment-container">
+                {# 左侧头像 #}
+                <div class="comment-avatar-wrapper">
+                    <img src="{{ comment.author.avatar }}" alt="用户头像" class="comment-avatar">
+                </div>
+                
+                {# 右侧内容 #}
+                <div class="comment-content-wrapper">
+                    {# 作者信息行 #}
+                    <div class="comment-author-row">
+                        <div class="comment-author-info">
+                            <span class="comment-author-name">{{ comment.author.name }}</span>
+                        </div>
+                        <span class="comment-time">{{ comment.created_time|strftime('%Y-%m-%d %H:%M') if comment.created_time else '' }}</span>
+                    </div>
+                    
+                    {# 评论内容 #}
+                    <div class="comment-text">
+                        {{ comment.content | safe }}
+                    </div>
+                    
+                    {# 统计信息 #}
+                    <div class="comment-stats">
+                        {% if comment.like %}
+                        <span class="comment-stat">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>{{ comment.like }}</span>
+                        </span>
+                        {% endif %}
+                        {% if comment.replies_count %}
+                        <span class="comment-stat">
+                            <i class="fas fa-reply"></i>
+                            <span>{{ comment.replies_count }}</span>
+                        </span>
+                        {% endif %}
+                    </div>
+                    
+                    {# 回复列表 #}
+                    {% if comment.child_posts and comment.child_posts|length > 0 %}
+                    <div class="comment-replies">
+                        {% for reply in comment.child_posts %}
+                        <div class="reply-container">
+                            {# 回复左侧头像 #}
+                            <div class="reply-avatar-wrapper">
+                                <img src="{{ reply.author.avatar }}" alt="回复者头像" class="reply-avatar">
+                            </div>
+                            
+                            {# 回复右侧内容 #}
+                            <div class="reply-content-wrapper">
+                                {# 回复作者信息行 #}
+                                <div class="reply-author-row">
+                                    <div class="reply-author-info">
+                                        <span class="reply-author-name">{{ reply.author.name }}</span>
+                                    </div>
+                                    <span class="reply-time">{{ reply.created_time|strftime('%Y-%m-%d %H:%M') if reply.created_time else '' }}</span>
+                                </div>
+                                
+                                {# 回复内容 #}
+                                <div class="reply-text">
+                                    {{ reply.content | safe }}
+                                </div>
+                                
+                                {# 回复统计信息 #}
+                                <div class="comment-stats">
+                                    {% if reply.like %}
+                                    <span class="comment-stat">
+                                        <i class="fas fa-thumbs-up"></i>
+                                        <span>{{ reply.like }}</span>
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         {# --- 底部 --- #}
         {% if not is_repost %}
