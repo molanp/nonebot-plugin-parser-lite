@@ -213,9 +213,22 @@ class ParseResult:
     @property
     async def cover_path(self) -> Path | None:
         """获取封面路径"""
+        # 先检查视频内容
         for cont in self.contents:
             if isinstance(cont, VideoContent):
                 return await cont.get_cover_path()
+        
+        # 检查图片内容，返回第一张图片作为封面
+        for cont in self.contents:
+            if isinstance(cont, ImageContent):
+                return await cont.get_path()
+        
+        # 如果没有视频和图片内容，使用默认图片
+        from pathlib import Path
+        default_image_path = Path(__file__).parent.parent / 'renders' / 'resources' / 'QIQI.jpg'
+        if default_image_path.exists():
+            return default_image_path
+        
         return None
 
     @property

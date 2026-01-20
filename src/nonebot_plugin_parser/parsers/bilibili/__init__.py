@@ -237,20 +237,10 @@ class BilibiliParser(BaseParser):
         contents: list[MediaContent] = []
         image_urls = dynamic_info.image_urls
         
-        # 如果没有图片，使用默认图片
-        if not image_urls:
-            # 使用相对路径，让渲染器可以找到默认图片
-            import os
-            from pathlib import Path
-            default_image_path = Path(os.path.dirname(__file__)).parent.parent / 'renders' / 'resources' / 'QIQI.jpg'
-            if default_image_path.exists():
-                # 添加默认图片到contents，直接使用Path对象
-                contents.append(ImageContent(default_image_path))
-        else:
-            # 下载主体图片
-            for image_url in image_urls:
-                img_task = DOWNLOADER.download_img(image_url, ext_headers=self.headers)
-                contents.append(ImageContent(img_task))
+        # 只下载主体图片，不添加默认图片到contents
+        for image_url in image_urls:
+            img_task = DOWNLOADER.download_img(image_url, ext_headers=self.headers)
+            contents.append(ImageContent(img_task))
 
         # 提取当前动态的统计数据
         stats = {}
