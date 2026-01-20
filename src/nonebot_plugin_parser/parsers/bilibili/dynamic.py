@@ -48,9 +48,10 @@ class OpusContent(Struct):
 class DynamicMajor(Struct):
     """动态主要内容 (Major)"""
 
-    type: str
+    type: str | None = None
     archive: VideoArchive | None = None
     opus: OpusContent | None = None
+    desc: OpusSummary | None = None
     draw: dict[str, Any] | None = None
 
     @property
@@ -67,6 +68,8 @@ class DynamicMajor(Struct):
             return self.archive.desc
         elif self.type == "MAJOR_TYPE_OPUS" and self.opus:
             return self.opus.summary.text
+        elif self.desc:
+            return self.desc.text
         return None
 
     @property
@@ -122,7 +125,10 @@ class DynamicModule(Struct):
     def major_info(self) -> dict[str, Any] | None:
         """获取主要内容信息"""
         if self.module_dynamic:
-            return self.module_dynamic.get("major")
+            if major := self.module_dynamic.get("major"):
+                return major
+            # 转发类型动态没有 major
+            return self.module_dynamic
         return None
 
 
@@ -194,13 +200,13 @@ class DynamicInfo(Struct):
             major_images = major.image_urls
             if major_images:
                 return major_images
-        
+
         # 2. 处理分享图片的动态，可能直接包含图片信息
         # 检查是否为图文动态类型
         if self.type == "DYNAMIC_TYPE_DRAW" and self.modules.module_dynamic:
             # 从module_dynamic中查找图片信息
             dynamic_data = self.modules.module_dynamic
-            
+
             # 检查是否有pictures字段
             if isinstance(dynamic_data, dict):
                 # 尝试从不同位置获取图片
@@ -217,7 +223,7 @@ class DynamicInfo(Struct):
                             draw = major["draw"]
                             if "pictures" in draw:
                                 return [pic.get("img_src", "") for pic in draw["pictures"] if pic.get("img_src")]
-        
+
         # 3. 转发动态时，如果主体没有图片，不再从orig获取图片
         # 直接返回空列表，后续会使用默认图片
         return []
@@ -232,12 +238,12 @@ class DynamicInfo(Struct):
             cover = major.cover_url
             if cover:
                 return cover
-        
+
         # 2. 从图片列表中获取第一张作为封面
         image_urls = self.image_urls
         if image_urls:
             return image_urls[0]
-        
+
         # 3. 转发动态时，不再从orig获取封面
         return None
 

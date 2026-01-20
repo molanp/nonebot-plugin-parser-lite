@@ -74,10 +74,11 @@ class BilibiliParser(BaseParser):
 
     @handle("/dynamic/", r"bilibili\.com/dynamic/(?P<dynamic_id>\d+)")
     @handle("t.bili", r"t\.bilibili\.com/(?P<dynamic_id>\d+)")
+    @handle("/opus/", r"bilibili\.com/opus/(?P<dynamic_id>\d+)")
     async def _parse_dynamic(self, searched: Match[str]):
         """解析动态信息"""
         dynamic_id = int(searched.group("dynamic_id"))
-        return await self.parse_dynamic(dynamic_id)
+        return await self.parse_dynamic_or_opus(dynamic_id)
 
     @handle("live.bili", r"live\.bilibili\.com/(?P<room_id>\d+)")
     async def _parse_live(self, searched: Match[str]):
@@ -95,13 +96,7 @@ class BilibiliParser(BaseParser):
     async def _parse_read(self, searched: Match[str]):
         """解析专栏信息"""
         read_id = int(searched.group("read_id"))
-        return await self.parse_read_with_opus(read_id)
-
-    @handle("/opus/", r"bilibili\.com/opus/(?P<opus_id>\d+)")
-    async def _parse_opus(self, searched: Match[str]):
-        """解析图文动态信息"""
-        opus_id = int(searched.group("opus_id"))
-        return await self.parse_opus(opus_id)
+        return await self.parse_read(read_id)
 
     async def parse_video(
         self,
@@ -156,7 +151,7 @@ class BilibiliParser(BaseParser):
                 )
             else:
                 return await DOWNLOADER.streamd(v_url, file_name=output_path.name, ext_headers=self.headers)
-        
+
         # 创建视频下载内容（传递下载函数而非立即执行）
         video_content = self.create_video_content(
             download_video,
@@ -203,8 +198,8 @@ class BilibiliParser(BaseParser):
             extra=extra_data,
         )
 
-    async def parse_dynamic(self, dynamic_id: int):
-        """解析动态信息
+    async def parse_dynamic_or_opus(self, dynamic_id: int):
+        """解析动态和图文信息
 
         Args:
             url (str): 动态链接
@@ -214,21 +209,10 @@ class BilibiliParser(BaseParser):
         from .dynamic import DynamicData
 
         dynamic = Dynamic(dynamic_id, await self.credential)
-        
-        # 获取动态信息
+        if await dynamic.is_article():
+            return await self._parse_opus_obj(dynamic.turn_to_opus())
+
         dynamic_info_data = await dynamic.get_info()
-        
-        # 【新增】如果是专栏文章，使用 opus 接口解析
-        if dynamic.is_article:
-            dynamic_info = convert(dynamic_info_data, DynamicData).item
-            basic = dynamic_info.basic
-            if basic and basic.get("jump_url"):
-                import re
-                match = re.search(r"/opus/(\d+)", basic["jump_url"])
-                if match:
-                    opus_id = int(match.group(1))
-                    return await self.parse_opus(opus_id)
-        
         dynamic_info = convert(dynamic_info_data, DynamicData).item
 
         author = self.create_author(dynamic_info.name, dynamic_info.avatar)
@@ -236,7 +220,7 @@ class BilibiliParser(BaseParser):
         # 下载图片
         contents: list[MediaContent] = []
         image_urls = dynamic_info.image_urls
-        
+
         # 只下载主体图片，不添加默认图片到contents
         for image_url in image_urls:
             img_task = DOWNLOADER.download_img(image_url, ext_headers=self.headers)
@@ -254,8 +238,10 @@ class BilibiliParser(BaseParser):
                     "favorite": self._format_stat(m_stat.get("favorite", {}).get("count", 0)),
                 }
             # 检查是否有浏览量字段
-            if hasattr(dynamic_info.modules, "module_author") and hasattr(dynamic_info.modules.module_author, "views_text"):
-                views_value = dynamic_info.modules.module_author.views_text
+            modules = dynamic_info.modules
+            if (hasattr(modules, "module_author") and
+                hasattr(modules.module_author, "views_text")):
+                views_value = modules.module_author.views_text
                 if views_value is not None:
                     stats["play"] = views_value
         except Exception:
@@ -286,7 +272,7 @@ class BilibiliParser(BaseParser):
                 orig_text = orig_item.text
                 orig_author = orig_item.name
                 major_type = None
-                
+
                 if major_info:
                     major_type = major_info.get("type")
                     if major_type == "MAJOR_TYPE_ARCHIVE":
@@ -347,7 +333,7 @@ class BilibiliParser(BaseParser):
                 # 【新增】如果是动态，使用动态解析获取完整内容
                 elif dynamic_info.orig:
                     try:
-                        repost_result = await self.parse_dynamic(int(orig_item.id_str))
+                        repost_result = await self.parse_dynamic_or_opus(int(orig_item.id_str))
                         # 使用解析结果更新源动态信息
                         if repost_result.title:
                             orig_title = repost_result.title
@@ -380,13 +366,13 @@ class BilibiliParser(BaseParser):
         # 获取标题和文本
         dynamic_title = dynamic_info.title or "B站动态"
         dynamic_text = dynamic_info.text
-        
+
         # 如果标题和文本内容一致，则将文本置空，避免重复展示
         final_text = dynamic_text if dynamic_text and dynamic_text != dynamic_title else None
-        
+
         # 构建动态URL，用于二维码生成（使用t.bilibili.com格式）
         dynamic_url = f"https://t.bilibili.com/{dynamic_id}"
-        
+
         return self.result(
             url=dynamic_url,
             title=dynamic_title,
@@ -405,9 +391,9 @@ class BilibiliParser(BaseParser):
             opus_id (int): 图文动态 id
         """
         opus = Opus(opus_id, await self.credential)
-        return await self._parse_opus_obj(opus, opus_id)
+        return await self._parse_opus_obj(opus)
 
-    async def parse_read_with_opus(self, read_id: int):
+    async def parse_read(self, read_id: int):
         """解析专栏信息, 使用 Opus 接口
 
         Args:
@@ -417,11 +403,9 @@ class BilibiliParser(BaseParser):
 
         article = Article(read_id)
         bili_opus = await article.turn_to_opus()
-        # 从 opus 对象获取 id
-        opus_id = getattr(bili_opus, '_opus_id', None) or getattr(bili_opus, 'id', read_id)
-        return await self._parse_opus_obj(bili_opus, int(opus_id))
+        return await self._parse_opus_obj(bili_opus)
 
-    async def _parse_opus_obj(self, bili_opus: Opus, opus_id: int | None = None):
+    async def _parse_opus_obj(self, bili_opus: Opus):
         """解析图文动态信息
 
         Args:
@@ -472,7 +456,7 @@ class BilibiliParser(BaseParser):
                 full_text_list.append(node.text)
 
         full_text = "\n".join(full_text_list).strip()
-        
+
         # 如果没有提取到文本，尝试从原始结构体中直接获取
         if not full_text:
             # 遍历所有模块，寻找可能的文本内容
@@ -537,24 +521,22 @@ class BilibiliParser(BaseParser):
         # 优先使用basic.title作为标题，如果没有则使用提取的文本或默认值
         # 如果标题和文本内容一致，则将文本置空，避免重复展示
         basic_title = opus_data.item.basic.title if opus_data.item.basic else None
-        
+
         # 提取原始标题，移除默认的"xxx的动态-哔哩哔哩"格式
         original_title = basic_title
         if original_title and f"{author_name}的动态 - 哔哩哔哩" in original_title:
             original_title = None
-        
+
         # 确定最终标题
         final_title = original_title or full_text or f"{author_name}的哔哩哔哩动态"
-        
+
         # 如果标题和文本内容一致，则将文本置空
         final_text = full_text if full_text and full_text != final_title else None
-        
+
         # 构建图文动态URL，用于二维码生成
-        if opus_id:
-            opus_url = f"https://www.bilibili.com/opus/{opus_id}"
-        else:
-            opus_url = None
-        
+        opus_id = getattr(bili_opus, "_opus_id", None) or getattr(bili_opus, "id", None)
+        opus_url = f"https://www.bilibili.com/opus/{opus_id}" if opus_id else None
+
         return self.result(
             url=opus_url,
             title=final_title,
