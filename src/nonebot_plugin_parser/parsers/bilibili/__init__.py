@@ -235,9 +235,21 @@ class BilibiliParser(BaseParser):
 
         # 下载图片
         contents: list[MediaContent] = []
-        for image_url in dynamic_info.image_urls:
-            img_task = DOWNLOADER.download_img(image_url, ext_headers=self.headers)
-            contents.append(ImageContent(img_task))
+        image_urls = dynamic_info.image_urls
+        
+        # 如果没有图片，使用默认图片
+        if not image_urls:
+            # 使用相对路径，让渲染器可以找到默认图片
+            import os
+            default_image_path = os.path.join(os.path.dirname(__file__), '../../renders/resources/QIQI.jpg')
+            if os.path.exists(default_image_path):
+                # 添加默认图片到contents
+                contents.append(ImageContent(lambda: default_image_path))
+        else:
+            # 下载主体图片
+            for image_url in image_urls:
+                img_task = DOWNLOADER.download_img(image_url, ext_headers=self.headers)
+                contents.append(ImageContent(img_task))
 
         # 提取当前动态的统计数据
         stats = {}
@@ -305,9 +317,6 @@ class BilibiliParser(BaseParser):
                 if not orig_cover and orig_item.image_urls:
                     orig_cover = orig_item.image_urls[0]
 
-                # 获取源动态的所有图片列表
-                orig_images = orig_item.image_urls
-                
                 # 【新增】如果是专栏文章，使用 opus 解析获取完整内容
                 if is_article:
                     opus_data = major_info.get("opus", {})
@@ -318,8 +327,6 @@ class BilibiliParser(BaseParser):
                             opus_id = int(match.group(1))
                             try:
                                 repost_result = await self.parse_opus(opus_id)
-                                # 将专栏内容添加到 contents
-                                contents.extend(repost_result.contents)
                                 # 使用解析结果更新源动态信息
                                 if repost_result.title:
                                     orig_title = repost_result.title
@@ -327,20 +334,37 @@ class BilibiliParser(BaseParser):
                                     orig_text = repost_result.text
                                 if repost_result.author:
                                     orig_author = repost_result.author.name
-                                # 更新封面为专栏第一张图
-                                if not orig_cover and repost_result.contents:
-                                    # 从contents中找到第一张图片作为封面
-                                    for content in repost_result.contents:
-                                        if hasattr(content, 'path') or hasattr(content, 'task'):
-                                            # 尝试获取图片路径
-                                            pass
                             except Exception as e:
                                 logger.warning(f"解析转发专栏失败: {e}")
-                else:
-                    # 下载源动态的图片并添加到contents列表中
-                    for image_url in orig_images:
-                        img_task = DOWNLOADER.download_img(image_url, ext_headers=self.headers)
-                        contents.append(ImageContent(img_task))
+                # 【新增】如果是视频，使用视频解析获取完整内容
+                elif major_type == "MAJOR_TYPE_ARCHIVE" and major_info.get("archive"):
+                    archive_data = major_info.get("archive", {})
+                    bvid = archive_data.get("bvid")
+                    if bvid:
+                        try:
+                            repost_result = await self.parse_video(bvid=bvid)
+                            # 使用解析结果更新源动态信息
+                            if repost_result.title:
+                                orig_title = repost_result.title
+                            if repost_result.text:
+                                orig_text = repost_result.text
+                            if repost_result.author:
+                                orig_author = repost_result.author.name
+                        except Exception as e:
+                            logger.warning(f"解析转发视频失败: {e}")
+                # 【新增】如果是动态，使用动态解析获取完整内容
+                elif dynamic_info.orig:
+                    try:
+                        repost_result = await self.parse_dynamic(int(orig_item.id_str))
+                        # 使用解析结果更新源动态信息
+                        if repost_result.title:
+                            orig_title = repost_result.title
+                        if repost_result.text:
+                            orig_text = repost_result.text
+                        if repost_result.author:
+                            orig_author = repost_result.author.name
+                    except Exception as e:
+                        logger.warning(f"解析转发动态失败: {e}")
 
                 # 构造 origin 字典（使用更新后的信息）
                 extra_data["origin"] = {
@@ -349,7 +373,6 @@ class BilibiliParser(BaseParser):
                     "title": orig_title,
                     "text": orig_text,
                     "cover": orig_cover,
-                    "images": orig_images,
                     "type_tag": orig_type_tag,
                     "mid": str(orig_item.modules.module_author.mid),
                 }

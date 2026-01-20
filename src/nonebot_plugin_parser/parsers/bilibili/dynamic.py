@@ -218,10 +218,8 @@ class DynamicInfo(Struct):
                             if "pictures" in draw:
                                 return [pic.get("img_src", "") for pic in draw["pictures"] if pic.get("img_src")]
         
-        # 3. 如果是转发动态，检查orig字段
-        if self.orig:
-            return self.orig.image_urls
-        
+        # 3. 转发动态时，如果主体没有图片，不再从orig获取图片
+        # 直接返回空列表，后续会使用默认图片
         return []
 
     @property
@@ -240,10 +238,7 @@ class DynamicInfo(Struct):
         if image_urls:
             return image_urls[0]
         
-        # 3. 如果是转发动态，检查orig字段
-        if self.orig:
-            return self.orig.cover_url
-        
+        # 3. 转发动态时，不再从orig获取封面
         return None
 
 

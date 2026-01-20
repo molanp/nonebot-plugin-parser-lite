@@ -415,7 +415,7 @@
     {% set type_icon = extra.type_icon if extra.type_icon else "fa-brands fa-bilibili" %}
     {% set type = extra.type if extra.type else "video" %}
 
-    <div class="card">
+    <div class="card" {% if is_repost %}style="width: 100%; margin-bottom: 0;"{% endif %}>
         {% if not is_repost %}
         <div class="decorative-stripe"></div>
         {% endif %}
@@ -564,75 +564,7 @@
 
             {# --- 【新增】Extra Origin 转发区域 --- #}
             {% if result.extra.origin %}
-                <div class="repost-box">
-                    {% if result.extra.origin.exists %}
-                        <div class="repost-header">
-                            <span class="repost-tag">{{ result.extra.origin.type_tag }}</span>
-                            <span class="repost-author">@{{ result.extra.origin.author }}</span>
-                            {% if result.extra.origin.mid %}
-                            <span style="font-size: 12px; color: #999;">(UID: {{ result.extra.origin.mid }})</span>
-                            {% endif %}
-                        </div>
-                        
-                        {% set origin_title = result.extra.origin.title %}
-                        {% set origin_text = result.extra.origin.text %}
-                        
-                        {# 处理标题：如果没有标题，显示默认值；如果有标题，使用原始标题 #}
-                        {% if origin_title %}
-                            <div class="repost-title">{{ origin_title }}</div>
-                        {% else %}
-                            <div class="repost-title">{{ result.extra.origin.author }}的哔哩哔哩动态</div>
-                        {% endif %}
-
-                        {# 处理文本：如果文本与标题一致，则不显示；否则正常显示 #}
-                        {% if origin_text and origin_text != origin_title %}
-                            <div class="repost-content">{{ origin_text }}</div>
-                        {% endif %}
-
-                        {# --- 图片展示逻辑优化 --- #}
-                        {% set orig_imgs = result.extra.origin.images %}
-                        {% set is_video = result.extra.origin.type_tag == '视频' %}
-
-                        {# 情况1：视频内容，或者只有一张图 -> 显示大图(原有逻辑) #}
-                        {% if is_video or (orig_imgs and orig_imgs|length == 1) %}
-                                <div class="repost-media">
-                                <img src="{{ result.extra.origin.cover }}" referrerpolicy="no-referrer" alt="转发图片">
-                                {% if is_video %}
-                                    <!-- 可选：加个播放按钮图标提示这是视频 -->
-                                    <div class="play-btn-overlay" style="width:40px;height:40px;font-size:16px;">
-                                        <i class="fas fa-play" style="margin-left:2px;"></i>
-                                    </div>
-                                {% endif %}
-                            </div>
-
-                        {# 情况2：多图 -> 显示九宫格 #}
-                        {% elif orig_imgs and orig_imgs|length > 1 %}
-                            {% set count = orig_imgs|length %}
-                            {% set grid_class = 'double' %}
-                            {% if count >= 3 %}{% set grid_class = 'nine' %}
-                            {% elif count == 4 %}{% set grid_class = 'quad' %}{% endif %}
-                            
-                            <div class="images-container" style="margin-top: 10px; margin-bottom: 0;">
-                                <div class="images-grid {{ grid_class }}">
-                                    {% for img_url in orig_imgs[:9] %}
-                                    <div class="image-item">
-                                        <img src="{{ img_url }}" referrerpolicy="no-referrer">
-                                        {% if loop.last and count > 9 %}
-                                        <div class="more-count">+{{ count - 9 }}</div>
-                                        {% endif %}
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% else %}
-                        <!-- 资源失效显示 -->
-                        <div class="repost-deleted">
-                            <i class="fas fa-triangle-exclamation"></i>
-                            <span>{{ result.extra.origin.text or '源动态已被删除或不可见' }}</span>
-                        </div>
-                    {% endif %}
-                </div>
+                {# 只显示嵌套卡片，不显示旧的文本内容 #}
             {% endif %}
 
             {# --- 图片网格 --- #}
@@ -664,14 +596,16 @@
             {% endif %}
 
             {# --- 旧版 Repost (保留兼容性) --- #}
-            {% if result.repost %}
-            <div style="margin-top: 20px; border: 1px solid #eee; background-color: #fafbfc; border-radius: 8px; padding: 15px;">
-                <div style="margin-bottom:10px; color:#666; font-size:14px; font-weight:600;">
-                    <i class="fas fa-share" style="margin-right:5px;"></i> 转发内容 (Legacy)
-                </div>
+        {% if result.repost %}
+        <div style="margin-top: 20px; border: 1px solid #eee; background-color: #fafbfc; border-radius: 8px; padding: 15px;">
+            <div style="margin-bottom:10px; color:#666; font-size:14px; font-weight:600;">
+                <i class="fas fa-share" style="margin-right:5px;"></i> 转发内容
+            </div>
+            <div style="width: 100%; overflow: hidden;">
                 {{ render_card(result.repost, is_repost=True) }}
             </div>
-            {% endif %}
+        </div>
+        {% endif %}
         </div>
 
         {# --- 底部 --- #}
