@@ -136,9 +136,10 @@ class FontSet:
     @classmethod
     def new(cls, font_path: Path):
         font_infos: dict[str, FontInfo] = {}
-        with open(font_path, "rb") as f:
-            font_bytes = BytesIO(f.read())
+        font_data = font_path.read_bytes()
         for name, size, fill in cls._FONT_INFOS:
+            # 为每个字体创建一个新的BytesIO对象
+            font_bytes = BytesIO(font_data)
             font = ImageFont.truetype(font_bytes, size, encoding="utf-8")
             height = get_font_height(font)
             font_infos[name] = FontInfo(
