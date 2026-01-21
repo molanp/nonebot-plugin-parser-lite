@@ -931,8 +931,100 @@ class BilibiliParser(BaseParser):
                         })
                     
                     return processed_comments
-                logger.debug(f"[Bilibili] 热评API返回数据为空或错误: code={data.get('code')}, message={data.get('message')}")
-                return []
+                logger.debug(f"[Bilibili] 热评API返回数据为空或错误: code={data.get('code')}, message={data.get('message')}， `https://api.bilibili.com/x/v2/reply` 作为兜底，我们获取每页50项，查看第一页")
+                # 使用普通评论API作为兜底，按点赞数排序，获取第一页50条
+                fallback_api_url = "https://api.bilibili.com/x/v2/reply"
+                fallback_params = {
+                    "oid": oid,
+                    "type": type,
+                    "sort": 1,  # 按点赞数排序
+                    "ps": 50,  # 每页50条
+                    "pn": 1,   # 第1页
+                }
+                
+                try:
+                    response = await client.get(fallback_api_url, params=fallback_params, headers=request_headers)
+                    response.raise_for_status()
+                    fallback_data = response.json()
+                    
+                    logger.debug(f"[Bilibili] 兜底评论API返回: {fallback_data}")
+                    
+                    if fallback_data.get("code") == 0 and fallback_data.get("data"):
+                        fallback_replies = fallback_data["data"].get("replies", [])
+                        logger.debug(f"[Bilibili] 获得兜底评论: {len(fallback_replies)}条")
+                        
+                        # 处理评论数据，直接封装为前端可直接使用的格式
+                        processed_comments = []
+                        for comment in fallback_replies[:10]:
+                            # 处理评论内容，包括图片
+                            content = comment.get("content", {})
+                            message = content.get("message", "")
+                            
+                            # 处理评论中的图片
+                            processed_content = message
+                            if content.get("pictures"):
+                                for picture in content["pictures"]:
+                                    img_src = picture.get("img_src", "")
+                                    if img_src:
+                                        processed_content += f'<img src="{img_src}" style="max-width: 100%; height: auto; border-radius: 8px; margin: 5px 0;">'
+                            
+                            # 格式化时间戳为可读时间
+                            import datetime
+                            created_time = comment.get("ctime", 0)
+                            formatted_time = datetime.datetime.fromtimestamp(created_time).strftime("%Y-%m-%d %H:%M:%S")
+                            
+                            # 处理子回复
+                            child_posts = []
+                            if comment.get("replies"):
+                                for reply in comment["replies"][:5]:  # 最多显示5条回复
+                                    reply_content = reply.get("content", {})
+                                    reply_message = reply_content.get("message", "")
+                                    
+                                    # 处理回复中的图片
+                                    processed_reply_content = reply_message
+                                    if reply_content.get("pictures"):
+                                        for picture in reply_content["pictures"]:
+                                            img_src = picture.get("img_src", "")
+                                            if img_src:
+                                                processed_reply_content += f'<img src="{img_src}" style="max-width: 100%; height: auto; border-radius: 6px; margin: 4px 0;">'
+                                    
+                                    # 格式化回复时间
+                                    reply_created_time = reply.get("ctime", 0)
+                                    reply_formatted_time = datetime.datetime.fromtimestamp(reply_created_time).strftime("%Y-%m-%d %H:%M:%S")
+                                    
+                                    child_posts.append({
+                                        "id": reply.get("rpid_str", ""),
+                                        "author": {
+                                            "id": reply.get("mid", ""),
+                                            "name": reply.get("member", {}).get("uname", ""),
+                                            "avatar": reply.get("member", {}).get("avatar", "")
+                                        },
+                                        "content": processed_reply_content,
+                                        "created_time": reply_formatted_time,
+                                        "like": reply.get("like", 0)
+                                    })
+                            
+                            # 封装评论数据
+                            processed_comments.append({
+                                "id": comment.get("rpid_str", ""),
+                                "author": {
+                                    "id": comment.get("mid", ""),
+                                    "name": comment.get("member", {}).get("uname", ""),
+                                    "avatar": comment.get("member", {}).get("avatar", "")
+                                },
+                                "content": processed_content,
+                                "created_time": formatted_time,
+                                "like": comment.get("like", 0),
+                                "replies_count": comment.get("count", 0),
+                                "child_posts": child_posts
+                            })
+                        
+                        return processed_comments
+                    logger.debug(f"[Bilibili] 兜底评论API返回数据为空或错误: code={fallback_data.get('code')}, message={fallback_data.get('message')}")
+                    return []
+                except Exception as e:
+                    logger.error(f"[Bilibili] 获取兜底评论失败: {e}")
+                    return None
         except Exception as e:
             logger.error(f"[Bilibili] 获取热评失败: {e}")
             return None
