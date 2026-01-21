@@ -265,10 +265,12 @@ class BilibiliParser(BaseParser):
         from .dynamic import DynamicData
 
         dynamic = Dynamic(dynamic_id, await self.credential)
+        logger.debug(f"B站解析 动态链接 原始：{dynamic}")
         if await dynamic.is_article():
             return await self._parse_opus_obj(dynamic.turn_to_opus())
 
         dynamic_info_data = await dynamic.get_info()
+        logger.debug(f"B站动态链接 dynamic_info_data 原始：{dynamic_info_data}")
         dynamic_info = convert(dynamic_info_data, DynamicData).item
 
         author = self.create_author(dynamic_info.name, dynamic_info.avatar)
@@ -455,6 +457,7 @@ class BilibiliParser(BaseParser):
             opus_id (int): 图文动态 id
         """
         opus = Opus(opus_id, await self.credential)
+        logger.debug(f"B站OPUS解析 图文动态 原始：{opus}")
         return await self._parse_opus_obj(opus)
 
     async def parse_read(self, read_id: int):
@@ -467,6 +470,7 @@ class BilibiliParser(BaseParser):
 
         article = Article(read_id)
         bili_opus = await article.turn_to_opus()
+        logger.debug(f"B站OPUS解析 专栏 原始：{bili_opus}")
         return await self._parse_opus_obj(bili_opus)
 
     async def _parse_opus_obj(self, bili_opus: Opus):
@@ -482,6 +486,7 @@ class BilibiliParser(BaseParser):
         from .opus import OpusItem, TextNode, ImageNode
 
         opus_info = await bili_opus.get_info()
+        logger.debug(f"B站OPUS解析原始：{opus_info}")
         if not isinstance(opus_info, dict):
             raise ParseException("获取图文动态信息失败")
         # 转换为结构体
@@ -634,6 +639,7 @@ class BilibiliParser(BaseParser):
         from .live import RoomData
 
         room = LiveRoom(room_display_id=room_id, credential=await self.credential)
+        logger.debug(f"B站直播解析原始：{room}")
         info_dict = await room.get_room_info()
 
         room_data = convert(info_dict, RoomData)
