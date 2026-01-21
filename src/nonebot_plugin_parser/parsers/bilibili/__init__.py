@@ -211,68 +211,25 @@ class BilibiliParser(BaseParser):
         except Exception as e:
             logger.warning(f"[BiliParser] 统计数据提取异常: {e}")
 
-        # 获取评论数据 - 使用bvid对应的aid或直接使用bvid作为oid
-        # 由于VideoInfo没有aid属性，我们需要从原始视频对象获取或使用其他方式
-        # 对于视频评论，oid可以是aid或bvid对应的数值，这里使用bvid的数值形式
-        comments = await self._fetch_comments(self.bv2av(video_info.bvid), 1)  # type=1 表示视频
-        logger.debug(str(comments)[:210])
-        processed_comments = []
-        if comments:
-            for comment in comments:
-                # 处理评论数据
-                content = comment.get("content", {})
-                message = content.get("message", "")
-                
-                # 处理评论中的图片
-                processed_content = message
-                if content.get("pictures"):
-                    for picture in content["pictures"]:
-                        img_src = picture.get("img_src", "")
-                        if img_src:
-                            processed_content += f'<div class="comment-image" style="margin: 10px 0;"><img src="{img_src}" alt="评论图片" style="max-width: 100%; height: auto; border-radius: 8px;"></div>'
-                
-                processed_comment = {
-                    "id": comment.get("rpid_str", ""),
-                    "author": {
-                        "id": comment.get("mid", ""),
-                        "name": comment.get("member", {}).get("uname", ""),
-                        "avatar": comment.get("member", {}).get("avatar", "")
-                    },
-                    "content": processed_content,
-                    "created_time": comment.get("ctime", 0),
-                    "like": comment.get("like", 0),
-                    "replies_count": comment.get("count", 0),
-                    "child_posts": []  # 楼中楼评论
-                }
-                
-                # 处理楼中楼评论，最多显示5条
-                if comment.get("replies"):
-                    for reply in comment["replies"][:5]:
-                        reply_content = reply.get("content", {})
-                        reply_message = reply_content.get("message", "")
-                        
-                        # 处理回复中的图片
-                        processed_reply_content = reply_message
-                        if reply_content.get("pictures"):
-                            for picture in reply_content["pictures"]:
-                                img_src = picture.get("img_src", "")
-                                if img_src:
-                                    processed_reply_content += f'<div class="comment-image" style="margin: 10px 0;"><img src="{img_src}" alt="评论图片" style="max-width: 100%; height: auto; border-radius: 8px;"></div>'
-                        
-                        processed_reply = {
-                            "id": reply.get("rpid_str", ""),
-                            "author": {
-                                "id": reply.get("mid", ""),
-                                "name": reply.get("member", {}).get("uname", ""),
-                                "avatar": reply.get("member", {}).get("avatar", "")
-                            },
-                            "content": processed_reply_content,
-                            "created_time": reply.get("ctime", 0),
-                            "like": reply.get("like", 0)
-                        }
-                        processed_comment["child_posts"].append(processed_reply)
-                logger.debug(f"当前评论：{processed_comment}")
-                processed_comments.append(processed_comment)
+        # 使用BV-AV转换算法将BV号转换为AV号
+        bvid = video_info.bvid
+        try:
+            if bvid.startswith('BV'):
+                # 使用类中已封装的bv2av方法进行转换
+                video_oid = self.bv2av(bvid)
+                logger.debug(f"[BiliParser] BV号 {bvid} 转换为AV号 {video_oid}")
+            else:
+                # 如果不是BV号，直接使用
+                video_oid = int(bvid)
+        except Exception as e:
+            logger.error(f"[BiliParser] BV-AV转换失败: {e}")
+            # 转换失败时使用BV号的数值形式作为oid
+            video_oid = int(bvid.replace('BV', ''), 36)
+            logger.debug(f"[BiliParser] 使用备用方法获取oid: {video_oid}")
+        
+        # 获取评论数据 - _fetch_comments方法已经处理好所有数据
+        comments = await self._fetch_comments(video_oid, 1)  # type=1 表示视频
+        processed_comments = comments if comments else []
 
         # 构造 extra_data
         extra_data = {
@@ -472,44 +429,13 @@ class BilibiliParser(BaseParser):
         # 构建动态URL，用于二维码生成（使用t.bilibili.com格式）
         dynamic_url = f"https://t.bilibili.com/{dynamic_id}"
         
-        # 获取评论数据
+        # 获取评论数据 - _fetch_comments方法已经处理好所有数据
         comments = await self._fetch_comments(dynamic_id, 11)  # type=11 表示动态
         if comments:
-            processed_comments = []
-            for comment in comments:
-                # 处理评论数据
-                processed_comment = {
-                    "id": comment.get("rpid_str", ""),
-                    "author": {
-                        "id": comment.get("mid", ""),
-                        "name": comment.get("member", {}).get("uname", ""),
-                        "avatar": comment.get("member", {}).get("avatar", "")
-                    },
-                    "content": comment.get("content", {}).get("message", ""),
-                    "created_time": comment.get("ctime", 0),
-                    "like": comment.get("like", 0),
-                    "replies_count": comment.get("count", 0),
-                    "child_posts": []  # 楼中楼评论
-                }
-                
-                # 处理楼中楼评论，最多显示5条
-                if comment.get("replies"):
-                    for reply in comment["replies"][:5]:
-                        processed_reply = {
-                            "id": reply.get("rpid_str", ""),
-                            "author": {
-                                "id": reply.get("mid", ""),
-                                "name": reply.get("member", {}).get("uname", ""),
-                                "avatar": reply.get("member", {}).get("avatar", "")
-                            },
-                            "content": reply.get("content", {}).get("message", ""),
-                            "created_time": reply.get("ctime", 0),
-                            "like": reply.get("like", 0)
-                        }
-                        processed_comment["child_posts"].append(processed_reply)
-                
-                processed_comments.append(processed_comment)
-            extra_data["comments"] = processed_comments
+            extra_data["comments"] = comments
+            logger.debug(f"[BiliParser] 成功获取 {len(comments)} 条动态评论")
+        else:
+            logger.debug(f"[BiliParser] 未获取到动态评论")
         
         return self.result(
             url=dynamic_url,
@@ -675,45 +601,14 @@ class BilibiliParser(BaseParser):
         opus_id = getattr(bili_opus, "_opus_id", None) or getattr(bili_opus, "id", None)
         opus_url = f"https://www.bilibili.com/opus/{opus_id}" if opus_id else None
         
-        # 获取评论数据
+        # 获取评论数据 - _fetch_comments方法已经处理好所有数据
         content_id = str(opus_data.item.id_str)
         comments = await self._fetch_comments(int(content_id), 17)  # type=17 表示专栏/图文
         if comments:
-            processed_comments = []
-            for comment in comments:
-                # 处理评论数据
-                processed_comment = {
-                    "id": comment.get("rpid_str", ""),
-                    "author": {
-                        "id": comment.get("mid", ""),
-                        "name": comment.get("member", {}).get("uname", ""),
-                        "avatar": comment.get("member", {}).get("avatar", "")
-                    },
-                    "content": comment.get("content", {}).get("message", ""),
-                    "created_time": comment.get("ctime", 0),
-                    "like": comment.get("like", 0),
-                    "replies_count": comment.get("count", 0),
-                    "child_posts": []  # 楼中楼评论
-                }
-                
-                # 处理楼中楼评论，最多显示5条
-                if comment.get("replies"):
-                    for reply in comment["replies"][:5]:
-                        processed_reply = {
-                            "id": reply.get("rpid_str", ""),
-                            "author": {
-                                "id": reply.get("mid", ""),
-                                "name": reply.get("member", {}).get("uname", ""),
-                                "avatar": reply.get("member", {}).get("avatar", "")
-                            },
-                            "content": reply.get("content", {}).get("message", ""),
-                            "created_time": reply.get("ctime", 0),
-                            "like": reply.get("like", 0)
-                        }
-                        processed_comment["child_posts"].append(processed_reply)
-                
-                processed_comments.append(processed_comment)
-            extra_data["comments"] = processed_comments
+            extra_data["comments"] = comments
+            logger.debug(f"[BiliParser] 成功获取 {len(comments)} 条专栏/图文评论")
+        else:
+            logger.debug(f"[BiliParser] 未获取到专栏/图文评论")
         
         return self.result(
             url=opus_url,
@@ -936,46 +831,110 @@ class BilibiliParser(BaseParser):
         Returns:
             评论列表，按点赞数排序，最多10条
         """
-        api_url = "https://api.bilibili.com/x/v2/reply"
+        # 使用热评接口获取评论
+        api_url = "https://api.bilibili.com/x/v2/reply/hot"
         params = {
             "oid": oid,
             "type": type,
-            "sort": 1,  # 按点赞数排序
-            "ps": 10,  # 每页10条
+            "root": 0,  # 根回复rpid，0表示获取所有热评
+            "ps": 10,  # 每页10条热评
             "pn": 1,   # 第1页
-            "nohot": 0 # 显示热评
         }
         
         try:
-            async with httpx.AsyncClient(timeout=10.0, headers=self.headers) as client:
-                response = await client.get(api_url, params=params)
+            # 创建包含基本headers的请求头
+            request_headers = self.headers.copy()
+            # 添加cookie信息到请求头
+            if self._credential:
+                cookies = self._credential.get_cookies()
+                if cookies:
+                    request_headers.update({
+                        "Cookie": "; ".join([f"{k}={v}" for k, v in cookies.items()])
+                    })
+            
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                logger.debug(f"[Bilibili] 调用热评API: {api_url}, 参数: {params}")
+                response = await client.get(api_url, params=params, headers=request_headers)
                 response.raise_for_status()
                 data = response.json()
                 
+                logger.debug(f"[Bilibili] 热评API返回: {data}")
+                
                 if data.get("code") == 0 and data.get("data"):
-                    comments = []
-                    # 先获取热评
-                    if data["data"].get("hots"):
-                        comments.extend(data["data"]["hots"])
-                    # 再获取按点赞排序的评论
-                    if data["data"].get("replies"):
-                        comments.extend(data["data"]["replies"])
+                    replies = data["data"].get("replies", [])
+                    logger.debug(f"[Bilibili] 获得热评: {len(replies)}条")
                     
-                    # 按点赞数排序，去重，取前10
-                    unique_comments = {}
-                    for comment in comments:
-                        rpid = comment.get("rpid")
-                        if rpid not in unique_comments:
-                            unique_comments[rpid] = comment
+                    # 处理评论数据，直接封装为前端可直接使用的格式
+                    processed_comments = []
+                    for comment in replies[:10]:
+                        # 处理评论内容，包括图片
+                        content = comment.get("content", {})
+                        message = content.get("message", "")
+                        
+                        # 处理评论中的图片
+                        processed_content = message
+                        if content.get("pictures"):
+                            for picture in content["pictures"]:
+                                img_src = picture.get("img_src", "")
+                                if img_src:
+                                    processed_content += f'<img src="{img_src}" style="max-width: 100%; height: auto; border-radius: 8px; margin: 5px 0;">'  # 直接生成HTML
+                        
+                        # 格式化时间戳为可读时间
+                        import datetime
+                        created_time = comment.get("ctime", 0)
+                        formatted_time = datetime.datetime.fromtimestamp(created_time).strftime("%Y-%m-%d %H:%M:%S")
+                        
+                        # 处理子回复
+                        child_posts = []
+                        if comment.get("replies"):
+                            for reply in comment["replies"][:5]:  # 最多显示5条回复
+                                reply_content = reply.get("content", {})
+                                reply_message = reply_content.get("message", "")
+                                
+                                # 处理回复中的图片
+                                processed_reply_content = reply_message
+                                if reply_content.get("pictures"):
+                                    for picture in reply_content["pictures"]:
+                                        img_src = picture.get("img_src", "")
+                                        if img_src:
+                                            processed_reply_content += f'<img src="{img_src}" style="max-width: 100%; height: auto; border-radius: 6px; margin: 4px 0;">'  # 直接生成HTML
+                                
+                                # 格式化回复时间
+                                reply_created_time = reply.get("ctime", 0)
+                                reply_formatted_time = datetime.datetime.fromtimestamp(reply_created_time).strftime("%Y-%m-%d %H:%M:%S")
+                                
+                                child_posts.append({
+                                    "id": reply.get("rpid_str", ""),
+                                    "author": {
+                                        "id": reply.get("mid", ""),
+                                        "name": reply.get("member", {}).get("uname", ""),
+                                        "avatar": reply.get("member", {}).get("avatar", "")
+                                    },
+                                    "content": processed_reply_content,
+                                    "created_time": reply_formatted_time,
+                                    "like": reply.get("like", 0)
+                                })
+                        
+                        # 封装评论数据
+                        processed_comments.append({
+                            "id": comment.get("rpid_str", ""),
+                            "author": {
+                                "id": comment.get("mid", ""),
+                                "name": comment.get("member", {}).get("uname", ""),
+                                "avatar": comment.get("member", {}).get("avatar", "")
+                            },
+                            "content": processed_content,
+                            "created_time": formatted_time,
+                            "like": comment.get("like", 0),
+                            "replies_count": comment.get("count", 0),
+                            "child_posts": child_posts
+                        })
                     
-                    sorted_comments = sorted(unique_comments.values(), 
-                                           key=lambda x: x.get("like", 0), 
-                                           reverse=True)[:10]
-                    
-                    return sorted_comments
+                    return processed_comments
+                logger.debug(f"[Bilibili] 热评API返回数据为空或错误: code={data.get('code')}, message={data.get('message')}")
                 return []
         except Exception as e:
-            logger.error(f"[Bilibili] 获取评论数据失败: {e}")
+            logger.error(f"[Bilibili] 获取热评失败: {e}")
             return None
     
     @property
