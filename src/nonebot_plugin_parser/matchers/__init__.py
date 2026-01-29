@@ -91,6 +91,7 @@ async def parser_handler(
 
     # 3. 渲染内容消息并发送，保存消息ID
     renderer = get_renderer(result.platform.name)
+    logger.debug(f"获取渲染器：{renderer}")
     try:
         async for message in renderer.render_messages(result):
             msg_sent = await message.send()
@@ -154,9 +155,8 @@ async def parser_handler(
     except Exception as e:
         # 渲染失败时，尝试直接发送解析结果
         logger.error(f"渲染失败: {e}")
-        from ..helper import UniMessage
-
-        await UniMessage(f"解析成功，但渲染失败: {e!s}").send()
+        # from ..helper import UniMessage
+        # await UniMessage(f"解析成功，但渲染失败: {e!s}").send()
 
     # 4. 缓存解析结果
     _RESULT_CACHE[cache_key] = result

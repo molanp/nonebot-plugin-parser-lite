@@ -136,8 +136,11 @@ class FontSet:
     @classmethod
     def new(cls, font_path: Path):
         font_infos: dict[str, FontInfo] = {}
+        font_data = font_path.read_bytes()
         for name, size, fill in cls._FONT_INFOS:
-            font = ImageFont.truetype(font_path, size)
+            # 为每个字体创建一个新的BytesIO对象
+            font_bytes = BytesIO(font_data)
+            font = ImageFont.truetype(font_bytes, size, encoding="utf-8")
             height = get_font_height(font)
             font_infos[name] = FontInfo(
                 font=font,
@@ -388,7 +391,7 @@ class CommonRenderer(ImageRenderer):
             img.save(buffer)
             buffer.seek(0)
             pil_img = Image.open(buffer)
-            
+
             if pil_img.size != (size, size):
                 pil_img = pil_img.resize((size, size), Image.Resampling.LANCZOS)
             return pil_img
