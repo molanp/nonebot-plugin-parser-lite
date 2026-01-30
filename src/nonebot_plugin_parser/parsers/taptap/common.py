@@ -1178,7 +1178,7 @@ class TapTapParser(BaseParser):
         
         result = self.result(
             title=detail["title"],
-            text=detail["summary"],
+            text=detail.get("text", detail["summary"]),
             url=detail["url"],
             author=author,
             timestamp=timestamp,
