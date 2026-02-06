@@ -46,13 +46,7 @@ class PlatformEnum(str, Enum):
     QSMUSIC = "qsmusic"
     KUWO = "kuwo"
     TOUTIAO = "toutiao"
+    TIEBA = "tieba"
 
     def __str__(self) -> str:
         return self.value
-
-
-class RenderType(str, Enum):
-    default = "default"
-    common = "common"
-    htmlkit = "htmlkit"
-    htmlrender = "htmlrender"

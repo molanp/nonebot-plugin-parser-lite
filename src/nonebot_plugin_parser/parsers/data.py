@@ -1,11 +1,14 @@
-from typing import Any, Callable, Coroutine
+from typing import Any
 from asyncio import Task
 from pathlib import Path
 from datetime import datetime
 from dataclasses import field, dataclass
+from collections.abc import Callable, Coroutine
 
 
-def repr_path_task(path_task: Path | Task[Path] | Callable[[], Coroutine[Any, Any, Path]]) -> str:
+def repr_path_task(
+    path_task: Path | Task[Path] | Callable[[], Coroutine[Any, Any, Path]],
+) -> str:
     if isinstance(path_task, Path):
         return f"path={path_task.name}"
     elif isinstance(path_task, Task):
@@ -20,14 +23,14 @@ class MediaContent:
 
     async def get_path(self) -> Path:
         if isinstance(self.path_task, Path):
-            return self.path_task
+            pass
         elif isinstance(self.path_task, Task):
             self.path_task = await self.path_task
-            return self.path_task
         else:
             # 执行可调用对象（coroutine function）
             self.path_task = await self.path_task()
-            return self.path_task
+
+        return self.path_task
 
     def __repr__(self) -> str:
         prefix = self.__class__.__name__
@@ -60,15 +63,14 @@ class VideoContent(MediaContent):
 
     @property
     def display_duration(self) -> str:
-        minutes = int(self.duration) // 60
-        seconds = int(self.duration) % 60
+        minutes, seconds = divmod(int(self.duration), 60)
         return f"时长: {minutes}:{seconds:02d}"
 
     def __repr__(self) -> str:
         repr = f"VideoContent({repr_path_task(self.path_task)}"
         if self.cover is not None:
             repr += f", cover={repr_path_task(self.cover)}"
-        return repr + ")"
+        return f"{repr})"
 
 
 @dataclass(repr=False, slots=True)
@@ -100,7 +102,7 @@ class GraphicsContent(MediaContent):
             repr += f", text={self.text}"
         if self.alt:
             repr += f", alt={self.alt}"
-        return repr + ")"
+        return f"{repr})"
 
 
 @dataclass(slots=True)
@@ -138,7 +140,7 @@ class Author:
             repr += f", avatar_{repr_path_task(self.avatar)}"
         if self.description:
             repr += f", description={self.description}"
-        return repr + ")"
+        return f"{repr})"
 
 
 @dataclass(repr=False, slots=True)
@@ -165,7 +167,9 @@ class ParseResult:
     """转发的内容"""
     render_image: Path | None = None
     """渲染图片"""
-    media_contents: list[tuple[type, 'MediaContent | Path']] = field(default_factory=list)
+    media_contents: list[tuple[type, "MediaContent | Path"]] = field(
+        default_factory=list
+    )
     """延迟发送的媒体内容"""
 
     @property
@@ -217,19 +221,19 @@ class ParseResult:
         for cont in self.contents:
             if isinstance(cont, VideoContent):
                 return await cont.get_cover_path()
-        
+
         # 检查图片内容，返回第一张图片作为封面
         for cont in self.contents:
             if isinstance(cont, ImageContent):
                 return await cont.get_path()
-        
+
         # 如果没有视频和图片内容，使用默认图片
         from pathlib import Path
-        default_image_path = Path(__file__).parent.parent / 'renders' / 'resources' / 'QIQI.jpg'
-        if default_image_path.exists():
-            return default_image_path
-        
-        return None
+
+        default_image_path = (
+            Path(__file__).parent.parent / "renders" / "resources" / "QIQI.jpg"
+        )
+        return default_image_path if default_image_path.exists() else None
 
     @property
     def formatted_datetime(self) -> str | None:

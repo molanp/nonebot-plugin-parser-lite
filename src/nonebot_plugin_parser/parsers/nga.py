@@ -3,6 +3,7 @@ import json
 import time
 import random
 import asyncio
+import contextlib
 from typing import ClassVar
 
 from bs4 import Tag, BeautifulSoup
@@ -44,20 +45,20 @@ class NGAParser(BaseParser):
         tid = searched.group("tid")
         url = self.nga_url(tid)
 
-        async with AsyncClient(headers=self.headers, timeout=self.timeout, follow_redirects=True) as client:
+        async with AsyncClient(
+            headers=self.headers, timeout=self.timeout, follow_redirects=True
+        ) as client:
             try:
                 # 第一次请求可能返回403，但包含设置cookie的JavaScript
                 resp = await client.get(url)
 
                 # 如果返回403且包含guestJs cookie设置，提取cookie并重试
                 if resp.status_code == 403 and "guestJs" in resp.text:
-                    # 从JavaScript中提取guestJs cookie值
-                    cookie_match = re.search(
+                    if cookie_match := re.search(
                         r"document\.cookie\s*=\s*['\"]guestJs=([^;'\"]+)",
                         resp.text,
-                    )
-                    if cookie_match:
-                        guest_js = cookie_match.group(1)
+                    ):
+                        guest_js = cookie_match[1]
                         # 设置cookie并重试
                         client.cookies.set("guestJs", guest_js, domain=".178.com")
                         # 等待一小段时间（模拟JavaScript的setTimeout）
@@ -71,7 +72,7 @@ class NGAParser(BaseParser):
                         resp = await client.get(retry_url)
 
             except HTTPError as e:
-                raise ParseException(f"请求失败: {e}")
+                raise ParseException(f"请求失败: {e}") from e
 
         if resp.status_code != 200:
             raise ParseException(f"无法获取页面, HTTP {resp.status_code}")
@@ -97,22 +98,17 @@ class NGAParser(BaseParser):
         if author_tag and isinstance(author_tag, Tag):
             # 从 href 属性中提取 uid: href="nuke.php?func=ucp&uid=24278093"
             href = author_tag.get("href", "")
-            uid_match = re.search(r"[?&]uid=(\d+)", str(href))
-            if uid_match:
-                uid = uid_match.group(1)
+            if uid_match := re.search(r"[?&]uid=(\d+)", str(href)):
+                uid = uid_match[1]
                 # 从 JavaScript 的 commonui.userInfo.setAll() 中查找对应用户名
                 script_pattern = r"commonui\.userInfo\.setAll\s*\(\s*(\{.*?\})\s*\)"
-                script_match = re.search(script_pattern, html, re.DOTALL)
-                if script_match:
-                    try:
-                        user_info_json = script_match.group(1)
+                if script_match := re.search(script_pattern, html, re.DOTALL):
+                    with contextlib.suppress(json.JSONDecodeError, KeyError):
+                        user_info_json = script_match[1]
                         user_info = json.loads(user_info_json)
                         # 使用提取的 uid 查找用户名
                         if uid in user_info:
                             author = user_info[uid].get("username")
-                    except (json.JSONDecodeError, KeyError):
-                        # JSON 解析失败或数据结构不符合预期,保持 author 为 None
-                        pass
         author = self.create_author(author) if author else None
         # 提取时间 - 从第一个帖子的 postdate0
         timestamp = None
@@ -173,6 +169,6 @@ class NGAParser(BaseParser):
 
         # 限制文本长度
         if len(text) > max_length:
-            text = text[:max_length] + "..."
+            text = f"{text[:max_length]}..."
 
         return text

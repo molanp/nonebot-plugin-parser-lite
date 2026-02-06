@@ -11,7 +11,9 @@ from ..exception import ParseException
 
 class TwitterParser(BaseParser):
     # 平台信息
-    platform: ClassVar[Platform] = Platform(name=PlatformEnum.TWITTER, display_name="小蓝鸟")
+    platform: ClassVar[Platform] = Platform(
+        name=PlatformEnum.TWITTER, display_name="小蓝鸟"
+    )
 
     async def _req_xdown_api(self, url: str) -> dict[str, Any]:
         headers = {
@@ -56,8 +58,6 @@ class TwitterParser(BaseParser):
 
         soup = BeautifulSoup(html_content, "html.parser")
 
-        # 初始化数据
-        title = None
         cover_url = None
         video_url = None
         images_urls = []
@@ -91,9 +91,7 @@ class TwitterParser(BaseParser):
 
         # 3. 提取标题
         title_tag = soup.find("h3")
-        if title_tag:
-            title = title_tag.get_text(strip=True)
-
+        title = title_tag.get_text(strip=True) if title_tag else None
         # 简洁的构建方式
         contents = []
 

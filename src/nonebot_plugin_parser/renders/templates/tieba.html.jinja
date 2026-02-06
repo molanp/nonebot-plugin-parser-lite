@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tieba Post</title>
+  <style>
+    body {
+      font-family: "Noto Sans SC", system-ui, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
+      margin-right: 12px;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .username {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .time {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .platform-logo {
+      height: 24px;
+      margin-left: auto;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 12px 0;
+      color: #222;
+    }
+
+    .text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .image-container {
+      margin: 8px 0;
+      text-align: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      border-radius: 4px;
+    }
+
+    .forum-name {
+      font-size: 13px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="header">
+      <img src="{{ result.author.avatar_path }}" class="avatar" alt="avatar" />
+      <div class="user-info">
+        <div class="username">{{ result.author.name }}</div>
+        <div class="time">{{ result.formatted_datetime }}</div>
+        <div class="forum-name">{{ result.extra.forum.name }}吧</div>
+      </div>
+      <img src="{{ result.platform.logo_path }}" class="platform-logo" alt="{{ result.platform.display_name }}" />
+    </div>
+
+    {% if result.title %}
+    <div class="title">{{ result.title }}</div>
+    {% endif %}
+
+    {% if result.text %}
+    <div class="text">{{ result.text }}</div>
+    {% endif %}
+
+    {% if result.img_contents %}
+    <div class="image-container">
+      {% for img in result.img_contents %}
+      <img src="{{ img.path }}" alt="image" />
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if result.graphics_contents %}
+    <div class="image-container">
+      {% for g in result.graphics_contents %}
+      <img src="{{ g.path }}" alt="graphics" />
+      {% if g.alt %}<div class="extra-info">{{ g.alt }}</div>{% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</body>
+
+</html>

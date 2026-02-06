@@ -3,14 +3,14 @@
 import asyncio
 from re import Match, Pattern, compile
 from abc import ABC
-from typing import TYPE_CHECKING, Any, TypeVar, ClassVar, cast, Optional
+from typing import TYPE_CHECKING, Any, TypeVar, ClassVar, cast
 from asyncio import Task
 from pathlib import Path
 from collections.abc import Callable, Coroutine
 from typing_extensions import Unpack, ParamSpec
 
-P = ParamSpec('P')
-R = TypeVar('R')
+P = ParamSpec("P")
+R = TypeVar("R")
 
 from .data import Platform, ParseResult, ParseResultKwargs
 from ..config import pconfig as pconfig
@@ -36,28 +36,34 @@ _KEY_PATTERNS = "_key_patterns"
 def retry(max_retries: int = 3, delay: float = 1.0):
     """
     通用重试装饰器
-    
+
     Args:
         max_retries: 最大重试次数
         delay: 初始重试延迟（秒）
     """
-    def decorator(func: Callable[P, Coroutine[Any, Any, R]]) -> Callable[P, Coroutine[Any, Any, R]]:
+
+    def decorator(
+        func: Callable[P, Coroutine[Any, Any, R]],
+    ) -> Callable[P, Coroutine[Any, Any, R]]:
         async def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             retry_count = 0
             while retry_count <= max_retries:
                 try:
                     return await func(*args, **kwargs)
-                except Exception as e:
+                except Exception:
                     retry_count += 1
                     if retry_count > max_retries:
                         raise
-                    
+
                     # 指数退避
                     current_delay = delay * (2 ** (retry_count - 1))
                     await asyncio.sleep(current_delay)
             return await func(*args, **kwargs)  # 类型检查用，实际不会执行
+
         return wrapper
+
     return decorator
+
 
 # 注册处理器装饰器
 def handle(keyword: str, pattern: str, max_retries: int = 3):
@@ -69,7 +75,7 @@ def handle(keyword: str, pattern: str, max_retries: int = 3):
 
         key_patterns: KeyPatterns = getattr(func, _KEY_PATTERNS)
         key_patterns.append((keyword, compile(pattern)))
-        
+
         # 应用重试装饰器，但保留原始函数的_key_patterns属性
         wrapped_func = retry(max_retries=max_retries)(func)
         # 复制_key_patterns属性到包装函数
@@ -245,6 +251,7 @@ class BaseParser:
         if video_name:
             # 保留文件名中的后缀
             import os
+
             base_name, ext = os.path.splitext(video_name)
             cleaned_base = keep_zh_en_num(base_name)
             video_name = f"{cleaned_base}{ext}"
@@ -253,7 +260,9 @@ class BaseParser:
         if cover_url:
             cover_task = DOWNLOADER.download_img(cover_url, ext_headers=self.headers)
         if isinstance(url_or_task, str):
-            url_or_task = DOWNLOADER.download_video(url_or_task, video_name=video_name, ext_headers=self.headers)
+            url_or_task = DOWNLOADER.download_video(
+                url_or_task, video_name=video_name, ext_headers=self.headers
+            )
 
         return VideoContent(url_or_task, cover_task, duration)
 
@@ -297,12 +306,15 @@ class BaseParser:
         if audio_name:
             # 保留文件名中的后缀
             import os
+
             base_name, ext = os.path.splitext(audio_name)
             cleaned_base = keep_zh_en_num(base_name)
             audio_name = f"{cleaned_base}{ext}"
 
         if isinstance(url_or_task, str):
-            url_or_task = DOWNLOADER.download_audio(url_or_task, audio_name=audio_name, ext_headers=self.headers)
+            url_or_task = DOWNLOADER.download_audio(
+                url_or_task, audio_name=audio_name, ext_headers=self.headers
+            )
 
         return AudioContent(url_or_task, duration)
 

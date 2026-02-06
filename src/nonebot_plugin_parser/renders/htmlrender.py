@@ -1,12 +1,13 @@
 import datetime
-import qrcode
 from io import BytesIO
 from typing import Any
 from pathlib import Path
 from typing_extensions import override
-from ..config import _nickname, pconfig
 
-from nonebot import require,logger
+import qrcode  # pyright: ignore[reportMissingModuleSource]
+from nonebot import logger, require
+
+from ..config import pconfig, _nickname
 
 require("nonebot_plugin_htmlrender")
 from nonebot_plugin_htmlrender import template_to_pic
@@ -27,9 +28,9 @@ class HtmlRenderer(ImageRenderer):
         template_name = "card.html.jinja"
         if result.platform:
             # 音乐平台使用音乐模板
-            music_platforms = ['kugou', 'netease', 'kuwo', 'qsmusic']
+            music_platforms = ["kugou", "netease", "kuwo", "qsmusic"]
             platform_name = str(result.platform.name).lower()
-            
+
             if platform_name in music_platforms:
                 template_name = "music.html.jinja"
             else:
@@ -71,7 +72,9 @@ class HtmlRenderer(ImageRenderer):
                 "name": result.platform.name,
             }
             # 尝试获取平台 logo
-            logo_path = Path(__file__).parent / "resources" / f"{result.platform.name}.png"
+            logo_path = (
+                Path(__file__).parent / "resources" / f"{result.platform.name}.png"
+            )
             if logo_path.exists():
                 data["platform"]["logo_path"] = logo_path.as_uri()
 
@@ -90,7 +93,7 @@ class HtmlRenderer(ImageRenderer):
         # 处理封面路径 - 先从contents中查找图片作为封面
         cover_path = None
         contents = []
-        
+
         # 只处理ImageContent类型的内容，避免触发视频/音频下载
         for cont in result.contents:
             # 只处理图片内容，不触发视频/音频下载
@@ -106,17 +109,17 @@ class HtmlRenderer(ImageRenderer):
             else:
                 # 对于非图片内容，不获取路径，避免触发下载
                 contents.append({"path": None})
-        
+
         # 如果contents中没有图片，尝试使用cover_path属性
         if not cover_path:
             try:
                 cover_path = await result.cover_path
             except Exception as e:
                 logger.warning(f"获取封面路径失败: {e}")
-        
+
         if cover_path:
             data["cover_path"] = cover_path.as_uri()
-        
+
         # 保存所有contents
         data["contents"] = contents
 
@@ -159,15 +162,16 @@ class HtmlRenderer(ImageRenderer):
             qr.add_data(result.url)
             qr.make(fit=True)
             img = qr.make_image(fill_color="black", back_color="white")
-            
+
             # 将二维码转换为 base64 编码
             buffer = BytesIO()
             img.save(buffer, format="PNG")  # type: ignore
             buffer.seek(0)
             import base64
-            img_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
-            
+
+            img_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+
             # 添加 base64 编码的图片数据到模板数据
             data["qr_code_path"] = f"data:image/png;base64,{img_base64}"
-        
+
         return data

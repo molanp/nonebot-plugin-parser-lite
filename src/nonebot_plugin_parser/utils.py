@@ -114,7 +114,9 @@ async def merge_av_h264(
         a_path (Path): 音频文件路径
         output_path (Path): 输出文件路径
     """
-    logger.info(f"Merging {v_path.name} and {a_path.name} to {output_path.name} with H.264")
+    logger.info(
+        f"Merging {v_path.name} and {a_path.name} to {output_path.name} with H.264"
+    )
 
     # 修改命令以确保视频使用 H.264 编码
     cmd = [
@@ -198,11 +200,10 @@ def generate_file_name(url: str, default_suffix: str = "") -> str:
     """
     # 根据 url 获取文件后缀
     path = Path(urlparse(url).path)
-    suffix = path.suffix if path.suffix else default_suffix
+    suffix = path.suffix or default_suffix
     # 获取 url 的 md5 值
     url_hash = hashlib.md5(url.encode()).hexdigest()[:16]
-    file_name = f"{url_hash}{suffix}"
-    return file_name
+    return f"{url_hash}{suffix}"
 
 
 def write_json_to_data(data: dict[str, Any] | str, file_name: str):

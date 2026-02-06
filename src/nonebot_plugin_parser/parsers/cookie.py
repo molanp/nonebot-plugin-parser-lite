@@ -23,7 +23,7 @@ def save_cookies_with_netscape(cookies_str: str, file_path: Path, domain: str):
                 value=value,
                 port=None,
                 port_specified=False,
-                domain="." + domain,
+                domain=f".{domain}",
                 domain_specified=True,
                 domain_initial_dot=False,
                 path="/",

@@ -1,22 +1,16 @@
 from pathlib import Path
 
 from nonebot import require, get_driver, get_plugin_config
-from apilmoji import ELK_SH_CDN, EmojiStyle
 from pydantic import BaseModel
 from bilibili_api.video import VideoCodecs, VideoQuality
 
-from .constants import RenderType, PlatformEnum
+from .constants import PlatformEnum
 
 require("nonebot_plugin_localstore")
 import nonebot_plugin_localstore as _store
-
 from nonebot.plugin import PluginMetadata
 
-
 # 默认配置
-ELK_SH_CDN = "https://emojicdn.elk.sh"
-MQRIO_DEV_CDN = "https://emoji-cdn.mqrio.dev"
-
 _driver = get_driver()
 _nickname = next(iter(_driver.config.nickname), "nonebot-plugin-parser")
 _cache_dir: Path = _store.get_plugin_cache_dir()
@@ -72,16 +66,8 @@ class Config(BaseModel):
     """B站视频编码"""
     parser_bili_video_quality: VideoQuality = VideoQuality._1080P
     """B站视频清晰度"""
-    parser_render_type: RenderType = RenderType.common
-    """Renderer 类型"""
-    parser_custom_font: str | None = None
-    """自定义字体"""
     parser_need_forward_contents: bool = True
     """是否需要转发原文内容"""
-    parser_emoji_cdn: str = ELK_SH_CDN
-    """Pilmoji 表情 CDN"""
-    parser_emoji_style: str = "facebook"
-    """Pilmoji 表情风格"""
     parser_delay_send_media: bool = False
     """是否延迟发送视频/音频，需要用户发送特定表情或点赞特定表情后才发送"""
     parser_delay_send_emoji: str = "👍"
@@ -137,11 +123,6 @@ class Config(BaseModel):
         return self.parser_bili_video_quality
 
     @property
-    def render_type(self) -> RenderType:
-        """Renderer 类型"""
-        return self.parser_render_type
-
-    @property
     def bili_ck(self) -> str | None:
         """bilibili cookies"""
         return self.parser_bili_ck
@@ -192,25 +173,9 @@ class Config(BaseModel):
         return self.parser_append_qrcode
 
     @property
-    def custom_font(self) -> Path | None:
-        """自定义字体"""
-        return (self.data_dir / self.parser_custom_font) if self.parser_custom_font else None
-
-    @property
     def need_forward_contents(self) -> bool:
         """是否需要转发原文内容"""
         return self.parser_need_forward_contents
-
-    @property
-    def emoji_cdn(self) -> str:
-        """Pilmoji 表情 CDN"""
-        return self.parser_emoji_cdn
-
-    @property
-    def emoji_style(self) -> EmojiStyle:
-        """Pilmoji 表情风格"""
-        from apilmoji import EmojiStyle as ApilmojiEmojiStyle
-        return ApilmojiEmojiStyle(self.parser_emoji_style)
 
     @property
     def delay_send_media(self) -> bool:
@@ -236,27 +201,27 @@ class Config(BaseModel):
     def blacklist_users(self) -> list[str]:
         """黑名单用户列表"""
         return self.parser_blacklist_users
-    
+
     @property
     def send_lyrics(self) -> bool:
         """是否发送歌词"""
         return self.parser_send_lyrics
-    
+
     @property
     def combine_message(self) -> bool:
         """是否合并发送消息"""
         return self.parser_combine_message
-    
+
     @property
     def prefer_high_quality(self) -> bool:
         """是否优先使用高质量音质"""
         return self.parser_prefer_high_quality
-    
+
     @property
     def audio_timeout(self) -> float:
         """音频解析超时时间，单位：秒"""
         return self.parser_audio_timeout
-    
+
     @property
     def kugou_lzkey(self) -> str | None:
         """酷狗音乐API密钥"""

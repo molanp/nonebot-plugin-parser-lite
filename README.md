@@ -17,174 +17,35 @@
 
 </div>
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > **收藏项目**，你将从 GitHub 上无延迟地接收所有发布通知～ ⭐️
 
 <img width="100%" src="https://starify.komoridevs.icu/api/starify?owner=fllesser&repo=nonebot-plugin-parser" alt="starify" />
 
 ## 📖 介绍
 
-| 平台    | 触发的消息形态                    | 视频 | 图集 | 音频 |
-| ------- | --------------------------------- | ---- | ---- | ---- |
-| B 站    | av 号/BV 号/链接/短链/卡片/小程序 | ✅​  | ✅​  | ✅​  |
-| 抖音    | 链接(分享链接，兼容电脑端链接)    | ✅​  | ✅​  | ❌️  |
-| 微博    | 链接(博文，视频，show, 文章)      | ✅​  | ✅​  | ❌️  |
-| 小红书  | 链接(含短链)/卡片                 | ✅​  | ✅​  | ❌️  |
-| 快手    | 链接(包含标准链接和短链)          | ✅​  | ✅​  | ❌️  |
-| acfun   | 链接                              | ✅​  | ❌️  | ❌️  |
-| youtube | 链接(含短链)                      | ✅​  | ❌️  | ✅​  |
-| tiktok  | 链接                              | ✅​  | ❌️  | ❌️  |
-| twitter | 链接                              | ✅​  | ✅​  | ❌️  |
-| 酷狗音乐 | 链接(分享链接，歌曲链接)          | ❌️  | ❌️  | ✅​  |
-| 网易云音乐 | 链接(分享链接，短链接)            | ❌️  | ❌️  | ✅​  |
-| 汽水音乐 | 链接(分享链接)                    | ❌️  | ❌️  | ✅​  |
-| 酷我音乐 | 链接(分享链接)                    | ❌️  | ❌️  | ✅​  |
+| 平台       | 触发的消息形态                    | 视频 | 图集          | 音频   |
+| ---------- | --------------------------------- | ---- | ------------- | ------ |
+| B 站       | av 号/BV 号/链接/短链/卡片/小程序 | ✅​  | ✅​           | ✅​    |
+| 抖音       | 链接(分享链接，兼容电脑端链接)    | ✅​  | ✅​           | ❌️     |
+| 微博       | 链接(博文，视频，show, 文章)      | ✅​  | ✅​           | ❌️     |
+| 小红书     | 链接(含短链)/卡片                 | ✅​  | ✅​           | ❌️     |
+| 快手       | 链接(包含标准链接和短链)          | ✅​  | ✅​           | ❌️     |
+| acfun      | 链接                              | ✅​  | ❌️            | ❌️     |
+| youtube    | 链接(含短链)                      | ✅​  | ❌️            | ✅​    |
+| tiktok     | 链接                              | ✅​  | ❌️            | ❌️     |
+| twitter    | 链接                              | ✅​  | ✅​           | ❌️     |
+| 酷狗音乐   | 链接(分享链接，歌曲链接)          | ❌️   | ❌️            | ✅​    |
+| 网易云音乐 | 链接(分享链接，短链接)            | ❌️   | ❌️            | ✅​    |
+| 汽水音乐   | 链接(分享链接)                    | ❌️   | ❌️            | ✅​    |
+| 酷我音乐   | 链接(分享链接)                    | ❌️   | ❌️            | ✅​    |
+| 百度贴吧   | 链接                              | 没写 | ✅​(图文帖子) | 不存在 |
 
 支持的链接，可参考 [测试链接](https://github.com/fllesser/nonebot-plugin-parser/blob/master/tests/others/test_urls.md)
 
-## 🎨 效果图
-
-插件默认启用 PIL 实现的通用媒体卡片渲染，效果图如下
-
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/fllesser/nonebot-plugin-parser/refs/heads/resources/resources/renderdamine/video.png" width="160" />
-<img src="https://raw.githubusercontent.com/fllesser/nonebot-plugin-parser/refs/heads/resources/resources/renderdamine/9_pic.png" width="160" />
-<img src="https://raw.githubusercontent.com/fllesser/nonebot-plugin-parser/refs/heads/resources/resources/renderdamine/4_pic.png" width="160" />
-<img src="https://raw.githubusercontent.com/fllesser/nonebot-plugin-parser/refs/heads/resources/resources/renderdamine/repost_video.png" width="160" />
-<img src="https://raw.githubusercontent.com/fllesser/nonebot-plugin-parser/refs/heads/resources/resources/renderdamine/repost_2_pic.png" width="160" />
-
-</div>
-
 ## 💿 安装
 
-> [!Warning] 
-> **如果你已经在使用 nonebot-plugin-resolver[2]，请在安装此插件前卸载**
-
-<details>
-<summary>使用 nb-cli 安装/更新</summary>
-在 nonebot2 项目的根目录下打开命令行, 输入以下指令即可安装
-
-    nb plugin install nonebot-plugin-parser --upgrade
-
-使用 pypi 源更新
-
-    nb plugin install nonebot-plugin-parser --upgrade -i https://pypi.org/simple
-
-安装仓库 dev 分支
-
-    uv pip install git+https://github.com/fllesser/nonebot-plugin-parser.git@dev
-
-</details>
-
-<details>
-<summary>使用包管理器安装</summary>
-在 nonebot2 项目的插件目录下, 打开命令行, 根据你使用的包管理器, 输入相应的安装命令
-<details>
-<summary>uv</summary>
-使用 uv 安装
-
-    uv add nonebot-plugin-parser
-
-安装仓库 dev 分支
-
-    uv add git+https://github.com/fllesser/nonebot-plugin-parser.git@master
-
-</details>
-
-<details>
-<summary>pip</summary>
-
-    pip install --upgrade nonebot-plugin-parser
-
-</details>
-<details>
-<summary>pdm</summary>
-
-    pdm add nonebot-plugin-parser
-
-</details>
-<details>
-<summary>poetry</summary>
-
-    poetry add nonebot-plugin-parser
-
-</details>
-
-打开 nonebot2 项目根目录下的 `pyproject.toml` 文件, 在 `[tool.nonebot]` 部分追加写入
-
-    plugins = ["nonebot_plugin_parser"]
-
-</details>
-
-<details>
-<summary>使用 nbr 安装(使用 uv 管理依赖可用)</summary>
-
-[nbr](https://github.com/fllesser/nbr) 是一个基于 uv 的 nb-cli，可以方便地管理 nonebot2
-
-    nbr plugin install nonebot-plugin-parser
-
-使用 **pypi** 源安装
-
-    nbr plugin install nonebot-plugin-parser -i "https://pypi.org/simple"
-
-使用**清华源**安装
-
-    nbr plugin install nonebot-plugin-parser -i "https://pypi.tuna.tsinghua.edu.cn/simple"
-
-</details>
-
-<details>
-<summary>安装可选依赖</summary>
-
-`ytdlp`, 用于解析 `youtube` 和 `tiktok` 视频
-
-    uv add "nonebot-plugin-parser[ytdlp]"
-
-[emosvg](https://github.com/fllesser/emosvg) 用于渲染 `emoji` 表情, 基于 `cairo` 和 `svg` 实现，`win/mac` 用户，请确保自己会配置 `cairo`, 插件默认使用的依赖于网络的 `apilmoji`，已缓存的 `emoji` 渲染速度略快于 `emosvg`
-
-    uv add "nonebot-plugin-parser[emosvg]"
-
-`htmlkit`, 无 js 渲染 `html`, 插件目前还没有供 `htmlkit` 使用的模版, 因此可忽略此依赖
-
-    uv add "nonebot-plugin-parser[htmlkit]"
-
-`htmlrender`, 使用 `playwright` 渲染 `html`, 插件现有模版有点问题，并且极其丑陋，不建议使用
-
-    uv add "nonebot-plugin-parser[htmlrender]"
-
-现版本推荐组合
-
-    uv add "nonebot-plugin-parser[ytdlp,emosvg]"
-
-`all` 顾名思义，安装所有可选依赖
-
-    uv add "nonebot-plugin-parser[all]"
-
-</details>
-
-<details>
-<summary>安装必要组件</summary>
-
-部分解析依赖 `ffmpeg`
-
-`ubuntu/debian`
-
-    sudo apt-get install ffmpeg
-
-其他 `Linux` 参考(原项目推荐): https://gitee.com/baihu433/ffmpeg
-
-`Windows` 参考(原项目推荐): https://www.jianshu.com/p/5015a477de3c
-
-`yt-dlp` 自 `2025.11.12` 起要求用户安装外部 `JavaScript Runtime`，参考 https://github.com/yt-dlp/yt-dlp/releases/tag/2025.11.12, 推荐安装 [Deno](https://deno.com)
-
-`macOS / Linux`
-
-    curl -fsSL https://deno.land/install.sh | sh
-
-`windows`
-
-    irm https://deno.land/install.ps1 | iex
+把插件文件夹放到插件加载目录
 
 </details>
 
@@ -254,27 +115,12 @@ parser_max_size=90
 # 可选值: ["bilibili", "douyin", "kuaishou", "twitter", "youtube", "acfun", "tiktok", "weibo", "xiaohongshu"]
 parser_disabled_platforms='["twitter"]'
 
-# [可选] 渲染器类型
-# 可选 "default"(无图片渲染), "common"(PIL 通用图片渲染), "htmlrender"(htmlrender), "htmlkit"(htmlkit, 暂不可用)
-parser_render_type="common"
 
 # [可选] 是否在解析结果中附加原始URL
 parser_append_url=False
 
-# [可选] 自定义渲染字体
-# 配置字体文件名，并将字体文件放置于 localstore 生成的插件 data 目录下
-# 例如: ./data/nonebot_plugin_parser/
-parser_custom_font="LXGWZhenKaiGB-Regular.ttf"
-
 # [可选] 是否需要转发媒体内容(超过 4 项时始终使用合并转发)
 parser_need_forward_contents=True
-
-# [可选] emoji 渲染 CDN
-# 例如 ELK_SH_CDN = "https://emojicdn.elk.sh", MQRIO_DEV_CDN = "https://emoji-cdn.mqrio.dev"
-parser_emoji_cdn="https://emojicdn.elk.sh"
-
-# [可选] emoji 渲染样式 "apple", "google", "twitter", "facebook"(默认)
-parser_emoji_style="facebook"
 
 # [可选] 是否延迟发送视频/音频，需要用户发送特定表情或点赞特定表情后才发送
 parser_delay_send_media=False
@@ -291,13 +137,6 @@ parser_delay_send_lazy_download=False
 
 </details>
 
-<details>
-<summary>推荐的字体</summary>
-
-- [LXGW ZhenKai / 霞鹜臻楷](https://github.com/lxgw/LxgwZhenKai) 效果图使用字体
-- [LXGW Neo XiHei / 霞鹜新晰黑](https://github.com/lxgw/LxgwNeoXiHei)
-- [LXGW Neo ZhiSong / 霞鹜新致宋 / 霞鶩新緻宋](https://github.com/lxgw/LxgwNeoZhiSong)
-</details>
 
 ## 🎉 使用
 
