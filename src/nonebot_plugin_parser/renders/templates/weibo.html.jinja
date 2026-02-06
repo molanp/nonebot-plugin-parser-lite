@@ -311,8 +311,8 @@
         <header class="weibo-header">
             <div class="avatar-wrapper">
                 <div class="avatar">
-                    {% if result.author and result.author.avatar %}
-                    <img src="{{ result.author.avatar }}" alt="用户头像">
+                    {% if result.author and result.author.avatar_path %}
+                    <img src="{{ result.author.avatar_path }}" alt="用户头像">
                     {% else %}
                     <div class="avatar-placeholder"></div>
                     {% endif %}
@@ -367,8 +367,8 @@
                 <!-- 原微博作者信息 -->
                 <div class="repost-header">
                     <div class="repost-avatar">
-                        {% if result.repost.author and result.repost.author.avatar %}
-                        <img src="{{ result.repost.author.avatar }}" alt="原作者头像">
+                        {% if result.repost.author and result.repost.author.avatar_path %}
+                        <img src="{{ result.repost.author.avatar_path }}" alt="原作者头像">
                         {% else %}
                         <div class="repost-avatar-placeholder"></div>
                         {% endif %}
