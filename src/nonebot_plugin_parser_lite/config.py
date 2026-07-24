@@ -7,6 +7,22 @@ from .constants import PlatformEnum
 from .utils.bilibili.video import BiliVideoCodecs, BiliVideoQuality
 
 
+def parse_hm_to_minutes(value: str) -> int:
+    """将 h:m 或 hh:mm 解析为从 0 点起的分钟数"""
+    text = value.strip()
+    parts = text.split(":")
+    if len(parts) != 2:
+        raise ValueError(f"时间格式错误，应为 h:m，收到: {value!r}")
+    try:
+        hour = int(parts[0])
+        minute = int(parts[1])
+    except ValueError as e:
+        raise ValueError(f"时间格式错误，应为 h:m，收到: {value!r}") from e
+    if not (0 <= hour <= 23 and 0 <= minute <= 59):
+        raise ValueError(f"时间超出有效范围 (0:00-23:59)，收到: {value!r}")
+    return hour * 60 + minute
+
+
 class Config(BaseModel):
     plite_bili_ck: str | None = None
     """bilibili cookies"""
@@ -19,7 +35,7 @@ class Config(BaseModel):
     plite_use_base64: bool = False
     """是否使用 base64 编码发送图片，音频，视频"""
     plite_max_size: int = 90
-    """资源最大大小，默认 100 单位 MB"""
+    """资源最大大小，默认 90 单位 MB"""
     plite_duration_maximum: int = 480
     """视频/音频最大时长"""
     plite_append_url: bool = False
@@ -61,10 +77,8 @@ class Config(BaseModel):
     """纯文本文本长度阈值，超过此长度的文本将会强制转发(最大4500)"""
     plite_max_retries: int = 3
     """最大下载重试次数"""
-    plite_day_start_hour: int = 6
-    """白天开始时间(h)"""
-    plite_night_start_hour: int = 19
-    """黑夜开始时间(h)"""
+    plite_day_range: list[str] = ["6:00", "19:00"]
+    """白天时间范围 [开始, 结束]，格式 h:m；范围内为浅色主题，范围外为夜间模式"""
 
     @property
     def nickname(self) -> str:
@@ -202,14 +216,12 @@ class Config(BaseModel):
         return self.plite_max_retries
 
     @property
-    def day_start_hour(self) -> int:
-        """白天开始时间(h)"""
-        return self.plite_day_start_hour
-
-    @property
-    def night_start_hour(self) -> int:
-        """黑夜开始时间(h)"""
-        return self.plite_night_start_hour
+    def day_range_minutes(self) -> tuple[int, int]:
+        """白天时间范围，返回 (开始分钟, 结束分钟)"""
+        return (
+            parse_hm_to_minutes(self.plite_day_range[0]),
+            parse_hm_to_minutes(self.plite_day_range[1]),
+        )
 
 
 # 初始化配置实例

@@ -44,16 +44,18 @@ MAX_FORWARD_NODES = 90
 IS_DEBUG = gconfig.log_level in ["DEBUG", "TRACE", 10, 5]
 
 Theme = Literal["light", "dark"]
-DAY_START_HOUR = pconfig.day_start_hour
-NIGHT_START_HOUR = pconfig.night_start_hour
 
 
 def get_theme() -> Theme:
-    """Return the theme for the current local time."""
-    current_time = datetime.now()
-    if DAY_START_HOUR <= current_time.hour < NIGHT_START_HOUR:
-        return "light"
-    return "dark"
+    """根据配置的白天时间范围返回当前主题"""
+    start, end = pconfig.day_range_minutes
+    now = datetime.now()
+    current = now.hour * 60 + now.minute
+    if start < end:
+        in_day = start <= current < end
+    else:
+        in_day = current >= start or current < end
+    return "light" if in_day else "dark"
 
 
 def split_text_by_length_with_punct(text: str, max_len: int) -> list[str]:
