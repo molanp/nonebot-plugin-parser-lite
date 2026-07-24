@@ -51,7 +51,10 @@ def get_theme() -> Theme:
     start, end = pconfig.day_range_minutes
     now = datetime.now()
     current = now.hour * 60 + now.minute
-    if start < end:
+    if start == end:
+        # 为什么会有极夜
+        in_day = False
+    elif start < end:
         in_day = start <= current < end
     else:
         in_day = current >= start or current < end
