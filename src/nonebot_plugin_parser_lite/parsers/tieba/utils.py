@@ -3,11 +3,11 @@ from pathlib import Path
 
 from google.protobuf import descriptor_pb2, descriptor_pool
 from google.protobuf.message_factory import GetMessageClass
-from httpx import AsyncClient
 
 from ...constants import STICKER_CDN
 from ...creator import Creator
 from ...data import Comment, ContentItem
+from ...download import DOWNLOADER
 from .models import (
     Contents,
     FragAt,
@@ -20,8 +20,6 @@ from .models import (
     Posts,
 )
 
-_CLIENT = AsyncClient()
-
 
 @lru_cache(maxsize=2)
 def get_message(name: str):
@@ -33,10 +31,6 @@ def get_message(name: str):
 
     msg_descriptor = pool.FindMessageTypeByName(name)
     return GetMessageClass(msg_descriptor)
-
-
-async def close_client() -> None:
-    await _CLIENT.aclose()
 
 
 def make_req(tid: int) -> bytes:
@@ -74,7 +68,7 @@ async def pack_req(data: bytes) -> bytes:
     )
 
     # 设置 Content-Type，带上固定 boundary
-    response = await _CLIENT.post(
+    response = await DOWNLOADER.client.post(
         "http://tiebac.baidu.com/c/f/pb/page",
         headers={
             "x_bd_data_type": "protobuf",

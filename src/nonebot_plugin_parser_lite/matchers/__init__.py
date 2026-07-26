@@ -24,7 +24,6 @@ from ..download import DOWNLOADER
 from ..helper import UniHelper
 from ..parsers import BilibiliParser
 from ..parsers.base import BaseParser, ParseResult
-from ..parsers.tieba.utils import close_client as close_tieba_client
 from ..parsers.weibo.auth import AuthHelper as WeiboAuthHelper
 from ..render import RENDERER
 from ..utils.common import LimitedSizeDict
@@ -126,7 +125,6 @@ async def close_httpx() -> None:
     await asyncio.gather(
         *(parser.aclose() for parser in _ALL_PARSERS),
         DOWNLOADER.aclose(),
-        close_tieba_client(),
         WeiboAuthHelper.aclose(),
     )
 
