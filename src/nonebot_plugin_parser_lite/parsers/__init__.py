@@ -13,6 +13,7 @@ from .illu import IlluParser
 from .kuaishou import KuaiShouParser
 from .kugou import KuGouParser
 from .kuwo import KuWoParser
+from .linuxdo import LinuxDoParser
 from .lofter import LofterParser
 from .miyoushe import MiyousheParser
 from .netease import NCMParser
@@ -39,6 +40,7 @@ __all__ = [
     "KuGouParser",
     "KuWoParser",
     "KuaiShouParser",
+    "LinuxDoParser",
     "LofterParser",
     "MiyousheParser",
     "NCMParser",
