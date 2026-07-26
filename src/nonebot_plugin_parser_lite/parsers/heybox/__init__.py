@@ -13,7 +13,6 @@ from ..base import (
     Platform,
     PlatformEnum,
     handle,
-    pconfig,
 )
 from .encrypt import build_url
 from .model import BaseResult
@@ -34,28 +33,21 @@ class HeyBoxParser(BaseParser):
                 "Accept": "application/json, text/plain, */*",
             }
         )
-        self.device_path = pconfig.config_dir / "heybox_device.txt"
         self.device_id: str = ""
 
     async def ensure_token(self):
         if self.device_id:
             return
-        if await self.device_path.exists():
-            self.device_id = (
-                await self.device_path.read_text(encoding="utf-8")
-            ).strip()
-        else:
-            tab = await BrowserManager.new_tab()
-            tab.set.load_mode.none()
-            tab.listen.start(targets="fp.min.js", method="get", res_type="Script")
-            tab.get("https://www.xiaoheihe.cn/")
-            tab.listen.wait()
-            tab.listen.stop()
-            tab.stop_loading()
-            self.device_id = tab.run_js("window.SMSdk.getDeviceId()", as_expr=True)
-            tab.close()
-            logger.info(f"成功获取到小黑盒tokenid: {self.device_id[:5]}...")
-            await self.device_path.write_text(self.device_id.strip())
+        tab = await BrowserManager.new_tab()
+        tab.set.load_mode.none()
+        tab.listen.start(targets="fp.min.js", method="get", res_type="Script")
+        tab.get("https://www.xiaoheihe.cn/")
+        tab.listen.wait()
+        tab.listen.stop()
+        tab.stop_loading()
+        self.device_id = tab.run_js("window.SMSdk.getDeviceId()", as_expr=True)
+        tab.close()
+        logger.info(f"成功获取到小黑盒tokenid: {self.device_id[:5]}...")
 
     @handle("api.xiaoheihe.cn/v3/bbs/app/api/web/share", params={"link_id": {}})
     @handle("xiaoheihe.cn/bbs/post_share", params={"link_id": {}})
