@@ -21,6 +21,7 @@ from .qsmusic import QSMusicParser
 from .rednote import RedNoteParser
 from .tieba import TiebaParser
 from .weibo import WeiBoParser
+from .wmpvp import WMPVPParser
 from .x import XParser
 from .zhihu import ZhiHuParser
 
@@ -47,6 +48,7 @@ __all__ = [
     "QSMusicParser",
     "RedNoteParser",
     "TiebaParser",
+    "WMPVPParser",
     "WeiBoParser",
     "XParser",
     "ZhiHuParser",
