@@ -52,7 +52,7 @@
             <h4 class="text-lg font-black text-gray-500 dark:text-slate-400 border-gray-100 dark:border-slate-700 pb-1">评论</h4>
             {% for comment in comments %}
                 <div class="comment space-y-3 flex space-x-2">
-                    <img src="{{ comment.author | safe_src("get_avatar_path") }}"
+                    <img src="{{ comment.author | safe_src('get_avatar_path') }}"
                          class="w-10 h-10 rounded-full object-cover shadow-sm" />
                     <div class="content">
                         <div class="text-sm font-black text-gray-500 dark:text-slate-300">{{ comment.author.name }}</div>
@@ -77,7 +77,7 @@
                             <div class="comment mt-3 space-y-3">
                                 {% for reply in comment.replies[:5] %}
                                     <div class="space-y-1.5 flex space-x-2">
-                                        <img src="{{ reply.author | safe_src("get_avatar_path") }}"
+                                        <img src="{{ reply.author | safe_src('get_avatar_path') }}"
                                              class="w-6 h-6 rounded-full object-cover" />
                                         <div class="content">
                                             <div class="text-sm font-bold text-gray-500 dark:text-slate-300">{{ reply.author.name }}</div>
@@ -266,8 +266,8 @@
                             '<i class="fa-icon fa-play ml-1"></i>'
                             '</div>'
                             '</div>'
-                            '<div class="absolute bottom-2 left-2 flex items-center bg-black/60 text-white h-[19px] px-1.5 rounded-[2px] text-[10px] font-mono">' ~ cont.get_display_size()  ~ '</div>'
-                            '<div class="absolute bottom-2 right-2 flex items-center bg-black/60 text-white h-[19px] px-1.5 rounded-[2px] text-[10px] font-mono">' ~ cont.display_duration ~ '</div>'
+                            '<div class="absolute bottom-2 left-2 flex items-center bg-black/60 text-white h-[19px] px-1.5 rounded-[2px] text-[10px] font-mono leading-none">' ~ cont.get_display_size()  ~ '</div>'
+                            '<div class="absolute bottom-2 right-2 flex items-center bg-black/60 text-white h-[19px] px-1.5 rounded-[2px] text-[10px] font-mono leading-none">' ~ cont.display_duration ~ '</div>'
                             '</div>'
                         ) %}
             {# 6. 链接卡片 #}
