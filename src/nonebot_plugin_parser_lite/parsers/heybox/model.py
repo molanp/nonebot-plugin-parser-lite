@@ -27,7 +27,9 @@ class User(Struct):
     def avatar_url(self) -> str:
         return (
             self.avatar + "\\"
-            if "?" in self.avatar and not self.avatar.endswith(">")
+            if "?" in self.avatar
+            and not self.avatar.endswith(">")
+            and not self.avatar.endswith("%3E")
             else self.avatar
         )
 

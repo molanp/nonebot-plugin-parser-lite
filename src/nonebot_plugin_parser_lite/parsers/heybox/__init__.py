@@ -3,7 +3,6 @@ from typing import ClassVar
 from msgspec import convert
 from nonebot.log import logger
 
-from ...utils.browser import BrowserManager
 from ...utils.format import format_num
 from ..base import (
     BaseParser,
@@ -16,6 +15,7 @@ from ..base import (
 )
 from .encrypt import build_url
 from .model import BaseResult
+from .sm import sm_payload
 
 
 class HeyBoxParser(BaseParser):
@@ -38,16 +38,15 @@ class HeyBoxParser(BaseParser):
     async def ensure_token(self):
         if self.device_id:
             return
-        tab = await BrowserManager.new_tab()
-        tab.set.load_mode.none()
-        tab.listen.start(targets="fp.min.js", method="get", res_type="Script")
-        tab.get("https://www.xiaoheihe.cn/")
-        tab.listen.wait()
-        tab.listen.stop()
-        tab.stop_loading()
-        self.device_id = tab.run_js("window.SMSdk.getDeviceId()", as_expr=True)
-        tab.close()
-        logger.info(f"成功获取到小黑盒tokenid: {self.device_id[:5]}...")
+        res = (
+            await self.httpx.post(
+                "https://fp-it.portal101.cn/deviceprofile/v4", json=sm_payload()
+            )
+        ).json()
+        if res["code"] != 1100:
+            raise ParseException(f"小黑盒token获取失败, 请联系开发者: {res}")
+        self.device_id = "B" + res["detail"]["deviceId"]
+        logger.success(f"成功获取到小黑盒tokenid: {self.device_id}")
 
     @handle("api.xiaoheihe.cn/v3/bbs/app/api/web/share", params={"link_id": {}})
     @handle("xiaoheihe.cn/bbs/post_share", params={"link_id": {}})
