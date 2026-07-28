@@ -9,7 +9,7 @@ from urllib.parse import urljoin
 
 import aiofiles
 from anyio import Path
-from nonebot import logger
+from ..utils.log import logger
 from rich.progress import (
     BarColumn,
     DownloadColumn,

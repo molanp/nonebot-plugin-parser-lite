@@ -2,7 +2,7 @@ import re
 from typing import ClassVar
 
 from msgspec import convert
-from nonebot import logger
+from ...utils.log import logger
 
 from ...utils.browser import BrowserManager
 from ...utils.format import format_num

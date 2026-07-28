@@ -1,7 +1,7 @@
 from typing import Any, ClassVar, TypeVar
 
 from msgspec import convert
-from nonebot.log import logger
+from ...utils.log import logger
 
 from ...utils.format import format_num
 from ..base import (

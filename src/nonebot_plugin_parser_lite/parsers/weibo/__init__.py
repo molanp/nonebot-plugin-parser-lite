@@ -1,7 +1,7 @@
 from math import ceil
 from typing import ClassVar
 
-from nonebot import logger
+from ...utils.log import logger
 import ujson
 
 from ...utils.format import format_num

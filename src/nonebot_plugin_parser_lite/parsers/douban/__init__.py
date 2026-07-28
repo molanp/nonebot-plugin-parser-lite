@@ -1,6 +1,6 @@
 from typing import ClassVar
 
-from nonebot.log import logger
+from ...utils.log import logger
 
 from ..base import BaseParser, MatchWithParams, Platform, PlatformEnum, handle, pconfig
 from .comment import decoder as commentDecoder

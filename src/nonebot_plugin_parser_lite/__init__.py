@@ -1,6 +1,4 @@
 import os
-from nonebot import logger, require
-from nonebot.plugin import PluginMetadata, inherit_supported_adapters
 
 
 def _get_flag(name: str) -> bool:
@@ -10,7 +8,17 @@ def _get_flag(name: str) -> bool:
 
 _STANDALONE = _get_flag("PARSER_LITE_STANDALONE")
 
-if not _STANDALONE:
+if _STANDALONE:
+    from logging import getLogger as _getLogger
+
+    logger = _getLogger("parser-lite")
+    scheduler = None
+    PluginMetadata = None  # type: ignore
+    inherit_supported_adapters = None  # type: ignore
+else:
+    from nonebot import logger, require
+    from nonebot.plugin import PluginMetadata, inherit_supported_adapters
+
     require("nonebot_plugin_alconna")
     require("nonebot_plugin_uninfo")
     require("nonebot_plugin_htmlrender")
@@ -18,8 +26,6 @@ if not _STANDALONE:
     require("nonebot_plugin_localstore")
 
     from nonebot_plugin_apscheduler import scheduler
-else:
-    scheduler = None
 
 from .config import Config
 

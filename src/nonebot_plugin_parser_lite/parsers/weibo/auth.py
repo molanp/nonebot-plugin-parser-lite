@@ -4,7 +4,7 @@ import re
 from typing import Any
 
 from httpx import AsyncClient
-from nonebot import logger
+from ...utils.log import logger
 import ujson
 
 if __name__ == "__main__":

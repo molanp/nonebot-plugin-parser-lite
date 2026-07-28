@@ -1,7 +1,7 @@
 from typing import Any, ClassVar, TypeVar  # noqa: I001
 
 from msgspec.json import Decoder
-from nonebot import logger
+from ...utils.log import logger
 
 from ...utils.format import format_num
 from ..base import (

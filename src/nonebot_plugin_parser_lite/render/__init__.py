@@ -41,7 +41,12 @@ from ..exception import (
     DurationLimitException,
     SizeLimitException,
 )
-from ..helper import ForwardNodeInner, UniHelper, UniMessage
+if _STANDALONE:
+    ForwardNodeInner = str  # type: ignore
+    UniHelper = None  # type: ignore
+    UniMessage = list  # type: ignore
+else:
+    from ..helper import ForwardNodeInner, UniHelper, UniMessage
 from ..utils.cache import CacheManager
 
 PLACEHOLDER_IMAGE = (

@@ -2,7 +2,7 @@ import asyncio
 import hashlib
 
 from anyio import Path
-from nonebot import logger
+from .log import logger
 
 from .cache import CacheManager
 from .common import fmt_size
