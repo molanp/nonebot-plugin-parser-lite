@@ -1,12 +1,4 @@
-import os
-
-
-def _get_flag(name: str) -> bool:
-    """Parse boolean-like env var: "1"/"true"/"yes" → True."""
-    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes"}
-
-
-_STANDALONE = _get_flag("PARSER_LITE_STANDALONE")
+from .utils._flags import _STANDALONE, _get_flag  # noqa: F401
 
 if _STANDALONE:
     from logging import getLogger as _getLogger

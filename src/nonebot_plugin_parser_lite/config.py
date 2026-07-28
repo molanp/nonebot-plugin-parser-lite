@@ -4,15 +4,8 @@ from anyio import Path
 from pydantic import BaseModel
 
 from .constants import PlatformEnum
+from .utils._flags import _get_flag, _STANDALONE
 from .utils.bilibili.video import BiliVideoCodecs, BiliVideoQuality
-
-
-def _get_flag(name: str) -> bool:
-    """Parse boolean-like env var: "1"/"true"/"yes" → True."""
-    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes"}
-
-
-_STANDALONE = _get_flag("PARSER_LITE_STANDALONE")
 
 
 def parse_hm_to_minutes(value: str) -> int:

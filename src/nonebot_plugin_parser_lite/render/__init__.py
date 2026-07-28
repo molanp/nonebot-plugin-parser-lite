@@ -3,20 +3,13 @@ from collections.abc import AsyncGenerator, Awaitable, Callable
 from datetime import datetime
 from io import BytesIO
 from itertools import chain
-import os
 from typing import Any, ClassVar, Literal, cast
 import uuid
 
 from anyio import Path
 import qrcode
 
-
-def _get_flag(name: str) -> bool:
-    """Parse boolean-like env var: "1"/"true"/"yes" → True."""
-    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes"}
-
-
-_STANDALONE = _get_flag("PARSER_LITE_STANDALONE")
+from ..utils._flags import _get_flag, _STANDALONE
 if _STANDALONE:
     from logging import getLogger as _getLogger
     logger = _getLogger("parser_lite.render")
@@ -42,9 +35,29 @@ from ..exception import (
     SizeLimitException,
 )
 if _STANDALONE:
-    ForwardNodeInner = str  # type: ignore
-    UniHelper = None  # type: ignore
-    UniMessage = list  # type: ignore
+
+    class _StandaloneGuard:
+        """Base for types unavailable in standalone mode.
+
+        Any attempt to instantiate these types triggers a clear
+        RuntimeError instead of silently producing wrong results.
+        """
+
+        def __init__(self, *args, **kwargs):
+            raise RuntimeError(
+                "render types are not available in standalone mode "
+                f"(PARSER_LITE_STANDALONE=1). "
+                "Run under NoneBot with nonebot_plugin_htmlrender installed."
+            )
+
+    class ForwardNodeInner(_StandaloneGuard):  # type: ignore[misc]
+        pass
+
+    class UniMessage(_StandaloneGuard):  # type: ignore[misc]
+        pass
+
+    class UniHelper(_StandaloneGuard):  # type: ignore[misc]
+        pass
 else:
     from ..helper import ForwardNodeInner, UniHelper, UniMessage
 from ..utils.cache import CacheManager
