@@ -226,14 +226,14 @@ class Config(BaseModel):
 
 
 if IS_STANDALONE:
-    import asyncio
+    from pathlib import Path as PathSync
 
-    base_dir = Path(os.environ.get("PARSER_LITE_BASE_DIR", asyncio.run(Path().cwd())))
+    base_dir = Path(os.environ.get("PARSER_LITE_BASE_DIR", PathSync().cwd()))
     _cache_dir: Path = Path(base_dir / "cache")
     _config_dir: Path = Path(base_dir / "config")
     _data_dir: Path = Path(base_dir / "data")
     for d in [_cache_dir, _config_dir, _data_dir]:
-        asyncio.run(d.mkdir(parents=True, exist_ok=True))
+        PathSync(d).mkdir(parents=True, exist_ok=True)
     pconfig: Config = Config()
 
     class GlobalConfig(BaseModel):
