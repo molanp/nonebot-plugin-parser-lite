@@ -4,9 +4,30 @@ if _STANDALONE:
     from logging import getLogger as _getLogger
 
     logger = _getLogger("parser-lite")
-    scheduler = None
     PluginMetadata = None  # type: ignore
     inherit_supported_adapters = None  # type: ignore
+
+    from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
+    scheduler = AsyncIOScheduler()
+    scheduler.configure({"apscheduler.timezone": "Asia/Shanghai"})
+    try:
+        scheduler.start()
+    except RuntimeError:
+        pass  # no event loop yet — consumer calls scheduler.start() later
+
+    def clear_result_cache() -> None:
+        pass
+
+    class BrowserManager:
+        @staticmethod
+        def clear_cache() -> None:
+            pass
+
+        @staticmethod
+        def reconnect() -> None:
+            pass
+
 else:
     from nonebot import logger, require
     from nonebot.plugin import PluginMetadata, inherit_supported_adapters
@@ -18,12 +39,10 @@ else:
     require("nonebot_plugin_localstore")
 
     from nonebot_plugin_apscheduler import scheduler
-
-from .config import Config
-
-if not _STANDALONE:
     from .matchers import clear_result_cache
     from .utils.browser import BrowserManager
+
+from .config import Config
 
 from .utils.cache import CacheManager
 
