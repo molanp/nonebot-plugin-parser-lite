@@ -86,46 +86,64 @@ def _clean_soup(soup: BeautifulSoup) -> None:
         noscript.decompose()
 
 
+def _parse_img(element: Tag):
+    attrs: dict[str, str] = {
+        str(k): str(v[0] if isinstance(v, list) and v else v)
+        for k, v in (element.attrs or {}).items()
+        if v
+    }
+    src = (
+        attrs.get("data-original")
+        or attrs.get("data-actualsrc")
+        or attrs.get("data-default-watermark-src")
+        or attrs.get("src")
+    )
+    return Creator.graphic(url=src) if src else None
+
+
+def _is_video_box(element: Tag) -> bool:
+    return element.name == "a" and "video-box" in (element.get("class") or [])
+
+
+async def _yield_video_box(tag: Tag, content_type: str):
+    video = await _parse_video_box(tag, content_type)
+    if video:
+        yield video
+
+    data_name = tag.get("data-name")
+    if not data_name:
+        return
+    if text := str(data_name).strip():
+        yield text
+
+
 async def _iter_media_and_text(soup: BeautifulSoup, content_type: str):
     """
     按 DOM 顺序依次产出文本 / 图片 / 视频等内容。
     这是一个 async 生成器，方便内部按需 await。
     """
+    skip_parent: Tag | None = None
+
     for element in soup.descendants:
+        if skip_parent:
+            if element in skip_parent.descendants:
+                continue
+            else:
+                skip_parent = None
         if isinstance(element, Tag):
-            if element.name == "p":
+            if element.name in {"p", "br"}:
                 yield "\n"
                 continue
 
-            if element.name == "br":
-                yield "\n"
-                continue
-
-            if element.name == "a" and "video-box" in (element.get("class") or []):
-                video = await _parse_video_box(element, content_type)
-                if video:
-                    yield video
-
-                if data_name := element.get("data-name"):
-                    if text := str(data_name).strip():
-                        yield text
-
-                element.clear()
+            if _is_video_box(element):
+                skip_parent = element
+                async for item in _yield_video_box(element, content_type):
+                    yield item
                 continue
 
             if element.name == "img":
-                attrs: dict[str, str] = {
-                    str(k): str(v[0] if isinstance(v, list) and v else v)
-                    for k, v in (element.attrs or {}).items()
-                    if v
-                }
-                if src := (
-                    attrs.get("data-original")
-                    or attrs.get("data-actualsrc")
-                    or attrs.get("data-default-watermark-src")
-                    or attrs.get("src")
-                ):
-                    yield Creator.graphic(url=src)
+                if graphic := _parse_img(element):
+                    yield graphic
 
         elif isinstance(element, NavigableString):
             if text := str(element).strip():

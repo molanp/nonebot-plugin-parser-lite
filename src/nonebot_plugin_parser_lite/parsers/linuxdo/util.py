@@ -35,20 +35,22 @@ def parse_rich_content(html: str) -> list[ContentItem]:
 
 
 def _iter_media_and_text(soup: BeautifulSoup):
+    skip_parent: Tag | None = None
     for element in soup.descendants:
+        if skip_parent:
+            if element in skip_parent.descendants:
+                continue
+            else:
+                skip_parent = None
         if isinstance(element, Tag):
             if element.name == "span" and (
                 "filename" in (element.get("class") or [])
                 or "informations" in (element.get("class") or [])
             ):
-                element.clear()
+                skip_parent = element
                 continue
 
-            if element.name == "p":
-                yield "\n"
-                continue
-
-            if element.name == "br":
+            if element.name in {"p", "br"}:
                 yield "\n"
                 continue
 
