@@ -2,7 +2,13 @@ import os
 from nonebot import logger, require
 from nonebot.plugin import PluginMetadata, inherit_supported_adapters
 
-_STANDALONE = bool(os.environ.get("PARSER_LITE_STANDALONE"))
+
+def _get_flag(name: str) -> bool:
+    """Parse boolean-like env var: "1"/"true"/"yes" → True."""
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes"}
+
+
+_STANDALONE = _get_flag("PARSER_LITE_STANDALONE")
 
 if not _STANDALONE:
     require("nonebot_plugin_alconna")
@@ -53,7 +59,6 @@ if scheduler is not None:
         except Exception as e:
             logger.exception(f"清理缓存文件时发生异常: {e!r}")
 
-        if not _STANDALONE:
-            clear_result_cache()
-            BrowserManager.clear_cache()
-            BrowserManager.reconnect()
+        clear_result_cache()
+        BrowserManager.clear_cache()
+        BrowserManager.reconnect()

@@ -1,11 +1,18 @@
 import os
+from pathlib import Path as _Path
 from anyio import Path
 from pydantic import BaseModel
 
 from .constants import PlatformEnum
 from .utils.bilibili.video import BiliVideoCodecs, BiliVideoQuality
 
-_STANDALONE = bool(os.environ.get("PARSER_LITE_STANDALONE"))
+
+def _get_flag(name: str) -> bool:
+    """Parse boolean-like env var: "1"/"true"/"yes" → True."""
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes"}
+
+
+_STANDALONE = _get_flag("PARSER_LITE_STANDALONE")
 
 
 def parse_hm_to_minutes(value: str) -> int:
@@ -226,9 +233,17 @@ class Config(BaseModel):
 
 
 if _STANDALONE:
-    _cache_dir: Path = Path("cache")
-    _config_dir: Path = Path("config")
-    _data_dir: Path = Path("data")
+    base_dir = _Path(
+        os.environ.get(
+            "PARSER_LITE_BASE_DIR",
+            _Path(__file__).resolve().parent.parent,
+        )
+    )
+    _cache_dir: Path = Path(str(base_dir / "cache"))
+    _config_dir: Path = Path(str(base_dir / "config"))
+    _data_dir: Path = Path(str(base_dir / "data"))
+    for d in (_Path(_cache_dir), _Path(_config_dir), _Path(_data_dir)):
+        d.mkdir(parents=True, exist_ok=True)
     pconfig: Config = Config()
     gconfig = None
     _nickname: str = "parser-lite"

@@ -10,7 +10,13 @@ import uuid
 from anyio import Path
 import qrcode
 
-_STANDALONE = bool(os.environ.get("PARSER_LITE_STANDALONE"))
+
+def _get_flag(name: str) -> bool:
+    """Parse boolean-like env var: "1"/"true"/"yes" → True."""
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes"}
+
+
+_STANDALONE = _get_flag("PARSER_LITE_STANDALONE")
 if _STANDALONE:
     from logging import getLogger as _getLogger
     logger = _getLogger("parser_lite.render")
@@ -440,7 +446,8 @@ class Renderer:
         """使用 HTML 绘制通用社交媒体帖子卡片"""
         if _STANDALONE:
             raise RuntimeError(
-                "render_image requires nonebot_plugin_htmlrender in non-standalone mode"
+                "卡片渲染在独立模式下不可用。请安装 nonebot_plugin_htmlrender "
+                "并在 NoneBot 环境中运行。"
             )
         # 准备模板数据
         template_data = await self.resolve_parse_result(result)
