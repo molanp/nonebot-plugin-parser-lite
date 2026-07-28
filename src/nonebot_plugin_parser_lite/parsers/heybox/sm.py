@@ -202,7 +202,8 @@ def _DES(o: dict):
                 c = Cipher(TripleDES(rule["key"].encode("utf-8") * 3), ECB())
                 # 8-bytes * 3 以避免弃用警告
                 data = str(res).encode("utf-8")
-                data += b"\x00" * 8
+                if pad_len := (-len(data)) % 8:
+                    data += b"\x00" * pad_len
                 res = base64.b64encode(c.encryptor().update(data)).decode("utf-8")
             result[rule["obfuscated_name"]] = res
         else:
@@ -214,12 +215,12 @@ def _AES(v: bytes, k: bytes):
     iv = "0102030405060708"
     key = AES(k)
     c = Cipher(key, CBC(iv.encode("utf-8")))
-    c.encryptor()
     v += b"\x00"
     while len(v) % 16 != 0:
         v += b"\x00"
-    return c.encryptor().update(v).hex()
-
+    encryptor = c.encryptor()
+    ct = encryptor.update(v) + encryptor.finalize()
+    return ct.hex()
 
 def GZIP(o: dict):
     json_str = ujson.dumps(o, ensure_ascii=False)
