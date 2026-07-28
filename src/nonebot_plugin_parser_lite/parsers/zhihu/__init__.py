@@ -3,6 +3,7 @@ from typing import Any, ClassVar, TypeVar  # noqa: I001
 from msgspec.json import Decoder
 from nonebot import logger
 
+from ...utils.cookie import ck2dict
 from ...utils.format import format_num
 from ..base import (
     BaseParser,
@@ -10,6 +11,7 @@ from ..base import (
     ParseException,
     Platform,
     PlatformEnum,
+    pconfig,
     handle,
 )
 from .answer import decoder as answerDecoder
@@ -225,6 +227,7 @@ class ZhiHuParser(BaseParser):
                 **sign_zhihu_fetch_request(url),
                 **(ext_header or {}),
             },
+            cookies=ck2dict(pconfig.zhihu_ck) if pconfig.zhihu_ck else None,
         )
         if res.status_code != 200:
             raise ParseException(res.text)
