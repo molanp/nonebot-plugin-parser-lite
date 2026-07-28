@@ -37,10 +37,11 @@ def parse_rich_content(html: str) -> list[ContentItem]:
 def _iter_media_and_text(soup: BeautifulSoup):
     for element in soup.descendants:
         if isinstance(element, Tag):
-            if element.name == "span":
-                classes = element.get("class") or []
-                if "filename" in classes or "informations" in classes:
-                    element.decompose()
+            if element.name == "span" and (
+                "filename" in (element.get("class") or [])
+                or "informations" in (element.get("class") or [])
+            ):
+                element.clear()
                 continue
 
             if element.name == "p":

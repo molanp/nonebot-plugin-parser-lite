@@ -110,7 +110,7 @@ async def _iter_media_and_text(soup: BeautifulSoup, content_type: str):
                     if text := str(data_name).strip():
                         yield text
 
-                element.decompose()
+                element.clear()
                 continue
 
             if element.name == "img":
@@ -128,8 +128,7 @@ async def _iter_media_and_text(soup: BeautifulSoup, content_type: str):
                     yield Creator.graphic(url=src)
 
         elif isinstance(element, NavigableString):
-            text = str(element)
-            if text.strip():
+            if text := str(element).strip():
                 yield text
 
 
