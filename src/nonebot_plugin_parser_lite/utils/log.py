@@ -1,9 +1,8 @@
-"""Conditional logger: uses nonebot.logger or stdlib logging."""
 from logging import getLogger
 
-from ._flags import _STANDALONE
+from .env import IS_STANDALONE
 
-if _STANDALONE:
+if IS_STANDALONE:
     logger = getLogger("parser-lite")
 else:
-    from nonebot import logger  # noqa: F401
+    from nonebot.log import logger as logger

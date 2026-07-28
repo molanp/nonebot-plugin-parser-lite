@@ -5,10 +5,10 @@ import time
 from typing import ClassVar
 
 from anyio import Path
-from .log import logger
 
 from ..config import pconfig
 from .common import safe_unlink
+from .log import logger
 
 
 @dataclass(frozen=True, slots=True)

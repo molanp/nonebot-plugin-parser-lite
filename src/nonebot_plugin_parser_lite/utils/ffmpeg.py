@@ -2,10 +2,10 @@ import asyncio
 import hashlib
 
 from anyio import Path
-from .log import logger
 
 from .cache import CacheManager
 from .common import fmt_size
+from .log import logger
 
 
 class FFmpeg:

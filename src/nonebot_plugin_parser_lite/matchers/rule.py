@@ -3,7 +3,6 @@ from typing import Literal
 
 from msgspec import DecodeError, Struct
 from msgspec.json import Decoder
-from nonebot import logger
 from nonebot.matcher import Matcher
 from nonebot.params import Depends
 from nonebot.plugin.on import get_matcher_source
@@ -13,6 +12,7 @@ from nonebot_plugin_alconna.uniseg import Hyper, UniMsg
 from nonebot_plugin_uninfo import Uninfo
 
 from ..constants import MatchWithParams, ParamRules
+from ..utils.log import logger
 from .filter import is_enabled
 
 # 统一的状态键

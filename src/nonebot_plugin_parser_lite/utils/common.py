@@ -5,6 +5,7 @@ from typing import TypeVar
 from urllib.parse import urlparse
 
 from anyio import Path
+
 from .log import logger
 
 K = TypeVar("K")

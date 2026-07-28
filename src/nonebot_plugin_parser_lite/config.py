@@ -1,11 +1,11 @@
 import os
-from pathlib import Path as _Path
+
 from anyio import Path
 from pydantic import BaseModel
 
 from .constants import PlatformEnum
-from .utils._flags import _get_flag, _STANDALONE
 from .utils.bilibili.video import BiliVideoCodecs, BiliVideoQuality
+from .utils.env import IS_STANDALONE
 
 
 def parse_hm_to_minutes(value: str) -> int:
@@ -225,21 +225,22 @@ class Config(BaseModel):
         )
 
 
-if _STANDALONE:
-    base_dir = _Path(
-        os.environ.get(
-            "PARSER_LITE_BASE_DIR",
-            _Path(__file__).resolve().parent.parent,
-        )
-    )
-    _cache_dir: Path = Path(str(base_dir / "cache"))
-    _config_dir: Path = Path(str(base_dir / "config"))
-    _data_dir: Path = Path(str(base_dir / "data"))
-    for d in (_Path(_cache_dir), _Path(_config_dir), _Path(_data_dir)):
-        d.mkdir(parents=True, exist_ok=True)
+if IS_STANDALONE:
+    import asyncio
+
+    base_dir = Path(os.environ.get("PARSER_LITE_BASE_DIR", asyncio.run(Path().cwd())))
+    _cache_dir: Path = Path(base_dir / "cache")
+    _config_dir: Path = Path(base_dir / "config")
+    _data_dir: Path = Path(base_dir / "data")
+    for d in [_cache_dir, _config_dir, _data_dir]:
+        asyncio.run(d.mkdir(parents=True, exist_ok=True))
     pconfig: Config = Config()
-    gconfig = None
-    _nickname: str = "parser-lite"
+
+    class GlobalConfig(BaseModel):
+        log_level: str | int = "INFO"
+        nickname: list[str] = ["parser-lite"]
+
+    gconfig = GlobalConfig()
 else:
     from nonebot import get_driver, get_plugin_config
     import nonebot_plugin_localstore as _store
@@ -252,5 +253,5 @@ else:
     """插件配置"""
     gconfig = _driver.config
     """全局配置"""
-    _nickname: str = next(iter(gconfig.nickname), "nonebot-plugin-parser")
-    """机器人昵称"""
+_nickname: str = next(iter(gconfig.nickname), "nonebot-plugin-parser")
+"""机器人昵称"""

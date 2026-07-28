@@ -1,9 +1,9 @@
 from typing import ClassVar
 
 from msgspec import convert
-from ...utils.log import logger
 
 from ...utils.format import format_num
+from ...utils.log import logger
 from ..base import (
     BaseParser,
     Comment,

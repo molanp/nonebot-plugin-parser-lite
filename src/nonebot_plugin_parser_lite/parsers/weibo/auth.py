@@ -4,13 +4,10 @@ import re
 from typing import Any
 
 from httpx import AsyncClient
-from ...utils.log import logger
 import ujson
 
-if __name__ == "__main__":
-    COMMON_TIMEOUT = 5  # pyright: ignore[reportGeneralTypeIssues]
-else:
-    from ...constants import COMMON_TIMEOUT
+from ...constants import COMMON_TIMEOUT
+from ...utils.log import logger
 
 callback_pattern = re.compile(r"visitor_gray_callback\((.*)\)")
 

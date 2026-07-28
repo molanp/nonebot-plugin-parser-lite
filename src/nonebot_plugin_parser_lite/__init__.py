@@ -1,50 +1,16 @@
-from .utils._flags import _STANDALONE, _get_flag  # noqa: F401
+from nonebot import require
 
-if _STANDALONE:
-    from logging import getLogger as _getLogger
-
-    logger = _getLogger("parser-lite")
-    PluginMetadata = None  # type: ignore
-    inherit_supported_adapters = None  # type: ignore
-
-    from apscheduler.schedulers.asyncio import AsyncIOScheduler
-
-    scheduler = AsyncIOScheduler()
-    scheduler.configure({"apscheduler.timezone": "Asia/Shanghai"})
-    try:
-        scheduler.start()
-    except RuntimeError:
-        pass  # no event loop yet — consumer calls scheduler.start() later
-
-    def clear_result_cache() -> None:
-        pass
-
-    class BrowserManager:
-        @staticmethod
-        def clear_cache() -> None:
-            pass
-
-        @staticmethod
-        def reconnect() -> None:
-            pass
-
-else:
-    from nonebot import logger, require
-    from nonebot.plugin import PluginMetadata, inherit_supported_adapters
-
-    require("nonebot_plugin_alconna")
-    require("nonebot_plugin_uninfo")
-    require("nonebot_plugin_htmlrender")
-    require("nonebot_plugin_apscheduler")
-    require("nonebot_plugin_localstore")
-
-    from nonebot_plugin_apscheduler import scheduler
-    from .matchers import clear_result_cache
-    from .utils.browser import BrowserManager
+require("nonebot_plugin_alconna")
+require("nonebot_plugin_uninfo")
+require("nonebot_plugin_htmlrender")
+require("nonebot_plugin_localstore")
+from nonebot.plugin import PluginMetadata, inherit_supported_adapters
 
 from .config import Config
-
+from .utils.browser import BrowserManager
 from .utils.cache import CacheManager
+from .utils.log import logger
+from .utils.schedule import scheduler
 
 __plugin_meta__ = PluginMetadata(
     name="链接分享解析 Lite 版",
@@ -62,20 +28,21 @@ __plugin_meta__ = PluginMetadata(
         "version": "1.3.1",
         "plugin_type": "NORMAL",
     },
-) if not _STANDALONE else None
+)
 
 
-if scheduler is not None:
+from .matchers import clear_result_cache
 
-    @scheduler.scheduled_job("interval", hours=2, id="parser-clean-local-cache")
-    async def clean_plugin_cache() -> None:
-        """周期性清理过期缓存文件，并重置解析状态。"""
 
-        try:
-            await CacheManager.clean_expired()
-        except Exception as e:
-            logger.exception(f"清理缓存文件时发生异常: {e!r}")
+@scheduler.scheduled_job("interval", hours=2, id="parser-clean-local-cache")
+async def clean_plugin_cache() -> None:
+    """周期性清理过期缓存文件，并重置解析状态。"""
 
-        clear_result_cache()
-        BrowserManager.clear_cache()
-        BrowserManager.reconnect()
+    try:
+        await CacheManager.clean_expired()
+    except Exception as e:
+        logger.exception(f"清理缓存文件时发生异常: {e!r}")
+
+    clear_result_cache()
+    BrowserManager.clear_cache()
+    BrowserManager.reconnect()

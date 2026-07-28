@@ -3,7 +3,6 @@ from functools import wraps
 from typing import Any, Literal
 
 from anyio import Path
-from nonebot import logger
 from nonebot.adapters import Event
 from nonebot.matcher import current_bot, current_event
 from nonebot_plugin_alconna import SupportAdapter, uniseg
@@ -22,6 +21,7 @@ from nonebot_plugin_alconna.uniseg import (
 from .config import pconfig
 from .constants import EMOJI_MAP
 from .exception import TipException
+from .utils.log import logger
 
 ForwardNodeInner = str | Segment | UniMessage
 """转发消息节点内部允许的类型"""

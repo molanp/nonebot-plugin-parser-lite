@@ -9,12 +9,14 @@ import uuid
 from anyio import Path
 import qrcode
 
-from ..utils._flags import _get_flag, _STANDALONE
-if _STANDALONE:
-    from logging import getLogger as _getLogger
-    logger = _getLogger("parser_lite.render")
+from ..utils.env import IS_STANDALONE
+from ..utils.log import logger
+
+if IS_STANDALONE:
+
+    async def template_to_pic(*arg, **kwargs) -> bytes:
+        raise NotImplementedError()
 else:
-    from nonebot import logger
     from nonebot_plugin_htmlrender import template_to_pic
 
 from ..config import _nickname, gconfig, pconfig
@@ -34,32 +36,7 @@ from ..exception import (
     DurationLimitException,
     SizeLimitException,
 )
-if _STANDALONE:
-
-    class _StandaloneGuard:
-        """Base for types unavailable in standalone mode.
-
-        Any attempt to instantiate these types triggers a clear
-        RuntimeError instead of silently producing wrong results.
-        """
-
-        def __init__(self, *args, **kwargs):
-            raise RuntimeError(
-                "render types are not available in standalone mode "
-                f"(PARSER_LITE_STANDALONE=1). "
-                "Run under NoneBot with nonebot_plugin_htmlrender installed."
-            )
-
-    class ForwardNodeInner(_StandaloneGuard):  # type: ignore[misc]
-        pass
-
-    class UniMessage(_StandaloneGuard):  # type: ignore[misc]
-        pass
-
-    class UniHelper(_StandaloneGuard):  # type: ignore[misc]
-        pass
-else:
-    from ..helper import ForwardNodeInner, UniHelper, UniMessage
+from ..helper import ForwardNodeInner, UniHelper, UniMessage
 from ..utils.cache import CacheManager
 
 PLACEHOLDER_IMAGE = (
@@ -72,7 +49,7 @@ MAX_FORWARD_TEXT_LEN = 30000
 MAX_FORWARD_NODES = 90
 """单个 forward 节点数上限"""
 
-IS_DEBUG = gconfig.log_level in ["DEBUG", "TRACE", 10, 5] if gconfig else False
+IS_DEBUG = gconfig.log_level in ["DEBUG", "TRACE", 10, 5]
 
 Theme = Literal["light", "dark"]
 
@@ -462,7 +439,7 @@ class Renderer:
 
     async def render_image(self, result: ParseResult, *, theme: Theme) -> bytes:
         """使用 HTML 绘制通用社交媒体帖子卡片"""
-        if _STANDALONE:
+        if IS_STANDALONE:
             raise RuntimeError(
                 "卡片渲染在独立模式下不可用。请安装 nonebot_plugin_htmlrender "
                 "并在 NoneBot 环境中运行。"

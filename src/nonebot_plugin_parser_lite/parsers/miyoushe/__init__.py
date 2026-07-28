@@ -1,7 +1,6 @@
 from typing import ClassVar
 
 from ...utils.log import logger
-
 from ..base import BaseParser, MatchWithParams, Platform, PlatformEnum, handle, pconfig
 from .comment import decoder as commentDecoder
 from .post import decoder as postDecoder

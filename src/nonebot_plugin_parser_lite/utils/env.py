@@ -1,12 +1,7 @@
-"""Shared standalone mode flag detection.
-
-All modules import _get_flag and _STANDALONE from here
-to avoid duplicating env-var parsing logic.
-"""
 import os
 
 
-def _get_flag(name: str) -> bool:
+def get_env(name: str) -> bool:
     """Parse boolean-like env var: "1"/"true"/"yes" → True.
 
     Treats "1", "true", "yes" (case-insensitive, whitespace ignored)
@@ -16,4 +11,7 @@ def _get_flag(name: str) -> bool:
     return os.environ.get(name, "").strip().lower() in {"1", "true", "yes"}
 
 
-_STANDALONE = _get_flag("PARSER_LITE_STANDALONE")
+IS_STANDALONE = get_env("PARSER_LITE_STANDALONE")
+
+
+__all__ = ["IS_STANDALONE"]

@@ -7,7 +7,6 @@ from typing import Any, ClassVar
 import aiofiles
 from anyio import Path
 from msgspec import convert
-from ...utils.log import logger
 import ujson
 
 from ...exception import DownloadException, TipException
@@ -29,6 +28,7 @@ from ...utils.bilibili.user import get_black_list
 from ...utils.bilibili.video import Video, VideoDownloadURLDataDetecter
 from ...utils.cookie import ck2dict
 from ...utils.format import format_num
+from ...utils.log import logger
 from ..base import (
     DOWNLOADER,
     Author,

@@ -2,10 +2,10 @@ import re
 from typing import ClassVar
 
 from msgspec import convert
-from ...utils.log import logger
 
 from ...utils.browser import BrowserManager
 from ...utils.format import format_num
+from ...utils.log import logger
 from ..base import (
     BaseParser,
     ContentItem,

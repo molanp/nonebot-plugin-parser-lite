@@ -1,10 +1,10 @@
 from math import ceil
 from typing import ClassVar
 
-from ...utils.log import logger
 import ujson
 
 from ...utils.format import format_num
+from ...utils.log import logger
 from ..base import (
     BaseParser,
     MatchWithParams,
