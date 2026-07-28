@@ -124,7 +124,7 @@ class BilibiliParser(BaseParser):
             # 首次成功加载黑名单后，注册定时刷新任务（最多注册一次）
             if not self._black_list_job_added:
                 try:
-                    from nonebot_plugin_apscheduler import scheduler
+                    from ... import scheduler
 
                     scheduler.add_job(
                         self.load_black_list,
