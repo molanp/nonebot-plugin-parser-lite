@@ -52,7 +52,7 @@ async def get_comments(
     page_index: int = 1,
     page_size: int = 7,
     nohot: bool = False,
-    order: OrderType = OrderType.HOT,
+    order: OrderType = OrderType.LIKE,
     credential: Credential | None = None,
 ) -> dict[str, Any]:
     """
@@ -63,7 +63,7 @@ async def get_comments(
     :param page_index: 页码, defaults to 1
     :param page_size: 每页项数, defaults to 7
     :param nohot: 是否不显示热评, defaults to False
-    :param order: 	排序方式, defaults to OrderType.HOT
+    :param order: 	排序方式, defaults to OrderType.LIKE
     :param credential: 凭证, defaults to None
     :raises BiliHelperError: _description_
     :return: 调用 API 返回的结果
@@ -83,7 +83,7 @@ async def get_comments(
                 "oid": oid,
                 "sort": order.value,
                 "ps": page_size,
-                "nohot": nohot,
+                "nohot": int(nohot),
             },
             cookies=credential.get_cookies(),
         )

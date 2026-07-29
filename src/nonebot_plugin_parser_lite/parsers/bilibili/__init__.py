@@ -1042,7 +1042,6 @@ class BilibiliParser(BaseParser):
                     type=type,
                     page_index=1,
                     page_size=pconfig.max_comments,
-                    nohot=True,
                     credential=await self.credential,
                 )
             except BiliHelperException as e:
