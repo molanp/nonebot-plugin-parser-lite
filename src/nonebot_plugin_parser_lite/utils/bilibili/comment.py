@@ -4,6 +4,7 @@ from typing import Any
 from .client import CLIENT
 from .credential import Credential
 from .exceptions import BiliHelperException
+from .sign import encWbi, getWbiKeys
 
 
 class CommentResourceType(IntEnum):
@@ -38,53 +39,42 @@ class OrderType(IntEnum):
     评论排序方式枚举
     """
 
-    HOT = 2
-    """按热度倒序"""
-    LIKE = 1
-    """按点赞数倒序"""
-    TIME = 0
-    """按发布时间倒序"""
+    ONLY_HOT = 3
+    """仅按热度"""
+    ONLY_TIME = 2
+    """仅按时间"""
+    HOT_AND_TIME = 1
+    """按时间和热度"""
 
 
 async def get_comments(
     oid: int,
     type: CommentResourceType,
-    page_index: int = 1,
-    page_size: int = 7,
-    nohot: bool = False,
-    order: OrderType = OrderType.LIKE,
+    order: OrderType = OrderType.ONLY_HOT,
     credential: Credential | None = None,
 ) -> dict[str, Any]:
     """
-    获取资源评论列表
+    获取资源评论列表(wbi)
 
     :param oid: 资源 ID
     :param type_: 资源类枚举
-    :param page_index: 页码, defaults to 1
-    :param page_size: 每页项数, defaults to 7
-    :param nohot: 是否不显示热评, defaults to False
-    :param order: 	排序方式, defaults to OrderType.LIKE
+    :param order: 	排序方式, defaults to OrderType.ONLY_HOT
     :param credential: 凭证, defaults to None
     :raises BiliHelperError: _description_
-    :return: 调用 API 返回的结果
+    :return: 调用 API 返回的结果, 未登录 3 , 登录 20, 现在不想写翻页
     """
-    if page_index <= 0:
-        raise BiliHelperException("page_index 必须大于或等于 1")
-    if page_size <= 0:
-        raise BiliHelperException("page_size 必须大于或等于 1")
-    page_size = min(page_size, 20)
     credential = credential or Credential()
+    params = {
+        "type": type.value,
+        "oid": oid,
+        "mode": order.value,
+        "pagination_str": '{"offset":""}',
+        "web_location": 1315875,
+    }
     result = (
         await CLIENT.get(
-            url="https://api.bilibili.com/x/v2/reply",
-            params={
-                "pn": page_index,
-                "type": type.value,
-                "oid": oid,
-                "sort": order.value,
-                "ps": page_size,
-                "nohot": int(nohot),
-            },
+            url="https://api.bilibili.com/x/v2/reply/wbi/main",
+            params=encWbi(params, *(await getWbiKeys())),
             cookies=credential.get_cookies(),
         )
     ).json()
