@@ -221,7 +221,7 @@ class Video:
             "platform": "pc",
             "from_client": "BROWSER",
             "web_location": 1315873,
-            "try_look": 1
+            "try_look": 1,
         }
         if html5:
             params["platform"] = "html5"
@@ -280,7 +280,8 @@ class Video:
 
 
 RE_PCDN_HOST = re.compile(
-    r"\.mcdn\.bilivideo\.cn|szbdyd\.com|cos\.bilibili\.com/.+pcdn", re.IGNORECASE
+    r"\.mcdn\.bilivideo\.cn|szbdyd\.com|cos\.bilibili\.com/.+pcdn|\.edge\.mountaintoys\.cn",
+    re.IGNORECASE,
 )
 RE_PCDN_PATH = re.compile(r"xy\d+x\d+x\d+x\d+xy|/pcdn/|/mcdn/", re.IGNORECASE)
 RE_PRIVATE_IP = re.compile(
