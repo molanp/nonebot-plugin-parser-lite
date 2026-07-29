@@ -53,6 +53,8 @@ class PlayInfo(Struct):
     """歌曲时长，单位秒"""
     url: str = ""
     """歌曲下载地址"""
+    album_audio_id: int = 0
+    """音频id"""
 
 
 class CandidatesList(Struct):
@@ -112,6 +114,14 @@ class KuGouParser(BaseParser):
                     return smarty_data[0].get("hash", "").upper()
         return ""
 
+    @handle("t1.kugou.com", r"https?://t1\.kugou\.com/[a-zA-Z0-9]+")
+    async def _parse_kugou_t1(self, searched: MatchWithParams):
+        return await self.parse_with_redirect(searched.url)
+
+    @handle("t1.kugou.com", params={"hash": {}})
+    async def _parse_kugou_t1_hash(self, searched: MatchWithParams):
+        return await self.parse_by_hash(searched["hash"])
+
     @handle(
         "kugou.com",
         r"https?://[^\s]*?kugou\.com.*?(?:/(?:share|mixsong)/[a-zA-Z0-9]+\.html|(?:id|chain)=[a-zA-Z0-9]+)",
@@ -123,14 +133,15 @@ class KuGouParser(BaseParser):
         response.raise_for_status()
         html_text = response.text
 
-        # 提取歌曲hash
-        _hash = self._extract_hash(html_text)
-
-        if not _hash:
+        if _hash := self._extract_hash(html_text):
+            return await self.parse_by_hash(_hash)
+        else:
             raise ParseException(f"未找到歌曲hash: {share_url}")
 
+    async def parse_by_hash(self, hash: str):
+
         response = await self.httpx.get(
-            f"https://m.kugou.com/app/i/getSongInfo.php?cmd=playInfo&hash={_hash}"
+            f"https://m.kugou.com/app/i/getSongInfo.php?cmd=playInfo&hash={hash}"
         )
         playinfo = Decoder(PlayInfo).decode(response.content)
         if playinfo.errcode != 0:
@@ -190,7 +201,7 @@ class KuGouParser(BaseParser):
         return self.result(
             title=playinfo.songName,
             author=author,
-            url=share_url,
+            url=f"https://h5.kugou.com/v2/v-5a15aeb1/index.html?album_audio_id={playinfo.album_audio_id}",
             content=contents,
             extra=extra,
         )
