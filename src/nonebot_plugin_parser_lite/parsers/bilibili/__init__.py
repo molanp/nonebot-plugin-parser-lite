@@ -11,6 +11,7 @@ from nonebot import logger
 import ujson
 
 from ...exception import DownloadException, TipException
+from ...utils.bilibili.a2v import bv2av
 from ...utils.bilibili.article import Article
 from ...utils.bilibili.client import HEADERS
 from ...utils.bilibili.comment import CommentResourceType, get_comments
@@ -215,40 +216,6 @@ class BilibiliParser(BaseParser):
         read_id = int(searched["read_id"])
         return await self.parse_read(read_id)
 
-    XOR_CODE = 23442827791579
-    MASK_CODE = 2251799813685247
-    MAX_AID = 1 << 51
-    ALPHABET = "FcwAPNKTMug3GV5Lj7EJnHpWsx4tb8haYeviqBz6rkCy12mUSDQX9RdoZf"
-    ENCODE_MAP = (8, 7, 0, 5, 1, 3, 2, 4, 6)
-    DECODE_MAP = tuple(reversed(ENCODE_MAP))
-
-    BASE = len(ALPHABET)
-    PREFIX = "BV1"
-    PREFIX_LEN = len(PREFIX)
-    CODE_LEN = len(ENCODE_MAP)
-
-    @classmethod
-    def av2bv(cls, aid: int) -> str:
-        """将AV号转换为BV号"""
-        bvid = [""] * 9
-        tmp = (cls.MAX_AID | aid) ^ cls.XOR_CODE
-        for i in range(cls.CODE_LEN):
-            bvid[cls.ENCODE_MAP[i]] = cls.ALPHABET[tmp % cls.BASE]
-            tmp //= cls.BASE
-        return cls.PREFIX + "".join(bvid)
-
-    @classmethod
-    def bv2av(cls, bvid: str) -> int:
-        """将BV号转换为AV号"""
-        assert bvid[: cls.PREFIX_LEN] == cls.PREFIX
-
-        bvid = bvid[cls.PREFIX_LEN :]
-        tmp = 0
-        for i in range(cls.CODE_LEN):
-            idx = cls.ALPHABET.index(bvid[cls.DECODE_MAP[i]])
-            tmp = tmp * cls.BASE + idx
-        return (tmp & cls.MASK_CODE) ^ cls.XOR_CODE
-
     async def parse_video(
         self,
         *,
@@ -323,7 +290,6 @@ class BilibiliParser(BaseParser):
 
         downloader = BiliVideoDownloader(v_url, a_url, self.headers)
 
-        # 创建视频下载内容（传递自定义下载器，而非立即执行）
         video_content = self.create_video(
             url_or_task=downloader,
             cover_url=page_info.cover,
@@ -348,12 +314,10 @@ class BilibiliParser(BaseParser):
         except Exception as e:
             logger.warning(f"统计数据提取异常: {e}")
 
-        # 使用BV-AV转换算法将BV号转换为AV号
         bvid = video_info.bvid
         try:
             if bvid.startswith("BV"):
-                # 使用类中已封装的bv2av方法进行转换
-                video_oid = self.bv2av(bvid)
+                video_oid = bv2av(bvid)
                 logger.debug(f"BV号 {bvid} 转换为AV号 {video_oid}")
             else:
                 # 如果不是BV号，直接使用
@@ -503,26 +467,34 @@ class BilibiliParser(BaseParser):
     def _extract_dynamic_stats(self, dynamic_info: DynamicInfo) -> Stats:
         """提取动态统计数据"""
         stats = self.create_stats()
+
+        def _set_count(
+            field: str,
+            getter: dict[str, Any],
+        ) -> None:
+            count = getter.get("count")
+            if count is None:
+                return
+            formatted = format_num(count)
+            if field == "like":
+                stats.like_count = formatted
+            elif field == "comment":
+                stats.comment_count = formatted
+            elif field == "forward":
+                stats.share_count = formatted
+            elif field == "favorite":
+                stats.collect_count = formatted
+
         with contextlib.suppress(Exception):
-            if dynamic_info.modules.module_stat:
-                m_stat = dynamic_info.modules.module_stat
-                stats.like_count = format_num(m_stat.get("like", {}).get("count", 0))
-                stats.comment_count = format_num(
-                    m_stat.get("comment", {}).get("count", 0)
-                )
-                stats.share_count = format_num(
-                    m_stat.get("forward", {}).get("count", 0)
-                )
-                stats.collect_count = format_num(
-                    m_stat.get("favorite", {}).get("count", 0)
-                )
-            modules = dynamic_info.modules
-            if hasattr(modules, "module_author") and hasattr(
-                modules.module_author, "views_text"
-            ):
-                views_value = modules.module_author.views_text
-                if views_value is not None:
-                    stats.view_count = views_value
+            if m_stat := dynamic_info.modules.module_stat:
+                _set_count("like", m_stat.get("like", {}) or {})
+                _set_count("comment", m_stat.get("comment", {}) or {})
+                _set_count("forward", m_stat.get("forward", {}) or {})
+                _set_count("favorite", m_stat.get("favorite", {}) or {})
+
+            if views_value := dynamic_info.modules.module_author.views_text:
+                stats.view_count = views_value
+
         return stats
 
     async def _resolve_repost(self, dynamic_info: DynamicInfo):
@@ -1040,8 +1012,6 @@ class BilibiliParser(BaseParser):
                 data = await get_comments(
                     oid=oid,
                     type=type,
-                    page_index=1,
-                    page_size=pconfig.max_comments,
                     credential=await self.credential,
                 )
             except BiliHelperException as e:
