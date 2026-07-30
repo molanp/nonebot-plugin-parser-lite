@@ -27,6 +27,7 @@ class ZhiHuParser(BaseParser):
     platform: ClassVar[Platform] = Platform(
         name=PlatformEnum.ZHIHU, display_name="知乎"
     )
+    zhihu_ck: dict[str, Any] = ck2dict(pconfig.zhihu_ck) if pconfig.zhihu_ck else {}
 
     @handle(
         "zhuanlan.zhihu.com/p",
@@ -224,10 +225,10 @@ class ZhiHuParser(BaseParser):
             url,
             headers={
                 **self.headers,
-                **sign_zhihu_fetch_request(url),
+                **sign_zhihu_fetch_request(url=url, dc0=self.zhihu_ck.get("d_c0", "")),
                 **(ext_header or {}),
-            },
-            cookies=ck2dict(pconfig.zhihu_ck) if pconfig.zhihu_ck else None,
+            },  # dc0其实可以传空，也不影响结果获取，不过既然ck有就传进去吧
+            cookies=self.zhihu_ck,
         )
         if res.status_code != 200:
             raise ParseException(res.text)
