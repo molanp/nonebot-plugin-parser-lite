@@ -12,7 +12,7 @@ from Cryptodome.Hash import SHA256
 from Cryptodome.PublicKey import RSA
 import ujson
 
-from .client import CLIENT, HEADERS, Response
+from .client import CLIENT, HEADERS
 from .exceptions import (
     BiliHelperException,
     CookieInvalidException,
@@ -290,7 +290,7 @@ def _getCorrespondPath() -> str:
 async def _get_refresh_csrf(credential: Credential) -> str:
     cookies = credential.get_cookies()
     cookies["buvid3"] = str(uuid.uuid1())
-    resp: Response = await CLIENT.get(
+    resp = await CLIENT.get(
         url=f"https://www.bilibili.com/correspond/1/{_getCorrespondPath()}",
         cookies=cookies,
     )
@@ -309,7 +309,7 @@ async def _refresh_cookies(credential: Credential) -> Credential:
     refresh_csrf = await _get_refresh_csrf(credential)
     cookies = credential.get_cookies()
     cookies["buvid3"] = str(uuid.uuid1())
-    resp: Response = await CLIENT.post(
+    resp = await CLIENT.post(
         url="https://passport.bilibili.com/x/passport-login/web/cookie/refresh",
         cookies=cookies,
         data={
@@ -654,7 +654,7 @@ async def _active_buvid(buvid3: str, buvid4: str):
     headers["Content-Type"] = "application/json"
     resp = await CLIENT.post(
         url="https://api.bilibili.com/x/internal/gaia-gateway/ExClimbWuzhi",
-        data=payload,
+        content=payload,
         headers=headers,
         cookies={
             "buvid3": buvid3,

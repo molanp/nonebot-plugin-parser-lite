@@ -2,7 +2,7 @@ from functools import reduce
 from hashlib import md5
 import time
 from typing import Any
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 
 from .client import CLIENT
 
@@ -16,6 +16,7 @@ mixinKeyEncTab = [
 # fmt: on
 
 IMG_KEY, SUB_KEY = "", ""
+WBI_KEY_EXPIRE = 0
 APPKEY = "4409e2ce8ffd12b8"
 APPSEC = "59b43e04ad6965f34319062b478f83dd"
 
@@ -27,26 +28,24 @@ def getMixinKey(orig: str):
 
 def encWbi(params: dict[str, Any], img_key: str, sub_key: str):
     "为请求参数进行 wbi 签名"
-    params.pop("w_rid", None)
     mixin_key = getMixinKey(img_key + sub_key)
-    curr_time = round(time.time())
-    params["wts"] = curr_time
+    params.pop("w_rid", None)
+    params["wts"] = int(time.time())
     params = dict(sorted(params.items()))
     params = {
-        k: "".join(filter(lambda chr: chr not in "!'()*", str(v)))
+        k: "".join(filter(lambda char: char not in "!'()*", str(v)))
         for k, v in params.items()
     }
-    if not params.get("web_location"):
-        params["web_location"] = 1550101
-    query = urlencode(params)
+    query = urlencode(params, quote_via=quote)
     wbi_sign = md5((query + mixin_key).encode()).hexdigest()
     params["w_rid"] = wbi_sign
     return params
 
 
 async def getWbiKeys() -> tuple[str, str]:
-    global IMG_KEY, SUB_KEY
-    if IMG_KEY and SUB_KEY:
+    global IMG_KEY, SUB_KEY, WBI_KEY_EXPIRE
+    now = int(time.time())
+    if IMG_KEY and SUB_KEY and WBI_KEY_EXPIRE > now:
         return IMG_KEY, SUB_KEY
     resp = await CLIENT.get(url="https://api.bilibili.com/x/web-interface/nav")
     resp.raise_for_status()
@@ -55,6 +54,7 @@ async def getWbiKeys() -> tuple[str, str]:
     sub_url: str = json_content["data"]["wbi_img"]["sub_url"]
     IMG_KEY = img_url.rsplit("/", 1)[1].split(".")[0]
     SUB_KEY = sub_url.rsplit("/", 1)[1].split(".")[0]
+    WBI_KEY_EXPIRE = now + 600
     return IMG_KEY, SUB_KEY
 
 

@@ -1,4 +1,4 @@
-from curl_cffi import AsyncSession, Response
+from httpx import AsyncClient
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -7,12 +7,12 @@ HEADERS = {
     "Referer": "https://www.bilibili.com",
 }
 
-CLIENT = AsyncSession(
-    impersonate="chrome131",
+CLIENT = AsyncClient(
     timeout=30.0,
     verify=True,
     trust_env=True,
     headers=HEADERS,
 )
 
-__all__ = ["CLIENT", "Response"]
+
+__all__ = ["CLIENT"]

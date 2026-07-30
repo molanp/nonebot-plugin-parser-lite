@@ -1013,7 +1013,6 @@ class BilibiliParser(BaseParser):
                     oid=oid,
                     type=type,
                     number=pconfig.max_comments,
-                    credential=await self.credential,
                 )
             except BiliHelperException as e:
                 logger.warning(f"bili评论返回数据错误: {e.msg}")
