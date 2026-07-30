@@ -1012,13 +1012,14 @@ class BilibiliParser(BaseParser):
                 data = await get_comments(
                     oid=oid,
                     type=type,
+                    number=pconfig.max_comments,
                     credential=await self.credential,
                 )
             except BiliHelperException as e:
                 logger.warning(f"bili评论返回数据错误: {e.msg}")
                 return []
 
-            upper_top = data.get("upper", {}).get("top")
+            upper_top = data.get("top", {}).get("upper")
             replies_raw: list[dict[str, Any]] = data.get("replies") or []
 
             upper_list: list[dict[str, Any]] = [upper_top] if upper_top else []
@@ -1053,6 +1054,21 @@ class BilibiliParser(BaseParser):
             logger.debug(
                 f"bili获得评论: upper={len(upper_list)}, replies={len(replies_raw)}, merged={len(merged)}",  # noqa: E501
             )
+            # upper 置顶评论始终首位，其余按 like 数降序排序
+            if merged:
+                if has_upper and len(merged) > 1:
+                    head = merged[0]
+                    tail = merged[1:]
+                    tail.sort(
+                        key=lambda item: int(item.get("like") or 0),
+                        reverse=True,
+                    )
+                    merged = [head, *tail]
+                else:
+                    merged.sort(
+                        key=lambda item: int(item.get("like") or 0),
+                        reverse=True,
+                    )
             return self._process_reply_list(merged)
 
         except Exception as e:
@@ -1159,7 +1175,7 @@ class BilibiliParser(BaseParser):
 
         processed_comments: list[Comment] = []
 
-        for comment in replies[:10]:
+        for comment in replies:
             comment_obj = _build_single_comment(comment)
             # 子回复
             child_posts: list[Comment] = []

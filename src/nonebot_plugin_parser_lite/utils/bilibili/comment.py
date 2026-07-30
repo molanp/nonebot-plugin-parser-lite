@@ -1,4 +1,5 @@
 from enum import IntEnum
+import json
 from typing import Any
 
 from .client import CLIENT
@@ -51,6 +52,8 @@ async def get_comments(
     oid: int,
     type: CommentResourceType,
     order: OrderType = OrderType.ONLY_HOT,
+    number: int = 20,
+    pagination_str: str | None = None,
     credential: Credential | None = None,
 ) -> dict[str, Any]:
     """
@@ -59,18 +62,26 @@ async def get_comments(
     :param oid: 资源 ID
     :param type_: 资源类枚举
     :param order: 	排序方式, defaults to OrderType.ONLY_HOT
+    :param number: 获取数量, defaults to 20
+    :param pagination_str: 翻页信息，用于懒加载分页 首次请求时不传，后续请求使用上次响应中的 data.cursor.pagination_reply.next_offset, defaults to None
     :param credential: 凭证, defaults to None
     :raises BiliHelperError: _description_
     :return: 调用 API 返回的结果, 未登录 3 , 登录 20, 现在不想写翻页
-    """
+    """  # noqa: E501
     credential = credential or Credential()
     params = {
         "type": type.value,
         "oid": oid,
         "mode": order.value,
-        "pagination_str": '{"offset":""}',
+        "plat": 1,
+        "seek_rpid": "",
+        "number": number,
         "web_location": 1315875,
     }
+    if pagination_str:
+        params["pagination_str"] = json.dumps({"offset": pagination_str})
+    else:
+        params["pagination_str"] = json.dumps({"offset": ""})
     result = (
         await CLIENT.get(
             url="https://api.bilibili.com/x/v2/reply/wbi/main",
