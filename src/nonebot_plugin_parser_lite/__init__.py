@@ -43,5 +43,5 @@ async def clean_plugin_cache() -> None:
         logger.exception(f"清理缓存文件时发生异常: {e!r}")
 
     clear_result_cache()
-    BrowserManager.clear_cache()
-    BrowserManager.reconnect()
+    await BrowserManager.clear_cache()
+    await BrowserManager.reconnect()

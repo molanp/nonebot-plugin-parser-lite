@@ -68,11 +68,10 @@ class DouyinParser(BaseParser):
         raise ParseException("分享已删除或资源直链提取失败, 请稍后再试")
 
     async def parse_note(self, vid: str):
-        tab = await BrowserManager.new_tab()
-        tab.set.load_mode.eager()
-        tab.get(f"https://www.douyin.com/note/{vid}")
-        text = tab.html
-        tab.close()
+        async with BrowserManager.open_tab(
+            f"https://www.douyin.com/note/{vid}"
+        ) as tab:
+            text = await tab.content()
         note = parse_note_html(text)
         data = convert(note, Note)
         content: list[ContentItem] = data.aweme.content
