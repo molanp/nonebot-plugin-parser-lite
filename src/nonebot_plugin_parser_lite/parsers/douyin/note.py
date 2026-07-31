@@ -88,11 +88,12 @@ class Aweme(Struct):
                     )
                 )
         if music := (self.music or self.detail.music):
-            content.append(
-                Creator.audio(
-                    url=music.playUrl.uri,
+            if uri := music.playUrl.uri:
+                content.append(
+                    Creator.audio(
+                        url=uri,
+                    )
                 )
-            )
         return content
 
     @property
