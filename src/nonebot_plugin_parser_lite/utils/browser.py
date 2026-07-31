@@ -8,6 +8,7 @@ import tempfile
 from typing import Any, Literal, Self
 
 from anyio import Path, fail_after, sleep
+from anyio import TimeoutError as AnyioTimeoutError
 import httpx
 from nonebot import get_driver
 from nonebot.log import logger
@@ -97,7 +98,7 @@ async def _wait_cdp_ready(ip: str, port: int) -> None:
                             if any(t.get("type") in ("page", "webview") for t in tabs):
                                 return
                     await sleep(0.2)
-    except TimeoutError as e:
+    except AnyioTimeoutError as e:
         raise RuntimeError(f"连接浏览器 CDP 超时: {ip}:{port}") from e
 
 
@@ -336,7 +337,7 @@ class BrowserManager:
 
         with suppress(ProcessLookupError, OSError):
             proc.terminate()
-        with suppress(TimeoutError):
+        with suppress(AnyioTimeoutError):
             with fail_after(_PROCESS_STOP_TIMEOUT):
                 await proc.wait()
             return
@@ -491,14 +492,17 @@ class BrowserManager:
         endpoint = f"http://127.0.0.1:{port}"
         try:
             await _wait_cdp_ready("127.0.0.1", port)
+            if cls._playwright is None:
+                cls._playwright = await async_playwright().start()
+            await cls._connect_cdp(endpoint)
         except Exception:
             await cls._kill_process()
+            if cls._user_data_dir is not None:
+                with suppress(Exception):
+                    await _rmtree(cls._user_data_dir)
+                cls._user_data_dir = None
             raise
 
-        if cls._playwright is None:
-            cls._playwright = await async_playwright().start()
-
-        await cls._connect_cdp(endpoint)
         cls._touch()
         if cls._idle_task is None or cls._idle_task.done():
             cls._idle_task = asyncio.create_task(cls._idle_watcher())
