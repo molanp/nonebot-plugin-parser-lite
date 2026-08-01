@@ -24,6 +24,7 @@ from .weibo import WeiBoParser
 from .wmpvp import WMPVPParser
 from .x import XParser
 from .zhihu import ZhiHuParser
+from .zlb import ZLBParser
 
 __all__ = [
     "AcfunParser",
@@ -51,5 +52,6 @@ __all__ = [
     "WMPVPParser",
     "WeiBoParser",
     "XParser",
+    "ZLBParser",
     "ZhiHuParser",
 ]

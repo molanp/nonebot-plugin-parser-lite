@@ -66,6 +66,7 @@ class PlatformEnum(str, Enum):
     DOUBAO = "doubao"
     LINUXDO = "linuxdo"
     WMPVP = "wmpvp"
+    ZLB = "zlb"
 
     def __str__(self) -> str:
         return self.value
