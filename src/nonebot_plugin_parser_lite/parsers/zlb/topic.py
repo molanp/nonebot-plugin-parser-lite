@@ -10,7 +10,7 @@ from .util import parse_date, parse_rich_content
 class Post(Struct):
     username: str
     """用户名"""
-    display_username: str
+    display_username: str | None
     """昵称(可能没设置)"""
     created_at: str
     cooked: str
