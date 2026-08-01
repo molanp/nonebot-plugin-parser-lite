@@ -4,11 +4,13 @@ import random
 import re
 import struct
 import time
+from typing import cast
 import urllib.parse
 import uuid
 
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
 import ujson
 
 from .client import CLIENT, HEADERS
@@ -18,20 +20,24 @@ from .exceptions import (
     CookiesRefreshException,
 )
 
-CORRESPOND_KEY = serialization.load_pem_public_key(
-    b"""\
+CORRESPOND_KEY = cast(
+    RSAPublicKey,
+    serialization.load_pem_public_key(
+        b"""\
 -----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDLgd2OAkcGVtoE3ThUREbio0Eg
 Uc/prcajMKXvkCKFCWhJYJcLkcM2DKKcSeFpD/j6Boy538YXnR6VhcuUJOhH2x71
 nzPjfdTcqMz7djHum0qSZA0AyCBDABUqCrfNgCiJ00Ra7GmRj+YCK1NJEuewlb40
 JNrRuoEUXpabUzGB8QIDAQAB
 -----END PUBLIC KEY-----"""
+    ),
 )
 CORRESPOND_PADDING = padding.OAEP(
     mgf=padding.MGF1(algorithm=hashes.SHA256()),
     algorithm=hashes.SHA256(),
     label=None,
 )
+# 对摘要和 MGF1 都使用 SHA256
 
 LAST_CHECK_TIME = 0
 
@@ -286,9 +292,7 @@ async def _check_refresh(credential: Credential) -> bool:
 
 def _getCorrespondPath() -> str:
     ts = round(time.time() * 1000)
-    encrypted = CORRESPOND_KEY.encrypt(  # pyright: ignore[reportAttributeAccessIssue]
-        f"refresh_{ts}".encode(), CORRESPOND_PADDING
-    )
+    encrypted = CORRESPOND_KEY.encrypt(f"refresh_{ts}".encode(), CORRESPOND_PADDING)
     return binascii.b2a_hex(encrypted).decode()
 
 
