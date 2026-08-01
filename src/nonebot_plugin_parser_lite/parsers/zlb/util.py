@@ -61,7 +61,8 @@ def _iter_media_and_text(soup: BeautifulSoup):
                     if v
                 }
                 if src := attrs.get("src"):
-                    if attrs.get("class") == "emoji":
+                    classes = element.get("class") or []
+                    if "emoji" in classes:
                         yield Creator.sticker(
                             url=src,
                             desc=attrs.get("alt"),
