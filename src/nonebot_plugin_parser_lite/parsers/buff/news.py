@@ -53,7 +53,7 @@ class News(Struct):
 
                 # 普通图片
                 if element.name == "img":
-                    if src_attr := element.attrs.get("data-original"):
+                    if src_attr := element.get("data-original"):
                         data.append(Creator.graphic(url=str(src_attr)))
 
             elif isinstance(element, NavigableString):

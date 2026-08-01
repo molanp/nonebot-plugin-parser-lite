@@ -87,18 +87,13 @@ def _clean_soup(soup: BeautifulSoup) -> None:
 
 
 def _parse_img(element: Tag):
-    attrs: dict[str, str] = {
-        str(k): str(v[0] if isinstance(v, list) and v else v)
-        for k, v in (element.attrs or {}).items()
-        if v
-    }
     src = (
-        attrs.get("data-original")
-        or attrs.get("data-actualsrc")
-        or attrs.get("data-default-watermark-src")
-        or attrs.get("src")
+        element.get("data-original")
+        or element.get("data-actualsrc")
+        or element.get("data-default-watermark-src")
+        or element.get("src")
     )
-    return Creator.graphic(url=src) if src else None
+    return Creator.graphic(url=str(src)) if src else None
 
 
 def _is_video_box(element: Tag) -> bool:

@@ -151,19 +151,14 @@ def extract_from_html(html: str) -> list[ContentItem]:
     for element in soup.descendants:
         # 处理图片标签
         if isinstance(element, Tag) and element.name == "img":
-            attrs: dict[str, str] = {
-                str(k): str(v[0] if isinstance(v, list) and v else v)
-                for k, v in (element.attrs or {}).items()
-                if v is not None
-            }
             if src := (
-                attrs.get("data-original")
-                or attrs.get("data-actualsrc")
-                or attrs.get("data-default-watermark-src")
+                element.get("data-original")
+                or element.get("data-actualsrc")
+                or element.get("data-default-watermark-src")
             ):
                 result.append(
                     Creator.image(
-                        url=src,
+                        url=str(src),
                     )
                 )
         # 处理纯文本节点

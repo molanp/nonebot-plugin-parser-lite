@@ -55,16 +55,13 @@ def _iter_media_and_text(soup: BeautifulSoup):
                 continue
 
             if element.name == "img":
-                attrs: dict[str, str] = {
-                    str(k): str(v[0] if isinstance(v, list) and v else v)
-                    for k, v in (element.attrs or {}).items()
-                    if v
-                }
-                if src := attrs.get("src"):
-                    if attrs.get("class") == "emoji":
+                if src := element.get("src"):
+                    src = str(src)
+                    classes = element.get("class") or []
+                    if "emoji" in classes:
                         yield Creator.sticker(
                             url=src,
-                            desc=attrs.get("alt"),
+                            desc=element.get("alt", None),  # pyright: ignore[reportArgumentType]
                             size="small",
                             ext_headers={"Referer": "https://linux.do/"},
                             use_curl_cffi=True,
