@@ -13,6 +13,7 @@ import ujson
 from ...exception import DownloadException, TipException
 from ...utils.bilibili.a2v import bv2av
 from ...utils.bilibili.article import Article
+from ...utils.bilibili.bangumi import Bangumi
 from ...utils.bilibili.client import HEADERS
 from ...utils.bilibili.comment import CommentResourceType, get_comments
 from ...utils.bilibili.credential import Credential, get_buvid
@@ -44,6 +45,7 @@ from ..base import (
     handle,
     pconfig,
 )
+from .bangumi import BangumiInfo
 from .dynamic import DynamicData, DynamicInfo
 from .favlist import FavData
 from .live import RoomData
@@ -155,6 +157,39 @@ class BilibiliParser(BaseParser):
             assert self.black_mids is not None
         if mid in self.black_mids:
             raise TipException("该up属于黑名单")
+
+    @handle("bilibili.com/bangumi/play", r"ep(?P<ep_id>\d+)")
+    @handle("bilibili.com/bangumi/play", r"ss(?P<season_id>\d+)")
+    async def _parse_bangumi(self, searched: MatchWithParams):
+        ep_id = searched.get("ep_id")
+        season_id = searched.get("season_id")
+        bangumi = await Bangumi(ep_id=ep_id, season_id=season_id).get_info()
+        bangumi_info = convert(bangumi, BangumiInfo)
+        return self.result(
+            author=self.create_author(
+                name=bangumi_info.season_title,
+                avatar_url=bangumi_info.square_cover,
+            ),
+            content=[
+                self.create_graphic(url=bangumi_info.cover),
+                bangumi_info.staff,
+                "\n",
+                bangumi_info.evaluate,
+            ],
+            stats=self.create_stats(
+                view_count=format_num(bangumi_info.stat.views),
+                like_count=format_num(bangumi_info.stat.likes),
+                collect_count=format_num(bangumi_info.stat.favorite),
+                share_count=format_num(bangumi_info.stat.share),
+                comment_count=format_num(bangumi_info.stat.reply),
+                extra={
+                    "danmaku": format_num(bangumi_info.stat.danmakus),
+                    "coin": format_num(bangumi_info.stat.coins),
+                }
+            ),
+            title=bangumi_info.title,
+            url=bangumi_info.share_url,
+        )
 
     @handle("b23.tv", r"b23\.tv/[0-9a-zA-Z._?%&+\-=/#]+")
     @handle("bili2233", r"bili2233\.cn/[0-9a-zA-Z._?%&+\-=/#]+")
