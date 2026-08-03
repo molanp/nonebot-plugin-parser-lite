@@ -1,0 +1,79 @@
+name: Generate Standalone Branch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: standalone-generation
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Clone upstream main (preserve scripts)
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/upstream-scripts
+          python scripts/verify_import.py
+          cp scripts/generate_standalone.py /tmp/upstream-scripts/
+
+      - name: Checkout alone branch (or create from main)
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          if git rev-parse --verify origin/alone >/dev/null 2>&1; then
+            # existing alone — rebase onto latest main
+            git checkout -B alone origin/alone
+            git rebase origin/main || { git rebase --abort; echo "rebase conflict — falling back to fresh rebase"; git reset --hard; git checkout -B alone origin/main; }
+          else
+            # first run — create alone from main
+            git checkout -b alone origin/main
+          fi
+
+      - name: Generate standalone files
+        run: |
+          rm -rf scripts
+          mkdir -p scripts
+          cp /tmp/upstream-scripts/generate_standalone.py scripts/
+          python scripts/generate_standalone.py
+
+      - name: Clean and commit
+        run: |
+          set -euo pipefail
+          # Remove workflow-only files
+          for d in scripts tools tests_data api_txt; do
+            rm -rf "$d" 2>/dev/null || true
+          done
+          rm -f scripts/generate_standalone.py 2>/dev/null || true
+          # Stage and commit
+          git add -f .
+          if git diff --staged --quiet; then
+            echo "No changes, skipping commit."
+          else
+            git commit -m "auto: generate standalone ($(date +%Y-%m-%d))"
+          fi
+
+      - name: Push to alone
+        run: |
+          # Check if this is a migration from orphan (no common ancestor)
+          if ! git merge-base --is-ancestor origin/main origin/alone 2>/dev/null && \
+             git rev-parse --verify origin/alone >/dev/null 2>&1; then
+            git push origin alone --force-with-lease
+          else
+            git push origin alone
+          fi
