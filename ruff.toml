@@ -40,8 +40,3 @@ mark-parentheses = false
 
 [lint.pyupgrade]
 keep-runtime-typing = true
-
-[lint.per-file-ignores]
-"scripts/generate_standalone.py" = ["ALL"]
-"scripts/install_deps.py" = ["ALL"]
-"scripts/verify_import.py" = ["ALL"]

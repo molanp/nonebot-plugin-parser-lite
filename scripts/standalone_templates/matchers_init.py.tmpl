@@ -1,0 +1,10 @@
+"""Compatibility exports for the standalone text pipeline."""
+
+from ..pipeline import MatchResult, Parser, ParseStep, match, parse
+
+
+def clear_result_cache() -> None:
+    """Standalone parsing does not keep a global result cache."""
+
+
+__all__ = ["MatchResult", "ParseStep", "Parser", "clear_result_cache", "match", "parse"]

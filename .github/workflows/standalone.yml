@@ -1,4 +1,4 @@
-name: Generate Standalone Branch
+name: Publish standalone branch
 
 on:
   push:
@@ -6,74 +6,69 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: standalone-generation
-  cancel-in-progress: false
+  group: publish-standalone
+  cancel-in-progress: true
+
+permissions:
+  contents: write
 
 jobs:
-  generate:
+  publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out latest main
+        uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.11"
+          cache: pip
 
-      - name: Clone upstream main (preserve scripts)
-        run: |
-          set -euo pipefail
-          mkdir -p /tmp/upstream-scripts
-          python scripts/verify_import.py
-          cp scripts/generate_standalone.py /tmp/upstream-scripts/
+      - name: Generate standalone tree
+        run: python scripts/generate_standalone.py
 
-      - name: Checkout alone branch (or create from main)
+      - name: Normalize generated imports
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: check --select I --fix src/nonebot_plugin_parser_lite
+
+      - name: Verify generated source
+        run: python scripts/verify_standalone.py
+
+      - name: Install standalone dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Verify imports without NoneBot
+        run: python scripts/verify_standalone.py --imports
+
+      - name: Publish generated tree
+        shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
-          if git rev-parse --verify origin/alone >/dev/null 2>&1; then
-            # existing alone — rebase onto latest main
-            git checkout -B alone origin/alone
-            git rebase origin/main || { git rebase --abort; echo "rebase conflict — falling back to fresh rebase"; git reset --hard; git checkout -B alone origin/main; }
-          else
-            # first run — create alone from main
-            git checkout -b alone origin/main
+          git fetch origin standalone:refs/remotes/origin/standalone || true
+
+          source_main="$(git rev-parse HEAD)"
+          latest_main="$(git rev-parse origin/main)"
+          if [[ "$source_main" != "$latest_main" ]]; then
+            echo "main advanced during generation; the newer workflow run will publish it"
+            exit 0
           fi
 
-      - name: Generate standalone files
-        run: |
-          rm -rf scripts
-          mkdir -p scripts
-          cp /tmp/upstream-scripts/generate_standalone.py scripts/
-          python scripts/generate_standalone.py
-
-      - name: Clean and commit
-        run: |
-          set -euo pipefail
-          # Remove workflow-only files
-          for d in scripts tools tests_data api_txt; do
-            rm -rf "$d" 2>/dev/null || true
-          done
-          rm -f scripts/generate_standalone.py 2>/dev/null || true
-          # Stage and commit
-          git add -f .
-          if git diff --staged --quiet; then
-            echo "No changes, skipping commit."
-          else
-            git commit -m "auto: generate standalone ($(date +%Y-%m-%d))"
+          git add --all
+          tree="$(git write-tree)"
+          main_parent="$source_main"
+          parents=(-p "$main_parent")
+          if git rev-parse --verify refs/remotes/origin/standalone >/dev/null 2>&1; then
+            standalone_parent="$(git rev-parse refs/remotes/origin/standalone)"
+            parents=(-p "$standalone_parent" -p "$main_parent")
           fi
-
-      - name: Push to alone
-        run: |
-          # Check if this is a migration from orphan (no common ancestor)
-          if ! git merge-base --is-ancestor origin/main origin/alone 2>/dev/null && \
-             git rev-parse --verify origin/alone >/dev/null 2>&1; then
-            git push origin alone --force-with-lease
-          else
-            git push origin alone
-          fi
+          commit="$(printf '%s\n' "auto: publish standalone for ${main_parent:0:12}" |
+            git commit-tree "$tree" "${parents[@]}")"
+          git push origin "$commit:refs/heads/standalone"
