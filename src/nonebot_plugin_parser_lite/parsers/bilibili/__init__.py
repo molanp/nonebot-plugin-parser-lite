@@ -185,7 +185,7 @@ class BilibiliParser(BaseParser):
                 extra={
                     "danmaku": format_num(bangumi_info.stat.danmakus),
                     "coin": format_num(bangumi_info.stat.coins),
-                }
+                },
             ),
             title=bangumi_info.title,
             url=bangumi_info.share_url,

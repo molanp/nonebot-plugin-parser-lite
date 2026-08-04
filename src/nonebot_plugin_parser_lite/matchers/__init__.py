@@ -1,4 +1,5 @@
 import asyncio
+import contextlib
 from dataclasses import dataclass
 import re
 from typing import ClassVar, TypeVar
@@ -15,7 +16,7 @@ from nonebot_plugin_alconna import (
     on_alconna,
 )
 from nonebot_plugin_alconna.extension import cache_msg
-from nonebot_plugin_alconna.uniseg import get_message_id, reply_fetch
+from nonebot_plugin_alconna.uniseg import Receipt, get_message_id, reply_fetch
 from nonebot_plugin_uninfo import Uninfo
 from tarina import LRU
 
@@ -209,10 +210,14 @@ async def register_bili_matcher():
             Alconna("blogin"), block=True, permission=SUPERUSER, rule=to_me()
         ).handle()
         async def _():
+            last_receipt: Receipt | None = None
             qrcode = await bilip.login_with_qrcode()
-            await UniMessage(await UniHelper.img_seg(qrcode)).send()
+            last_receipt = await UniMessage(await UniHelper.img_seg(qrcode)).send()
             async for msg in bilip.check_qr_state():
-                await UniMessage(msg).send()
+                if last_receipt is not None:
+                    with contextlib.suppress(Exception):
+                        await last_receipt.recall()
+                last_receipt = await UniMessage(msg).send()
 
 
 if pconfig.lazy_download:

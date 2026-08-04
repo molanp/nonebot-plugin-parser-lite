@@ -84,12 +84,11 @@ class QrCodeLogin:
 
         :return: 二维码登录状态
         """
-        result = (
-            await CLIENT.get(
-                url="https://passport.bilibili.com/x/passport-login/web/qrcode/poll",
-                params={"qrcode_key": self.__qr_key, "source": "main-fe-header"},
-            )
-        ).json()
+        resp = await CLIENT.get(
+            url="https://passport.bilibili.com/x/passport-login/web/qrcode/poll",
+            params={"qrcode_key": self.__qr_key, "source": "main-fe-header"},
+        )
+        result = resp.json()
         if result["code"] != 0:
             raise BiliHelperException(result)
         events = result["data"]
@@ -101,19 +100,11 @@ class QrCodeLogin:
         elif code == 86038:
             return QrCodeLoginEvents.TIMEOUT
         else:
-            cred_url = events["url"]
             ac_time_value = events["refresh_token"]
-            cookies_list = cred_url.split("?")[1].split("&")
-            sessdata = ""
-            bili_jct = ""
-            dedeuserid = ""
-            for cookie in cookies_list:
-                if cookie[:8] == "SESSDATA":
-                    sessdata = cookie[9:]
-                if cookie[:8] == "bili_jct":
-                    bili_jct = cookie[9:]
-                if cookie[:11].upper() == "DEDEUSERID=":
-                    dedeuserid = cookie[11:]
+            cookies = resp.cookies
+            sessdata = cookies.get("SESSDATA", domain=".bilibili.com")
+            bili_jct = cookies.get("bili_jct", domain=".bilibili.com")
+            dedeuserid = cookies.get("DedeUserID", domain=".bilibili.com")
             self.__credential = Credential(
                 sessdata=sessdata,
                 bili_jct=bili_jct,
