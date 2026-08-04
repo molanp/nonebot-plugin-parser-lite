@@ -73,7 +73,6 @@ class WeiboData(Struct):
     idstr: str
     created_at: str
     """`Thu Oct 02 14:39:33 +0800 2025`"""
-    region_name: str
     reposts_count: int
     """转发数"""
     comments_count: int
@@ -83,6 +82,7 @@ class WeiboData(Struct):
     isLongText: bool
     """是否需要请求长文"""
     pic_num: int
+    region_name: str | None = None
     pic_infos: dict[str, Pic] | None = None
     page_info: PageInfo | None = None
     """视频信息"""
