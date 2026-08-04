@@ -1,5 +1,4 @@
 import asyncio
-import contextlib
 from dataclasses import dataclass
 import re
 from typing import ClassVar, TypeVar
@@ -215,8 +214,10 @@ async def register_bili_matcher():
             last_receipt = await UniMessage(await UniHelper.img_seg(qrcode)).send()
             async for msg in bilip.check_qr_state():
                 if last_receipt is not None:
-                    with contextlib.suppress(Exception):
+                    try:
                         await last_receipt.recall()
+                    except Exception:
+                        logger.exception("尝试撤回上一条消息失败")
                 last_receipt = await UniMessage(msg).send()
 
 
