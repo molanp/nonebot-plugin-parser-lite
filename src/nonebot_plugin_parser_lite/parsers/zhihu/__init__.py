@@ -27,7 +27,7 @@ class ZhiHuParser(BaseParser):
     platform: ClassVar[Platform] = Platform(
         name=PlatformEnum.ZHIHU, display_name="知乎"
     )
-    zhihu_ck: dict[str, Any] = ck2dict(pconfig.zhihu_ck) if pconfig.zhihu_ck else {}
+    zhihu_ck = ck2dict(pconfig.zhihu_ck) if pconfig.zhihu_ck else {}
 
     @handle(
         "zhuanlan.zhihu.com/p",

@@ -1,5 +1,6 @@
 from typing import ClassVar
 
+from ...utils.cookie import ck2dict
 from ...utils.format import format_num
 from ..base import (
     DOWNLOADER,
@@ -9,6 +10,7 @@ from ..base import (
     Platform,
     PlatformEnum,
     handle,
+    pconfig,
 )
 from .topic import decoder as postDecoder
 
@@ -17,6 +19,7 @@ class LinuxDoParser(BaseParser):
     platform: ClassVar[Platform] = Platform(
         name=PlatformEnum.LINUXDO, display_name="LINUX DO"
     )
+    linuxdo_ck = ck2dict(pconfig.linuxdo_ck) if pconfig.linuxdo_ck else {}
 
     @handle("linux.do", r"topic/(?P<topic_id>\d+)")
     async def parse_topic(self, searched: MatchWithParams):
@@ -25,6 +28,7 @@ class LinuxDoParser(BaseParser):
             f"https://linux.do/t/topic/{topic_id}.json",
             use_curl_cffi=True,
             headers=self.headers,
+            cookies=self.linuxdo_ck,
         )
         if not res.is_success:
             try:

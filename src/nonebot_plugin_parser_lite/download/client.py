@@ -155,17 +155,20 @@ class UniHttpClient:
         url: str,
         *,
         headers: dict[str, str],
+        cookies: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
     ) -> UniResponse:
         if use_curl_cffi:
             resp = await self._curl.head(
                 url=url,
                 headers=headers,
+                cookies=cookies,
             )
         else:
             resp = await self._httpx.head(
                 url=url,
                 headers=headers,
+                cookies=cookies,
             )
         return UniResponse(resp)
 
@@ -175,6 +178,7 @@ class UniHttpClient:
         *,
         params: dict[str, Any] | None = None,
         headers: dict[str, str],
+        cookies: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
     ) -> UniResponse:
         if use_curl_cffi:
@@ -182,12 +186,14 @@ class UniHttpClient:
                 url,
                 params=params,
                 headers=headers,
+                cookies=cookies,
             )
         else:
             resp = await self._httpx.get(
                 url,
                 params=params,
                 headers=headers,
+                cookies=cookies,
             )
         return UniResponse(resp)
 
@@ -200,6 +206,7 @@ class UniHttpClient:
         content: str | bytes | None = None,
         data: dict[str, Any] | None = None,
         json: Any | None = None,
+        cookies: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
     ) -> UniResponse:
         if use_curl_cffi:
@@ -209,6 +216,7 @@ class UniHttpClient:
                 headers=headers,
                 data=content or data,
                 json=json,
+                cookies=cookies,
             )
         else:
             resp = await self._httpx.post(
@@ -218,6 +226,7 @@ class UniHttpClient:
                 content=content,
                 data=data,
                 json=json,
+                cookies=cookies,
             )
         return UniResponse(resp)
 
@@ -230,6 +239,7 @@ class UniHttpClient:
         url: str,
         *,
         headers: dict[str, str],
+        cookies: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
     ) -> AsyncGenerator[UniResponse]:
         try:
@@ -238,6 +248,7 @@ class UniHttpClient:
                     method,
                     url,
                     headers=headers,
+                    cookies=cookies,
                 ) as resp:
                     yield UniResponse(resp)
             else:

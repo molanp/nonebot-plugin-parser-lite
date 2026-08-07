@@ -28,6 +28,8 @@ class Config(BaseModel):
     """bilibili cookies"""
     plite_zhihu_ck: str | None = None
     """知乎 cookies"""
+    plite_linuxdo_ck: str | None = None
+    """linuxdo cookies"""
     plite_need_upload: bool = False
     """是否需要上传音视频文件（兼容旧配置）"""
     plite_need_upload_audio: bool = False
@@ -136,6 +138,11 @@ class Config(BaseModel):
     def zhihu_ck(self) -> str | None:
         """知乎 cookies"""
         return self.plite_zhihu_ck
+
+    @property
+    def linuxdo_ck(self) -> str | None:
+        """linuxdo cookies"""
+        return self.plite_linuxdo_ck
 
     @property
     def need_upload_audio(self) -> bool:
