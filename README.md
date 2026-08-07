@@ -200,7 +200,7 @@ plite_day_range=["6:00", "19:00"]
 # 必须包含 z_c0 项，建议包含 d_c0, _xsrf 项
 plite_zhihu_ck="z_c0=xxxx"
 
-# [可选] linuxdo cookie, 部分帖子需要登陆或有一定的阅读等级才可以查看
+# [可选] linuxdo cookie, 部分帖子需要登录或有一定的阅读等级才可以查看
 plite_linuxdo_ck="d_c0=xxxx"
 ```
 
