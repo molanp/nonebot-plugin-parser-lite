@@ -252,7 +252,12 @@ class UniHttpClient:
                 ) as resp:
                     yield UniResponse(resp)
             else:
-                async with self._httpx.stream(method, url, headers=headers) as resp:
+                async with self._httpx.stream(
+                    method,
+                    url,
+                    headers=headers,
+                    cookies=cookies,
+                ) as resp:
                     yield UniResponse(resp)
         except (TransportError, RequestException) as e:
             raise RetryableDownloadError(e.__repr__()) from e
