@@ -340,7 +340,7 @@ class Renderer:
             async def flush_text() -> None:
                 nonlocal text_buffer
                 if text_buffer:
-                    text = "\n".join(text_buffer).strip()
+                    text = "".join(text_buffer)
                     if text:
                         nodes.append(f"{author_name}：{text}")
                     text_buffer = []
