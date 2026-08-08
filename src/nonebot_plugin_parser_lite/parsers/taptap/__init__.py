@@ -18,7 +18,7 @@ from .video import decoder as videoDecoder
 
 class TapTapParser(BaseParser):
     platform: ClassVar[Platform] = Platform(
-        name=PlatformEnum.TAPTAP, display_name="taptap"
+        name=PlatformEnum.TAPTAP, display_name="TapTap"
     )
     X_UA: ClassVar[str] = "V=1&PN=WebApp&LANG=zh_CN&VN_CODE=93&VN=0.1.0&LOC=CN&PLT=PC"
 
