@@ -100,7 +100,7 @@ def handle(
     - params: 可选，ParamRules，用于基于 query 的补充筛选（required/equals/default/one_of/as_int 等）
     - pattern 与 params 至少要指定一个（可以同时存在）：
         - 只有 pattern：纯正则匹配，不看 query
-        - 只有 params：regex 由 keyword 自动生成为 `https?://<keyword>[^\\s]*`
+        - 只有 params：regex 由 keyword 自动生成，并允许域名前存在子域名
         - pattern + params：
             * 先用 pattern 过滤
             * 若 pattern 没有匹配到末尾或追加 `$`，则自动在末尾补 `[^\\s]*`，以便 MatchWithParams 能看到查询参数部分
@@ -128,7 +128,7 @@ def handle(
 
     else:
         escaped = escape(keyword)
-        regex = rf"https?://{escaped}[^\s]*"
+        regex = rf"https?://(?:[A-Za-z0-9-]+\.)*{escaped}[^\s]*"
 
     param_rules = params or {}
 

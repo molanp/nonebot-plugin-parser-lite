@@ -19,7 +19,7 @@ class DouBaoParser(BaseParser):
     )
 
     # https://www.doubao.com/video-sharing?source_type=mobile&share_id=49939181380407810&video_id=v0369cg10004d9867lqljht6t4tvhh30
-    @handle("www.doubao.com/video-sharing", params={"share_id": {}, "video_id": {}})
+    @handle("doubao.com/video-sharing", params={"share_id": {}, "video_id": {}})
     async def _parse(self, searched: MatchWithParams):
         share_id = searched["share_id"]
         video_id = searched["video_id"]
