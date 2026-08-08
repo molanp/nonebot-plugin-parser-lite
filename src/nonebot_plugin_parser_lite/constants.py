@@ -67,6 +67,7 @@ class PlatformEnum(str, Enum):
     LINUXDO = "linuxdo"
     WMPVP = "wmpvp"
     ZLB = "zlb"
+    TAPTAP = "taptap"
 
     def __str__(self) -> str:
         return self.value
@@ -91,9 +92,7 @@ class MatchWithParams:
         parsed = urlparse(self.url)
         qs = parse_qs(parsed.query, keep_blank_values=True)
         # SPA hash routes may contain their own query, e.g. ``#/song?id=123``.
-        fragment_qs = parse_qs(
-            urlparse(parsed.fragment).query, keep_blank_values=True
-        )
+        fragment_qs = parse_qs(urlparse(parsed.fragment).query, keep_blank_values=True)
         qs.update(fragment_qs)
         # 只取第一个
         self.params: dict[str, str] = {k: v[0] for k, v in qs.items()}

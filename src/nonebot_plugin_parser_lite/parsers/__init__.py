@@ -19,6 +19,7 @@ from .miyoushe import MiyousheParser
 from .netease import NCMParser
 from .qsmusic import QSMusicParser
 from .rednote import RedNoteParser
+from .taptap import TapTapParser
 from .tieba import TiebaParser
 from .weibo import WeiBoParser
 from .wmpvp import WMPVPParser
@@ -48,6 +49,7 @@ __all__ = [
     "NCMParser",
     "QSMusicParser",
     "RedNoteParser",
+    "TapTapParser",
     "TiebaParser",
     "WMPVPParser",
     "WeiBoParser",
