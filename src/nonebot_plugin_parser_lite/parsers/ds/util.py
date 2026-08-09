@@ -6,7 +6,7 @@ from ...data import ContentItem
 
 
 def parse_rich_content(html: str) -> list[ContentItem]:
-    soup = BeautifulSoup(html.replace(r"\"", '"'), "html.parser")
+    soup = BeautifulSoup(html, "html.parser")
 
     result: list[ContentItem] = []
     buffer: list[str] = []
