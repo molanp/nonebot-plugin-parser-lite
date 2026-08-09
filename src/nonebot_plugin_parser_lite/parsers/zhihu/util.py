@@ -53,7 +53,7 @@ async def parse_rich_content(html: str, content_type: str) -> list[ContentItem]:
     """
     将知乎内容 HTML 解析为有顺序的文本 + 媒体列表
     """
-    soup = BeautifulSoup(html.replace(r"\"", '"'), "html.parser")
+    soup = BeautifulSoup(html, "html.parser")
     _clean_soup(soup)
 
     result: list[ContentItem] = []

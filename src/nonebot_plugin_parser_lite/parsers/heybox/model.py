@@ -143,7 +143,7 @@ def extract_from_html(html: str) -> list[ContentItem]:
     :return: 由纯文本字符串和 ContentItem 对象组成的列表
     """
 
-    soup = BeautifulSoup(html.replace(r"\"", '"'), "html.parser")
+    soup = BeautifulSoup(html, "html.parser")
 
     # 忽略 <noscript> 中的内容，避免重复或无效的占位文本干扰顺序
     for noscript in soup.find_all("noscript"):
