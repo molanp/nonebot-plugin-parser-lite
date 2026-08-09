@@ -404,18 +404,11 @@ class BrowserManager:
         assert cls.browser is not None
         seed = next((ctx.pages[0] for ctx in cls.browser.contexts if ctx.pages), None)
         if seed is None:
+            # 启动阶段会等待至少一个 page；访客模式下 new_page 仍会走
+            # 不受支持的 Target.createTarget，因此这里不能用它恢复 seed。
             raise RuntimeError("Failed to create page: no seed page for JS window.open")
 
         known_pages = {id(p) for ctx in cls.browser.contexts for p in ctx.pages}
-        try:
-            async with seed.expect_popup(timeout=5000) as popup_info:
-                await seed.evaluate("window.open('about:blank', '_blank')")
-            page = await popup_info.value
-            cls._context = page.context
-            return page
-        except Exception as exc:
-            logger.warning(f"JS window.open via expect_popup failed: {exc!r}")
-
         try:
             await seed.evaluate("window.open('about:blank', '_blank')")
             with fail_after(5):
@@ -429,7 +422,17 @@ class BrowserManager:
         except Exception as exc:
             logger.warning(f"JS window.open poll failed: {exc!r}")
 
-        raise RuntimeError("Failed to create page via JS window.open")
+        # DrissionPage 在等待新标签页失败且未启用 wait 异常时，会回落到
+        # tab_ids[0]。保持相同行为，让调用方在受限状态下仍可继续工作。
+        for ctx in cls.browser.contexts:
+            if ctx.pages:
+                cls._context = ctx
+                logger.warning("Reusing existing page after JS window.open failure")
+                return ctx.pages[0]
+
+        raise RuntimeError(
+            "Failed to create page via JS window.open and no existing page to reuse"
+        )
 
     @classmethod
     async def _create_page(cls, **page_kwargs: Any) -> Page:
