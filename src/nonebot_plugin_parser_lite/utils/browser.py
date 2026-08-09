@@ -143,6 +143,9 @@ class BrowserManager:
     _user_data_dir: Path | None = None
     _browser_path: str | None = None
     _init_lock: asyncio.Lock = asyncio.Lock()
+    _page_lock: asyncio.Lock = asyncio.Lock()
+    _guest_requested: bool = False
+    _is_incognito: bool = False
     _last_used: float | None = None
     _idle_timeout: float = 60 * 30
     _idle_task: asyncio.Task[None] | None = None
@@ -357,7 +360,31 @@ class BrowserManager:
             cls._context = browser.contexts[0]
         else:
             cls._context = await browser.new_context()
+        cls._is_incognito = (
+            await cls._detect_incognito(browser) or cls._guest_requested
+        )
         return browser
+
+    @staticmethod
+    async def _detect_incognito(browser: Browser) -> bool:
+        session = None
+        try:
+            session = await browser.new_browser_cdp_session()
+            result = await session.send(
+                "Browser.getHistograms",
+                {"query": "Browser.WindowCount.Incognito"},
+            )
+            return any(
+                histogram.get("name") == "Browser.WindowCount.Incognito"
+                for histogram in result.get("histograms", ())
+            )
+        except Exception as exc:
+            logger.debug(f"Failed to detect incognito browser context: {exc!r}")
+            return False
+        finally:
+            if session is not None:
+                with suppress(Exception):
+                    await session.detach()
 
     @classmethod
     async def _ensure_context(cls) -> BrowserContext:
@@ -373,10 +400,49 @@ class BrowserManager:
         return ctx
 
     @classmethod
+    async def _create_page_by_js(cls) -> Page:
+        assert cls.browser is not None
+        seed = next((ctx.pages[0] for ctx in cls.browser.contexts if ctx.pages), None)
+        if seed is None:
+            raise RuntimeError("Failed to create page: no seed page for JS window.open")
+
+        known_pages = {id(p) for ctx in cls.browser.contexts for p in ctx.pages}
+        try:
+            async with seed.expect_popup(timeout=5000) as popup_info:
+                await seed.evaluate("window.open('about:blank', '_blank')")
+            page = await popup_info.value
+            cls._context = page.context
+            return page
+        except Exception as exc:
+            logger.warning(f"JS window.open via expect_popup failed: {exc!r}")
+
+        try:
+            await seed.evaluate("window.open('about:blank', '_blank')")
+            with fail_after(5):
+                while True:
+                    for ctx in cls.browser.contexts:
+                        for page in ctx.pages:
+                            if id(page) not in known_pages:
+                                cls._context = ctx
+                                return page
+                    await sleep(0.05)
+        except Exception as exc:
+            logger.warning(f"JS window.open poll failed: {exc!r}")
+
+        raise RuntimeError("Failed to create page via JS window.open")
+
+    @classmethod
     async def _create_page(cls, **page_kwargs: Any) -> Page:
         """创建新标签页"""
         assert cls.browser is not None
         context = await cls._ensure_context()
+
+        # Chromium 的访客/无痕上下文不支持 Target.createTarget。
+        # DrissionPage 对这种上下文同样直接使用 window.open()。
+        if cls._is_incognito:
+            async with cls._page_lock:
+                return await cls._create_page_by_js()
+
         known_pages = {id(p) for ctx in cls.browser.contexts for p in ctx.pages}
 
         # Playwright API
@@ -412,48 +478,8 @@ class BrowserManager:
         except Exception as exc:
             logger.warning(f"Target.createTarget failed: {exc!r}")
 
-        seed = next((ctx.pages[0] for ctx in cls.browser.contexts if ctx.pages), None)
-        if seed is None:
-            # 无初始页，再试一次 new_page
-            try:
-                return await context.new_page(**page_kwargs)
-            except Exception as exc:
-                raise RuntimeError(
-                    "Failed to create page: no seed page for JS fallback"
-                ) from exc
-
-        known_pages = {id(p) for ctx in cls.browser.contexts for p in ctx.pages}
-        try:
-            async with seed.expect_popup(timeout=5000) as popup_info:
-                await seed.evaluate("window.open('about:blank', '_blank')")
-            page = await popup_info.value
-            cls._context = page.context
-            return page
-        except Exception as exc:
-            logger.warning(f"JS window.open via expect_popup failed: {exc!r}")
-
-        # expect_popup 失败时，轮询新出现的 page
-        try:
-            await seed.evaluate("window.open('about:blank', '_blank')")
-            with fail_after(5):
-                while True:
-                    for ctx in cls.browser.contexts:
-                        for page in ctx.pages:
-                            if id(page) not in known_pages:
-                                cls._context = ctx
-                                return page
-                    await sleep(0.05)
-        except Exception as exc:
-            logger.warning(f"JS window.open poll failed: {exc!r}")
-
-        # 复用已有 page 兜底
-        for ctx in cls.browser.contexts:
-            if ctx.pages:
-                cls._context = ctx
-                logger.warning("Reusing existing page as last resort")
-                return ctx.pages[0]
-
-        raise RuntimeError("Failed to create page via Playwright / CDP / JS")
+        async with cls._page_lock:
+            return await cls._create_page_by_js()
 
     @classmethod
     async def ensure_started(cls) -> None:
@@ -485,6 +511,7 @@ class BrowserManager:
         cls._user_data_dir = user_data_dir
 
         args = cls._build_launch_args(user_data_dir)
+        cls._guest_requested = "--guest" in args
         logger.info(f"Launching browser from {browser_path} (CDP port={port})")
         cls._process = await _run_browser(port, browser_path, args)
 
@@ -603,6 +630,8 @@ class BrowserManager:
             cls.browser = None
             cls._context = None
             cls._cdp_endpoint = None
+            cls._guest_requested = False
+            cls._is_incognito = False
             cls._last_used = None
             await cls._kill_process()
 
