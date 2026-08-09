@@ -301,7 +301,7 @@
         {# Header #}
         <div class="px-8 pt-8 pb-2 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="{{ result.author.avatar_path }}"
+                <img src="{{ result.author | safe_src('get_avatar_path') }}"
                      class="w-12 h-12 rounded-[2px] object-cover shadow-sm" />
                 <div>
                     <div class="flex items-center space-x-2">
@@ -315,7 +315,8 @@
             </div>
             {% if not is_repost %}
                 <div class="flex items-center space-x-1.5 px-4 py-2">
-                    <img src="{{ result.platform.logo_path }}" class="w-4 h-4 rounded-[2px]" />
+                    <img src="{{ result.platform | safe_src('get_logo_path') }}"
+                         class="w-4 h-4 rounded-[2px]" />
                     <span class="text-xs font-black text-gray-500 dark:text-slate-300 tracking-widest">{{ result.platform.display_name }}</span>
                 </div>
             {% endif %}
