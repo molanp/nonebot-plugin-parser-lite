@@ -17,6 +17,8 @@ HEYBOX_PATTERN = re.compile(r"\[(?P<name>[^]]+)\]")
 def size_resolver(name: str) -> Literal["small", "medium"]:
     return "medium" if "bigemoji" in name else "small"
 
+class Battery(Struct):
+    count: int | None = None
 
 class User(Struct):
     avatar: str
@@ -96,6 +98,7 @@ class Link(Struct):
     forward_num: int
     """转发数"""
     user: User
+    battery: Battery
     video_url: str | None = None
     video_thumb: str | None = None
 
