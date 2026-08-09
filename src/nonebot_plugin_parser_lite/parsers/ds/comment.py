@@ -135,8 +135,8 @@ class Result(Struct):
         attached: set[str] = set()
         for raw in self.featuredReplies:
             root = nodes.get(raw.root_id or "")
-            node = nodes[raw.id]
-            if root is None or root is node or raw.id in attached:
+            node = nodes.get(raw.id)
+            if root is None or node is None or root is node or raw.id in attached:
                 continue
 
             replied_to = nodes.get(raw.replyId or "")
