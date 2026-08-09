@@ -5,6 +5,7 @@ from .coolapk import CoolapkParser
 from .douban import DoubanParser
 from .doubao import DouBaoParser
 from .douyin import DouyinParser
+from .ds import DsParser
 from .duitang import DuiTangParser
 from .fiveeplay import FiveEPlayParser
 from .heybox import HeyBoxParser
@@ -35,6 +36,7 @@ __all__ = [
     "DouBaoParser",
     "DoubanParser",
     "DouyinParser",
+    "DsParser",
     "DuiTangParser",
     "FiveEPlayParser",
     "HeyBoxParser",

@@ -68,6 +68,7 @@ class PlatformEnum(str, Enum):
     WMPVP = "wmpvp"
     ZLB = "zlb"
     TAPTAP = "taptap"
+    DS = "ds"
 
     def __str__(self) -> str:
         return self.value
