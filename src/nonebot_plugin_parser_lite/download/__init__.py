@@ -35,7 +35,7 @@ class StreamDownloader:
     """Downloader class for downloading files with stream"""
 
     MAX_RETRIES = pconfig.max_retries
-    _SIZE_MISMATCH_TOLERANCE_BYTES = 10 * 1024
+    _SIZE_MISMATCH_TOLERANCE_BYTES = 1024
 
     def __init__(self):
         self.headers: dict[str, str] = COMMON_HEADER.copy()
@@ -307,8 +307,15 @@ class StreamDownloader:
             if final_size == 0:
                 raise ZeroSizeException
 
+            # 允许一定范围内的大小不匹配（最多 1KB），避免因为服务器端的轻微差异导致失败
             if total_size is not None and final_size != total_size:
-                raise DownloadException(f"文件大小不匹配: {final_size}/{total_size}")
+                size_diff = abs(final_size - total_size)
+                if size_diff > self._SIZE_MISMATCH_TOLERANCE_BYTES:
+                    raise DownloadException(
+                        f"文件大小不匹配: {final_size}/{total_size} "
+                        f"(差值: {size_diff} bytes, 超过允许的 "
+                        f"{self._SIZE_MISMATCH_TOLERANCE_BYTES} bytes)"
+                    )
 
     @auto_task
     async def download_video(
