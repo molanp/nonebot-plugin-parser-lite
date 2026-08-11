@@ -76,6 +76,22 @@ class AudioContent(MediaContent):
 
     duration: float = 0.0
 
+    @property
+    def display_duration(self) -> str:
+        try:
+            total_seconds = int(self.duration)
+            if total_seconds <= 0:
+                return "0:00"
+
+            minutes, seconds = divmod(total_seconds, 60)
+            if minutes < 60:
+                return f"{minutes}:{seconds:02d}"
+
+            hours, minutes = divmod(minutes, 60)
+            return f"{hours}:{minutes:02d}:{seconds:02d}"
+        except (TypeError, ValueError):
+            return "NaN"
+
 
 @dataclass(repr=False, slots=True)
 class VideoContent(MediaContent):
