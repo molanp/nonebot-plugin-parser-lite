@@ -17,8 +17,10 @@ HEYBOX_PATTERN = re.compile(r"\[(?P<name>[^]]+)\]")
 def size_resolver(name: str) -> Literal["small", "medium"]:
     return "medium" if "bigemoji" in name else "small"
 
+
 class Battery(Struct):
     count: int | None = None
+
 
 class User(Struct):
     avatar: str
@@ -120,7 +122,14 @@ class Link(Struct):
                         )
                     )
                 elif part["type"] == "img":
-                    content.append(Creator.image(url=part["url"] + "\\"))
+                    if live_url := part.get("live_url"):
+                        content.append(
+                            Creator.live_photo(
+                                video_url=live_url, image_url=part["url"] + "\\"
+                            )
+                        )
+                    else:
+                        content.append(Creator.image(url=part["url"] + "\\"))
         except (json.JSONDecodeError, TypeError):
             content.append(self.text)
         if self.has_video and self.video_url and self.video_thumb:
