@@ -33,9 +33,7 @@
             {% if result.extra and result.extra.lyric %}
                 <div class="my-6 pr-[120px] max-[600px]:pr-0">
                     <h2 class="mb-4 text-lg font-semibold">歌词</h2>
-                    <div class="max-h-none overflow-y-auto whitespace-pre-wrap rounded-lg bg-gray-50 p-4 text-base leading-[1.8] text-gray-700 dark:bg-slate-800 dark:text-slate-200 dark:[color-scheme:dark]">
-                        {{ result.extra.lyric }}
-                    </div>
+                    <div class="max-h-none overflow-y-auto whitespace-pre-wrap rounded-lg bg-gray-50 p-4 text-base leading-[1.8] text-gray-700 dark:bg-slate-800 dark:text-slate-200 dark:[color-scheme:dark]">{{ result.extra.lyric }}</div>
                 </div>
             {% endif %}
             {% if result.extra.info %}
