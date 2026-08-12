@@ -85,4 +85,5 @@ class DouyinParser(BaseParser):
             ),
             timestamp=aweme.create_time,
             url=aweme.share_url,
+            embed_url=f"https://open.douyin.com/player/video?vid={aweme_id}&autoplay=1",
         )

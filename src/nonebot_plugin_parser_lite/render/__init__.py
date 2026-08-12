@@ -167,6 +167,9 @@ class Renderer:
         if pconfig.append_url:
             urls = (result.display_url, result.repost_display_url)
             msg += "\n".join(url for url in urls if url)
+        if pconfig.embed_url:
+            if embed := result.embed_url:
+                msg += "\n在线播放: " + embed
         return msg
 
     async def send_content(

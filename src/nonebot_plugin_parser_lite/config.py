@@ -44,6 +44,8 @@ class Config(BaseModel):
     """视频/音频最大时长"""
     plite_append_url: bool = False
     """是否在解析结果中添加原始URL"""
+    plite_embed_url: bool = False
+    """是否在解析结果中添加嵌入式播放链接"""
     plite_append_qrcode: bool = False
     """是否在解析结果中添加原始URL二维码"""
     plite_disabled_platforms: list[PlatformEnum] = []
@@ -163,6 +165,11 @@ class Config(BaseModel):
     def append_url(self) -> bool:
         """是否在解析结果中添加原始URL"""
         return self.plite_append_url
+
+    @property
+    def embed_url(self) -> bool:
+        """是否在解析结果中添加嵌入式播放链接"""
+        return self.plite_embed_url
 
     @property
     def append_qrcode(self) -> bool:

@@ -386,6 +386,7 @@ class BilibiliParser(BaseParser):
             comments=processed_comments,
             extra=extra_data,
             ai_summary=ai_summary,
+            embed_url=f"https://player.bilibili.com/player.html?aid={video.aid}&autoplay=1&p={page_num}",
         )
 
     async def parse_dynamic_or_opus(self, dynamic_id: int):

@@ -300,6 +300,8 @@ class ParseResult:
     """评论列表"""
     ai_summary: str | None = field(default=None)
     """AI摘要"""
+    embed_url: str | None = field(default=None)
+    """嵌入播放链接"""
     extra: dict[str, Any] = field(default_factory=dict)
     """额外信息"""
     repost: ParseResult | None = field(default=None)
@@ -308,7 +310,7 @@ class ParseResult:
     """渲染图片"""
 
     @property
-    def display_url(self) -> str | None:
+    def display_url(self) -> str:
         return f"链接: {self.url}"
 
     @property
@@ -363,6 +365,8 @@ class ParseResultKwargs(TypedDict, total=False):
     """评论列表"""
     ai_summary: str | None
     """AI摘要"""
+    embed_url: str | None
+    """嵌入播放链接"""
 
 
 ContentItem = (
