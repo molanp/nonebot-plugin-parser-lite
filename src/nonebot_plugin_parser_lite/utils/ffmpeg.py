@@ -312,10 +312,14 @@ class FFmpeg:
             *audio_map,
             "-c:v",
             "libx264",
+            "-preset",
+            "veryfast",
             *audio_output,
             "-pix_fmt",
             "yuv420p",
             *finish_mode,
+            "-movflags",
+            "+faststart",
             str(output_path),
         ]
 
