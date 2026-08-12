@@ -22,8 +22,8 @@ from tarina import LRU
 from ..config import pconfig
 from ..download import DOWNLOADER
 from ..helper import UniHelper
-from ..parsers import BilibiliParser
 from ..parsers.base import BaseParser, ParseResult
+from ..parsers.bilibili import BilibiliParser
 from ..parsers.weibo.auth import AuthHelper as WeiboAuthHelper
 from ..render import RENDERER
 from ..utils.common import LimitedSizeDict
@@ -81,14 +81,6 @@ def get_parser_by_type(parser_type: type[T]) -> T:
     raise ValueError(f"未找到类型为 {parser_type.__name__} 的 parser 实例")
 
 
-def _get_enabled_parser_classes() -> list[type[BaseParser]]:
-    disabled_platforms = set(pconfig.disabled_platforms)
-    all_subclass = BaseParser.get_all_subclass()
-    return [
-        _cls for _cls in all_subclass if _cls.platform.name not in disabled_platforms
-    ]
-
-
 def clear_result_cache():
     _RESULT_CACHE.clear()
 
@@ -99,14 +91,15 @@ driver = get_driver()
 @driver.on_startup
 def register_parser_matcher() -> None:
     """在启动时注册各平台解析器及其匹配规则（惰性实例化）。"""
+    from ..parsers import load_enabled_parsers
+
     global _ENABLED_PARSER_CLASSES, _KEYWORD_CLASS_MAP
 
-    enabled_classes = _get_enabled_parser_classes()
-    _ENABLED_PARSER_CLASSES = enabled_classes
+    _ENABLED_PARSER_CLASSES = load_enabled_parsers()
 
     enabled_platforms: list[str] = []
     keyword_class_map: dict[str, type[BaseParser]] = {}
-    for parser_cls in enabled_classes:
+    for parser_cls in _ENABLED_PARSER_CLASSES:
         enabled_platforms.append(parser_cls.platform.display_name)
         for keyword, _, _ in parser_cls._key_patterns:
             keyword_class_map[keyword] = parser_cls
@@ -115,7 +108,9 @@ def register_parser_matcher() -> None:
 
     logger.info(f"启用平台: {', '.join(sorted(enabled_platforms))}")
 
-    patterns = [pattern for cls_ in enabled_classes for pattern in cls_._key_patterns]
+    patterns = [
+        pattern for cls_ in _ENABLED_PARSER_CLASSES for pattern in cls_._key_patterns
+    ]
     matcher = on_keyword_regex(*patterns)
     matcher.append_handler(parser_handler)
 

@@ -1,61 +1,22 @@
-from .acfun import AcfunParser
-from .bilibili import BilibiliParser
-from .buff import BuffParser
-from .coolapk import CoolapkParser
-from .douban import DoubanParser
-from .doubao import DouBaoParser
-from .douyin import DouyinParser
-from .ds import DsParser
-from .duitang import DuiTangParser
-from .fiveeplay import FiveEPlayParser
-from .heybox import HeyBoxParser
-from .hupu import HupuParser
-from .illu import IlluParser
-from .kuaishou import KuaiShouParser
-from .kugou import KuGouParser
-from .kuwo import KuWoParser
-from .linuxdo import LinuxDoParser
-from .lofter import LofterParser
-from .miyoushe import MiyousheParser
-from .netease import NCMParser
-from .qsmusic import QSMusicParser
-from .rednote import RedNoteParser
-from .taptap import TapTapParser
-from .tieba import TiebaParser
-from .weibo import WeiBoParser
-from .wmpvp import WMPVPParser
-from .x import XParser
-from .zhihu import ZhiHuParser
-from .zlb import ZLBParser
+from importlib import import_module
+from importlib.util import find_spec
 
-__all__ = [
-    "AcfunParser",
-    "BilibiliParser",
-    "BuffParser",
-    "CoolapkParser",
-    "DouBaoParser",
-    "DoubanParser",
-    "DouyinParser",
-    "DsParser",
-    "DuiTangParser",
-    "FiveEPlayParser",
-    "HeyBoxParser",
-    "HupuParser",
-    "IlluParser",
-    "KuGouParser",
-    "KuWoParser",
-    "KuaiShouParser",
-    "LinuxDoParser",
-    "LofterParser",
-    "MiyousheParser",
-    "NCMParser",
-    "QSMusicParser",
-    "RedNoteParser",
-    "TapTapParser",
-    "TiebaParser",
-    "WMPVPParser",
-    "WeiBoParser",
-    "XParser",
-    "ZLBParser",
-    "ZhiHuParser",
-]
+from ..config import pconfig
+from ..constants import PlatformEnum
+from .base import BaseParser
+
+
+def load_enabled_parsers() -> list[type[BaseParser]]:
+    """按需导入启用的解析器模块，返回已注册子类。"""
+    disabled = set(pconfig.disabled_platforms)
+    for plat in PlatformEnum:
+        if plat in disabled:
+            continue
+        mod_name = plat.name.lower()
+        if find_spec(f"{__package__}.{mod_name}") is None:
+            continue
+        import_module(f".{mod_name}", package=__package__)
+    return BaseParser.get_all_subclass()
+
+
+__all__ = ["load_enabled_parsers"]
