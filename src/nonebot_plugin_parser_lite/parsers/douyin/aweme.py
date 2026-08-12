@@ -1,12 +1,8 @@
-import re
-
 from msgspec import Struct, field
 import ujson
 
 from ...creator import Creator
 from ...data import ContentItem
-
-DOUYIN_PATTERN = re.compile(r"\[(?P<name>[^]]+)\]")
 
 
 class Addr(Struct):
@@ -101,7 +97,7 @@ class Aweme(Struct):
         if music := self.music:
             if music.play_url.uri == "":
                 extra = ujson.loads(music.extra)
-                music_url = extra["original_song_url"]
+                music_url = extra.get("original_song_url")
             else:
                 music_url = music.play_url.uri
             if music_url:
