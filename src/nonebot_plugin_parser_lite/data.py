@@ -6,7 +6,7 @@ from typing import Any, Literal, TypedDict
 
 from anyio import Path
 
-from .constants import STICKER_CDN
+from .constants import STICKER_CDN, PlatformEnum
 from .download import DOWNLOADER
 from .download.task import DownloadTaskWrapper
 from .utils.cache import CacheManager
@@ -188,7 +188,7 @@ class LivePhotoContent(MediaContent):
 class Platform:
     """平台信息"""
 
-    name: str
+    name: PlatformEnum
     """ 平台名称 """
     display_name: str
     """ 平台显示名称 """
@@ -205,7 +205,7 @@ class Platform:
 class Author:
     """作者信息"""
 
-    name: str
+    name: PlatformEnum
     """作者名称"""
     id: str | None = None
     """作者id"""
