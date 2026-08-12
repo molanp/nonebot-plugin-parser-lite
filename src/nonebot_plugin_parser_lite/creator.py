@@ -317,6 +317,7 @@ class Creator:
         video_url: str,
         image_url: str,
         bgm_url: str | None = None,
+        loop: int = 1,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
@@ -327,6 +328,7 @@ class Creator:
         :param video_url: iPhone Live Photo 变化过程视频
         :param image_url: iPhone Live Photo 底图
         :param bgm_url: iPhone Live Photo 背景音乐
+        :param loop: iPhone Live Photo 循环次数
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -351,7 +353,9 @@ class Creator:
         else:
             bgm_task = None
         return _with_need_send(
-            LivePhotoContent(video_task, image_task, bgm_task),
+            LivePhotoContent(
+                path_task=video_task, base_image=image_task, loop=loop, bgm=bgm_task
+            ),
             need_send,
         )
 

@@ -156,6 +156,8 @@ class LivePhotoContent(MediaContent):
 
     base_image: DownloadTaskWrapper[Path]
     """iPhone Live Photo 底图"""
+    loop: int
+    """循环次数"""
     bgm: DownloadTaskWrapper[Path] | None = None
     """iPhone Live Photo 背景音乐"""
 
@@ -168,7 +170,10 @@ class LivePhotoContent(MediaContent):
 
         bgm = await self.bgm if self.bgm else None
         return await FFmpeg.merge_to_live_mp4(
-            await self.base_image, await self.path_task, bgm
+            image_path=await self.base_image,
+            video_path=await self.path_task,
+            bgm_path=bgm,
+            loop=self.loop,
         )
 
     def __repr__(self) -> str:

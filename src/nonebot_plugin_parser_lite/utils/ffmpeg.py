@@ -1,5 +1,9 @@
 import asyncio
+from fractions import Fraction
 import hashlib
+import json
+import math
+from typing import Any
 
 from anyio import Path
 from nonebot import logger
@@ -40,6 +44,280 @@ class FFmpeg:
         if process.returncode != 0:
             error_msg = stderr.decode(errors="ignore").strip()
             raise RuntimeError(f"ffmpeg 执行失败: {error_msg}")
+
+    @classmethod
+    async def exec_probe(cls, cmd: list[str]) -> bytes:
+        """执行 ffprobe 命令并返回标准输出。
+
+        :param cmd: 不包含 'ffprobe' 本身的命令参数列表
+        """
+        full_cmd = ["ffprobe", *cmd]
+        try:
+            process = await asyncio.create_subprocess_exec(
+                *full_cmd,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+            )
+            stdout, stderr = await process.communicate()
+        except FileNotFoundError as e:
+            raise RuntimeError("ffprobe 未安装或无法找到可执行文件") from e
+
+        if process.returncode != 0:
+            error_msg = stderr.decode(errors="ignore").strip()
+            raise RuntimeError(f"ffprobe 执行失败: {error_msg}")
+        return stdout
+
+    @classmethod
+    async def _probe_media(cls, media_path: Path) -> dict[str, Any]:
+        """读取合成所需的媒体时长、帧率和流信息。"""
+        stdout = await cls.exec_probe(
+            [
+                "-v",
+                "error",
+                "-show_entries",
+                "format=duration:stream="
+                "codec_type,duration,avg_frame_rate,r_frame_rate",
+                "-of",
+                "json",
+                str(media_path),
+            ]
+        )
+
+        try:
+            return json.loads(stdout)
+        except (TypeError, json.JSONDecodeError) as e:
+            raise RuntimeError(f"ffprobe 返回了无效数据: {media_path}") from e
+
+    @staticmethod
+    def _get_duration(probe: dict[str, Any], media_path: Path) -> float:
+        raw_duration = probe.get("format", {}).get("duration")
+        try:
+            duration = float(raw_duration)
+        except (TypeError, ValueError):
+            duration = 0
+
+        if not math.isfinite(duration) or duration <= 0:
+            raise RuntimeError(f"无法获取有效的媒体时长: {media_path}")
+        return duration
+
+    @staticmethod
+    def _get_video_frame_rate(probe: dict[str, Any], video_path: Path) -> str:
+        video_stream = next(
+            (
+                stream
+                for stream in probe.get("streams", [])
+                if stream.get("codec_type") == "video"
+            ),
+            None,
+        )
+        if video_stream is None:
+            raise RuntimeError(f"未找到视频流: {video_path}")
+
+        for key in ("avg_frame_rate", "r_frame_rate"):
+            raw_rate = video_stream.get(key)
+            try:
+                if raw_rate and Fraction(raw_rate) > 0:
+                    return str(raw_rate)
+            except (ValueError, ZeroDivisionError):
+                continue
+        raise RuntimeError(f"无法获取有效的视频帧率: {video_path}")
+
+    @staticmethod
+    def _format_filter_number(value: float) -> str:
+        return f"{value:.9f}".rstrip("0").rstrip(".")
+
+    @staticmethod
+    def _validate_live_loop(loop: int) -> None:
+        if isinstance(loop, bool) or not isinstance(loop, int) or loop < 1:
+            raise ValueError("loop 必须是大于等于 1 的整数")
+
+    @classmethod
+    async def _get_live_output_path(
+        cls,
+        image_path: Path,
+        video_path: Path,
+        bgm_path: Path | None,
+        file_name: str | None,
+        loop: int,
+        has_bgm: bool,
+    ) -> Path:
+        if file_name is None:
+            cache_key = ",".join(
+                (
+                    str(image_path),
+                    str(video_path),
+                    str(bgm_path) if has_bgm else "",
+                    f"loop={loop}",
+                )
+            )
+            file_name = hashlib.md5(cache_key.encode("utf-8")).hexdigest()
+
+        cache_dir = await CacheManager.ensure_dir(CacheManager.MEDIA)
+        return cache_dir / f"{file_name}.mp4"
+
+    @staticmethod
+    def _build_live_inputs(video_path: Path, image_path: Path, loop: int) -> list[str]:
+        # 多读取一轮可避免部分可变帧率素材在末段 trim 时缺最后一帧。
+        return [
+            "-stream_loop",
+            str(loop),
+            "-i",
+            str(video_path),
+            "-loop",
+            "1",
+            "-i",
+            str(image_path),
+        ]
+
+    @classmethod
+    def _build_live_filter(
+        cls, duration: float, video_fps: str, loop: int
+    ) -> tuple[list[str], float]:
+        fade_duration = min(0.5, max(0.12, duration * 0.18))
+        static_duration = 2.5
+        filter_parts = cls._build_live_segments(
+            duration, video_fps, static_duration, loop
+        )
+        composed_duration, last_label = cls._append_live_transitions(
+            filter_parts, duration, static_duration, fade_duration, loop
+        )
+        filter_parts.append(f"[{last_label}]null[outv]")
+        return filter_parts, composed_duration
+
+    @classmethod
+    def _build_live_segments(
+        cls, duration: float, video_fps: str, static_duration: float, loop: int
+    ) -> list[str]:
+        filter_parts = [
+            "[0:v]setpts=PTS-STARTPTS,settb=1/1000,"
+            f"format=yuv420p,setsar=1,fps={video_fps}[vbase]",
+            "[1:v]setpts=PTS-STARTPTS,settb=1/1000,"
+            f"format=yuv420p,setsar=1,fps={video_fps}[still_base]",
+        ]
+        filter_parts.extend(cls._build_live_split_filters(loop))
+
+        formatted_duration = cls._format_filter_number(duration)
+        for index in range(loop):
+            start = cls._format_filter_number(duration * index)
+            filter_parts.extend(
+                (
+                    f"[vsplit{index}]trim=start={start}:duration={formatted_duration},"
+                    f"setpts=PTS-STARTPTS,settb=1/1000[v{index}]",
+                    f"[still{index}][v{index}]"
+                    f"scale2ref=iw:ih:flags=lanczos[s{index}raw][v{index}r]",
+                    f"[s{index}raw]trim=duration={static_duration},"
+                    f"setpts=PTS-STARTPTS,settb=1/1000[s{index}]",
+                )
+            )
+        return filter_parts
+
+    @staticmethod
+    def _build_live_split_filters(loop: int) -> tuple[str, str]:
+        if loop == 1:
+            return "[vbase]null[vsplit0]", "[still_base]null[still0]"
+
+        split_labels = "".join(f"[vsplit{i}]" for i in range(loop))
+        still_labels = "".join(f"[still{i}]" for i in range(loop))
+        return (
+            f"[vbase]split={loop}{split_labels}",
+            f"[still_base]split={loop}{still_labels}",
+        )
+
+    @classmethod
+    def _append_live_transitions(
+        cls,
+        filter_parts: list[str],
+        duration: float,
+        static_duration: float,
+        fade_duration: float,
+        loop: int,
+    ) -> tuple[float, str]:
+        formatted_fade = cls._format_filter_number(fade_duration)
+        video_fade_offset = cls._format_filter_number(max(0, duration - fade_duration))
+        last_label = "x_s0"
+        filter_parts.append(
+            f"[v0r][s0]xfade=transition=fade:duration={formatted_fade}:"
+            f"offset={video_fade_offset}[{last_label}]"
+        )
+        composed_duration = duration + static_duration - fade_duration
+
+        for index in range(1, loop):
+            to_video_label = f"x_v{index}"
+            to_still_label = f"x_s{index}"
+            offset_to_video = cls._format_filter_number(
+                max(0, composed_duration - fade_duration)
+            )
+            filter_parts.append(
+                f"[{last_label}][v{index}r]xfade=transition=fade:"
+                f"duration={formatted_fade}:offset={offset_to_video}"
+                f"[{to_video_label}]"
+            )
+            composed_duration += duration - fade_duration
+            offset_to_still = cls._format_filter_number(
+                max(0, composed_duration - fade_duration)
+            )
+            filter_parts.append(
+                f"[{to_video_label}][s{index}]xfade=transition=fade:"
+                f"duration={formatted_fade}:offset={offset_to_still}"
+                f"[{to_still_label}]"
+            )
+            composed_duration += static_duration - fade_duration
+            last_label = to_still_label
+
+        return composed_duration, last_label
+
+    @classmethod
+    async def _configure_live_audio(
+        cls,
+        inputs: list[str],
+        filter_parts: list[str],
+        bgm_path: Path | None,
+        has_bgm: bool,
+        composed_duration: float,
+    ) -> tuple[list[str], list[str], list[str]]:
+        if not has_bgm or bgm_path is None:
+            return ["-map", "0:a?"], ["-c:a", "aac"], []
+
+        bgm_probe = await cls._probe_media(bgm_path)
+        bgm_duration = cls._get_duration(bgm_probe, bgm_path)
+        if bgm_loop := max(0, math.ceil(composed_duration / bgm_duration) - 1):
+            inputs.extend(("-stream_loop", str(bgm_loop)))
+        inputs.extend(("-i", str(bgm_path)))
+        filter_parts.append("[2:a]anull[outa]")
+        return (
+            ["-map", "[outa]"],
+            ["-c:a", "aac", "-b:a", "192k"],
+            ["-shortest"],
+        )
+
+    @staticmethod
+    def _build_live_command(
+        inputs: list[str],
+        filter_parts: list[str],
+        audio_map: list[str],
+        audio_output: list[str],
+        finish_mode: list[str],
+        output_path: Path,
+    ) -> list[str]:
+        return [
+            "-y",
+            "-hide_banner",
+            "-loglevel",
+            "error",
+            *inputs,
+            "-filter_complex",
+            ";".join(filter_parts),
+            "-map",
+            "[outv]",
+            *audio_map,
+            "-c:v",
+            "libx264",
+            *audio_output,
+            "-pix_fmt",
+            "yuv420p",
+            *finish_mode,
+            str(output_path),
+        ]
 
     @classmethod
     async def is_available(cls) -> bool:
@@ -130,7 +408,8 @@ class FFmpeg:
         video_path: Path,
         bgm_path: Path | None = None,
         file_name: str | None = None,
-    ):
+        loop: int = 1,
+    ) -> Path:
         """
         合并图片和视频为 iPhone Live Photo 视频
 
@@ -138,74 +417,27 @@ class FFmpeg:
         :param video_path: 视频文件路径
         :param bgm_path: 背景音乐文件路径
         :param file_name: 输出文件名
+        :param loop: 视频与静态图组合的循环次数
         """
-        file_name = file_name or cls.generate_file_name(image_path, video_path)
-        cache_dir = await CacheManager.ensure_dir(CacheManager.MEDIA)
-        output_path = cache_dir / f"{file_name}.mp4"
+        cls._validate_live_loop(loop)
+        has_bgm = bool(bgm_path and await bgm_path.exists())
+        output_path = await cls._get_live_output_path(
+            image_path, video_path, bgm_path, file_name, loop, has_bgm
+        )
         if await output_path.exists():
             return output_path
-        # 2. 构建指令：单进程一次性完成
-        # 逻辑：视频 + 底图(0.6s) + 淡入
-        inputs = [
-            "-i",
-            str(video_path),
-            "-loop",
-            "1",
-            "-t",
-            "0.6",
-            "-i",
-            str(image_path),
-        ]
 
-        # 模拟 iPhone 质感的核心滤镜：
-        # - 主视频作为参考尺寸
-        # - 静态图用 scale2ref 缩放到与主视频一致
-        # - 对静态图做淡入，再与主视频 concat
-        #
-        # 这样可以避免手动算尺寸导致 concat 报尺寸不一致。
-        filter_v = (
-            "[1:v][0:v]scale2ref=flags=bicubic[v_still_raw][v_main];"
-            "[v_still_raw]setsar=1,"
-            "fade=t=in:st=0:d=0.2[v_still];"
-            "[v_main]setsar=1[v_main_sar];"
-            "[v_still][v_main_sar]concat=n=2:v=1:a=0[outv]"
+        video_probe = await cls._probe_media(video_path)
+        duration = cls._get_duration(video_probe, video_path)
+        video_fps = cls._get_video_frame_rate(video_probe, video_path)
+        inputs = cls._build_live_inputs(video_path, image_path, loop)
+        filter_parts, composed_duration = cls._build_live_filter(
+            duration, video_fps, loop
         )
-
-        if bgm_path and await bgm_path.exists():
-            inputs += ["-i", str(bgm_path)]
-            # amix: 混合原音与BGM，duration=first 保证不因BGM太长而导致视频变长
-            filter_a = ";[0:a][2:a]amix=inputs=2:duration=first[outa]"
-            audio_map = ["-map", "[outa]"]
-        else:
-            filter_a = ""
-            audio_map = ["-map", "0:a?"]
-
-        cmd = [
-            "-y",
-            "-hide_banner",
-            "-loglevel",
-            "error",
-            *inputs,
-            "-filter_complex",
-            filter_v + filter_a,
-            "-map",
-            "[outv]",
-            *audio_map,
-            "-c:v",
-            "libx264",
-            "-preset",
-            "veryfast",  # 从 ultrafast 调回一点，画质更稳，CPU 仍较低
-            "-tune",
-            "stillimage",
-            "-crf",
-            "20",  # 保证底图文字清晰度
-            "-c:a",
-            "aac",
-            "-movflags",
-            "+faststart",
-            str(output_path),
-        ]
-
+        audio_options = await cls._configure_live_audio(
+            inputs, filter_parts, bgm_path, has_bgm, composed_duration
+        )
+        cmd = cls._build_live_command(inputs, filter_parts, *audio_options, output_path)
         await cls.exec_ffmpeg(cmd)
         return output_path
 
