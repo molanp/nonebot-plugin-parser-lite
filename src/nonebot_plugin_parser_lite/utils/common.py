@@ -71,9 +71,9 @@ async def fmt_size(file_path: Path) -> str:
 
 
 def generate_file_name(url: str, default_suffix: str = "") -> str:
-    """根据 url 生成文件名（忽略 query/fragment，尽量复用同一资源的缓存）
+    """根据 URL 生成文件名，保留可能参与资源定位的 query。
 
-    :param url: 原始资源 URL（可能带签名、trace 等动态参数）
+    :param url: 原始资源 URL
     :param default_suffix: 默认后缀名（当 path 中不含后缀时使用）
 
     :return: 适合作为文件名的短 md5（含后缀）
@@ -92,7 +92,7 @@ def generate_file_name(url: str, default_suffix: str = "") -> str:
     if suffix and not suffix.startswith("."):
         suffix = f".{suffix}"
 
-    # 只用 netloc + path 作为稳定 key，忽略 query / fragment
-    stable_url = f"{parsed.netloc}{parsed.path}"
-    url_hash = hashlib.md5(stable_url.encode("utf-8")).hexdigest()[:16]
+    # fragment 不会发送给服务器；query 可能决定实际资源，必须参与缓存键。
+    resource_url = parsed._replace(fragment="").geturl()
+    url_hash = hashlib.md5(resource_url.encode("utf-8")).hexdigest()[:16]
     return f"{url_hash}{suffix}"
