@@ -23,7 +23,6 @@ from ..config import pconfig
 from ..download import DOWNLOADER
 from ..helper import UniHelper
 from ..parsers.base import BaseParser, ParseResult
-from ..parsers.bilibili import BilibiliParser
 from ..parsers.weibo.auth import AuthHelper as WeiboAuthHelper
 from ..render import RENDERER
 from ..utils.common import LimitedSizeDict
@@ -158,6 +157,7 @@ async def parser_handler(
 
 @driver.on_startup
 async def register_bili_matcher():
+    from ..parsers.bilibili import BilibiliParser
 
     bilip: BilibiliParser | None
     try:
