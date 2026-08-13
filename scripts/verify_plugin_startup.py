@@ -37,7 +37,7 @@ async def verify() -> dict[str, Any]:
         stage_started_at = perf_counter()
         plugin = nonebot.load_plugin(PLUGIN_NAME)
         if plugin is None:
-            raise RuntimeError(f"NoneBot returned no plugin for {PLUGIN_NAME}")
+            raise RuntimeError(f"NoneBot returned no plugin for {PLUGIN_NAME}.")
         timings["plugin_load_ms"] = elapsed_ms(stage_started_at)
 
         stage = "startup_callbacks"
