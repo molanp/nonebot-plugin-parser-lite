@@ -107,7 +107,9 @@ jobs:
           PY
 
       - name: Create or update comment
-        if: github.event.workflow_run.conclusion != 'cancelled'
+        if: >-
+          github.event.workflow_run.conclusion != 'cancelled' &&
+          steps.download.outputs.pr_number != ''
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
@@ -152,6 +154,10 @@ jobs:
             const success = workflowRun.conclusion === "success" &&
               report.status === "success" && report.step_outcome === "success";
             const pullRequestNumber = Number("${{ steps.download.outputs.pr_number }}");
+            if (!Number.isSafeInteger(pullRequestNumber) || pullRequestNumber <= 0) {
+              core.setFailed("PR 编号无效");
+              return;
+            }
             const currentPullRequest = await github.rest.pulls.get({
               ...context.repo,
               pull_number: pullRequestNumber,

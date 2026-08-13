@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 from time import perf_counter
 import traceback
+from typing import Any
 
 import nonebot
 
@@ -19,7 +20,7 @@ def elapsed_ms(started_at: float) -> float:
     return round((perf_counter() - started_at) * 1000, 2)
 
 
-async def verify() -> dict[str, object]:
+async def verify() -> dict[str, Any]:
     driver = None
     startup_attempted = False
     stage = "nonebot_init"
