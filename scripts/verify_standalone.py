@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""Verify a generated standalone tree without changing the Python environment."""
-
-from __future__ import annotations
+"""验证独立分支是否可以工作"""
 
 import argparse
 import ast
@@ -49,7 +46,7 @@ def static_checks(root: Path) -> None:
             elif isinstance(node, ast.ImportFrom) and node.module:
                 modules = [node.module]
             errors.extend(
-                f"{path.relative_to(root)}:{node.lineno} imports {module}" # pyright: ignore[reportAttributeAccessIssue]
+                f"{path.relative_to(root)}:{node.lineno} imports {module}"  # pyright: ignore[reportAttributeAccessIssue]
                 for module in modules
                 if is_nonebot_module(module)
             )
@@ -109,14 +106,10 @@ def import_checks(root: Path, *, render: bool = False) -> None:
     if ParseStep.MATCH.value != "match":
         fail(["ParseStep export is invalid"])
     parser = Parser([BilibiliParser])
-    matched = parser.match(
-        "分享 https://www.bilibili.com/video/BV1xx411c7mD 给你"
-    )
+    matched = parser.match("分享 https://www.bilibili.com/video/BV1xx411c7mD 给你")
     if matched.parser_type is not BilibiliParser or "bilibili.com" not in matched.url:
         fail(["text matching returned an unexpected result"])
-    discovered = Parser().match(
-        "分享 https://www.bilibili.com/video/BV1xx411c7mD 给你"
-    )
+    discovered = Parser().match("分享 https://www.bilibili.com/video/BV1xx411c7mD 给你")
     if discovered.parser_type is not BilibiliParser:
         fail(["lazy all-platform discovery returned an unexpected parser"])
     try:
@@ -208,9 +201,7 @@ def import_checks(root: Path, *, render: bool = False) -> None:
                 fail(["BrowserManager.screenshot reused stale HTML"])
 
             async with Parser([OfflineParser]) as rendering_parser:
-                rendered = await rendering_parser.parse(
-                    text, until=ParseStep.RENDER
-                )
+                rendered = await rendering_parser.parse(text, until=ParseStep.RENDER)
             if not rendered.startswith(b"\xff\xd8\xff"):
                 fail(["ParseStep.RENDER did not return a JPEG image"])
 

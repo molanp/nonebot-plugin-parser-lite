@@ -1,0 +1,254 @@
+name: Comment plugin startup result
+
+# workflow_run uses this file from the default branch, so privileged code never comes
+# from the pull request under test. This workflow becomes active after it is merged.
+on:
+  workflow_run:
+    workflows: ["Plugin startup test"]
+    types: [completed]
+
+permissions:
+  actions: write
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: >-
+    plugin-startup-comment-${{ github.event.workflow_run.pull_requests[0].number || github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
+
+jobs:
+  comment:
+    name: Update pull request comment
+    if: github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Download startup report archive
+        id: download
+        continue-on-error: true
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const fs = require("fs");
+            const run_id = context.payload.workflow_run.id;
+            const workflowRun = context.payload.workflow_run;
+            let pullRequest = workflowRun.pull_requests?.[0];
+            if (!pullRequest) {
+              const associated = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                ...context.repo,
+                commit_sha: workflowRun.head_sha,
+              });
+              pullRequest = associated.data.find(
+                (item) => item.head.sha === workflowRun.head_sha,
+              );
+            }
+            if (!pullRequest) {
+              core.setFailed("无法从 workflow_run 事件确定对应的 PR");
+              return;
+            }
+            core.setOutput("pr_number", pullRequest.number);
+            const artifactName = `plugin-startup-report-${pullRequest.number}`;
+            const artifacts = await github.paginate(
+              github.rest.actions.listWorkflowRunArtifacts,
+              {...context.repo, run_id, per_page: 100},
+            );
+            const matches = artifacts
+              .filter((item) => item.name === artifactName && !item.expired)
+              .sort((left, right) => right.id - left.id);
+            if (matches.length === 0) {
+              core.setFailed("启动测试没有生成报告 artifact");
+              return;
+            }
+            const artifact = matches[0];
+            core.setOutput("artifact_id", artifact.id);
+            if (artifact.size_in_bytes <= 0 || artifact.size_in_bytes > 512 * 1024) {
+              core.setFailed(`报告 artifact 大小异常：${artifact.size_in_bytes} bytes`);
+              return;
+            }
+            const download = await github.rest.actions.downloadArtifact({
+              ...context.repo,
+              artifact_id: artifact.id,
+              archive_format: "zip",
+            });
+            fs.writeFileSync("startup-report.zip", Buffer.from(download.data));
+
+      - name: Validate startup report archive
+        id: validate
+        if: steps.download.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from zipfile import ZipFile
+
+          with ZipFile("startup-report.zip") as archive:
+              matches = [
+                  item for item in archive.infolist()
+                  if item.filename == "startup-report.json" and not item.is_dir()
+              ]
+              if len(matches) != 1:
+                  raise ValueError("artifact 必须包含唯一的 startup-report.json")
+              info = matches[0]
+              if info.file_size > 256 * 1024:
+                  raise ValueError("startup-report.json 超过 256 KiB")
+              content = archive.read(info)
+
+          report = json.loads(content.decode("utf-8"))
+          if not isinstance(report, dict):
+              raise TypeError("启动报告不是 JSON 对象")
+          output = Path("report/startup-report.json")
+          output.parent.mkdir(parents=True, exist_ok=True)
+          output.write_text(
+              json.dumps(report, ensure_ascii=False), encoding="utf-8"
+          )
+          PY
+
+      - name: Create or update comment
+        if: github.event.workflow_run.conclusion != 'cancelled'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const fs = require("fs");
+            const marker = "<!-- plugin-startup-test -->";
+            const reportPath = "report/startup-report.json";
+            let report = {
+              status: "failure",
+              stage: "workflow",
+              total_ms: null,
+              timings: {},
+              step_outcome: "failure",
+              error_type: "WorkflowError",
+              error: "启动测试报告不存在，请查看工作流日志。",
+              traceback: "",
+            };
+            if (fs.existsSync(reportPath)) {
+              if (fs.statSync(reportPath).size > 256 * 1024) {
+                report.error = "启动报告超过 256 KiB，请查看工作流日志。";
+              } else {
+                try {
+                  const parsed = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+                  if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                    report = parsed;
+                  } else {
+                    report.error = "启动报告不是 JSON 对象，请查看工作流日志。";
+                  }
+                } catch (error) {
+                  report.error = `启动报告解析失败：${error.message}`;
+                }
+              }
+            }
+            const escapeHtml = (value) => String(value ?? "")
+              .replaceAll("&", "&amp;")
+              .replaceAll("<", "&lt;")
+              .replaceAll(">", "&gt;");
+            const formatMs = (value) =>
+              typeof value === "number" && Number.isFinite(value) && value >= 0
+                ? `${value.toFixed(2)} ms`
+                : "-";
+            const workflowRun = context.payload.workflow_run;
+            const success = workflowRun.conclusion === "success" &&
+              report.status === "success" && report.step_outcome === "success";
+            const pullRequestNumber = Number("${{ steps.download.outputs.pr_number }}");
+            const currentPullRequest = await github.rest.pulls.get({
+              ...context.repo,
+              pull_number: pullRequestNumber,
+            });
+            if (currentPullRequest.data.head.sha !== workflowRun.head_sha) {
+              core.notice(
+                `忽略旧提交 ${workflowRun.head_sha}，PR 当前提交为 ${currentPullRequest.data.head.sha}`,
+              );
+              return;
+            }
+            const lines = [
+              marker,
+              "## 插件启动测试",
+              "",
+              `**结果：${success ? "通过" : "失败"}**`,
+              "",
+              "| 阶段 | CI 耗时 |",
+              "| --- | ---: |",
+              `| NoneBot 初始化 | ${formatMs(report.timings?.nonebot_init_ms)} |`,
+              `| 插件加载 | ${formatMs(report.timings?.plugin_load_ms)} |`,
+              `| 启动回调 | ${formatMs(report.timings?.startup_callbacks_ms)} |`,
+              `| 关闭回调 | ${formatMs(report.timings?.shutdown_callbacks_ms)} |`,
+              `| **总计** | **${formatMs(report.total_ms)}** |`,
+              "",
+              `- 提交：\`${workflowRun.head_sha.slice(0, 12)}\``,
+            ];
+            if (!success) {
+              const details = [
+                `stage: ${report.stage ?? "unknown"}`,
+                `${report.error_type ?? "Error"}: ${report.error ?? "未知错误"}`,
+                report.traceback ?? "",
+              ].filter(Boolean).join("\n").slice(0, 12000);
+              lines.push(
+                "",
+                "<details><summary>错误信息</summary>",
+                "",
+                `<pre>${escapeHtml(details)}</pre>`,
+                "</details>",
+              );
+            }
+            const body = lines.join("\n");
+            const issue_number = pullRequestNumber;
+            const comments = await github.paginate(
+              github.rest.issues.listComments,
+              {...context.repo, issue_number, per_page: 100},
+            );
+            const previous = comments.filter(
+              (comment) => comment.user?.login === "github-actions[bot]" &&
+                comment.body?.includes(marker),
+            );
+            if (previous.length > 0) {
+              const [primary, ...duplicates] = previous.sort(
+                (left, right) => left.id - right.id,
+              );
+              await github.rest.issues.updateComment({
+                ...context.repo,
+                comment_id: primary.id,
+                body,
+              });
+              for (const duplicate of duplicates) {
+                await github.rest.issues.deleteComment({
+                  ...context.repo,
+                  comment_id: duplicate.id,
+                });
+              }
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number,
+                body,
+              });
+            }
+
+      - name: Delete consumed startup report
+        if: always() && steps.download.outputs.artifact_id != '' && steps.download.outputs.pr_number != ''
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        env:
+          ARTIFACT_ID: ${{ steps.download.outputs.artifact_id }}
+          PR_NUMBER: ${{ steps.download.outputs.pr_number }}
+        with:
+          script: |
+            const currentArtifactId = Number(process.env.ARTIFACT_ID);
+            const artifactName = `plugin-startup-report-${process.env.PR_NUMBER}`;
+            const artifacts = await github.paginate(
+              github.rest.actions.listArtifactsForRepo,
+              {...context.repo, name: artifactName, per_page: 100},
+            );
+            const obsolete = artifacts.filter(
+              (artifact) => artifact.id <= currentArtifactId,
+            );
+            for (const artifact of obsolete) {
+              try {
+                await github.rest.actions.deleteArtifact({
+                  ...context.repo,
+                  artifact_id: artifact.id,
+                });
+              } catch (error) {
+                if (error.status !== 404) throw error;
+              }
+            }

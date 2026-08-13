@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""Generate the standalone branch from an unmodified main working tree."""
-
-from __future__ import annotations
+"""生成独立分支"""
 
 import argparse
 import ast
