@@ -1,6 +1,3 @@
-from re import compile
-from typing import Any
-
 import msgspec
 from msgspec import Struct, convert, field
 
@@ -70,7 +67,7 @@ class Photo(Struct):
         )
 
     @property
-    def content(self):
+    def content(self) -> list[ContentItem]:
         content: list[ContentItem] = [self.caption]
         if video := self.mainMvUrls:
             content.append(
@@ -89,25 +86,15 @@ class Info(Struct):
     photo: Photo
 
 
-class Data(Struct):
-    info: Info = field(name="/rest/wd/ugH5App/photo/simple/info")
+PHOTO_INFO_PATH = "/rest/wd/ugH5App/photo/simple/info"
+ENCODED_PHOTO_INFO_PATH = "0sftu0xe0vhI6Bqq0qipup0tjnqmf"
 
 
-RE_PATH = compile(r"0sftu[^.\-@]*")
-_FROM_CHARS = "".join(chr(i) for i in range(256))
-_TO_CHARS = "".join(chr((i - 1) % 256) for i in range(256))
-DECRYPT_TRANS = str.maketrans(_FROM_CHARS, _TO_CHARS)
+def decode_init_state(data: str) -> Photo:
+    init_state = msgspec.json.decode(data, type=dict[str, object])
 
+    for key, value in init_state.items():
+        if ENCODED_PHOTO_INFO_PATH in key:
+            return convert(value, Info).photo
 
-# NOTE: 此解密不会正确解析 author 路径，因为我不需要它
-def get_final_stable_path_ultimate(text: str) -> str:
-    match_path = RE_PATH.search(text)
-    return match_path.group(0).translate(DECRYPT_TRANS) if match_path else text
-
-
-def decode_init_state(input_dict: dict[str, Any] | str | bytes):
-    if isinstance(input_dict, (str, bytes)):
-        input_dict = msgspec.json.decode(input_dict, type=dict[str, Any])
-    return convert(
-        {get_final_stable_path_ultimate(k): v for k, v in input_dict.items()}, Data
-    ).info.photo
+    raise ValueError(f"INIT_STATE 中未找到作品信息接口: {PHOTO_INFO_PATH}")
