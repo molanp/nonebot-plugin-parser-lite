@@ -37,6 +37,7 @@ async def _which(name: str) -> str:
             candidate = Path(directory) / f"{name}{extension}"
             if await candidate.is_file():
                 return str(candidate)
+    logger.debug("PATH 中未找到浏览器可执行文件: %s", name)
     return ""
 
 
@@ -73,6 +74,7 @@ class BrowserManager:
     browser: Browser | None = None
     _playwright: Playwright | None = None
     _start_lock = asyncio.Lock()
+    _resolve_lock = asyncio.Lock()
     _browser_path: str = ""
     _browser_path_resolved = False
 
@@ -94,11 +96,13 @@ class BrowserManager:
                 r"SOFTWARE\Clients\StartMenuInternet\Microsoft Edge\DefaultIcon",
             ):
                 with suppress(FileNotFoundError, OSError):
-                    key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, registry_path)
-                    value, _ = winreg.QueryValueEx(key, "")
-                    candidate = value.split(",")[0].strip().strip('"')
-                    if candidate and await Path(candidate).is_file():
-                        return candidate
+                    with winreg.OpenKey(
+                        winreg.HKEY_LOCAL_MACHINE, registry_path
+                    ) as key:
+                        value, _ = winreg.QueryValueEx(key, "")
+                        candidate = value.split(",")[0].strip().strip('"')
+                        if candidate and await Path(candidate).is_file():
+                            return candidate
 
             for registry_path in (
                 r"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe",
@@ -106,10 +110,10 @@ class BrowserManager:
             ):
                 for root in (winreg.HKEY_CURRENT_USER, winreg.HKEY_LOCAL_MACHINE):
                     with suppress(FileNotFoundError, OSError):
-                        key = winreg.OpenKey(root, registry_path)
-                        value, _ = winreg.QueryValueEx(key, "")
-                        if value and await Path(value).is_file():
-                            return value
+                        with winreg.OpenKey(root, registry_path) as key:
+                            value, _ = winreg.QueryValueEx(key, "")
+                            if value and await Path(value).is_file():
+                                return value
         else:
             for name in (
                 "google-chrome",
@@ -128,6 +132,7 @@ class BrowserManager:
             ):
                 if await Path(path).is_file():
                     return path
+        logger.debug("系统浏览器查找失败: platform=%s", _SYSTEM)
         return ""
 
     @staticmethod
@@ -143,6 +148,7 @@ class BrowserManager:
             else:
                 base = home / ".cache" / "ms-playwright"
         if not await base.is_dir():
+            logger.debug("Playwright 浏览器缓存目录不存在: %s", base)
             return ""
 
         chromium_dirs = sorted([p async for p in base.glob("chromium-*")], reverse=True)
@@ -163,6 +169,7 @@ class BrowserManager:
             for executable in candidates:
                 if await executable.is_file():
                     return str(await executable.resolve())
+        logger.debug("Playwright 浏览器缓存中未找到 Chromium: %s", base)
         return ""
 
     @staticmethod
@@ -187,6 +194,7 @@ class BrowserManager:
                     executable = app / "Contents" / "MacOS" / "Chromium"
                     if await executable.is_file():
                         return str(await executable.resolve())
+        logger.debug("Puppeteer 浏览器缓存中未找到 Chromium: %s", bases)
         return ""
 
     @classmethod
@@ -194,18 +202,22 @@ class BrowserManager:
         if cls._browser_path_resolved:
             return cls._browser_path
 
-        path = await cls._find_browser_from_system()
-        if not path:
-            path = await cls._find_browser_from_playwright()
-        if not path:
-            path = await cls._find_browser_from_puppeteer()
-        cls._browser_path = path
-        cls._browser_path_resolved = True
-        if path:
-            logger.info("已找到渲染浏览器: %s", path)
-        else:
-            logger.info("未发现外部浏览器，将使用 Playwright 默认 Chromium")
-        return path
+        async with cls._resolve_lock:
+            if cls._browser_path_resolved:
+                return cls._browser_path
+
+            path = await cls._find_browser_from_system()
+            if not path:
+                path = await cls._find_browser_from_playwright()
+            if not path:
+                path = await cls._find_browser_from_puppeteer()
+            cls._browser_path = path
+            cls._browser_path_resolved = True
+            if path:
+                logger.info("已找到渲染浏览器: %s", path)
+            else:
+                logger.info("未发现外部浏览器，将使用 Playwright 默认 Chromium")
+            return path
 
     @classmethod
     async def ensure_started(cls) -> None:
