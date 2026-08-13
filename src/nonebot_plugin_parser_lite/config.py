@@ -71,12 +71,8 @@ class Config(BaseModel):
     """懒下载模式等待命令超时时间"""
     plite_download_command: list[str] = ["xz", "下载"]
     """在懒下载模式中用户请求下载视频时的命令列表"""
-    plite_browser_path: str = ""
-    """浏览器程序路径，如果无法识别浏览器请填写此配置"""
     plite_live_photo: bool = True
     """是否使用 ffmpeg 转码 Live Photo"""
-    plite_headless: bool = True
-    """是否使用无头浏览器"""
     plite_max_comments: int = 5
     """最大评论数量"""
     plite_forward_text_threshold: int = 1000
@@ -207,19 +203,9 @@ class Config(BaseModel):
         return self.plite_lazy_download_timeout
 
     @property
-    def browser_path(self) -> str:
-        """浏览器程序路径"""
-        return self.plite_browser_path
-
-    @property
     def live_photo(self) -> bool:
         """是否使用 iPhone Live Photo 功能"""
         return self.plite_live_photo
-
-    @property
-    def headless(self) -> bool:
-        """是否无头模式"""
-        return self.plite_headless
 
     @property
     def max_comments(self) -> int:

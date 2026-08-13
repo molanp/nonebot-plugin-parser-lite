@@ -159,6 +159,7 @@ def rewrite_requirements(root: Path) -> list[str]:
     direct = {
         "httpx": "httpx>=0.27.0,<1.0.0",
         "jinja2": "jinja2>=3.1.0,<4.0.0",
+        "playwright": "playwright>=1.48.0,<2.0.0",
         "pydantic": "pydantic>=2.10.0,<3.0.0",
         "typing-extensions": "typing-extensions>=4.12.0",
         "yarl": "yarl>=1.9.0,<2.0.0",

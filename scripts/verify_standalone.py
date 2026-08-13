@@ -167,7 +167,6 @@ def import_checks(root: Path, *, render: bool = False) -> None:
                 fail(["clearing the parse result cache had no effect"])
 
         if render:
-            package.configure(plite_headless=True)
             browser_module = importlib.import_module(
                 "nonebot_plugin_parser_lite.utils.browser"
             )

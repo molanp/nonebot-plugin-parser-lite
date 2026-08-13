@@ -5,8 +5,11 @@ from __future__ import annotations
 import asyncio
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager, suppress
+import os
+import platform
 from typing import Any, Literal, Self
 
+from anyio import Path
 from playwright.async_api import (
     Browser,
     BrowserContext,
@@ -15,12 +18,26 @@ from playwright.async_api import (
     async_playwright,
 )
 
-from ..config import pconfig
 from .log import logger
 
 WaitUntil = Literal["commit", "domcontentloaded", "load", "networkidle"]
 ImageType = Literal["jpeg", "png"]
 _DEFAULT_TIMEOUT_MS = 30_000
+_SYSTEM = platform.system()
+
+
+async def _which(name: str) -> str:
+    extensions = [""]
+    if _SYSTEM == "Windows":
+        extensions = os.environ.get("PATHEXT", ".EXE;.BAT;.CMD").split(";")
+    for directory in os.environ.get("PATH", "").split(os.pathsep):
+        if not directory:
+            continue
+        for extension in extensions:
+            candidate = Path(directory) / f"{name}{extension}"
+            if await candidate.is_file():
+                return str(candidate)
+    return ""
 
 
 class BrowserTab:
@@ -56,6 +73,139 @@ class BrowserManager:
     browser: Browser | None = None
     _playwright: Playwright | None = None
     _start_lock = asyncio.Lock()
+    _browser_path: str = ""
+    _browser_path_resolved = False
+
+    @staticmethod
+    async def _find_browser_from_system() -> str:
+        if _SYSTEM == "Darwin":
+            for path in (
+                "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+                "/Applications/Chromium.app/Contents/MacOS/Chromium",
+            ):
+                if await Path(path).is_file():
+                    return path
+        elif _SYSTEM == "Windows":
+            import winreg
+
+            for registry_path in (
+                r"SOFTWARE\Clients\StartMenuInternet\Google Chrome\DefaultIcon",
+                r"SOFTWARE\Clients\StartMenuInternet\Microsoft Edge\DefaultIcon",
+            ):
+                with suppress(FileNotFoundError, OSError):
+                    key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, registry_path)
+                    value, _ = winreg.QueryValueEx(key, "")
+                    candidate = value.split(",")[0].strip().strip('"')
+                    if candidate and await Path(candidate).is_file():
+                        return candidate
+
+            for registry_path in (
+                r"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe",
+                r"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\msedge.exe",
+            ):
+                for root in (winreg.HKEY_CURRENT_USER, winreg.HKEY_LOCAL_MACHINE):
+                    with suppress(FileNotFoundError, OSError):
+                        key = winreg.OpenKey(root, registry_path)
+                        value, _ = winreg.QueryValueEx(key, "")
+                        if value and await Path(value).is_file():
+                            return value
+        else:
+            for name in (
+                "google-chrome",
+                "google-chrome-stable",
+                "chromium",
+                "chromium-browser",
+                "chrome",
+            ):
+                if found := await _which(name):
+                    return found
+            for path in (
+                "/usr/bin/google-chrome",
+                "/opt/google/chrome/google-chrome",
+                "/usr/bin/chromium",
+                "/usr/bin/chromium-browser",
+            ):
+                if await Path(path).is_file():
+                    return path
+        return ""
+
+    @staticmethod
+    async def _find_browser_from_playwright() -> str:
+        if configured := os.environ.get("PLAYWRIGHT_BROWSERS_PATH"):
+            base = Path(configured)
+        else:
+            home = await Path.home()
+            if _SYSTEM == "Darwin":
+                base = home / "Library" / "Caches" / "ms-playwright"
+            elif _SYSTEM == "Windows":
+                base = home / "AppData" / "Local" / "ms-playwright"
+            else:
+                base = home / ".cache" / "ms-playwright"
+        if not await base.is_dir():
+            return ""
+
+        chromium_dirs = sorted([p async for p in base.glob("chromium-*")], reverse=True)
+        for chromium_dir in chromium_dirs:
+            if _SYSTEM == "Windows":
+                candidates = [
+                    p async for p in chromium_dir.glob("chrome-win*/chrome.exe")
+                ]
+            elif _SYSTEM == "Darwin":
+                candidates = [
+                    p / "Chromium.app" / "Contents" / "MacOS" / "Chromium"
+                    async for p in chromium_dir.glob("chrome-mac*")
+                ]
+            else:
+                candidates = [
+                    p async for p in chromium_dir.glob("chrome-linux*/chrome")
+                ]
+            for executable in candidates:
+                if await executable.is_file():
+                    return str(await executable.resolve())
+        return ""
+
+    @staticmethod
+    async def _find_browser_from_puppeteer() -> str:
+        home = await Path.home()
+        if _SYSTEM == "Darwin":
+            bases = [home / "Library" / "Caches" / "puppeteer"]
+        elif _SYSTEM == "Windows":
+            bases = [home / "AppData" / "Local" / "puppeteer"]
+        else:
+            bases = [home / ".cache" / "puppeteer"]
+
+        target = "chrome.exe" if _SYSTEM == "Windows" else "chrome"
+        for base in bases:
+            if not await base.is_dir():
+                continue
+            async for executable in base.rglob(target):
+                if await executable.is_file():
+                    return str(await executable.resolve())
+            if _SYSTEM == "Darwin":
+                async for app in base.rglob("Chromium.app"):
+                    executable = app / "Contents" / "MacOS" / "Chromium"
+                    if await executable.is_file():
+                        return str(await executable.resolve())
+        return ""
+
+    @classmethod
+    async def _resolve_browser_path(cls) -> str:
+        if cls._browser_path_resolved:
+            return cls._browser_path
+
+        path = await cls._find_browser_from_system()
+        if not path:
+            path = await cls._find_browser_from_playwright()
+        if not path:
+            path = await cls._find_browser_from_puppeteer()
+        cls._browser_path = path
+        cls._browser_path_resolved = True
+        if path:
+            logger.info("已找到渲染浏览器: %s", path)
+        else:
+            logger.info("未发现外部浏览器，将使用 Playwright 默认 Chromium")
+        return path
 
     @classmethod
     async def ensure_started(cls) -> None:
@@ -66,9 +216,9 @@ class BrowserManager:
                 return
             await cls.quit()
             cls._playwright = await async_playwright().start()
-            launch: dict[str, Any] = {"headless": pconfig.headless}
-            if pconfig.browser_path:
-                launch["executable_path"] = pconfig.browser_path
+            launch: dict[str, Any] = {"headless": True}
+            if browser_path := await cls._resolve_browser_path():
+                launch["executable_path"] = browser_path
             cls.browser = await cls._playwright.chromium.launch(**launch)
 
     @classmethod
@@ -141,16 +291,6 @@ class BrowserManager:
             if quality is not None:
                 options["quality"] = quality
             return await page.screenshot(**options)
-
-    @classmethod
-    async def clear_cache(cls, *, cookies: bool = True) -> None:
-        # Every operation uses a temporary context, so no persistent cache remains.
-        return None
-
-    @classmethod
-    async def reconnect(cls) -> None:
-        if cls.browser is None or not cls.browser.is_connected():
-            await cls.ensure_started()
 
     @classmethod
     async def quit(cls) -> None:

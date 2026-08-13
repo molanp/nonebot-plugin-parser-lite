@@ -91,7 +91,7 @@ configure(plite_max_comments=10, plite_disabled_platforms=["x"])
 ```
 
 缓存根目录默认是当前目录的 `.parser-lite`，可通过 `PARSER_LITE_BASE_DIR` 修改。
-图片渲染需要 Playwright 可用的 Chromium，或通过 `PLITE_BROWSER_PATH` 指定浏览器。
+图片渲染使用 Playwright Chromium，并固定以无头模式运行。
 解析结果会保留最近 50 项；首次进入异步解析时会在当前事件循环注册每两小时执行一次
 的缓存清理任务。应用退出前可调用 `await shutdown_runtime()` 关闭定时任务和浏览器。
 

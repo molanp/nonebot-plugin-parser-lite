@@ -26,7 +26,6 @@ def clear_result_cache() -> None:
 
 
 async def _clean_runtime_cache() -> None:
-    from .utils.browser import BrowserManager
     from .utils.cache import CacheManager
 
     try:
@@ -34,8 +33,6 @@ async def _clean_runtime_cache() -> None:
     except Exception:
         logger.exception("清理缓存文件时发生异常")
     clear_result_cache()
-    await BrowserManager.clear_cache()
-    await BrowserManager.reconnect()
 
 
 def _ensure_runtime_started() -> None:
