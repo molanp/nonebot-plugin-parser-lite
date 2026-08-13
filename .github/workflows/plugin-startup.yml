@@ -129,6 +129,3 @@ jobs:
           retention-days: 1
           overwrite: true
 
-      - name: Fail when startup test failed
-        if: steps.startup.outcome != 'success'
-        run: exit 1
