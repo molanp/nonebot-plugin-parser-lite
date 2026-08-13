@@ -99,7 +99,7 @@ class DouyinParser(BaseParser):
 
         try:
             resp = await self.httpx.get(
-                "https://www.douyin.com/aweme/v1/web/comment/list/?device_platform=webapp&aid=6383&channel=channel_pc_web&aweme_id=7469411074119322899&cursor=0&count=20&msToken=&X-Bogus=",
+                "https://www.douyin.com/aweme/v1/web/comment/list/",
                 params={
                     "device_platform": "webapp",
                     "aid": 6383,
