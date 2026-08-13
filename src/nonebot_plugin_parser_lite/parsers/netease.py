@@ -1,22 +1,23 @@
-import base64
 import contextlib
-import json
-import os
+import random
 import time
 from typing import ClassVar
 
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-from nonebot import logger
+from nonebot.log import logger
 
 from .base import (
     BaseParser,
+    ContentItem,
     MatchWithParams,
-    MediaContent,
     ParseException,
     Platform,
     PlatformEnum,
     handle,
 )
+
+
+def random_ip() -> str:
+    return ".".join(str(random.randint(0, 255)) for _ in range(4))
 
 
 def parse_duration_to_seconds(duration: str) -> int:
@@ -46,39 +47,6 @@ def parse_duration_to_seconds(duration: str) -> int:
     return hours * 3600 + minutes * 60 + seconds
 
 
-def _b64encode(data: bytes) -> str:
-    return base64.b64encode(data).decode("ascii")
-
-
-def _b64decode(s: str) -> bytes:
-    return base64.b64decode(s)
-
-
-def _encrypt(payload: dict, key_b64: str) -> str:
-    key = _b64decode(key_b64)
-    iv = os.urandom(12)
-    plaintext = json.dumps(payload, separators=(",", ":")).encode("utf-8")
-    aesgcm = AESGCM(key)
-    encrypted = aesgcm.encrypt(iv, plaintext, None)
-    ciphertext = encrypted[:-16]
-    tag = encrypted[-16:]
-    return f"{_b64encode(iv)}.{_b64encode(tag)}.{_b64encode(ciphertext)}"
-
-
-def _decrypt(ciphertext_str: str, key_b64: str) -> dict:
-    key = _b64decode(key_b64)
-    parts = ciphertext_str.split(".")
-    if len(parts) != 3:
-        raise ValueError("invalid ciphertext format")
-    iv = _b64decode(parts[0])
-    tag = _b64decode(parts[1])
-    ciphertext = _b64decode(parts[2])
-    combined = ciphertext + tag
-    aesgcm = AESGCM(key)
-    plaintext = aesgcm.decrypt(iv, combined, None)
-    return json.loads(plaintext.decode("utf-8"))
-
-
 class NCMParser(BaseParser):
     platform: ClassVar[Platform] = Platform(
         name=PlatformEnum.NETEASE, display_name="网易云音乐"
@@ -89,31 +57,14 @@ class NCMParser(BaseParser):
         self.httpx.headers.update({"Referer": "https://wyapi.toubiec.cn/"})
         self.httpx.base_url = "https://nextmusic.toubiec.cn/api"
 
-    async def getEncryptParam(self) -> dict:
-        resp = await self.httpx.post("key")
-        data = resp.json()
-        if data.get("code") != 200:
-            raise ParseException(f"获取解密密钥失败: {data}")
-        return data["data"]
-
     async def fetch(self, endpoint: str, payload: dict) -> dict:
-        session = await self.getEncryptParam()
-        encrypted = _encrypt(
-            {**payload, "timestamp": int(time.time() * 1000)},
-            session["key"],
-        )
-        body = {
-            "keyId": session["keyId"],
-            "keyToken": session["keyToken"],
-            "data": encrypted,
-        }
-        resp = await self.httpx.post(endpoint, json=body)
+        payload["timestamp"] = int(time.time() * 1000)
+        payload["ip"] = random_ip()
+        resp = await self.httpx.post(endpoint, json=payload)
         resp.raise_for_status()
         result = resp.json()
         if result.get("code") != 200:
             raise ParseException(f"接口返回错误: {result}")
-        if ciphertext := result.get("ciphertext"):
-            return _decrypt(ciphertext, session["key"])["data"]
         return result["data"]
 
     @handle("163cn.tv", r"https?://[^\s]*?163cn\.tv/[a-zA-Z0-9]+")
@@ -124,43 +75,32 @@ class NCMParser(BaseParser):
     @handle("music.163.com", r"song/(?P<id>\d+)")
     async def _parse_netease(self, searched: MatchWithParams):
         ncm_id = searched["id"]
-        logger.info(f"[网易云解析] 提取歌曲ID: {ncm_id}")
         song = await self.fetch("getSongInfo", {"id": ncm_id})
         title = song.get("name", "未知")
         artist = song.get("singer", "未知歌手")
         duration = parse_duration_to_seconds(song.get("duration", "0"))
-        logger.info(f"[网易云解析] 歌曲: {title} - {artist}")
         lyric = ""
         with contextlib.suppress(Exception):
             lyric = (await self.fetch("getSongLyric", {"id": ncm_id})).get("lrc")
-
-        audio_url = ""
-        audio_level = "standard"
-        audio_size = ""
-        audio_type = "mp3"
-
+        audio_url: str | None = None
         for level in ("lossless", "standard"):
             try:
-                url_data = await self.fetch("getSongUrl", {"id": ncm_id, "level": level})
-                if url_data.get("url"):
-                    audio_url = url_data["url"]
-                    audio_level = level
-                    audio_size = url_data.get("size", "")
-                    url_no_params = audio_url.split("?", 1)[0]
-                    ext = url_no_params.rsplit(".", 1)[-1].lower() if "." in url_no_params else ""
-                    audio_type = ext if ext in {"flac", "wav", "m4a", "aac", "mp3"} else "mp3"
-                    logger.info(f"[网易云解析] {level} URL 获取成功")
+                url_data = await self.fetch(
+                    "getSongUrl", {"id": ncm_id, "level": level}
+                )
+                audio_url = url_data.get("url")
+                if audio_url:
                     break
             except Exception as e:
                 logger.warning(f"[网易云解析] {level} 获取失败: {e}")
-
         if not audio_url:
             raise ParseException("无法获取音频下载地址")
-
-        contents: list[MediaContent] = []
+        url_no_params = audio_url.split("?", 1)[0]
+        ext = url_no_params.rsplit(".", 1)[-1].lower() if "." in url_no_params else ""
+        audio_type = ext if ext in {"flac", "wav", "m4a", "aac", "mp3"} else "mp3"
+        contents: list[ContentItem] = []
 
         audio_name = f"{title}-{artist}.{audio_type}"
-        logger.info(f"[网易云解析] 生成文件名: {audio_name}")
         audio = self.create_audio(
             audio_url,
             duration=duration,
@@ -171,18 +111,14 @@ class NCMParser(BaseParser):
         if cover_url := song.get("picimg"):
             contents.append(self.create_image(cover_url))
 
-        audio_info = f"音质: {audio_level} | 大小: {audio_size} | 格式: {audio_type}"
-
-        text = audio_info
-        if lyric:
-            text += f"\n歌词:\n{lyric}"
+        audio_info = (
+            f"音质: {level} | 大小: {await audio.get_display_size()} |"
+            f" 格式: {audio_type}"
+        )
 
         extra = {
             "info": audio_info,
-            "lyric": text,
-            "type": "audio",
-            "type_tag": "音乐",
-            "type_icon": "fa-music",
+            "lyric": lyric,
         }
 
         return self.result(
