@@ -15,6 +15,7 @@ autolabeler:
     title:
       - "/:sparkles:.+/"
       - "/✨.+/"
+      - "/feat/"
   - label: "ci"
     files:
       - .github/**/*
