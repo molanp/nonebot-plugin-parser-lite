@@ -149,7 +149,7 @@ async def parser_handler(
                 f"请在{LazyManager.TIMEOUT_SECONDS}秒内发送以下命令之一来获取媒体资源: "
                 f"\n{download_cmd}"
             ).send()
-        LazyManager.add(session.user.id, result)
+        await LazyManager.add(session.user.id, result)
     else:
         async for content_msg in RENDERER.send_content(result):
             await content_msg.send()
@@ -219,7 +219,7 @@ async def register_bili_matcher():
 if pconfig.lazy_download:
 
     async def has_lazy(session: Uninfo) -> bool:
-        return LazyManager.has(session.user.id)
+        return await LazyManager.has(session.user.id)
 
     lazy_matcher = on_alconna(
         Alconna(pconfig.download_command[0]),
@@ -233,7 +233,7 @@ if pconfig.lazy_download:
     async def _(session: Uninfo):
         """懒下载命令：发送上次解析结果中的媒体内容。"""
         user_id = session.user.id
-        result = LazyManager.claim(user_id)
+        result = await LazyManager.claim(user_id)
         if result is None:
             await UniMessage("资源正在下载或发送中，请勿重复请求").send()
             return
@@ -242,7 +242,7 @@ if pconfig.lazy_download:
             async for message in RENDERER.send_content(result):
                 await message.send()
         finally:
-            LazyManager.release(user_id)
+            await LazyManager.release(user_id)
 
 
 class LazyManager:
@@ -253,74 +253,55 @@ class LazyManager:
     @dataclass
     class Session:
         result: ParseResult
-        task: asyncio.Task[None]
 
     # user_id -> Session
     SESSIONS: ClassVar[dict[str, "LazyManager.Session"]] = {}
     ACTIVE_USERS: ClassVar[set[str]] = set()
+    LOCK: ClassVar[asyncio.Lock] = asyncio.Lock()
+    TIMEOUT_TASKS: ClassVar[set[asyncio.Task[None]]] = set()
 
     @classmethod
-    def add(cls, user_id: str, parse_result: ParseResult) -> None:
+    async def add(cls, user_id: str, parse_result: ParseResult) -> None:
         """为用户创建/刷新懒下载会话。"""
-        # 取消之前的会话
-        cls.remove(user_id)
-
-        task: asyncio.Task[None] = asyncio.create_task(cls._timeout_handler(user_id))
-        session: LazyManager.Session = cls.Session(
-            result=parse_result,
-            task=task,
-        )
-        cls.SESSIONS[user_id] = session
+        session = cls.Session(result=parse_result)
+        async with cls.LOCK:
+            cls.SESSIONS[user_id] = session
+            task = asyncio.create_task(cls._timeout_handler(user_id, session))
+            cls.TIMEOUT_TASKS.add(task)
+            task.add_done_callback(cls.TIMEOUT_TASKS.discard)
 
     @classmethod
-    def claim(cls, user_id: str) -> ParseResult | None:
-        """原子领取待下载结果；同一用户已有任务运行时返回 None。"""
-        if user_id in cls.ACTIVE_USERS:
-            return None
+    async def claim(cls, user_id: str) -> ParseResult | None:
+        """原子领取待下载结果；同一用户已有任务运行时返回 None"""
+        async with cls.LOCK:
+            if user_id in cls.ACTIVE_USERS:
+                return None
 
-        session = cls.SESSIONS.pop(user_id, None)
-        if session is None:
-            return None
+            session = cls.SESSIONS.pop(user_id, None)
+            if session is None:
+                return None
 
-        if not session.task.done():
-            session.task.cancel()
-        cls.ACTIVE_USERS.add(user_id)
-        return session.result
-
-    @classmethod
-    def has(cls, user_id: str) -> bool:
-        return user_id in cls.SESSIONS or user_id in cls.ACTIVE_USERS
+            cls.ACTIVE_USERS.add(user_id)
+            return session.result
 
     @classmethod
-    def release(cls, user_id: str) -> None:
+    async def has(cls, user_id: str) -> bool:
+        async with cls.LOCK:
+            return user_id in cls.SESSIONS or user_id in cls.ACTIVE_USERS
+
+    @classmethod
+    async def release(cls, user_id: str) -> None:
         """标记该用户的下载发送流程结束。"""
-        cls.ACTIVE_USERS.discard(user_id)
+        async with cls.LOCK:
+            cls.ACTIVE_USERS.discard(user_id)
 
     @classmethod
-    def remove(cls, user_id: str, *, current_task: asyncio.Task | None = None) -> None:
-        """删除用户的懒下载会话并取消超时任务。
-
-        current_task 用于避免在超时回调中自我取消，减少 CancelledError 噪音。
-        """
-        session = cls.SESSIONS.pop(user_id, None)
-        if session is None:
-            return
-
-        # 只有在不是当前正在运行的任务时才取消
-        if session.task is not current_task and not session.task.done():
-            session.task.cancel()
-
-    @classmethod
-    async def _timeout_handler(cls, user_id: str) -> None:
+    async def _timeout_handler(cls, user_id: str, session: Session) -> None:
         """会话超时自动清理。"""
-        self_task = asyncio.current_task()
         await asyncio.sleep(cls.TIMEOUT_SECONDS)
-
-        # 会话已被手动清理
-        if user_id not in cls.SESSIONS:
-            return
-
-        cls.remove(user_id, current_task=self_task)
+        async with cls.LOCK:
+            if cls.SESSIONS.get(user_id) is session:
+                cls.SESSIONS.pop(user_id)
 
 
 class BvReplyMergeExtension(Extension):
