@@ -197,7 +197,7 @@ class BuffParser(BaseParser):
         params={"social_topic_post_id": {}, "comment_type": {"equals": "239"}},
     )
     async def parse_topic(self, searched: MatchWithParams):
-        post_id = searched["post_id"]
+        post_id = searched["social_topic_post_id"]
         topic = await self._fetch_ok_json(
             url="https://buff.163.com/api/topic/posts/detail",
             params={"social_topic_post_id": post_id},
