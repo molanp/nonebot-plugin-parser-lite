@@ -1,16 +1,15 @@
 from __future__ import annotations
 
-from collections.abc import Sequence
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Literal, TypedDict
 
 from anyio import Path
 
-from .cache import CacheManager
-from .constants import STICKER_CDN
+from .constants import STICKER_CDN, PlatformEnum
 from .download import DOWNLOADER
 from .download.task import DownloadTaskWrapper
+from .utils.cache import CacheManager
 from .utils.ffmpeg import FFmpeg
 
 
@@ -56,7 +55,9 @@ class MediaContent:
         if self._size_bytes is None:
             try:
                 self._size_bytes = await DOWNLOADER.head_size(
-                    url=self.path_task.url, ext_headers=self.path_task.ext_headers
+                    url=self.path_task.url,
+                    ext_headers=self.path_task.ext_headers,
+                    use_curl_cffi=self.path_task.use_curl_cffi,
                 )
             except Exception:
                 # HEAD 失败时不抛出，避免影响主流程
@@ -74,6 +75,22 @@ class AudioContent(MediaContent):
     """音频内容"""
 
     duration: float = 0.0
+
+    @property
+    def display_duration(self) -> str:
+        try:
+            total_seconds = int(self.duration)
+            if total_seconds <= 0:
+                return "0:00"
+
+            minutes, seconds = divmod(total_seconds, 60)
+            if minutes < 60:
+                return f"{minutes}:{seconds:02d}"
+
+            hours, minutes = divmod(minutes, 60)
+            return f"{hours}:{minutes:02d}:{seconds:02d}"
+        except (TypeError, ValueError):
+            return "NaN"
 
 
 @dataclass(repr=False, slots=True)
@@ -139,6 +156,8 @@ class LivePhotoContent(MediaContent):
 
     base_image: DownloadTaskWrapper[Path]
     """iPhone Live Photo 底图"""
+    loop: int
+    """循环次数"""
     bgm: DownloadTaskWrapper[Path] | None = None
     """iPhone Live Photo 背景音乐"""
 
@@ -151,7 +170,10 @@ class LivePhotoContent(MediaContent):
 
         bgm = await self.bgm if self.bgm else None
         return await FFmpeg.merge_to_live_mp4(
-            await self.base_image, await self.path_task, bgm
+            image_path=await self.base_image,
+            video_path=await self.path_task,
+            bgm_path=bgm,
+            loop=self.loop,
         )
 
     def __repr__(self) -> str:
@@ -166,7 +188,7 @@ class LivePhotoContent(MediaContent):
 class Platform:
     """平台信息"""
 
-    name: str
+    name: PlatformEnum
     """ 平台名称 """
     display_name: str
     """ 平台显示名称 """
@@ -183,7 +205,7 @@ class Platform:
 class Author:
     """作者信息"""
 
-    name: str
+    name: PlatformEnum
     """作者名称"""
     id: str | None = None
     """作者id"""
@@ -222,13 +244,13 @@ class Comment:
 
     author: Author
     """作者信息"""
-    content: Sequence[MediaContent | str | None]
+    content: list[ContentItem]
     """评论内容，可以是文本或媒体对象"""
     timestamp: int | None
     """发布时间戳，单位秒"""
     stats: Stats = field(default_factory=Stats)
     """统计信息"""
-    replies: list["Comment"] = field(default_factory=list)
+    replies: list[Comment] = field(default_factory=list)
     """子评论列表"""
     parent_author: Author | None = None
     """父评论作者，用于渲染“回复 @xxx”，可选"""
@@ -246,6 +268,16 @@ class Comment:
         return datetime.fromtimestamp(self.timestamp).strftime("%Y-%m-%d %H:%M:%S")
 
 
+@dataclass(slots=True)
+class LinkContent:
+    """链接信息"""
+
+    url: str
+    """链接地址"""
+    text: str
+    """链接文本"""
+
+
 @dataclass(repr=False, slots=True)
 class ParseResult:
     """完整的解析结果"""
@@ -256,7 +288,7 @@ class ParseResult:
     """作者信息"""
     url: str
     """来源链接"""
-    content: Sequence[MediaContent | str]
+    content: list[ContentItem]
     """资源/文本内容"""
     title: str | None = field(default=None)
     """标题"""
@@ -268,6 +300,8 @@ class ParseResult:
     """评论列表"""
     ai_summary: str | None = field(default=None)
     """AI摘要"""
+    embed_url: str | None = field(default=None)
+    """嵌入播放链接"""
     extra: dict[str, Any] = field(default_factory=dict)
     """额外信息"""
     repost: ParseResult | None = field(default=None)
@@ -276,7 +310,7 @@ class ParseResult:
     """渲染图片"""
 
     @property
-    def display_url(self) -> str | None:
+    def display_url(self) -> str:
         return f"链接: {self.url}"
 
     @property
@@ -309,7 +343,7 @@ class ParseResult:
             f"author: {self.author}, "
             f"content: {self.content}, "
             f"stats: {self.stats}, "
-            f"comments: {self.comments}, "
+            f"comments_len: {len(self.comments)}, "
             f"extra: {self.extra}, "
             f"repost: {self.repost}, "
             f"render_image: {self.render_image.name if self.render_image else 'None'}"
@@ -331,3 +365,17 @@ class ParseResultKwargs(TypedDict, total=False):
     """评论列表"""
     ai_summary: str | None
     """AI摘要"""
+    embed_url: str | None
+    """嵌入播放链接"""
+
+
+ContentItem = (
+    LinkContent
+    | LivePhotoContent
+    | StickerContent
+    | GraphicContent
+    | ImageContent
+    | VideoContent
+    | AudioContent
+    | str
+)

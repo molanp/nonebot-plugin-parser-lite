@@ -1,0 +1,368 @@
+{
+  "id": "472573751",
+  "type": "topic",
+  "uri": "douban://douban.com/group/topic/472573751?_spm_id=MTgyNjU2OTgz",
+  "url": "https://www.douban.com/group/topic/472573751/?_spm_id=MTgyNjU2OTgz",
+  "title": "2026",
+  "create_time": "2026-01-08 01:01:49",
+  "cover_url": "https://img1.doubanio.com/view/group_topic/sqxs/public/p714698148.jpg",
+  "has_poll": false,
+  "is_ad": false,
+  "abstract": "[图片讨论]",
+  "anthologies": [],
+  "author": {
+    "avatar": "https://img3.doubanio.com/icon/up182656983-23.jpg",
+    "followed": false,
+    "gender": "",
+    "id": "182656983",
+    "is_banned_forever": false,
+    "is_club": false,
+    "is_readonly_forever": false,
+    "kind": "user",
+    "loc": null,
+    "name": "simon",
+    "reg_time": "2018-08-10 20:11:41",
+    "type": "user",
+    "uid": "182656983",
+    "uri": "douban://douban.com/user/182656983",
+    "url": "https://www.douban.com/people/182656983/",
+    "is_manager": false
+  },
+  "can_add_image_comment": true,
+  "can_author_delete": false,
+  "can_comment_outside": false,
+  "can_relate_gallery_topic": false,
+  "can_transfer_accessible": false,
+  "can_transfer_reply_limit": false,
+  "comments_count": 31,
+  "content": "<div id='content'><div class=\"image-container image-float-center\"><div class=\"image-wrapper\"><img height=\"auto\" src=\"https://img1.doubanio.com/view/group_topic/l/public/p714698148.jpg\" style=\"background-color: #101018\" width=\"500\"/></div></div></div>",
+  "edit_time": null,
+  "enable_photo_watermark": false,
+  "explanation_types": "",
+  "gallery_topic": null,
+  "group": {
+    "admin_banner": ["banner_url", "uri"],
+    "alert": "",
+    "allow_binding_gallery_topic": true,
+    "allow_binding_video": true,
+    "allow_downvote_comment": false,
+    "allow_downvote_topic": false,
+    "allow_send_status": true,
+    "allow_topic_event": true,
+    "avatar": "https://img1.doubanio.com/view/group/sqxs/public/51fa57cdae087eb.jpg",
+    "background_mask_color": "#e53f4e",
+    "can_create_topic_event": false,
+    "can_set_checkin_tab": false,
+    "can_set_collection_photos": false,
+    "can_set_safeguard_mode": false,
+    "can_use_group_quiz": true,
+    "category": {
+      "id": 833,
+      "title": "书影音",
+      "uri": "douban://douban.com/group/category_groups?name=%E4%B9%A6%E5%BD%B1%E9%9F%B3"
+    },
+    "censor_message": "",
+    "club_id": "",
+    "comment_box_placeholder": "",
+    "create_time": "2017-06-26 00:02:14",
+    "desc": "截屏即态度……\n简单 纯粹\n好的电影带你穿越时空\n为了那一刻，快退⏪，0.5倍速。交流♻️共鸣。\n有想法的可以留言https://www.douban.com/group/topic/168643232/\n【组规】\n1、禁止一切形式的广告和垃圾信息\n2、禁止发布与小组主题无关的帖子\n3、禁止发表不友善、攻击性的的言论\n4、禁止发布低俗、色情、违法的内容\n5、禁止一切形式的引流行为，包括VX号、二维码及其他社交媒体链接\n6、禁止顶贴，否则会被删除或封禁\n7、发帖请添加分区，方便浏览",
+    "domain": "P",
+    "elite_total": 43,
+    "enable_checkin": true,
+    "enable_feature_funding": true,
+    "enable_hot_search_board": true,
+    "enable_official_activity": false,
+    "enable_subscribe": true,
+    "feed_tags": [
+      {
+        "sortby": "new",
+        "title": "最新"
+      },
+      {
+        "sortby": "hot",
+        "title": "热门"
+      },
+      {
+        "sortby": "elite",
+        "title": "精华"
+      }
+    ],
+    "group_joining_quiz_id": null,
+    "group_joining_quiz_url": null,
+    "group_posting_quiz_id": null,
+    "group_posting_quiz_url": null,
+    "group_tabs": [
+      {
+        "type": "topic_tag",
+        "id": "151408",
+        "name": "猜猜",
+        "uri": "",
+        "seq": 0,
+        "landing": false,
+        "rule": {
+          "text": "",
+          "links": []
+        }
+      },
+      {
+        "type": "topic_tag",
+        "id": "50791",
+        "name": "记录",
+        "uri": "",
+        "seq": 1,
+        "landing": false,
+        "rule": {}
+      },
+      {
+        "type": "topic_tag",
+        "id": "42578",
+        "name": "讨论",
+        "uri": "",
+        "seq": 2,
+        "landing": false,
+        "rule": {}
+      },
+      {
+        "type": "topic_tag",
+        "id": "6085",
+        "name": "台词",
+        "uri": "",
+        "seq": 3,
+        "landing": false,
+        "rule": {}
+      }
+    ],
+    "hot_topic_count": 0,
+    "id": "620036",
+    "is_enable_reply_comment": false,
+    "is_new_owner": false,
+    "is_official": false,
+    "is_readonly": false,
+    "is_subject_group": false,
+    "is_subscribed": false,
+    "join_type": "R",
+    "joined_guide": {
+      "links": [],
+      "text": "欢迎加入电影截屏小组！恭喜你成为本组的个视角"
+    },
+    "joining_guide": {
+      "text": "欢迎你来电影截屏小组",
+      "links": []
+    },
+    "large_avatar": "https://img1.doubanio.com/view/group/medium/public/51fa57cdae087eb.jpg",
+    "manager_name": "👼",
+    "member_count": 288786,
+    "member_count_text": "288786",
+    "member_name": "个视角",
+    "member_role": 1000,
+    "name": "电影截屏",
+    "need_pop_rules": false,
+    "new_topic_event_template": true,
+    "other_feed_tags": [
+      {
+        "sortby": "new",
+        "title": "最新"
+      },
+      {
+        "sortby": "hot",
+        "title": "热门"
+      }
+    ],
+    "owner": {
+      "avatar": "https://img1.doubanio.com/icon/up123127510-189.jpg",
+      "followed": false,
+      "gender": "U",
+      "id": "123127510",
+      "is_banned_forever": false,
+      "is_club": false,
+      "is_readonly_forever": false,
+      "kind": "user",
+      "loc": {
+        "id": "118237",
+        "name": "郑州",
+        "uid": "zhengzhou"
+      },
+      "name": "眉毛上有道疤",
+      "reg_time": "2015-03-18 20:00:47",
+      "type": "user",
+      "uid": "123127510",
+      "uri": "douban://douban.com/user/123127510",
+      "url": "https://www.douban.com/people/123127510/"
+    },
+    "owner_id": "123127510",
+    "post_guide": {
+      "text": "组员你好，发言前请先了解本组最新的发言规则",
+      "links": []
+    },
+    "post_limit_info": {
+      "post_limit": false
+    },
+    "preview_checkin_tab": false,
+    "preview_collection_photos": false,
+    "reject_status": null,
+    "rules_desc": "1 请勿发布《社区指导原则》不允许的内容",
+    "safeguard_until": null,
+    "sharing_url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2F620036",
+    "show_checkin_tab": false,
+    "show_collection_photos": false,
+    "slogan": "",
+    "subtitle": "最近更新: 倒数时刻",
+    "topic_count": 25070,
+    "topic_tags_normal": [
+      {
+        "id": "151408",
+        "name": "猜猜",
+        "short_name": "",
+        "type": "normal",
+        "subject_id": 0,
+        "is_hot": false,
+        "icon": "",
+        "n_topics": 413,
+        "subject_type": "movie",
+        "rule": {
+          "text": "",
+          "links": []
+        }
+      },
+      {
+        "id": "50791",
+        "name": "记录",
+        "short_name": "",
+        "type": "normal",
+        "subject_id": 0,
+        "is_hot": false,
+        "icon": "",
+        "n_topics": 4869,
+        "subject_type": "movie",
+        "rule": {}
+      },
+      {
+        "id": "42578",
+        "name": "讨论",
+        "short_name": "",
+        "type": "normal",
+        "subject_id": 0,
+        "is_hot": false,
+        "icon": "",
+        "n_topics": 2577,
+        "subject_type": "movie",
+        "rule": {}
+      },
+      {
+        "id": "6085",
+        "name": "台词",
+        "short_name": "",
+        "type": "normal",
+        "subject_id": 0,
+        "is_hot": false,
+        "icon": "",
+        "n_topics": 2833,
+        "subject_type": "movie",
+        "rule": {}
+      }
+    ],
+    "topics_list_hidden_reason": "",
+    "type": "group",
+    "uri": "douban://douban.com/group/620036",
+    "url": "https://www.douban.com/group/620036/"
+  },
+  "has_related_contents": false,
+  "image_layout": "vertical",
+  "interest": null,
+  "interest_tags": [],
+  "is_admin_locked": false,
+  "is_douban_ad_author": false,
+  "is_elite": false,
+  "is_event": false,
+  "is_hidden_in_hobbit": false,
+  "is_locked": false,
+  "is_original": false,
+  "is_private": false,
+  "is_richtext": true,
+  "is_selected_in_hobbit": false,
+  "is_status_sent": false,
+  "label": "",
+  "locked": false,
+  "read_count": 0,
+  "recommended_search_keyword": null,
+  "related_search_keyword": null,
+  "reply_limit": "A",
+  "reshares_count": 1,
+  "sharing_url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F472573751&_spm_id=MTgyNjU2OTgz&_i=82065374",
+  "subject": null,
+  "subtype": "group",
+  "total_cnt_for_author": 0,
+  "update_time": "2026-06-10 03:24:48",
+  "video_info": null,
+  "like_count": 23,
+  "ip_location": "天津",
+  "screenshot_url": "douban://partial.douban.com/screenshot/group/topic/472573751/_content?_spm_id=MTgyNjU2OTgz",
+  "screenshot_type": "rexxar",
+  "screenshot_title": "生成海报",
+  "wechat_timeline_share": "url",
+  "topic_tags": [
+    {
+      "id": "50791",
+      "name": "记录",
+      "short_name": "",
+      "type": "normal",
+      "subject_id": 0,
+      "is_hot": false,
+      "icon": "",
+      "n_topics": 4869,
+      "subject_type": "movie"
+    }
+  ],
+  "is_enable_reply_comment": false,
+  "sub_topic_tags": [],
+  "kwcxubfid": "472573751",
+  "collections_count": 5,
+  "is_collected": false,
+  "reactions_count": 23,
+  "reaction_type": 0,
+  "gifts_count": 0,
+  "photos": [
+    {
+      "author_id": "182656983",
+      "creation_date": "2026-01-08 01:01:49",
+      "id": "714698148",
+      "image": {
+        "is_animated": false,
+        "is_live": false,
+        "large": {
+          "height": 312,
+          "size": 0,
+          "url": "https://img1.doubanio.com/view/group_topic/l/public/p714698148.jpg",
+          "width": 500
+        },
+        "normal": {
+          "height": 312,
+          "size": 0,
+          "url": "https://img1.doubanio.com/view/group_topic/l/public/p714698148.jpg",
+          "width": 500
+        },
+        "primary_color": "101018",
+        "raw": null
+      },
+      "layout": "C",
+      "seq_id": "1",
+      "size": {
+        "height": 312,
+        "width": 500
+      },
+      "title": "",
+      "topic_id": "472573751"
+    }
+  ],
+  "gadget_beanshop": {
+    "context": "{\"object_kind\":1000,\"object_id\":\"182656983\",\"object_title\":\"simon\",\"source_title\":\"小组讨论 2026\",\"source_url\":\"douban:\\/\\/douban.com\\/group\\/topic\\/472573751?_spm_id=MTgyNjU2OTgz\",\"source_type\":9,\"source_id\":\"472573751\"}",
+    "id": 4,
+    "is_default": false,
+    "title": "送礼物给",
+    "uri": "douban.internal://douban.com/beanshop/4?context=%7B%22object_kind%22%3A1000%2C%22object_id%22%3A%22182656983%22%2C%22object_title%22%3A%22simon%22%2C%22source_title%22%3A%22%E5%B0%8F%E7%BB%84%E8%AE%A8%E8%AE%BA+2026%22%2C%22source_url%22%3A%22douban%3A%5C%2F%5C%2Fdouban.com%5C%2Fgroup%5C%2Ftopic%5C%2F472573751%3F_spm_id%3DMTgyNjU2OTgz%22%2C%22source_type%22%3A9%2C%22source_id%22%3A%22472573751%22%7D&isTransparent=true"
+  },
+  "ad_filter_type": 0,
+  "ad_info": null,
+  "can_show_ad": true,
+  "is_report_stock": true
+}

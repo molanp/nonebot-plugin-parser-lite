@@ -2,7 +2,7 @@
 
 from abc import ABC
 import asyncio
-from collections.abc import Callable, Coroutine, Sequence
+from collections.abc import Callable, Coroutine
 from re import Pattern, compile, escape
 from typing import (
     TYPE_CHECKING,
@@ -32,7 +32,7 @@ from ..creator import Creator, VideoDownloadFunc
 from ..data import (
     Author,
     Comment,
-    MediaContent,
+    ContentItem,
     ParseResult,
     ParseResultKwargs,
     Platform,
@@ -100,7 +100,7 @@ def handle(
     - params: 可选，ParamRules，用于基于 query 的补充筛选（required/equals/default/one_of/as_int 等）
     - pattern 与 params 至少要指定一个（可以同时存在）：
         - 只有 pattern：纯正则匹配，不看 query
-        - 只有 params：regex 由 keyword 自动生成为 `https?://<keyword>[^\\s]*`
+        - 只有 params：regex 由 keyword 自动生成，并允许域名前存在子域名
         - pattern + params：
             * 先用 pattern 过滤
             * 若 pattern 没有匹配到末尾或追加 `$`，则自动在末尾补 `[^\\s]*`，以便 MatchWithParams 能看到查询参数部分
@@ -128,7 +128,7 @@ def handle(
 
     else:
         escaped = escape(keyword)
-        regex = rf"https?://{escaped}[^\s]*"
+        regex = rf"https?://(?:[A-Za-z0-9-]+\.)*{escaped}[^\s]*"
 
     param_rules = params or {}
 
@@ -235,9 +235,14 @@ class BaseParser:
         self,
         url: str,
         headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ) -> ParseResult:
         """先重定向再解析"""
-        redirect_url = await self.get_final_url(url, headers=headers or self.headers)
+        redirect_url = await self.get_final_url(
+            url,
+            headers=headers or self.headers,
+            use_curl_cffi=use_curl_cffi,
+        )
 
         if redirect_url == url:
             raise ParseException(f"无法重定向 URL: {url}")
@@ -303,7 +308,7 @@ class BaseParser:
         cls,
         author: Author,
         url: str,
-        content: Sequence[MediaContent | str],
+        content: list[ContentItem],
         **kwargs: Unpack[ParseResultKwargs],
     ) -> ParseResult:
         """构建解析结果"""
@@ -316,10 +321,13 @@ class BaseParser:
     async def get_final_url(
         url: str,
         headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ) -> str:
         """获取最终重定向后的 URL"""
-        response = await DOWNLOADER.head(url, ext_headers=headers)
-        return str(response.url)
+        response = await DOWNLOADER.head(
+            url, ext_headers=headers, use_curl_cffi=use_curl_cffi
+        )
+        return response.url
 
     def create_author(
         self,
@@ -329,6 +337,7 @@ class BaseParser:
         id: str | None = None,
         location: str | None = None,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建作者对象
@@ -339,6 +348,7 @@ class BaseParser:
         :param id: 作者 ID
         :param location: 位置信息
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载头像
         """
 
         return Creator.author(
@@ -348,6 +358,7 @@ class BaseParser:
             id=id,
             location=location,
             ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
         )
 
     def create_video(
@@ -358,6 +369,7 @@ class BaseParser:
         video_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建视频内容
@@ -368,6 +380,7 @@ class BaseParser:
         :param video_name: 视频名称
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载视频/封面
         """
 
         return Creator.video(
@@ -377,35 +390,48 @@ class BaseParser:
             video_name=video_name,
             need_send=need_send,
             ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
         )
 
     def create_videos(
         self,
         video_urls: list[str],
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建视频内容列表
 
         :param video_urls: 视频 URL 列表
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
-        return Creator.videos(video_urls=video_urls, ext_headers=ext_headers)
+        return Creator.videos(
+            video_urls=video_urls,
+            ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
+        )
 
     def create_images(
         self,
         image_urls: list[str],
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建图片内容列表
 
         :param image_urls: 图片 URL 列表
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
-        return Creator.images(image_urls=image_urls, ext_headers=ext_headers)
+        return Creator.images(
+            image_urls=image_urls,
+            ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
+        )
 
     def create_image(
         self,
@@ -413,6 +439,7 @@ class BaseParser:
         img_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建图片内容
@@ -421,10 +448,15 @@ class BaseParser:
         :param img_name: 图片名称
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
         return Creator.image(
-            url=url, img_name=img_name, need_send=need_send, ext_headers=ext_headers
+            url=url,
+            img_name=img_name,
+            need_send=need_send,
+            ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
         )
 
     def create_audio(
@@ -434,6 +466,7 @@ class BaseParser:
         audio_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建音频内容
@@ -443,6 +476,7 @@ class BaseParser:
         :param audio_name: 音频名称
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
         return Creator.audio(
@@ -451,32 +485,36 @@ class BaseParser:
             audio_name=audio_name,
             need_send=need_send,
             ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
         )
 
     def create_graphic(
         self,
-        image_url: str,
+        url: str,
         img_name: str | None = None,
         alt: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
-        图片,此图片不参与九宫格
+        图片,此图片不参与九宫格且无高度限制
 
-        :param image_url: 图片 URL
+        :param url: 图片 URL
         :param img_name: 图片名称
         :param alt: 图片描述
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
         return Creator.graphic(
-            image_url=image_url,
+            url=url,
             img_name=img_name,
             alt=alt,
             need_send=need_send,
             ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
         )
 
     def create_sticker(
@@ -485,6 +523,7 @@ class BaseParser:
         size: Literal["small", "medium"] = "medium",
         desc: str | None = None,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建贴纸内容
@@ -495,17 +534,26 @@ class BaseParser:
             - medium: 文字大小的两倍大一点
         :param desc: 贴纸描述
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
-        return Creator.sticker(url=url, size=size, desc=desc, ext_headers=ext_headers)
+        return Creator.sticker(
+            url=url,
+            size=size,
+            desc=desc,
+            ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
+        )
 
     def create_live_photo(
         self,
         video_url: str,
         image_url: str,
         bgm_url: str | None = None,
+        loop: int = 1,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建  iPhone Live Photo 内容
@@ -513,15 +561,19 @@ class BaseParser:
         :param video_url: iPhone Live Photo 变化过程视频
         :param image_url: iPhone Live Photo 底图
         :param bgm_url: iPhone Live Photo 背景音乐
+        :param loop: iPhone Live Photo 循环次数
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
         return Creator.live_photo(
             video_url=video_url,
             image_url=image_url,
             bgm_url=bgm_url,
+            loop=loop,
             need_send=need_send,
             ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
         )
 
     def create_stats(
@@ -555,7 +607,7 @@ class BaseParser:
     def create_comment(
         self,
         author: Author,
-        content: Sequence[MediaContent | str | None],
+        content: list[ContentItem],
         timestamp: int | None = None,
         stats: Stats | None = None,
         replies: list[Comment] | None = None,
@@ -580,3 +632,12 @@ class BaseParser:
             replies=replies,
             parent_author=parent_author,
         )
+
+    def create_link(self, url: str, text: str | None = None):
+        """
+        创建链接内容
+
+        :param url: 链接地址
+        :param text: 链接文本
+        """
+        return Creator.link(url=url, text=text)

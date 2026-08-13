@@ -22,13 +22,13 @@ class Pic(Struct):
     original: OriginalPic
     pic_id: str
     type: str
-    """pic/livephoto"""
+    """pic/livephoto/gif"""
     video: str = ""
     """Live动图"""
 
     @property
     def content(self):
-        if self.video:
+        if self.type == "livephoto":
             return Creator.live_photo(
                 video_url=self.video,
                 image_url=self.original.url,
@@ -73,7 +73,6 @@ class WeiboData(Struct):
     idstr: str
     created_at: str
     """`Thu Oct 02 14:39:33 +0800 2025`"""
-    region_name: str
     reposts_count: int
     """转发数"""
     comments_count: int
@@ -83,6 +82,7 @@ class WeiboData(Struct):
     isLongText: bool
     """是否需要请求长文"""
     pic_num: int
+    region_name: str | None = None
     pic_infos: dict[str, Pic] | None = None
     page_info: PageInfo | None = None
     """视频信息"""
@@ -92,10 +92,10 @@ class WeiboData(Struct):
     async def get_content(self):
         if self.isLongText:
             res = await AuthHelper.get(
-                "https://weibo.com/ajax/statuses/longtext",
+                "https://m.weibo.cn/statuses/extend",
                 params={"id": self.idstr},
             )
-            text = longTextDecoder.decode(res.content).data.longTextContent_raw
+            text = longTextDecoder.decode(res.content).data.raw
         else:
             text = self.text_raw
         cleaned_text = _URL_PATTERN.sub("", text).strip()

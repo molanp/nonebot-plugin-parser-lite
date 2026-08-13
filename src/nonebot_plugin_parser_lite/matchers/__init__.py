@@ -15,15 +15,14 @@ from nonebot_plugin_alconna import (
     on_alconna,
 )
 from nonebot_plugin_alconna.extension import cache_msg
-from nonebot_plugin_alconna.uniseg import get_message_id, reply_fetch
+from nonebot_plugin_alconna.uniseg import Receipt, get_message_id, reply_fetch
 from nonebot_plugin_uninfo import Uninfo
 from tarina import LRU
 
 from ..config import pconfig
 from ..download import DOWNLOADER
 from ..helper import UniHelper
-from ..parsers import BaseParser, BilibiliParser, ParseResult
-from ..parsers.tieba.utils import close_client as close_tieba_client
+from ..parsers.base import BaseParser, ParseResult
 from ..parsers.weibo.auth import AuthHelper as WeiboAuthHelper
 from ..render import RENDERER
 from ..utils.common import LimitedSizeDict
@@ -81,14 +80,6 @@ def get_parser_by_type(parser_type: type[T]) -> T:
     raise ValueError(f"未找到类型为 {parser_type.__name__} 的 parser 实例")
 
 
-def _get_enabled_parser_classes() -> list[type[BaseParser]]:
-    disabled_platforms = set(pconfig.disabled_platforms)
-    all_subclass = BaseParser.get_all_subclass()
-    return [
-        _cls for _cls in all_subclass if _cls.platform.name not in disabled_platforms
-    ]
-
-
 def clear_result_cache():
     _RESULT_CACHE.clear()
 
@@ -99,14 +90,15 @@ driver = get_driver()
 @driver.on_startup
 def register_parser_matcher() -> None:
     """在启动时注册各平台解析器及其匹配规则（惰性实例化）。"""
+    from ..parsers import load_enabled_parsers
+
     global _ENABLED_PARSER_CLASSES, _KEYWORD_CLASS_MAP
 
-    enabled_classes = _get_enabled_parser_classes()
-    _ENABLED_PARSER_CLASSES = enabled_classes
+    _ENABLED_PARSER_CLASSES = load_enabled_parsers()
 
     enabled_platforms: list[str] = []
     keyword_class_map: dict[str, type[BaseParser]] = {}
-    for parser_cls in enabled_classes:
+    for parser_cls in _ENABLED_PARSER_CLASSES:
         enabled_platforms.append(parser_cls.platform.display_name)
         for keyword, _, _ in parser_cls._key_patterns:
             keyword_class_map[keyword] = parser_cls
@@ -115,7 +107,9 @@ def register_parser_matcher() -> None:
 
     logger.info(f"启用平台: {', '.join(sorted(enabled_platforms))}")
 
-    patterns = [pattern for cls_ in enabled_classes for pattern in cls_._key_patterns]
+    patterns = [
+        pattern for cls_ in _ENABLED_PARSER_CLASSES for pattern in cls_._key_patterns
+    ]
     matcher = on_keyword_regex(*patterns)
     matcher.append_handler(parser_handler)
 
@@ -125,7 +119,6 @@ async def close_httpx() -> None:
     await asyncio.gather(
         *(parser.aclose() for parser in _ALL_PARSERS),
         DOWNLOADER.aclose(),
-        close_tieba_client(),
         WeiboAuthHelper.aclose(),
     )
 
@@ -136,9 +129,8 @@ async def parser_handler(
     sr: SearchResult = Searched(),
 ):
     """统一的解析处理器"""
-    cache_key = sr.searched.cache_key
+    cache_key = sr.cache_key
 
-    # 1. 从缓存获取或重新解析
     result = _RESULT_CACHE.get(cache_key)
     if result is None:
         parser = get_parser(sr.keyword)
@@ -148,31 +140,24 @@ async def parser_handler(
     else:
         logger.debug(f"命中缓存: {cache_key}, 结果: {result!r}")
 
-    # 2. 渲染并发送
     summary_msg = await RENDERER.render_messages(result)
     await summary_msg.send()
-    # 若所有内容都是纯文本，则无需再发送媒体
-    contents = list(result.content)
-    if result.repost:
-        contents.extend(result.repost.content)
-    has_media = any(not isinstance(c, str) and c.need_send for c in contents)
-    if not has_media:
-        return
     if pconfig.lazy_download:
-        download_cmd = ", ".join(pconfig.download_command)
-        await UniMessage(
-            f"请在{LazyManager.TIMEOUT_SECONDS}秒内发送以下命令之一来获取媒体资源: "
-            f"\n{download_cmd}"
-        ).send()
+        if pconfig.lazy_download_tip:
+            download_cmd = ", ".join(pconfig.download_command)
+            await UniMessage(
+                f"请在{LazyManager.TIMEOUT_SECONDS}秒内发送以下命令之一来获取媒体资源: "
+                f"\n{download_cmd}"
+            ).send()
         LazyManager.add(session.user.id, result)
-        return
-
-    async for content_msg in RENDERER.send_content(result):
-        await content_msg.send()
+    else:
+        async for content_msg in RENDERER.send_content(result):
+            await content_msg.send()
 
 
 @driver.on_startup
 async def register_bili_matcher():
+    from ..parsers.bilibili import BilibiliParser
 
     bilip: BilibiliParser | None
     try:
@@ -185,7 +170,7 @@ async def register_bili_matcher():
         @on_alconna(
             Alconna(
                 "bm",
-                Args["bv", r"re:BV[A-Za-z0-9]{10}"]["page?", int, 0],
+                Args["bv", r"re:BV[A-Za-z0-9]{10}"]["page?", int, 1],
             ),
             priority=3,
             block=True,
@@ -204,9 +189,12 @@ async def register_bili_matcher():
 
             audio_path = await DOWNLOADER.download_audio(
                 url=audio_url,
+                audio_name=f"{bvid}-{page_idx + 1}_audio.m4s",
                 ext_headers=bilip.headers,
             )
-            converted_path = await FFmpeg.convert_audio_to_mp3(audio_path)
+            converted_path = await FFmpeg.convert_audio_to_mp3(
+                audio_path=audio_path, file_name=f"{bvid}-{page_idx + 1}.mp3"
+            )
             if pconfig.need_upload_audio:
                 await UniMessage(await UniHelper.file_seg(converted_path)).send()
             else:
@@ -216,10 +204,16 @@ async def register_bili_matcher():
             Alconna("blogin"), block=True, permission=SUPERUSER, rule=to_me()
         ).handle()
         async def _():
+            last_receipt: Receipt | None = None
             qrcode = await bilip.login_with_qrcode()
-            await UniMessage(await UniHelper.img_seg(qrcode)).send()
+            last_receipt = await UniMessage(await UniHelper.img_seg(qrcode)).send()
             async for msg in bilip.check_qr_state():
-                await UniMessage(msg).send()
+                if last_receipt is not None:
+                    try:
+                        await last_receipt.recall()
+                    except Exception:
+                        logger.exception("尝试撤回上一条消息失败")
+                last_receipt = await UniMessage(msg).send()
 
 
 if pconfig.lazy_download:

@@ -1,0 +1,167 @@
+{
+  "success": true,
+  "errcode": 0,
+  "message": null,
+  "data": {
+    "list": [
+      {
+        "feed_rmd_id": "",
+        "obj_sn": "",
+        "obj_type": "",
+        "content_id": "",
+        "tid": "1050797",
+        "title": "残局",
+        "intro_text": "",
+        "user_data": {
+          "domain": "0627sq1npzq3",
+          "username": "Ropz229",
+          "avatar_url": "https://oss-arena.5eplay.com/disguise/images/f9/3e/f93e385d9d0566462274c7c0008ae4ad.jpg",
+          "is_vip": 1,
+          "advanced_identity_status": 0,
+          "vip_level": 5,
+          "follow_status": 0,
+          "icon_data": [],
+          "tag_data": "",
+          "img_urls": [
+            {
+              "title": "1179",
+              "template_ext": "{\"app_style_mode\":\"StyleMode_Title01\",\"app_style_id\":\"Title01_level_d\"}"
+            }
+          ],
+          "growth": {
+            "icon_name": "",
+            "level_url": ""
+          },
+          "user_avatar_frame_data": null
+        },
+        "comments_count": "0",
+        "hits": "1008",
+        "likes_count": "4",
+        "is_likes": 0,
+        "favorites_count": "0",
+        "forward_count": "1",
+        "is_favorite": 0,
+        "share_data": {
+          "share_url": "https://csgo.5eplay.com/forum/share/1050797",
+          "share_title": "残局",
+          "share_text": "来自Ropz229的帖子",
+          "share_image": "https://static.5eplay.com/images/share_app.jpg"
+        },
+        "video_data": {
+          "video_url": "https://csvideo.5eplay.com/hl/20260630/20260630224105_85065701/5deea1aa502fbedb8001d2313c8efd98.mp4",
+          "video_cover": "https://csvideo.5eplay.com/hl/20260630/20260630224105_85065701/5deea1aa502fbedb8001d2313c8efd98.jpg",
+          "player_type": "native",
+          "native_url": "https://csvideo.5eplay.com/hl/20260630/20260630224105_85065701/5deea1aa502fbedb8001d2313c8efd98.mp4"
+        },
+        "direction": "1",
+        "pub_time": "06-30",
+        "label_list": [],
+        "game_guide": {
+          "icon": "",
+          "desc": "",
+          "link": "",
+          "color": "",
+          "tag_name": ""
+        },
+        "game_type": "csgo",
+        "at_data": [],
+        "topic_data": [],
+        "forum_content_extend_data": null,
+        "dateline": "1782832596",
+        "ip": "上余",
+        "time": "2026-06-30 23:16:36",
+        "city": "上余",
+        "rebuild_text": "",
+        "group_info": {
+          "status": "0",
+          "group_icon": "https://oss.5eplay.com/images/forum/10dd42e0671b99110639276a7848b25d.png",
+          "group_name": "CS",
+          "gid": "9",
+          "link_url": "fiveeplay://5eplay.com/community/subzone?title=CS&id=9&categoryId=0"
+        },
+        "my_focus": "0",
+        "my_friend": "0"
+      },
+      {
+        "feed_rmd_id": "",
+        "obj_sn": "",
+        "obj_type": "",
+        "content_id": "",
+        "tid": "1051598",
+        "title": "",
+        "intro_text": "打职业不用学",
+        "user_data": {
+          "domain": "749095173",
+          "username": "长沙55开",
+          "avatar_url": "https://oss-arena.5eplay.com/images/award/33b948c482c870ac0ab0b18a728c3afc.jpg",
+          "is_vip": 0,
+          "advanced_identity_status": 0,
+          "vip_level": 0,
+          "follow_status": 0,
+          "icon_data": [],
+          "tag_data": "",
+          "img_urls": [
+            {
+              "title": "2297",
+              "template_ext": "{\"app_style_mode\":\"StyleMode_Title01\",\"app_style_id\":\"Title01_level_a\"}"
+            }
+          ],
+          "growth": {
+            "icon_name": "等级",
+            "level_url": "https://oss.5eplay.com/cloudx/p/app5e/user/ugrowth_level_v2_1.png"
+          },
+          "user_avatar_frame_data": null
+        },
+        "comments_count": "0",
+        "hits": "0",
+        "likes_count": "0",
+        "is_likes": 0,
+        "favorites_count": "0",
+        "forward_count": "0",
+        "is_favorite": 0,
+        "share_data": {
+          "share_url": "https://csgo.5eplay.com/forum/share/1051598",
+          "share_title": "打职业不用学",
+          "share_text": "来自长沙55开的帖子",
+          "share_image": "https://static.5eplay.com/images/share_app.jpg"
+        },
+        "video_data": {
+          "video_url": "https://csvideo.5eplay.com/hl/20260705/20260705005202_85100238/1cd5192e9ac8dfb81c9d674cce065ce7.mp4",
+          "video_cover": "https://csvideo.5eplay.com/hl/20260705/20260705005202_85100238/1cd5192e9ac8dfb81c9d674cce065ce7.jpg",
+          "player_type": "native",
+          "native_url": "https://csvideo.5eplay.com/hl/20260705/20260705005202_85100238/1cd5192e9ac8dfb81c9d674cce065ce7.mp4"
+        },
+        "direction": "1",
+        "pub_time": "6分钟前",
+        "label_list": [],
+        "game_guide": {
+          "icon": "",
+          "desc": "",
+          "link": "",
+          "color": "",
+          "tag_name": ""
+        },
+        "game_type": "csgo",
+        "at_data": [],
+        "topic_data": [],
+        "forum_content_extend_data": null,
+        "dateline": "1783184527",
+        "ip": "",
+        "time": "2026-07-05 01:02:07",
+        "city": "",
+        "rebuild_text": "打职业不用学",
+        "group_info": {
+          "status": "0",
+          "group_icon": "https://oss.5eplay.com/images/forum/10dd42e0671b99110639276a7848b25d.png",
+          "group_name": "CS",
+          "gid": "9",
+          "link_url": "fiveeplay://5eplay.com/community/subzone?title=CS&id=9&categoryId=0"
+        },
+        "my_focus": "0",
+        "my_friend": "0"
+      }
+    ],
+    "has_more": 1,
+    "page": 1
+  }
+}

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔎 搜索已有问题
+    url: https://github.com/sokoko-org/nonebot-plugin-parser-lite/issues?q=is%3Aissue
+    about: 提交前先搜索标题、报错关键词和涉及的平台，避免重复 Issue
+  - name: 💬 使用咨询与故障排查
+    url: https://github.com/sokoko-org/nonebot-plugin-parser-lite/discussions
+    about: 不确定是否为插件缺陷，或需要安装、配置、使用帮助时，请先在 Discussions 交流

@@ -1,0 +1,64 @@
+{
+  "data": {
+    "list": [
+      {
+        "video_id": 2939293,
+        "play_url": {
+          "url": "https://pl.taptap.cn/hls/ltFSXHCdqIlriM4XgejzEBWJCVf5.m3u8?device_id=&sign=5d4ac863a49930502ba7797bebff32f7ae031b40&ts=1786124215",
+          "url_h265": "https://pl.taptap.cn/hls/ltFSXHCdqIlriM4XgejzEBWJCVf5.h265.m3u8?device_id=&sign=a9adb69f26b516a8cf7c049b90649981acb2b834&ts=1786124215",
+          "url_expires": 1786124215
+        },
+        "info": {
+          "aspect_ratio": 1.77778,
+          "best_format_name": "1080p",
+          "duration": 59
+        },
+        "thumbnail": {
+          "url": "https://img-tc.tapimg.com/market/images/0a4dc3979b9db3f5d3e2b80fb1cc3cfa.png/_tap_banner.jpg",
+          "medium_url": "https://img-tc.tapimg.com/market/images/0a4dc3979b9db3f5d3e2b80fb1cc3cfa.png/_tap_banner_m.jpg",
+          "small_url": "https://img-tc.tapimg.com/market/images/0a4dc3979b9db3f5d3e2b80fb1cc3cfa.png/_tap_banner_s.jpg",
+          "original_url": "https://img-tc.tapimg.com/market/images/0a4dc3979b9db3f5d3e2b80fb1cc3cfa.png",
+          "original_format": "png",
+          "width": 900,
+          "height": 600,
+          "color": "0x805274",
+          "original_size": 580591,
+          "large_url": "https://img-tc.tapimg.com/market/images/0a4dc3979b9db3f5d3e2b80fb1cc3cfa.png/_tap_banner_l.jpg"
+        },
+        "raw_cover": {
+          "url": "https://img-tc.tapimg.com/video-recthumb/tid-631076d38697febc5dab2811/Fr8xpypNaZdI_qt9NYLWDMtFXfUZ.png/_tap_banner.jpg",
+          "medium_url": "https://img-tc.tapimg.com/video-recthumb/tid-631076d38697febc5dab2811/Fr8xpypNaZdI_qt9NYLWDMtFXfUZ.png/_tap_banner_m.jpg",
+          "small_url": "https://img-tc.tapimg.com/video-recthumb/tid-631076d38697febc5dab2811/Fr8xpypNaZdI_qt9NYLWDMtFXfUZ.png/_tap_banner_s.jpg",
+          "original_url": "https://img-tc.tapimg.com/video-recthumb/tid-631076d38697febc5dab2811/Fr8xpypNaZdI_qt9NYLWDMtFXfUZ.png",
+          "original_format": "png",
+          "width": 1920,
+          "height": 1080,
+          "color": "0x737373",
+          "original_size": 710599,
+          "large_url": "https://img-tc.tapimg.com/video-recthumb/tid-631076d38697febc5dab2811/Fr8xpypNaZdI_qt9NYLWDMtFXfUZ.png/_tap_banner_l.jpg"
+        },
+        "trace_log": {
+          "video_id": 2939293
+        },
+        "play_log": {
+          "video_id": 2939293,
+          "paramId": 2939293,
+          "paramType": "videoDetail"
+        },
+        "preview_animation": {
+          "url": "https://img.tapimg.com/video-preview/anim-FlYChiqUR8VepGApMPFzy2x40A9b.webp",
+          "medium_url": "https://img.tapimg.com/video-preview/anim-Fl9GRsTbhLWni0z0dX5Uy4IZEai9.webp",
+          "small_url": "https://img-tc.tapimg.com/video-preview/anim-Fp2MWaZHZEMrz3QpRGq2xLdPRUkt.webp/_tap_banner_s.jpg",
+          "original_url": "https://img-tc.tapimg.com/video-preview/anim-Fp2MWaZHZEMrz3QpRGq2xLdPRUkt.webp",
+          "color": "0xffffff",
+          "large_url": "https://img-tc.tapimg.com/video-preview/anim-Fp2MWaZHZEMrz3QpRGq2xLdPRUkt.webp/_tap_banner_l.jpg"
+        },
+        "status": {
+          "can_play": true
+        }
+      }
+    ]
+  },
+  "now": 1786109815,
+  "success": true
+}

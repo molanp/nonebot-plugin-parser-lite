@@ -1,0 +1,159 @@
+{
+  "code": 1,
+  "message": "success",
+  "result": {
+    "post": {
+      "id": 376026294,
+      "userId": 58454410,
+      "steamId": "76561199539349029",
+      "title": "c➕求带😁",
+      "content": "<span class=\"hashtag\">#找队友</span> <span class=\"hashtag\">#找搭子</span>",
+      "vid": "802f531a622471f181125017e1e90102",
+      "videoMatchInfo": null,
+      "dota2MatchInfo": null,
+      "videoInfo": {
+        "videoBase": {
+          "coverURL": "https://highlights.wmpvp.com/802f531a622471f181125017e1e90102/snapshots/111663658e4a4ef29ca6366975126f22-00001.jpg",
+          "duration": "6.688",
+          "status": "Normal",
+          "videoId": "802f531a622471f181125017e1e90102"
+        },
+        "playInfoList": [
+          {
+            "width": 720,
+            "height": 1280,
+            "size": 629849,
+            "playURL": "https://highlights.wmpvp.com/sv/80a8539-19ea0349a1e/80a8539-19ea0349a1e.mp4",
+            "definition": "OD",
+            "duration": "6.688",
+            "format": "mp4",
+            "status": "Normal"
+          }
+        ]
+      },
+      "videoUrlInfo": null,
+      "videoType": 5,
+      "videoStatus": 2,
+      "type": 3,
+      "readTotalCount": 5673,
+      "likeCountTotal": 451,
+      "visibilityStatus": 1,
+      "latestReplyTime": 1785061403000,
+      "gmtCreate": 1780804284000,
+      "gmtModified": 1785065617000,
+      "replyCount": 173,
+      "isVote": false,
+      "reviewReason": "0",
+      "summary": "c➕求带😁",
+      "imageList": null,
+      "images": null,
+      "imageCount": null,
+      "hasFollowed": false,
+      "hasLiked": false,
+      "hasFavorite": false,
+      "postUrl": "https://news.wmpvp.com/community-detail.html?id=376026294",
+      "isTop": false,
+      "topTime": null,
+      "posStart": null,
+      "posEnd": null,
+      "isTopHundred": false,
+      "topHundredName": null,
+      "platform": 1,
+      "communityCircle": {
+        "id": 28,
+        "totalMembers": 10876918,
+        "totalPosts": null,
+        "name": "CS大本营",
+        "summary": null,
+        "type": null,
+        "weight": null,
+        "recommendSlogan": "CS游戏讨论在此集结",
+        "postBrushColor": null,
+        "exposeLevel": null,
+        "smallIcon": "",
+        "thumbnail": "https://cdn.wmpvp.com/appadmin/891AE7E1DBE240328B12916118C8B10B-1715847115282.jpeg",
+        "backgroundImage": null,
+        "isJoined": false,
+        "functionModuleDTOList": null,
+        "postModuleDTOList": null,
+        "communityCircleStatusData": null,
+        "visible": false,
+        "delete": false
+      },
+      "communityUserItem": {
+        "userId": 58454410,
+        "isDouYuHost": false,
+        "douYuNickName": null,
+        "isKuaiShouHost": false,
+        "kuaiShouNickName": null,
+        "isDouYinHost": false,
+        "douYinNickName": null,
+        "steamId": "76561199539349029",
+        "friendCode": "SJPM8-8DZL",
+        "nickname": "美女晰晰",
+        "avatar": "https://cdn.wmpvp.com/appactivity/453725D48EDC489A8F65C068F31F6127-1714279377574/899756606febad9e331584ba09cffecf.jpg?x-oss-process=image/resize,m_fixed,h_1242,w_1242",
+        "mobilePhone": null,
+        "csgoRank": 0,
+        "grade": 6,
+        "allowUnfollow": true,
+        "inGame": false,
+        "isOfficial": false,
+        "officialDescription": null,
+        "officialType": 1,
+        "platform": 0,
+        "dotaInGameStatus": false,
+        "isVip": false,
+        "isYearVip": false,
+        "isSuperVip": false,
+        "isSuperYearVip": false,
+        "vipLevel": null,
+        "memberType": null,
+        "avatarFrame": "",
+        "background": null,
+        "emblem": null,
+        "nftTokenIdApp": null,
+        "originalAvatar": "https://cdn.wmpvp.com/appactivity/453725D48EDC489A8F65C068F31F6127-1714279377574/899756606febad9e331584ba09cffecf.jpg?x-oss-process=image/resize,m_fixed,h_1242,w_1242",
+        "supportTeam": null
+      },
+      "postTagDTOList": [
+        {
+          "id": 2,
+          "name": "CSGO",
+          "gameType": 2
+        }
+      ],
+      "talkItemList": [
+        {
+          "id": 284,
+          "title": "找队友",
+          "summary": null,
+          "backgroundImage": null,
+          "thumbnail": null
+        },
+        {
+          "id": 332,
+          "title": "找搭子",
+          "summary": null,
+          "backgroundImage": null,
+          "thumbnail": null
+        }
+      ],
+      "postShareDTO": {
+        "shareUrl": "https://news.wmpvp.com/community-detail.html?id=376026294",
+        "title": "c➕求带😁",
+        "content": "#找队友 #找搭子",
+        "shareImage": "https://highlights.wmpvp.com/802f531a622471f181125017e1e90102/snapshots/111663658e4a4ef29ca6366975126f22-00001.jpg?x-oss-process=image/resize,w_500,limit_0"
+      },
+      "couldOperate": false,
+      "couldForbidWord": false,
+      "postMarketDecorationSummary": null,
+      "mallGoodsInfo": null,
+      "userRegion": "河南",
+      "expandInfo": null,
+      "vote": null,
+      "activityDesc": null,
+      "activityId": null,
+      "isNewCommunityVersion": true
+    }
+  }
+}

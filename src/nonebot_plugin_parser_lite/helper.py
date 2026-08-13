@@ -1,4 +1,4 @@
-from collections.abc import Awaitable, Callable, Sequence
+from collections.abc import Awaitable, Callable
 from functools import wraps
 from typing import Any, Literal
 
@@ -30,7 +30,7 @@ ForwardNodeInner = str | Segment | UniMessage
 class UniHelper:
     @staticmethod
     def construct_forward_message(
-        segments: Sequence[ForwardNodeInner],
+        segments: list[ForwardNodeInner],
         user_id: str | None = None,
     ) -> Reference:
         """构造转发消息
@@ -151,6 +151,9 @@ class UniHelper:
         """
         message_id = uniseg.get_message_id(event)
         target = uniseg.get_target(event)
+        if target.private:
+            logger.warning("private message not support reaction")
+            return
 
         if target.adapter in (
             SupportAdapter.onebot11,

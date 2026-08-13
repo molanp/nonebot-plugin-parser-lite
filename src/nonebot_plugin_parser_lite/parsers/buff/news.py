@@ -3,7 +3,7 @@ from bs4.element import NavigableString
 from msgspec import Struct
 
 from ...creator import Creator
-from ...data import MediaContent
+from ...data import ContentItem
 from .share import ShareData
 
 
@@ -21,9 +21,9 @@ class News(Struct):
     share_data: ShareData
 
     @property
-    def content(self) -> list[MediaContent | str]:
+    def content(self) -> list[ContentItem]:
         """按 DOM 顺序依次产出文本 / 图片 / 视频内容列表。"""
-        data: list[MediaContent | str] = []
+        data: list[ContentItem] = []
         soup = BeautifulSoup(self.body, "html.parser")
 
         for element in soup.descendants:
@@ -53,8 +53,8 @@ class News(Struct):
 
                 # 普通图片
                 if element.name == "img":
-                    if src_attr := element.attrs.get("data-original"):
-                        data.append(Creator.graphic(image_url=str(src_attr)))
+                    if src_attr := element.get("data-original"):
+                        data.append(Creator.graphic(url=str(src_attr)))
 
             elif isinstance(element, NavigableString):
                 if text := str(element).strip():

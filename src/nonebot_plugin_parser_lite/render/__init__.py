@@ -1,10 +1,9 @@
 import base64
-from collections.abc import AsyncGenerator, Awaitable
-import datetime
+from collections.abc import AsyncGenerator, Awaitable, Callable
+from datetime import datetime
 from io import BytesIO
 from itertools import chain
-import traceback
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Literal, cast
 import uuid
 
 from anyio import Path
@@ -12,12 +11,12 @@ from nonebot import logger
 from nonebot_plugin_htmlrender import template_to_pic
 import qrcode
 
-from ..cache import CacheManager
-from ..config import _nickname, pconfig
+from ..config import _nickname, gconfig, pconfig
 from ..data import (
     AudioContent,
     GraphicContent,
     ImageContent,
+    LinkContent,
     LivePhotoContent,
     MediaContent,
     ParseResult,
@@ -30,16 +29,36 @@ from ..exception import (
     SizeLimitException,
 )
 from ..helper import ForwardNodeInner, UniHelper, UniMessage
+from ..utils.cache import CacheManager
 
 PLACEHOLDER_IMAGE = (
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
 )
 SPLIT_THRESHOLD = pconfig.forward_text_threshold
 """单段文本拆分阈值"""
-MAX_FORWARD_TEXT_LEN = 4500
+MAX_FORWARD_TEXT_LEN = 30000
 """单个 forward 文本总长上限"""
 MAX_FORWARD_NODES = 90
 """单个 forward 节点数上限"""
+
+IS_DEBUG = gconfig.log_level in ["DEBUG", "TRACE", 10, 5]
+
+Theme = Literal["light", "dark"]
+
+
+def get_theme() -> Theme:
+    """根据配置的白天时间范围返回当前主题"""
+    start, end = pconfig.day_range_minutes
+    now = datetime.now()
+    current = now.hour * 60 + now.minute
+    if start == end:
+        # 为什么会有极夜
+        in_day = False
+    elif start < end:
+        in_day = start <= current < end
+    else:
+        in_day = current >= start or current < end
+    return "light" if in_day else "dark"
 
 
 def split_text_by_length_with_punct(text: str, max_len: int) -> list[str]:
@@ -97,29 +116,31 @@ async def safe_src(
     通用安全资源获取过滤器
 
     用法：
-        {{ cont | safe_src }}                    # 默认调用 get_path()
-        {{ cont | safe_src("get_base") }}        # 调用 get_base()
-        {{ cont | safe_src("get_cover_path") }}  # 调用 get_cover_path()
-        {{ author | safe_src("get_avatar_path", return_none_on_fail=True) }} #
-        调用 get_avatar_path(), 在获取失败时返回`None`而不是空白图片
+    ```
+        # 默认调用 get_path()
+        {{ cont | safe_src }}
+        # 调用 get_base()
+        {{ cont | safe_src("get_base") }}
+        # 调用 get_cover_path()
+        {{ cont | safe_src("get_cover_path") }}
+        #调用 get_avatar_path(), 在获取失败时返回`None`而不是空白图片
+        {{ author | safe_src("get_avatar_path", return_none_on_fail=True) }}
+    ```
     """
     try:
         if not hasattr(obj, method):
             logger.warning(f"对象 {type(obj).__name__} 不存在方法 '{method}'")
             return None if return_none_on_fail else PLACEHOLDER_IMAGE
-
-        method_attr = getattr(obj, method)
-
-        if not callable(method_attr):
+        attr = getattr(obj, method)
+        if not callable(attr):
             logger.warning(f"{type(obj).__name__} 的属性 '{method}' 不是可调用对象")
             return None if return_none_on_fail else PLACEHOLDER_IMAGE
-
-        call_result: Path | Awaitable[Path] = method_attr()  # type: ignore[assignment]
-
+        method_attr = cast(Callable[[], Path | Awaitable[Path]], attr)
+        call_result = method_attr()
         src = await call_result if isinstance(call_result, Awaitable) else call_result
-        return src.as_uri()  # 若不存在此属性，进入exception分支判断
+        return src.as_uri()
     except Exception as e:
-        logger.warning(f"safe_src({method}) 处理 {type(obj).__name__} 时失败: {e}")
+        logger.warning(f"safe_src({method}) 处理 {type(obj).__name__} 时失败: {e!r}")
         return None if return_none_on_fail else PLACEHOLDER_IMAGE
 
 
@@ -137,8 +158,8 @@ class Renderer:
         # 尝试获取图片路径，以便在直接发送失败时使用文件发送
         try:
             image_seg = await self.cache_or_render_image(result)
-        except Exception:
-            logger.error(f"获取图片路径失败: {traceback.format_exc()}")
+        except Exception as e:
+            logger.exception(f"获取图片路径失败: {e!r}")
             image_seg = None
 
         # 尝试直接发送图片
@@ -146,6 +167,9 @@ class Renderer:
         if pconfig.append_url:
             urls = (result.display_url, result.repost_display_url)
             msg += "\n".join(url for url in urls if url)
+        if pconfig.embed_url:
+            if embed := result.embed_url:
+                msg += "\n在线播放: " + embed
         return msg
 
     async def send_content(
@@ -169,24 +193,19 @@ class Renderer:
             try:
                 async for msg in self.__handle_immediate_media(cont):
                     yield msg
-            except SizeLimitException as e:
+            except SizeLimitException:
                 yield UniMessage(
-                    f"设定的最大上传大小为 {pconfig.max_size}MB\n"
-                    f"当前解析到的媒体大小为 {e.size}MB\n"
-                    "媒体太大了~"
+                    f"媒体太大啦，还是去{result.platform.display_name}看看吧~"
                 )
                 continue
-            except DurationLimitException as e:
+            except DurationLimitException:
                 yield UniMessage(
-                    f"设定的最大时长为 {pconfig.duration_maximum}s\n"
-                    f"当前解析到的媒体时长为 {e.duration}s\n"
-                    "媒体太长了~"
+                    f"媒体太长啦，还是去{result.platform.display_name}看看吧~"
                 )
-            except DownloadException:
+                continue
+            except DownloadException as e:
                 failed_count += 1
-                logger.error(
-                    f"{cont.__class__.__name__} 下载失败:\n{traceback.format_exc()}"
-                )
+                logger.exception(f"{cont.__class__.__name__} 下载失败: {e!r}")
                 continue
 
         # 2 构建图文 / 图片的转发列表（含主帖 + 转发，按顺序）
@@ -324,7 +343,7 @@ class Renderer:
             async def flush_text() -> None:
                 nonlocal text_buffer
                 if text_buffer:
-                    text = "\n".join(text_buffer).strip()
+                    text = "".join(text_buffer)
                     if text:
                         nodes.append(f"{author_name}：{text}")
                     text_buffer = []
@@ -382,14 +401,16 @@ class Renderer:
             for item in pr.content:
                 if isinstance(item, str):
                     # 文本：缓冲，遇到媒体或结束时 flush
-                    if item:
-                        text_buffer.append(item)
+                    if text := item.strip():
+                        text_buffer.append(text)
                 elif isinstance(item, StickerContent):
                     text_buffer.append(item.desc or "[表情]")
                 elif isinstance(item, MediaContent) and item.need_send:
                     # 媒体：先输出之前的文本，再输出媒体段
                     await flush_text()
                     await append_media(item)
+                elif isinstance(item, LinkContent):
+                    text_buffer.append(item.url)
                 else:
                     # 其他类型暂不处理
                     continue
@@ -411,7 +432,7 @@ class Renderer:
         ordered.extend(await build_nodes(repost))
         return ordered
 
-    async def render_image(self, result: ParseResult) -> bytes:
+    async def render_image(self, result: ParseResult, *, theme: Theme) -> bytes:
         """使用 HTML 绘制通用社交媒体帖子卡片"""
         # 准备模板数据
         template_data = await self.resolve_parse_result(result)
@@ -426,35 +447,35 @@ class Renderer:
             if platform_name in music_platforms:
                 template_name = "music.html.jinja"
             else:
-                # 其他平台使用各自的模板
                 file_name = f"{platform_name}.html.jinja"
                 if await (self.templates_dir / file_name).exists():
                     template_name = file_name
 
-        # from jinja2 import FileSystemLoader, Environment
+        if IS_DEBUG:
+            from jinja2 import Environment, FileSystemLoader
 
-        # # 创建一个包加载器对象
-        # env = Environment(
-        #     loader=FileSystemLoader(self.templates_dir),
-        #     enable_async=True,
-        # )
-        # env.filters["safe_src"] = safe_src
-        # template = env.get_template(template_name)
-        # # 渲染
-        # with open(
-        #     f"{self.templates_dir.parent.parent}/{datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S')}.html",  # noqa: E501
-        #     "w",
-        #     encoding="utf8",
-        # ) as f:
-        #     f.write(
-        #         await template.render_async(result=template_data)
-        #     )
+            env = Environment(
+                loader=FileSystemLoader(self.templates_dir),
+                enable_async=True,
+            )
+            env.filters["safe_src"] = safe_src
+            template = env.get_template(template_name)
+            render_path = (
+                self.templates_dir.parent.parent
+                / f"{datetime.now().strftime('%Y-%m-%d-%H%M%S')}.html"
+            )
+            await render_path.write_text(
+                await template.render_async(result=template_data, theme=theme),
+                encoding="utf8",
+            )
+            logger.info(f"已生成调试 HTML: {render_path}")
 
         return await template_to_pic(
             template_path=str(self.templates_dir),
             template_name=template_name,
             templates={
                 "result": template_data,
+                "theme": theme,
             },
             pages={
                 "viewport": {"width": 620, "height": 100},
@@ -472,22 +493,14 @@ class Renderer:
             "title": result.title,
             "formatted_datetime": result.formatted_datetime,
             "extra": result.extra,
-            "platform": {
-                "display_name": result.platform.display_name,
-                "name": result.platform.name,
-                "logo_path": await safe_src(result.platform, "get_logo_path"),
-            },
+            "platform": result.platform,
             "content": result.content,
             "cover_path": await safe_src(result, "get_cover_path"),
             "stats": result.stats,
             "comments": result.comments[: pconfig.max_comments],
-            "author": {
-                "name": result.author.name,
-                "id": result.author.id,
-                "avatar_path": await safe_src(result.author, "get_avatar_path"),
-            },
+            "author": result.author,
             "ai_summary": result.ai_summary,
-            "rendering_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "rendering_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "bot_name": _nickname,
         }
 
@@ -515,18 +528,19 @@ class Renderer:
     async def cache_or_render_image(self, result: ParseResult):
         """获取缓存图片（支持跨重启复用）
 
-        以解析结果的 URL（或其他稳定字段）为 key，在 cache_dir 下生成稳定文件名：
+        以当前主题和解析结果 URL 为 key，在 cache_dir 下生成稳定文件名：
         - 若文件已存在：直接使用，不再重新渲染
         - 若不存在：渲染并写入该文件
         """
-        cache_key = result.url
+        theme = get_theme()
+        cache_key = f"{theme}:{result.url}"
         file_name = f"{uuid.uuid5(uuid.NAMESPACE_URL, cache_key)}.jpeg"
         cache_dir = await CacheManager.ensure_dir(CacheManager.RENDER)
         image_path = cache_dir / file_name
         if await image_path.exists():
             result.render_image = image_path
         else:
-            image_raw = await self.render_image(result)
+            image_raw = await self.render_image(result, theme=theme)
             await image_path.write_bytes(image_raw)
             result.render_image = image_path
             if pconfig.use_base64:

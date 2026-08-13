@@ -1,16 +1,17 @@
-from collections.abc import Coroutine, Sequence
+from collections.abc import Coroutine
 from typing import Any, Literal, Protocol, TypeVar, runtime_checkable
 
 from anyio import Path
 
-from .cache import CacheManager
 from .config import pconfig as pconfig
 from .data import (
     AudioContent,
     Author,
     Comment,
+    ContentItem,
     GraphicContent,
     ImageContent,
+    LinkContent,
     LivePhotoContent,
     MediaContent,
     Stats,
@@ -19,6 +20,7 @@ from .data import (
 )
 from .download import DOWNLOADER
 from .download.task import DownloadTaskWrapper
+from .utils.cache import CacheManager
 
 T = TypeVar("T", bound=MediaContent)
 
@@ -50,6 +52,7 @@ class Creator:
         id: str | None = None,
         location: str | None = None,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建作者对象
@@ -60,10 +63,15 @@ class Creator:
         :param id: 作者 ID
         :param location: 位置信息
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载头像
         """
 
         avatar_task = (
-            DOWNLOADER.download_img(url=avatar_url, ext_headers=ext_headers)
+            DOWNLOADER.download_img(
+                url=avatar_url,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
             if avatar_url
             else None
         )
@@ -83,6 +91,7 @@ class Creator:
         video_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建视频内容,
@@ -96,14 +105,22 @@ class Creator:
         :param video_name: 视频名称
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载视频/封面
         """
         cover_task = None
         if cover_url:
-            cover_task = DOWNLOADER.download_img(url=cover_url, ext_headers=ext_headers)
+            cover_task = DOWNLOADER.download_img(
+                url=cover_url,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
         if isinstance(url_or_task, str):
             # 1) 传入 URL: 使用默认下载逻辑
             video_task = DOWNLOADER.download_video(
-                url=url_or_task, video_name=video_name, ext_headers=ext_headers
+                url=url_or_task,
+                video_name=video_name,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
             )
         elif isinstance(url_or_task, DownloadTaskWrapper):
             # 2) 传入 DownloadTaskWrapper: 保持原样
@@ -122,6 +139,7 @@ class Creator:
                 kwargs={},
                 url=download_func.video_url,
                 ext_headers=download_func.ext_headers,
+                use_curl_cffi=use_curl_cffi,
             )
         else:
             # 4) 传入了不受支持的类型：立即报错，避免 AttributeError
@@ -138,16 +156,22 @@ class Creator:
     def videos(
         video_urls: list[str],
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建视频内容列表
 
         :param video_urls: 视频 URL 列表
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
         return [
-            Creator.video(url_or_task=url, ext_headers=ext_headers)
+            Creator.video(
+                url_or_task=url,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
             for url in video_urls
         ]
 
@@ -157,6 +181,7 @@ class Creator:
         img_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建图片内容
@@ -165,10 +190,14 @@ class Creator:
         :param img_name: 图片名称
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
         task = DOWNLOADER.download_img(
-            url=url, img_name=img_name, ext_headers=ext_headers
+            url=url,
+            img_name=img_name,
+            ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
         )
 
         return _with_need_send(ImageContent(path_task=task), need_send)
@@ -177,15 +206,24 @@ class Creator:
     def images(
         image_urls: list[str],
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建图片内容列表
 
         :param image_urls: 图片 URL 列表
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
-        return [Creator.image(url=url, ext_headers=ext_headers) for url in image_urls]
+        return [
+            Creator.image(
+                url=url,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
+            for url in image_urls
+        ]
 
     @staticmethod
     def audio(
@@ -194,6 +232,7 @@ class Creator:
         audio_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建音频内容
@@ -203,10 +242,14 @@ class Creator:
         :param audio_name: 音频名称
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
         task = DOWNLOADER.download_audio(
-            url=url, audio_name=audio_name, ext_headers=ext_headers
+            url=url,
+            audio_name=audio_name,
+            ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
         )
 
         return _with_need_send(
@@ -215,24 +258,29 @@ class Creator:
 
     @staticmethod
     def graphic(
-        image_url: str,
+        url: str,
         img_name: str | None = None,
         alt: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
-        图片,此图片不参与九宫格
+        图片,此图片不参与九宫格且无高度限制
 
-        :param image_url: 图片 URL
+        :param url: 图片 URL
         :param img_name: 图片名称
         :param alt: 图片描述
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
         image_task = DOWNLOADER.download_img(
-            url=image_url, img_name=img_name, ext_headers=ext_headers
+            url=url,
+            img_name=img_name,
+            ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
         )
         return _with_need_send(GraphicContent(path_task=image_task, alt=alt), need_send)
 
@@ -242,6 +290,7 @@ class Creator:
         size: Literal["small", "medium"] = "medium",
         desc: str | None = None,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建贴纸内容
@@ -252,12 +301,14 @@ class Creator:
             - medium: 文字大小的两倍大一点
         :param desc: 贴纸描述
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
         image_task = DOWNLOADER.download_img(
             url=url,
             ext_headers=ext_headers,
             cache_type=CacheManager.STICKER,
+            use_curl_cffi=use_curl_cffi,
         )
         return StickerContent(path_task=image_task, size=size, desc=desc)
 
@@ -266,8 +317,10 @@ class Creator:
         video_url: str,
         image_url: str,
         bgm_url: str | None = None,
+        loop: int = 1,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ):
         """
         创建  iPhone Live Photo 内容
@@ -275,18 +328,34 @@ class Creator:
         :param video_url: iPhone Live Photo 变化过程视频
         :param image_url: iPhone Live Photo 底图
         :param bgm_url: iPhone Live Photo 背景音乐
+        :param loop: iPhone Live Photo 循环次数
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
-        video_task = DOWNLOADER.download_video(url=video_url, ext_headers=ext_headers)
-        image_task = DOWNLOADER.download_img(url=image_url, ext_headers=ext_headers)
+        video_task = DOWNLOADER.download_video(
+            url=video_url,
+            ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
+        )
+        image_task = DOWNLOADER.download_img(
+            url=image_url,
+            ext_headers=ext_headers,
+            use_curl_cffi=use_curl_cffi,
+        )
         if bgm_url:
-            bgm_task = DOWNLOADER.download_audio(url=bgm_url, ext_headers=ext_headers)
+            bgm_task = DOWNLOADER.download_audio(
+                url=bgm_url,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
         else:
             bgm_task = None
         return _with_need_send(
-            LivePhotoContent(video_task, image_task, bgm_task),
+            LivePhotoContent(
+                path_task=video_task, base_image=image_task, loop=loop, bgm=bgm_task
+            ),
             need_send,
         )
 
@@ -324,7 +393,7 @@ class Creator:
     @staticmethod
     def comment(
         author: Author,
-        content: Sequence[MediaContent | str | None],
+        content: list[ContentItem],
         timestamp: int | None = None,
         stats: Stats | None = None,
         replies: list[Comment] | None = None,
@@ -353,3 +422,15 @@ class Creator:
             replies=replies,
             parent_author=parent_author,
         )
+
+    @staticmethod
+    def link(url: str, text: str | None = None):
+        """
+        创建链接内容
+
+        :param url: 链接地址
+        :param text: 链接文本
+        """
+        if text is None:
+            text = url
+        return LinkContent(url=url, text=text)

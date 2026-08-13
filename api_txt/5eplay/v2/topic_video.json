@@ -1,0 +1,77 @@
+{
+  "success": true,
+  "errcode": 0,
+  "message": null,
+  "data": {
+    "content": {
+      "tid": "1050797",
+      "type": "2",
+      "domain": "0627sq1npzq3",
+      "username": "Ropz229",
+      "title_url": "",
+      "avatar_url": "https://oss-arena.5eplay.com/disguise/images/f9/3e/f93e385d9d0566462274c7c0008ae4ad.jpg",
+      "is_vip": 1,
+      "vip_level": 5,
+      "advanced_identity_status": "0",
+      "title": "残局",
+      "time": "2026-06-30 23:16",
+      "dateline": "1782832596",
+      "city": "上余",
+      "covers_images": {},
+      "topic_likes_count": "4",
+      "original_text": "",
+      "rebuild_text": "",
+      "content_render": "app",
+      "attachment": null,
+      "images": null,
+      "act_info": {
+        "image": "https://oss.5eplay.com/images/act/forum_topic_act.png",
+        "jump_link": "fiveeplay://5eplay.com/web/content?alias=https%3A%2F%2Fcsgo.5eplay.com%2Fforum%2Fpost_act&hideNavi=1&isWhite=true",
+        "act_status": 0
+      },
+      "share_data": {
+        "share_url": "https://csgo.5eplay.com/forum/share/1050797",
+        "share_title": "残局",
+        "share_text": "来自Ropz229的帖子",
+        "share_image": "https://static.5eplay.com/images/new_share_app.png"
+      },
+      "source": 1,
+      "display_comment_status": 0,
+      "is_user_like": 0,
+      "is_user_favorite": 0,
+      "follow_status": 0,
+      "icon_data": [],
+      "tag_data": "",
+      "obj_sn": "post@1050797",
+      "video_data": {},
+      "hits": "936",
+      "forward": "1",
+      "topic_favorites": "0",
+      "at_data": [],
+      "topic_data": [],
+      "comment_auth_status": "0",
+      "view_auth_status": "0",
+      "forum_content_extend_info": null,
+      "user": {},
+      "img_urls": [
+        {
+          "title": "1179",
+          "template_ext": "{\"app_style_mode\":\"StyleMode_Title01\",\"app_style_id\":\"Title01_level_d\"}"
+        }
+      ],
+      "user_avatar_frame_data": {},
+      "splayer_item": {},
+      "group_info": {
+        "status": "0",
+        "group_icon": "https://oss.5eplay.com/images/forum/10dd42e0671b99110639276a7848b25d.png",
+        "group_name": "CS",
+        "group_category": "0",
+        "gid": "9",
+        "link_url": "fiveeplay://5eplay.com/community/subzone?title=CS&id=9&categoryId=0"
+      }
+    },
+    "vote_data": null,
+    "is_attention": 0,
+    "adv_feed": []
+  }
+}

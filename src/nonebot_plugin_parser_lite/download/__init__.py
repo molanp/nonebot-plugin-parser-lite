@@ -4,11 +4,11 @@ import contextlib
 from functools import partial
 import hashlib
 import os
+import re
 from urllib.parse import urljoin
 
 import aiofiles
 from anyio import Path
-from httpx import AsyncClient, Response
 from nonebot import logger
 from rich.progress import (
     BarColumn,
@@ -19,22 +19,28 @@ from rich.progress import (
     TransferSpeedColumn,
 )
 
-from ..cache import CacheManager
 from ..config import pconfig
 from ..constants import COMMON_HEADER, DOWNLOAD_TIMEOUT
 from ..exception import DownloadException, SizeLimitException, ZeroSizeException
+from ..utils.cache import CacheManager
 from ..utils.common import generate_file_name, make_filename, safe_unlink
 from ..utils.ffmpeg import FFmpeg
+from .client import RetryableDownloadError, UniHttpClient, UniResponse
 from .task import auto_task
+
+_RE_RANGE_PATTERN = re.compile(r"bytes\s+(\d+)-\d+/(\d+|\*)")
 
 
 class StreamDownloader:
     """Downloader class for downloading files with stream"""
 
+    MAX_RETRIES = pconfig.max_retries
+    _SIZE_MISMATCH_TOLERANCE_BYTES = 1024
+
     def __init__(self):
         self.headers: dict[str, str] = COMMON_HEADER.copy()
         self.cache_dir: Path = pconfig.cache_dir
-        self.client: AsyncClient = AsyncClient(timeout=DOWNLOAD_TIMEOUT, verify=False)
+        self.client = UniHttpClient(timeout=DOWNLOAD_TIMEOUT)
         self._active_downloads: dict[str, asyncio.Task[None]] = {}
         self._ffmpeg_available: bool | None = None
 
@@ -42,21 +48,25 @@ class StreamDownloader:
         await self.client.aclose()
 
     async def head(
-        self, url: str, ext_headers: dict[str, str] | None = None
-    ) -> Response:
+        self,
+        url: str,
+        ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
+    ) -> UniResponse:
         """
         发送 HEAD 请求并返回响应对象。
 
         :param url: 目标资源地址
         :param ext_headers: 额外请求头
-        :return: httpx.Response 对象
-        :raise httpx.HTTPStatusError: HEAD 与 GET 均非 2xx 时抛出
+        :param use_curl_cffi: 是否使用 curl_cffi 发起请求
+        :return: UniResponse 对象
+        :raise HTTPStatusError: HEAD 与 GET 均非 2xx 时抛出
         """
         headers = {**self.headers, **(ext_headers or {})}
         resp = await self.client.head(
             url=url,
             headers=headers,
-            follow_redirects=True,
+            use_curl_cffi=use_curl_cffi,
         )
         if 200 <= resp.status_code < 300:
             return resp
@@ -64,24 +74,26 @@ class StreamDownloader:
             f"[StreamDownloader] HEAD {url} returned {resp.status_code}, fallback to streamed GET"  # noqa: E501
         )
         async with self.client.stream(
-            "GET", url, headers=headers, follow_redirects=True
+            "GET",
+            url,
+            headers=headers,
+            use_curl_cffi=use_curl_cffi,
         ) as stream_resp:
-            slim_resp = Response(
-                status_code=stream_resp.status_code,
-                headers=stream_resp.headers,
-                request=stream_resp.request,
-            )
-            slim_resp.cookies.update(stream_resp.cookies)
-            return slim_resp
+            return stream_resp
 
     async def head_size(
-        self, url: str, ext_headers: dict[str, str] | None = None
+        self,
+        url: str,
+        ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ) -> int | None:
         """
         对给定 url 发送 HEAD 请求，返回 Content-Length
         """
-        response = await self.head(url, ext_headers=ext_headers)
-        raw_len = response.headers.get("Content-Length")
+        response = await self.head(
+            url, ext_headers=ext_headers, use_curl_cffi=use_curl_cffi
+        )
+        raw_len = response.headers.get("content-length")
         if not raw_len:
             return None
         try:
@@ -97,12 +109,14 @@ class StreamDownloader:
         file_name: str | None = None,
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
+        use_curl_cffi: bool = False,
     ) -> Path:
         """
         :param url: 下载文件的链接地址
         :param file_name: 保存到本地的文件名，为空时根据 url 自动生成
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
 
         :return: 下载完成后的本地文件路径
         :raise ZeroSizeException: 资源大小为 0 时抛出
@@ -112,6 +126,7 @@ class StreamDownloader:
         file_name = make_filename(file_name) if file_name else generate_file_name(url)
         cache_dir = await CacheManager.ensure_dir(cache_type)
         file_path = cache_dir / file_name
+        partial_path = file_path.parent / f"{file_path.name}.part"
 
         if await file_path.exists():
             return file_path
@@ -123,23 +138,26 @@ class StreamDownloader:
             await active_download
             return file_path
 
-        async def _download_task() -> None:
+        async def __download_task() -> None:
             if await file_path.exists():
                 return
-            await self._download_with_stream(
+            await self.__download_with_retry(
                 url=url,
                 file_path=file_path,
+                partial_path=partial_path,
                 headers=headers,
                 desc=file_name,
+                use_curl_cffi=use_curl_cffi,
             )
 
-        download_task = asyncio.create_task(_download_task())
+        download_task = asyncio.create_task(__download_task())
         self._active_downloads[download_key] = download_task
 
         try:
             await download_task
-        except Exception:
+        except (SizeLimitException, ZeroSizeException):
             await safe_unlink(file_path)
+            await safe_unlink(partial_path)
             raise
         finally:
             if self._active_downloads.get(download_key) is download_task:
@@ -147,84 +165,157 @@ class StreamDownloader:
 
         return file_path
 
-    async def _download_with_stream(
+    async def __download_with_retry(
+        self,
+        url: str,
+        file_path: Path,
+        partial_path: Path,
+        headers: dict[str, str],
+        desc: str,
+        use_curl_cffi: bool = False,
+    ) -> None:
+        last_error: Exception | None = None
+
+        for retry in range(self.MAX_RETRIES + 1):
+            try:
+                await self.__download_once(
+                    url=url,
+                    file_path=partial_path,
+                    headers=headers,
+                    desc=desc,
+                    use_curl_cffi=use_curl_cffi,
+                )
+                await partial_path.rename(file_path)
+                return
+            except (SizeLimitException, ZeroSizeException):
+                await safe_unlink(partial_path)
+                raise
+            except RetryableDownloadError as e:
+                last_error = e
+                if not last_error.keep_part:
+                    await safe_unlink(partial_path)
+                if retry >= self.MAX_RETRIES:
+                    break
+
+                delay = min(2**retry, 8)
+                logger.warning(
+                    f"下载失败，{delay} 秒后重试 ({retry + 1}/"
+                    f"{self.MAX_RETRIES}) | {url}: {last_error!r}"
+                )
+                await asyncio.sleep(delay)
+
+        raise DownloadException(
+            f"在 {self.MAX_RETRIES} 次重试后下载失败"
+        ) from last_error
+
+    def __validate_response(self, response: UniResponse, downloaded: int):
+        response.raise_for_status()
+        if downloaded > 0:
+            if response.status_code != 206:
+                raise RetryableDownloadError("服务器不支持断点续传", keep_part=False)
+            if content_range := response.headers.get("content-range"):
+                if match := _RE_RANGE_PATTERN.match(content_range):
+                    server_start = int(match[1])
+
+                    if server_start != downloaded:
+                        raise DownloadException(
+                            f"Content-Range 错误: 请求 {downloaded}, "
+                            f"返回 {server_start}"
+                        )
+
+    def __make_range_headers(
+        self, headers: dict[str, str], downloaded: int
+    ) -> dict[str, str]:
+        result = {**headers}
+        if downloaded > 0:
+            result["Range"] = f"bytes={downloaded}-"
+        return result
+
+    async def __download_once(
         self,
         url: str,
         file_path: Path,
         headers: dict[str, str],
         desc: str,
-    ) -> None:
-        def parse_content_length(header_val: str | None) -> int | None:
-            if not header_val:
-                return None
-            try:
-                return int(header_val)
-            except ValueError:
-                return None
-
-        def check_declared_size(content_length: int) -> None:
-            if content_length == 0:
-                logger.warning(f"媒体 url: {url}, 大小为 0, 取消下载")
-                raise ZeroSizeException
-            file_size_mb = content_length / 1024 / 1024
-            if file_size_mb > pconfig.max_size:
-                logger.warning(
-                    f"媒体 url: {url} 大小 {file_size_mb:.2f} MB 超过 {pconfig.max_size} MB, 取消下载"  # noqa: E501
-                )
-                raise SizeLimitException(file_size_mb)
-
+        use_curl_cffi: bool,
+    ):
+        downloaded = (await file_path.stat()).st_size if await file_path.exists() else 0
         async with self.client.stream(
-            "GET", url, headers=headers, follow_redirects=True
+            "GET",
+            url,
+            headers=self.__make_range_headers(headers, downloaded),
+            use_curl_cffi=use_curl_cffi,
         ) as response:
-            try:
-                response.raise_for_status()
-            except Exception as e:
-                raise DownloadException from e
-            content_length = parse_content_length(
-                response.headers.get("Content-Length")
-            )
-            if content_length is not None:
-                check_declared_size(content_length)
-            await self._write_stream_to_file(
-                response=response,
-                file_path=file_path,
-                desc=desc,
-                declared_length=content_length,
-                url=url,
+            self.__validate_response(response, downloaded)
+            content_length = response.headers.get("content-length")
+
+            total_size = (
+                downloaded + int(content_length)
+                if content_length and downloaded > 0
+                else int(content_length)
+                if content_length
+                else None
             )
 
-    async def _write_stream_to_file(
-        self,
-        response: Response,
-        file_path: Path,
-        desc: str,
-        declared_length: int | None,
-        url: str,
-    ) -> None:
-        """将 HTTP 流写入文件，并处理进度条与实际大小限制。"""
-        with self.rich_progress(desc, declared_length) as update_progress:
-            downloaded_bytes = 0
+            if total_size is not None:
+                if total_size == 0:
+                    raise ZeroSizeException
 
-            async with aiofiles.open(file_path, "wb") as file:
-                async for chunk in response.aiter_bytes(1024 * 1024):
-                    if not chunk:
-                        continue
+                if total_size / 1024 / 1024 > pconfig.max_size:
+                    logger.warning(
+                        f"媒体 url: {url} 大小 {(total_size / 1024 / 1024):.2f} MB "
+                        f"超过 {pconfig.max_size} MB, 取消下载"
+                    )
+                    raise SizeLimitException(total_size / 1024 / 1024)
 
-                    await file.write(chunk)
-                    chunk_len = len(chunk)
-                    downloaded_bytes += chunk_len
+            mode = "ab" if downloaded > 0 else "wb"
 
-                    # 更新进度条（无 Content-Length 时显示“已下载字节数”）
-                    update_progress(advance=chunk_len)
+            current_size = downloaded
 
-                    # 无 Content-Length 时，按实际已下载大小做限制
-                    if declared_length is None:
-                        file_size_mb = downloaded_bytes / 1024 / 1024
-                        if file_size_mb > pconfig.max_size:
+            with self.rich_progress(
+                desc,
+                total_size,
+            ) as update:
+                if downloaded:
+                    update(advance=downloaded)
+
+                async with aiofiles.open(
+                    file_path,
+                    mode,
+                ) as f:
+                    async for chunk in response.aiter_bytes(1024 * 1024):
+                        await f.write(chunk)
+
+                        current_size += len(chunk)
+
+                        update(advance=len(chunk))
+
+                        # 没有Content-Length时限制大小
+                        if (
+                            total_size is None
+                            and current_size / 1024 / 1024 > pconfig.max_size
+                        ):
                             logger.warning(
-                                f"媒体 url: {url} 实际下载大小 {file_size_mb:.2f} MB 超过 {pconfig.max_size} MB, 取消下载"  # noqa: E501
+                                f"媒体 url: {url} 实际"
+                                f"下载大小 {(current_size / 1024 / 1024):.2f} MB "
+                                f"超过 {pconfig.max_size} MB, 取消下载"
                             )
-                            raise SizeLimitException(file_size_mb)
+                            raise SizeLimitException(current_size / 1024 / 1024)
+
+            final_size = (await file_path.stat()).st_size
+
+            if final_size == 0:
+                raise ZeroSizeException
+
+            # 允许一定范围内的大小不匹配（最多 1KB），避免因为服务器端的轻微差异导致失败
+            if total_size is not None and final_size != total_size:
+                size_diff = abs(final_size - total_size)
+                if size_diff > self._SIZE_MISMATCH_TOLERANCE_BYTES:
+                    raise DownloadException(
+                        f"文件大小不匹配: {final_size}/{total_size} "
+                        f"(差值: {size_diff} bytes, 超过允许的 "
+                        f"{self._SIZE_MISMATCH_TOLERANCE_BYTES} bytes)"
+                    )
 
     @auto_task
     async def download_video(
@@ -234,6 +325,7 @@ class StreamDownloader:
         video_name: str | None = None,
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
+        use_curl_cffi: bool = False,
     ) -> Path:
         """
         下载普通视频
@@ -242,6 +334,7 @@ class StreamDownloader:
         :param video_name: 保存到本地的视频文件名，为空时根据 url 自动生成 mp4 文件名
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
 
         :return: 下载完成后的视频文件路径
         :raise ZeroSizeException: 资源大小为 0 时抛出
@@ -256,6 +349,7 @@ class StreamDownloader:
             file_name=video_name,
             ext_headers=ext_headers,
             cache_type=cache_type,
+            use_curl_cffi=use_curl_cffi,
         )
 
     @auto_task
@@ -266,6 +360,7 @@ class StreamDownloader:
         video_name: str | None = None,
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
+        use_curl_cffi: bool = False,
     ) -> Path:
         """
         下载 m3u8 视频并合并到 mp4
@@ -274,6 +369,7 @@ class StreamDownloader:
         :param video_name: 输出的 mp4 文件名，为空时根据 m3u8 链接生成
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
 
         :return: 最终合并并转封装后的 mp4 文件路径
         :raise SizeLimitException: 资源大小超过配置的最大限制时抛出
@@ -295,7 +391,9 @@ class StreamDownloader:
 
         try:
             # 1. 智能解析 m3u8 (自动处理嵌套列表)
-            ts_urls = await self._smart_parse_m3u8(url)
+            ts_urls = await self._smart_parse_m3u8(
+                url, ext_headers=ext_headers, use_curl_cffi=use_curl_cffi
+            )
             if not ts_urls:
                 raise DownloadException("m3u8 解析结果为空")
 
@@ -306,6 +404,7 @@ class StreamDownloader:
                 temp_ts_path=temp_ts_path,
                 video_name=video_name,
                 headers=headers,
+                use_curl_cffi=use_curl_cffi,
             )
 
             # 3/4. 校验大小并转封装
@@ -332,6 +431,7 @@ class StreamDownloader:
         temp_ts_path: Path,
         video_name: str,
         headers: dict[str, str],
+        use_curl_cffi: bool = False,
     ) -> int:
         """
         下载所有 ts 片段并写入临时 ts 文件，返回最终文件实际字节数
@@ -349,8 +449,7 @@ class StreamDownloader:
                         "GET",
                         ts_url,
                         headers=headers,
-                        timeout=15,
-                        follow_redirects=True,
+                        use_curl_cffi=use_curl_cffi,
                     ) as resp:
                         if resp.status_code != 200:
                             raise DownloadException(
@@ -421,7 +520,12 @@ class StreamDownloader:
         ):
             raise DownloadException("视频下载失败，最终文件不存在或大小过小")
 
-    async def _smart_parse_m3u8(self, m3u8_url: str) -> list[str]:
+    async def _smart_parse_m3u8(
+        self,
+        m3u8_url: str,
+        ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
+    ) -> list[str]:
         """
         智能解析 m3u8，支持 Master Playlist (嵌套) 和 Media Playlist
 
@@ -432,7 +536,9 @@ class StreamDownloader:
         """
 
         logger.info(f"[StreamDownloader] 开始解析 m3u8: {m3u8_url}")
-        content = await self.text(m3u8_url)
+        content = await self.text(
+            m3u8_url, ext_headers=ext_headers, use_curl_cffi=use_curl_cffi
+        )
         base_url = m3u8_url.rsplit("/", 1)[0] + "/"
 
         # 检查是否是 Master Playlist (包含子 m3u8 链接)
@@ -454,7 +560,11 @@ class StreamDownloader:
             if sub_playlists:
                 # 通常最后一个是最高画质，或者是第一个
                 logger.debug(f"[StreamDownloader] 转向子播放列表: {sub_playlists[-1]}")
-                return await self._smart_parse_m3u8(sub_playlists[-1])
+                return await self._smart_parse_m3u8(
+                    sub_playlists[-1],
+                    ext_headers=ext_headers,
+                    use_curl_cffi=use_curl_cffi,
+                )
             else:
                 raise DownloadException("Master Playlist 解析失败，未找到子链接")
 
@@ -476,36 +586,54 @@ class StreamDownloader:
         )
         return ts_urls
 
-    async def text(self, url: str, ext_headers: dict[str, str] | None = None) -> str:
+    async def text(
+        self,
+        url: str,
+        ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
+    ) -> str:
         """
         获取文本内容
 
         :param url: 目标文本资源的链接地址
         :param ext_headers: 额外的请求头，会与默认请求头合并
+        :param use_curl_cffi: 是否使用 curl_cffi 请求
 
         :return: 响应体的文本内容
         :raise DownloadException: 请求状态码非 200 时抛出
         """
         headers = {**self.headers, **(ext_headers or {})}
-        resp = await self.client.get(url, headers=headers, follow_redirects=True)
+        resp = await self.client.get(
+            url,
+            headers=headers,
+            use_curl_cffi=use_curl_cffi,
+        )
         if resp.status_code != 200:
             raise DownloadException(f"请求失败: {resp.status_code}")
         return resp.text
 
     async def content(
-        self, url: str, ext_headers: dict[str, str] | None = None
+        self,
+        url: str,
+        ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ) -> bytes:
         """
         获取内容
 
         :param url: 目标资源的链接地址
         :param ext_headers: 额外的请求头，会与默认请求头合并
+        :param use_curl_cffi: 是否使用 curl_cffi 请求
 
         :return: 响应体的内容
         :raise DownloadException: 请求状态码非 200 时抛出
         """
         headers = {**self.headers, **(ext_headers or {})}
-        resp = await self.client.get(url, headers=headers, follow_redirects=True)
+        resp = await self.client.get(
+            url,
+            headers=headers,
+            use_curl_cffi=use_curl_cffi,
+        )
         if resp.status_code != 200:
             raise DownloadException(f"请求失败: {resp.status_code}")
         return resp.content
@@ -554,13 +682,16 @@ class StreamDownloader:
         audio_name: str | None = None,
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
+        use_curl_cffi: bool = False,
     ) -> Path:
         """
         下载音频
+
         :param url: 音频下载地址
         :param audio_name: 保存到本地的音频文件名，为空时根据 url 自动生成 mp3 文件名
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
 
         :return: 下载完成后的音频文件路径
         :raise DownloadException: 下载过程中发生错误时抛出
@@ -572,6 +703,7 @@ class StreamDownloader:
             file_name=audio_name,
             ext_headers=ext_headers,
             cache_type=cache_type,
+            use_curl_cffi=use_curl_cffi,
         )
 
     @auto_task
@@ -582,6 +714,7 @@ class StreamDownloader:
         img_name: str | None = None,
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
+        use_curl_cffi: bool = False,
     ) -> Path:
         """
         下载图片
@@ -590,6 +723,7 @@ class StreamDownloader:
         :param img_name: 保存到本地的图片文件名，为空时根据 url 自动生成 jpg 文件名
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
 
         :return: 下载完成后的图片文件路径
         :raise DownloadException: 下载过程中发生错误时抛出
@@ -601,30 +735,51 @@ class StreamDownloader:
             file_name=img_name,
             ext_headers=ext_headers,
             cache_type=cache_type,
+            use_curl_cffi=use_curl_cffi,
         )
 
     async def download_av_and_merge(
         self,
-        v_url: str,
-        a_url: str,
-        file_name: str,
+        video_url: str,
+        audio_url: str,
+        merge_name: str,
+        video_name: str | None = None,
+        audio_name: str | None = None,
         ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
     ) -> Path:
         """
         下载音频和视频文件并合并
 
-        :param v_url: 视频流下载地址
-        :param a_url: 音频流下载地址
-        :param file_name: 合并后输出文件名(不含扩展名)
+        :param video_url: 视频流下载地址
+        :param audio_url: 音频流下载地址
+        :param merge_name: 合并后输出文件名(不含扩展名)
+        :param video_name: 保存到本地的视频文件名，为空时根据 url 自动生成 mp4 文件名
+        :param audio_name: 保存到本地的音频文件名，为空时根据 url 自动生成 mp3 文件名
         :param ext_headers: 额外的请求头，会与默认请求头合并
-        :return: 合并后的视频文件本地路径
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
+        :return: 合并后的视频文件本地路径(mp4)
         :raise DownloadException: 下载或合并过程中发生错误时抛出
         """
+        cache_dir = await CacheManager.ensure_dir(CacheManager.MEDIA)
+        output_path = cache_dir / f"{merge_name}.mp4"
+        if await output_path.exists():
+            return output_path
         v_path, a_path = await asyncio.gather(
-            self.download_video(url=v_url, ext_headers=ext_headers),
-            self.download_audio(url=a_url, ext_headers=ext_headers),
+            self.download_video(
+                url=video_url,
+                video_name=video_name,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            ),
+            self.download_audio(
+                url=audio_url,
+                audio_name=audio_name,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            ),
         )
-        return await FFmpeg.merge_av(v_path=v_path, a_path=a_path, file_name=file_name)
+        return await FFmpeg.merge_av(v_path=v_path, a_path=a_path, file_name=merge_name)
 
     @staticmethod
     @contextlib.contextmanager

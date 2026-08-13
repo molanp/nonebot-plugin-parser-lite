@@ -1,0 +1,1310 @@
+{
+  "success": true,
+  "errcode": 0,
+  "message": null,
+  "data": {
+    "content": {
+      "tid": "1050838",
+      "type": "0",
+      "domain": "041330hu0exs",
+      "username": "心事说给小猫听",
+      "title_url": "",
+      "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+      "is_vip": 0,
+      "vip_level": 0,
+      "advanced_identity_status": "0",
+      "title": "太激动了，40岁老登单排沙二圆梦S",
+      "time": "2026-07-01 04:04",
+      "dateline": "1782849895",
+      "topic_likes_count": "766",
+      "content": "<html><head><meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"><title></title><meta name=\"aplus-terminal\" content=\"1\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta content=\"telephone=no\" name=\"format-detection\"><meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black-translucent\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no\">\n    <style>*{margin:0;padding:0;background:transparent;}\n    @media screen and(max-width:320px){html{font-size:17px}}\n    @media screen and(min-width:321px)and(max-width:375px){html{font-size:17px}}\n    @media screen and(min-width:376px)and(max-width:640px){html{font-size:17px}}\n    img + img{ margin-top: 10px;}\n    .news-wrap{color:#141414;font-family: PingFang SC;text-align: left;line-height: 30px;font-size: 17px;}.news-wrap img{ margin-top: 15px!important; max-width:100%!important} iframe{height: 200px; width: 100%;border:0;}.news-wrap>p{font-size:16px;text-align:justify;line-height: 28px;margin: 0.75rem 0;}.news-wrap blockquote{padding-left:0.4rem;border-left:5px solid#EFEFEF}.news-wrap pre{background:#F5F5F5;border:1px solid#eee;padding:0.2rem 0.375rem;white-space:pre-wrap}.news-wrap h1{padding-top:0.75rem}.news-wrap h2{padding-top:0.5rem}.news-wrap a{color:#167ac6}.news-wrap a:hover{text-decoration:underline}.news-wrap.quote{font-size:17px;padding:0.5rem 0.75rem;margin-top:0.25rem;border:1px solid #ddd;border-radius:5px}.news-wrap strong,.news-wrap b{font-weight:600}.news-wrap ul{padding:0.125rem 0.75rem;margin-top:0.5rem;border-radius:0.125rem}.news-wrap ul li{font-size:17px;list-style:disc inside none;margin-left:0.5rem;line-height:20px}.news-wrap ul p{margin-left:0.5rem;line-height:30px;font-size:17px;margin:0.25rem 0}.news-wrap table{border-collapse:collapse;border:1px solid#ddd}.news-wrap table td{font-size:17px;padding:0.125rem;border:1px solid#ddd}.news-wrap.no-border,.news-wrap.no-border td{border:none}.news-wrap,.news-wrap h1,.news-wrap p,.news-wrap span{word-break:break-all;word-wrap:break-word}body{position: relative; margin: 0; background:transparent; font-family: Helvetica Neue, Helvetica, Arial, Sans-serif; -webkit-tap-highlight-color: rgba(255,255,255,0);font-size:17px;}</style></head><body><div class=\"news-wrap\">我生活中没什么朋友，只好把这份喜悦分享给每一个热爱cs的玩家，作为87年的老登，上一次接触FPS游戏还是在20岁的时候玩的穿越火线，后来穿越火线推出火麒麟我就不玩了，去年四月份无意中接触到了这个游戏，纯粹的战斗模式让我重新点燃了那颗沉寂已久的战斗欲望，从去年九月份我开启了自己的成长之路，我没有什么过人天赋，真的就是一步一个脚印踏踏实实成长起来的，大家可以翻看我的历史战绩，从最初的C到现在的S每个赛季我都有突破，当然有人认为会认为我是堆场次堆出来的，可我目前两万多的排名这总是实打实的吧，而且我现在碰到历史上的S哥对手也不那么畏惧了，时不时的还能拿MVP，这给了我极大的信心，原来神也会流血的，不过这个赛季我打算暂时搁置转战完美了（毕竟要是掉下去上不来就尴尬了），完美目前段位A++，虽然我现在对自己很满意了，但如果能上个金S那就更好了，分享一下我自己的成长经验吧，首先就是枪法要硬，这个是必经之路，我个人就是在死斗中练枪成长起来的，我的角色是辅助位，在沙二这张地图中我不但精通各种道具位，我还通过自己跑图开发出了一些冷门道具，比如匪家开局扔中门火防警进b通和防前压非常好用，挂门烟也是几乎必中，我玩匪必给中门烟，玩警也是把把满道具，帮队友抢下a大反手一个小道烟防小道速提，有时候你只要创造出好的环境，队友就能发挥出超出一般的水平，这有助于提高自己的胜率，不要太看重kd，要保持功成不必在我的心态，还有要多总结经验，比如去b尽量贴白车，因为能早点报b通信息，队友早点拿到信息和晚点拿到信息回防速度是不一样的，手机没电了写不了那么多了，最后祝大家都能圆梦。<img src='https://file-arena.5eplay.com/forum/20260701/f12e5c3657aff0a89a98fbc817f4fe1c.jpg'></div></body><script>\n    let dark = '#323232';\n    let light = '#fff';\n    /** 0浅色 1深色 */\n    window.changeColor = type => {\n      document.querySelectorAll('.news-wrap, .news-wrap > *').forEach(item => {\n        if (type === 0) {\n          item.style.color = dark;\n          item.style.borderColor = dark;\n          return\n        }\n        item.style.color = light;\n        item.style.borderColor = light;\n      })\n    };\n\n    var disableShowImg = document.querySelectorAll('.insertTeam img, .insertPlayer img, .match_record img');\n    disableShowImg.forEach(function(img) {\n      img.classList.add('noPreview');\n    });\n    var n_d = document.getElementsByClassName('news-wrap')[0]; // news-wrap content    \n    n_d.addEventListener('click', function (e) {\n      var target = e.target || window.event.target; // ie8      \n        console.log(target); // webkit --ios      // imagelistener --an      // console.log(target);      \n      if (target.nodeName.toLowerCase() == 'a') {\n        e.stopPropagation && e.stopPropagation();\n        e.preventDefault && e.preventDefault();\n        var href = target.getAttribute('href');\n        console.log(href);\n        if (href == '' || href == 'javascript:;') return;\n        window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.route && window.webkit\n          .messageHandlers.route.postMessage(href);\n        window.imagelistener && window.imagelistener.link && window.imagelistener.link(href);\n      } else if (target.nodeName.toLowerCase() == 'img') {\n        /* 如果app版本不支持 articelPreviewImg方法 则不做任何处理 */\n        if (!Boolean((window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers\n            .articelPreviewImg) || (window.imagelistener && window.imagelistener.articelPreviewImg))) {\n          return\n        }\n        e.stopPropagation && e.stopPropagation();\n        e.preventDefault && e.preventDefault();\n        if (target.className.indexOf('noPreview') >= 0) {\n          return\n        }\n        var src = target.getAttribute('src');\n        var show_image = document.getElementsByTagName('img');\n        var show_image_arr = new Array();\n        for (var j = 0; j < show_image.length; j++) {\n          if(show_image[j].className.indexOf('noPreview') >= 0){\n            continue;\n          }\n          show_image_arr.push(show_image[j].src.replace(/\\?x-oss-process=image\\/format,jpg,image\\/quality,q_10$/, ''));\n        }\n        if (src == '' || src == 'javascript:;') return;\n        var articelPreviewData = {\n          imgSrc: src,\n          imgList: show_image_arr\n        }\n        console.log(articelPreviewData);\n        window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.articelPreviewImg && window\n          .webkit.messageHandlers.articelPreviewImg.postMessage(articelPreviewData);\n        window.imagelistener && window.imagelistener.articelPreviewImg && window.imagelistener.articelPreviewImg(JSON\n          .stringify(articelPreviewData));\n      }\n    });\n  </script></html>",
+      "content_render": "h5",
+      "attachment": [
+        {
+          "id": 994415,
+          "type": "0",
+          "file": "https://file-arena.5eplay.com/forum/20260701/f12e5c3657aff0a89a98fbc817f4fe1c.jpg"
+        }
+      ],
+      "images": [
+        "https://file-arena.5eplay.com/forum/20260701/f12e5c3657aff0a89a98fbc817f4fe1c.jpg"
+      ],
+      "act_info": {
+        "image": "https://oss.5eplay.com/images/act/forum_topic_act.png",
+        "jump_link": "fiveeplay://5eplay.com/web/content?alias=https%3A%2F%2Fcsgo.5eplay.com%2Fforum%2Fpost_act&hideNavi=1&isWhite=true",
+        "act_status": 0
+      },
+      "share_data": {
+        "share_url": "https://csgo.5eplay.com/forum/share/1050838",
+        "share_title": "太激动了，40岁老登单排沙二圆梦S",
+        "share_text": "我生活中没什么朋友，只好把这份喜悦分享给每一个热爱cs的玩家，作为87年的老登，上一次接触FPS游戏还是在20岁的时候玩的穿越火线，后来穿越火线推出火麒麟我就不玩了，去年四月份无意中接触到了这个游戏，",
+        "share_image": "https://file-arena.5eplay.com/forum/20260701/f12e5c3657aff0a89a98fbc817f4fe1c.jpg"
+      },
+      "source": 1,
+      "display_comment_status": 0,
+      "is_user_like": 0,
+      "is_user_favorite": 0,
+      "follow_status": 0,
+      "icon_data": [],
+      "tag_data": "",
+      "obj_sn": "post@1050838",
+      "video_data": {},
+      "hits": "16.6w",
+      "intro_text": "我生活中没什么朋友，只好把这份喜悦分享给每一个热爱cs的玩家，作为87年的老登，上一次接触FPS游戏还是在20岁的时候玩的穿越火线，后来穿越火线推出火麒麟我就不玩了，去年四月份无意中接触到了这个游戏，纯粹的战斗模式让我重新点燃了那颗沉寂已久的战斗欲望，从去年九月份我开启了自己的成长之路，我没有什么过人天赋，真的就是一步一个脚印踏踏实实成长起来的，大家可以翻看我的历史战绩，从最初的C到现在的S每个赛季我都有突破，当然有人认为会认为我是堆场次堆出来的，可我目前两万多的排名这总是实打实的吧，而且我现在碰到历史上的S哥对手也不那么畏惧了，时不时的还能拿MVP，这给了我极大的信心，原来神也会流血的，不过这个赛季我打算暂时搁置转战完美了（毕竟要是掉下去上不来就尴尬了），完美目前段位A++，虽然我现在对自己很满意了，但如果能上个金S那就更好了，分享一下我自己的成长经验吧，首先就是枪法要硬，这个是必经之路，我个人就是在死斗中练枪成长起来的，我的角色是辅助位，在沙二这张地图中我不但精通各种道具位，我还通过自己跑图开发出了一些冷门道具，比如匪家开局扔中门火防警进b通和防前压非常好用，挂门烟也是几乎必中，我玩匪必给中门烟，玩警也是把把满道具，帮队友抢下a大反手一个小道烟防小道速提，有时候你只要创造出好的环境，队友就能发挥出超出一般的水平，这有助于提高自己的胜率，不要太看重kd，要保持功成不必在我的心态，还有要多总结经验，比如去b尽量贴白车，因为能早点报b通信息，队友早点拿到信息和晚点拿到信息回防速度是不一样的，手机没电了写不了那么多了，最后祝大家都能圆梦。<img src='https://file-arena.5eplay.com/forum/20260701/f12e5c3657aff0a89a98fbc817f4fe1c.jpg'>",
+      "forward": "9",
+      "topic_favorites": "1",
+      "at_data": [],
+      "topic_data": [],
+      "comment_auth_status": "0",
+      "view_auth_status": "0",
+      "forum_content_extend_info": null,
+      "user": {
+        "icon_name": "等级",
+        "level_url": "https://oss.5eplay.com/cloudx/p/app5e/user/ugrowth_level_v2_3.png"
+      },
+      "img_urls": [],
+      "user_avatar_frame_data": {},
+      "splayer_item": {},
+      "group_info": {
+        "status": "0",
+        "group_icon": "https://oss.5eplay.com/images/forum/10dd42e0671b99110639276a7848b25d.png",
+        "group_name": "CS",
+        "group_category": "0",
+        "gid": "9",
+        "link_url": "fiveeplay://5eplay.com/community/subzone?title=CS&id=9&categoryId=0"
+      }
+    },
+    "comments": {
+      "total": 134,
+      "list": [
+        {
+          "pid": "4152141",
+          "likes": 0,
+          "is_del": "0",
+          "content": "恭喜老哥圆梦S，希望我也有一天能这么强<end>",
+          "attachments": "",
+          "dateline": "1782852489",
+          "time": "2026-07-01 04:48",
+          "user_data": {
+            "username": "15岁平凡少年和月",
+            "domain": "he__yue",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/40/76/407656c857261a401072a0a06f1c3246.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 1,
+          "children": [
+            {
+              "pid": "4152141",
+              "rid": "1406267",
+              "content": "多练习多总结我相信你也能上。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782857240",
+              "time": "2026-07-01 06:07",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "15岁平凡少年和月",
+                "domain": "he__yue"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152254",
+          "likes": 0,
+          "is_del": "0",
+          "content": "NB<end>",
+          "attachments": "",
+          "dateline": "1782883705",
+          "time": "2026-07-01 13:28",
+          "user_data": {
+            "username": "爱尔兰纯情大野马",
+            "domain": "0329muvym87m",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/a9/27/a927311156ebe1998b5694b51372b884.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 2,
+          "children": [
+            {
+              "pid": "4152254",
+              "rid": "1406312",
+              "content": "感谢兄弟捧场，加油加油加油！<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782883987",
+              "time": "2026-07-01 13:33",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "爱尔兰纯情大野马",
+                "domain": "0329muvym87m"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152264",
+          "likes": 0,
+          "is_del": "0",
+          "content": "40！真牛逼这个<end>",
+          "attachments": "",
+          "dateline": "1782886213",
+          "time": "2026-07-01 14:10",
+          "user_data": {
+            "username": "JJJJcsgo",
+            "domain": "0701pe8xebmh",
+            "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 3,
+          "children": [
+            {
+              "pid": "4152264",
+              "rid": "1406390",
+              "content": "给我激动坏了，登神之阶我来了。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782905592",
+              "time": "2026-07-01 19:33",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "JJJJcsgo",
+                "domain": "0701pe8xebmh"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152272",
+          "likes": 0,
+          "is_del": "0",
+          "content": "nb<end>",
+          "attachments": "",
+          "dateline": "1782887286",
+          "time": "2026-07-01 14:28",
+          "user_data": {
+            "username": "丰川祥子-Nagasaki",
+            "domain": "05308ydus75g",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/d6/47/d647e9662b57172ccfae56ad2fc39f47.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 4,
+          "children": [
+            {
+              "pid": "4152272",
+              "rid": "1406407",
+              "content": "在一声声称赞中逐渐迷失了自己。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782906881",
+              "time": "2026-07-01 19:54",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "丰川祥子-Nagasaki",
+                "domain": "05308ydus75g"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152273",
+          "likes": 0,
+          "is_del": "0",
+          "content": "正是闯的年纪<end>",
+          "attachments": "",
+          "dateline": "1782887352",
+          "time": "2026-07-01 14:29",
+          "user_data": {
+            "username": "下包不按E",
+            "domain": "0104fd8y8ke9",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/28/a4/28a44a04d2af68f46383ba7cdf75dc71.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 5,
+          "children": [
+            {
+              "pid": "4152273",
+              "rid": "1406398",
+              "content": "老夫聊发少年狂，哈哈哈。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782906111",
+              "time": "2026-07-01 19:41",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "下包不按E",
+                "domain": "0104fd8y8ke9"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152278",
+          "likes": 0,
+          "is_del": "0",
+          "content": "哇，NBNB大佬<end>",
+          "attachments": "",
+          "dateline": "1782887770",
+          "time": "2026-07-01 14:36",
+          "user_data": {
+            "username": "困困的的",
+            "domain": "0723ugn9paon",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/9f/68/9f685af28b5b7128d9dcc86baa4a712a.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 6,
+          "children": [
+            {
+              "pid": "4152278",
+              "rid": "1406405",
+              "content": "加油！你也可以的！<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782906518",
+              "time": "2026-07-01 19:48",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "困困的的",
+                "domain": "0723ugn9paon"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152292",
+          "likes": 0,
+          "is_del": "0",
+          "content": "恭喜恭喜！<end>",
+          "attachments": "",
+          "dateline": "1782890300",
+          "time": "2026-07-01 15:18",
+          "user_data": {
+            "username": "星奈薄荷",
+            "domain": "7311099kuziaf",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/df/a1/dfa14bab9c51632ecc989510223fc56d.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 7,
+          "children": [
+            {
+              "pid": "4152292",
+              "rid": "1406406",
+              "content": "久旱逢甘霖，他乡遇故知，洞房花烛夜，金榜提名S，哈哈哈。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782906624",
+              "time": "2026-07-01 19:50",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "星奈薄荷",
+                "domain": "7311099kuziaf"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152312",
+          "likes": 0,
+          "is_del": "0",
+          "content": "兄弟NB！给老资历跪了！<end>",
+          "attachments": "",
+          "dateline": "1782894055",
+          "time": "2026-07-01 16:20",
+          "user_data": {
+            "username": "nekoCS2",
+            "domain": "07050ecabrd8",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/9d/78/9d78638ef4f6781b39b29d0bb7cf3a32.jpg",
+            "title_url": "",
+            "is_vip": 1,
+            "vip_level": "6",
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 8,
+          "children": [
+            {
+              "pid": "4152312",
+              "rid": "1406387",
+              "content": "今天是我人生中最开心的一天了，看到大家对我的祝贺我也十分感动，在现实中我是个无人在意的loser，不过在游戏中我依然宝刀未老，感谢csgo让我又重新证明了我自己一次。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782905292",
+              "time": "2026-07-01 19:28",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "nekoCS2",
+                "domain": "07050ecabrd8"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152315",
+          "likes": 0,
+          "is_del": "0",
+          "content": "接 接<end>",
+          "attachments": "",
+          "dateline": "1782894326",
+          "time": "2026-07-01 16:25",
+          "user_data": {
+            "username": "JKAI0303",
+            "domain": "jkai0303",
+            "avatar_url": "https://oss-arena.5eplay.com/images/award/9e5b55bede4583b4714747f837a66914.png",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 9,
+          "children": [
+            {
+              "pid": "4152315",
+              "rid": "1406399",
+              "content": "加油加油加油！<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782906172",
+              "time": "2026-07-01 19:42",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "JKAI0303",
+                "domain": "jkai0303"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152316",
+          "likes": 0,
+          "is_del": "0",
+          "content": "哥问你一下你打的是绿色吗，开绝对单排吗，感觉这些强度不一样呢<end>",
+          "attachments": "",
+          "dateline": "1782894459",
+          "time": "2026-07-01 16:27",
+          "user_data": {
+            "username": "F1erc3",
+            "domain": "f1erc3",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/79/0e/790ef21582946230e4906b3b7d7a22f6.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 10,
+          "children": [
+            {
+              "pid": "4152316",
+              "rid": "1406386",
+              "content": "我开的绝对单排，我不允许自己的段位有一丝的水分，你可以看我今天的第一把语音，有队友建议我在抖音找个大哥带到S被我拒绝了。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782905051",
+              "time": "2026-07-01 19:24",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "F1erc3",
+                "domain": "f1erc3"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152329",
+          "likes": 0,
+          "is_del": "0",
+          "content": "给老资历跪下了orz<end>",
+          "attachments": "",
+          "dateline": "1782895704",
+          "time": "2026-07-01 16:48",
+          "user_data": {
+            "username": "奈昕のSaKura",
+            "domain": "16783615jasbd0",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/a1/76/a176ab5786ae587a50af54ef733236be.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 11,
+          "children": [
+            {
+              "pid": "4152329",
+              "rid": "1406392",
+              "content": "惭愧惭愧，感谢兄弟的祝贺，祝你身体健康生活愉快，哈哈哈。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782905651",
+              "time": "2026-07-01 19:34",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "奈昕のSaKura",
+                "domain": "16783615jasbd0"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152332",
+          "likes": 0,
+          "is_del": "0",
+          "content": "牛啊哥<***>https://file-arena.5eplay.com/memes/20260605/19b8e908f6e3f5c8565d7b85c3a991e1.gif<img><***><end>",
+          "attachments": "",
+          "dateline": "1782896486",
+          "time": "2026-07-01 17:01",
+          "user_data": {
+            "username": "德痕",
+            "domain": "1206pqzzdmjf",
+            "avatar_url": "https://oss-arena.5eplay.com/images/award/33b948c482c870ac0ab0b18a728c3afc.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": [
+            "https://file-arena.5eplay.com/memes/20260605/19b8e908f6e3f5c8565d7b85c3a991e1.gif"
+          ],
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 12,
+          "children": [
+            {
+              "pid": "4152332",
+              "rid": "1406400",
+              "content": "仰天大笑出门去，我辈岂是蓬蒿人。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782906205",
+              "time": "2026-07-01 19:43",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "德痕",
+                "domain": "1206pqzzdmjf"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152333",
+          "likes": 0,
+          "is_del": "0",
+          "content": "恭喜老哥了<end>",
+          "attachments": "",
+          "dateline": "1782896614",
+          "time": "2026-07-01 17:03",
+          "user_data": {
+            "username": "AkKamAn-9",
+            "domain": "0916sj8haaxm",
+            "avatar_url": "https://oss-arena.5eplay.com/prop/images/dc/02/dc02a979bed30659d6e8e05ddc0e67a8.png",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 13,
+          "children": [
+            {
+              "pid": "4152333",
+              "rid": "1406396",
+              "content": "老骥伏枥志在千里，烈士暮年，壮心不已。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782906065",
+              "time": "2026-07-01 19:41",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "AkKamAn-9",
+                "domain": "0916sj8haaxm"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152347",
+          "likes": 0,
+          "is_del": "0",
+          "content": "阿这<end>",
+          "attachments": "",
+          "dateline": "1782898349",
+          "time": "2026-07-01 17:32",
+          "user_data": {
+            "username": "卖白菜的猫-",
+            "domain": "17578491dsuig",
+            "avatar_url": "https://oss-arena.5eplay.com/avatar/20190517/a3288490095ab3d3fb15307fda21b89c.jpeg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 14,
+          "children": null
+        },
+        {
+          "pid": "4152348",
+          "likes": 0,
+          "is_del": "0",
+          "content": "恭喜恭喜 兄弟<end>",
+          "attachments": "",
+          "dateline": "1782898386",
+          "time": "2026-07-01 17:33",
+          "user_data": {
+            "username": "Ros4_",
+            "domain": "dros4",
+            "avatar_url": "https://oss-arena.5eplay.com/disguise/images/03/ad/03adc17ecd7bbd7920b26abd269ab1d9.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "5"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 15,
+          "children": [
+            {
+              "pid": "4152348",
+              "rid": "1406395",
+              "content": "感谢来自远方的祝贺，我现在回评论都开心的合不拢嘴。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782905944",
+              "time": "2026-07-01 19:39",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "Ros4_",
+                "domain": "dros4"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152363",
+          "likes": 0,
+          "is_del": "0",
+          "content": "恭喜恭喜<end>",
+          "attachments": "",
+          "dateline": "1782900964",
+          "time": "2026-07-01 18:16",
+          "user_data": {
+            "username": "阿瓢",
+            "domain": "968899ws1o4r",
+            "avatar_url": "https://oss-arena.5eplay.com/avatar/20221112/049b209b640b979d0aa81ae1f48757bd.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 16,
+          "children": [
+            {
+              "pid": "4152363",
+              "rid": "1406394",
+              "content": "春风得意马蹄疾，一日看尽长安花，哈哈哈。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782905859",
+              "time": "2026-07-01 19:37",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "阿瓢",
+                "domain": "968899ws1o4r"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152404",
+          "likes": 0,
+          "is_del": "0",
+          "content": "去完美纯纯坐牢了 打的很不舒服的<end>",
+          "attachments": "",
+          "dateline": "1782905003",
+          "time": "2026-07-01 19:23",
+          "user_data": {
+            "username": "卖白菜的猫-",
+            "domain": "17578491dsuig",
+            "avatar_url": "https://oss-arena.5eplay.com/avatar/20190517/a3288490095ab3d3fb15307fda21b89c.jpeg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 17,
+          "children": [
+            {
+              "pid": "4152404",
+              "rid": "1406393",
+              "content": "我被完美b+一脚踢死了，看了Demo纯纯的透视，不过我今天太开心了，我很清楚自己的实力，所以我不怎么生气，就我的初步判断完美挂要比5e多，不过我现在保赛季段位只能玩完美，下个赛季我还会回来的。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782905819",
+              "time": "2026-07-01 19:36",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "卖白菜的猫-",
+                "domain": "17578491dsuig"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1406402",
+              "content": "完美低分段挂是最多的 要是感觉对面抓背身很奇怪的都多少沾点<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782906385",
+              "time": "2026-07-01 19:46",
+              "user_data": {
+                "username": "卖白菜的猫-",
+                "domain": "17578491dsuig",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/20190517/a3288490095ab3d3fb15307fda21b89c.jpeg",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1406403",
+              "content": "5e接着打也还行吧你rt还有1.1呢怕什么 一般到了0.几rt才是真上不去了<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782906451",
+              "time": "2026-07-01 19:47",
+              "user_data": {
+                "username": "卖白菜的猫-",
+                "domain": "17578491dsuig",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/20190517/a3288490095ab3d3fb15307fda21b89c.jpeg",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1406996",
+              "content": "差不多5e s就是完美b-b+水平<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1783054728",
+              "time": "2026-07-03 12:58",
+              "user_data": {
+                "username": "享受育苗",
+                "domain": "aacha_25cpnh",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1406998",
+              "content": "闹呢，我现在完美a+了，我觉得和5e强度差不多，我倒是感觉完美的金s水分很大，在5e偶尔碰到十多颗星的s选手基本上都会被一脚踢死，在5e和上个赛季的金s打的有来有回。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1783056902",
+              "time": "2026-07-03 13:35",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "享受育苗",
+                "domain": "aacha_25cpnh"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1406999",
+              "content": "说错了，在完美和金谁对手打的有来有回。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1783056961",
+              "time": "2026-07-03 13:36",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "享受育苗",
+                "domain": "aacha_25cpnh"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1407000",
+              "content": "我双s 你多打打就知道了5e水分太大s不如完美b+<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1783057011",
+              "time": "2026-07-03 13:36",
+              "user_data": {
+                "username": "享受育苗",
+                "domain": "aacha_25cpnh",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1407002",
+              "content": "好的，我多打打体验一下。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1783057749",
+              "time": "2026-07-03 13:49",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "享受育苗",
+                "domain": "aacha_25cpnh"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1407030",
+              "content": "你听他放屁！但是在金a➕差不多<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1783077215",
+              "time": "2026-07-03 19:13",
+              "user_data": {
+                "username": "Ado丨",
+                "domain": "27490882i5rbdk",
+                "title_url": "",
+                "avatar_url": "https://static.5eplay.com/images/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1407031",
+              "content": "那你在完美不就是c？z'<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1783077278",
+              "time": "2026-07-03 19:14",
+              "user_data": {
+                "username": "Ado丨",
+                "domain": "27490882i5rbdk",
+                "title_url": "",
+                "avatar_url": "https://static.5eplay.com/images/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "享受育苗",
+                "domain": "aacha_25cpnh"
+              },
+              "source": "1"
+            },
+            {
+              "pid": "4152404",
+              "rid": "1407033",
+              "content": "但是完美外挂很多，平台匹配机制也会搞你，所以上相同段位需要更强的实力<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1783077430",
+              "time": "2026-07-03 19:17",
+              "user_data": {
+                "username": "Ado丨",
+                "domain": "27490882i5rbdk",
+                "title_url": "",
+                "avatar_url": "https://static.5eplay.com/images/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152407",
+          "likes": 0,
+          "is_del": "0",
+          "content": "我去，恭喜<end>",
+          "attachments": "",
+          "dateline": "1782905254",
+          "time": "2026-07-01 19:27",
+          "user_data": {
+            "username": "sky無知",
+            "domain": "0925gprrgyul",
+            "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 18,
+          "children": [
+            {
+              "pid": "4152407",
+              "rid": "1406389",
+              "content": "今天太开心了，内心的激动无以言表感谢cs玩家的祝福，感谢cs玩家的陪伴。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782905394",
+              "time": "2026-07-01 19:29",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "sky無知",
+                "domain": "0925gprrgyul"
+              },
+              "source": "1"
+            }
+          ]
+        },
+        {
+          "pid": "4152426",
+          "likes": 0,
+          "is_del": "0",
+          "content": "恭喜<end>",
+          "attachments": "",
+          "dateline": "1782907997",
+          "time": "2026-07-01 20:13",
+          "user_data": {
+            "username": "比我菜别怪我压力",
+            "domain": "0319yxdfivmk",
+            "avatar_url": "https://oss-arena.5eplay.com/images/award/f8f5b1f7c38e04db29e843466c9b7f89.jpg",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 19,
+          "children": null
+        },
+        {
+          "pid": "4152431",
+          "likes": 0,
+          "is_del": "0",
+          "content": "恭喜老哥圆梦S，希望我也有一天能上S<end>",
+          "attachments": "",
+          "dateline": "1782908152",
+          "time": "2026-07-01 20:15",
+          "user_data": {
+            "username": "用户0516rvnCBAFK",
+            "domain": "0516rvncbafk",
+            "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+            "title_url": "",
+            "is_vip": 0,
+            "vip_level": 0,
+            "advanced_identity_status": "0"
+          },
+          "team_data": null,
+          "team_id": "0",
+          "images": null,
+          "is_likes": 0,
+          "parent_user_data": null,
+          "source": "1",
+          "likes_count": 0,
+          "is_user_like": 0,
+          "floor": 20,
+          "children": [
+            {
+              "pid": "4152431",
+              "rid": "1406411",
+              "content": "慢慢来，我40岁都能上，说明反应不是问题，你一定也可以的。<end>",
+              "images": null,
+              "likes": 0,
+              "dateline": "1782908704",
+              "time": "2026-07-01 20:25",
+              "user_data": {
+                "username": "心事说给小猫听",
+                "domain": "041330hu0exs",
+                "title_url": "",
+                "avatar_url": "https://oss-arena.5eplay.com/avatar/default_1.png",
+                "is_vip": 0,
+                "vip_level": 0,
+                "advanced_identity_status": 0
+              },
+              "parent_user_data": {
+                "username": "用户0516rvnCBAFK",
+                "domain": "0516rvncbafk"
+              },
+              "source": "1"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_data": null,
+    "is_attention": 0,
+    "adv_feed": []
+  }
+}

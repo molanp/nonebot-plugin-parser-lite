@@ -3,16 +3,33 @@ from nonebot import get_driver, get_plugin_config
 import nonebot_plugin_localstore as _store
 from pydantic import BaseModel
 
-from .constants import BiliVideoCodecs, BiliVideoQuality, PlatformEnum
+from .constants import PlatformEnum
+from .utils.bilibili.video import BiliVideoCodecs, BiliVideoQuality
+
+
+def parse_hm_to_minutes(value: str) -> int:
+    """将 h:m 或 hh:mm 解析为从 0 点起的分钟数"""
+    text = value.strip()
+    parts = text.split(":")
+    if len(parts) != 2:
+        raise ValueError(f"时间格式错误，应为 h:m，收到: {value!r}")
+    try:
+        hour = int(parts[0])
+        minute = int(parts[1])
+    except ValueError as e:
+        raise ValueError(f"时间格式错误，应为 h:m，收到: {value!r}") from e
+    if not (0 <= hour <= 23 and 0 <= minute <= 59):
+        raise ValueError(f"时间超出有效范围 (0:00-23:59)，收到: {value!r}")
+    return hour * 60 + minute
 
 
 class Config(BaseModel):
     plite_bili_ck: str | None = None
     """bilibili cookies"""
-    plite_xhs_ck: str | None = None
-    """小红书 cookies"""
-    plite_ks_ck: str | None = None
-    """快手 cookies(无需登录态)"""
+    plite_zhihu_ck: str | None = None
+    """知乎 cookies"""
+    plite_linuxdo_ck: str | None = None
+    """linuxdo cookies"""
     plite_need_upload: bool = False
     """是否需要上传音视频文件（兼容旧配置）"""
     plite_need_upload_audio: bool = False
@@ -22,11 +39,13 @@ class Config(BaseModel):
     plite_use_base64: bool = False
     """是否使用 base64 编码发送图片，音频，视频"""
     plite_max_size: int = 90
-    """资源最大大小，默认 100 单位 MB"""
+    """资源最大大小，默认 90 单位 MB"""
     plite_duration_maximum: int = 480
     """视频/音频最大时长"""
     plite_append_url: bool = False
     """是否在解析结果中添加原始URL"""
+    plite_embed_url: bool = False
+    """是否在解析结果中添加嵌入式播放链接"""
     plite_append_qrcode: bool = False
     """是否在解析结果中添加原始URL二维码"""
     plite_disabled_platforms: list[PlatformEnum] = []
@@ -46,6 +65,8 @@ class Config(BaseModel):
     """是否需要合并转发内容(大于四项时始终转发)"""
     plite_lazy_download: bool = False
     """是否开启懒下载模式，仅在用户请求时才下载视频"""
+    plite_lazy_download_tip: bool = False
+    """懒下载是否发送命令提示"""
     plite_lazy_download_timeout: int = 30
     """懒下载模式等待命令超时时间"""
     plite_download_command: list[str] = ["xz", "下载"]
@@ -54,12 +75,16 @@ class Config(BaseModel):
     """浏览器程序路径，如果无法识别浏览器请填写此配置"""
     plite_live_photo: bool = True
     """是否使用 ffmpeg 转码 Live Photo"""
-    plite_headless: bool = False
+    plite_headless: bool = True
     """是否使用无头浏览器"""
     plite_max_comments: int = 5
     """最大评论数量"""
-    plite_forward_text_threshold: int = 300
-    """纯文本文本长度阈值，超过此长度的文本将会强制转发"""
+    plite_forward_text_threshold: int = 1000
+    """纯文本文本长度阈值，超过此长度的文本将会强制转发(最大4500)"""
+    plite_max_retries: int = 3
+    """最大下载重试次数"""
+    plite_day_range: list[str] = ["6:00", "19:00"]
+    """白天时间范围 [开始, 结束]，格式 h:m；范围内为浅色主题，范围外为夜间模式"""
 
     @property
     def nickname(self) -> str:
@@ -112,14 +137,14 @@ class Config(BaseModel):
         return self.plite_bili_ck
 
     @property
-    def xhs_ck(self) -> str | None:
-        """小红书 cookies"""
-        return self.plite_xhs_ck
+    def zhihu_ck(self) -> str | None:
+        """知乎 cookies"""
+        return self.plite_zhihu_ck
 
     @property
-    def ks_ck(self) -> str | None:
-        """快手 cookies"""
-        return self.plite_ks_ck
+    def linuxdo_ck(self) -> str | None:
+        """linuxdo cookies"""
+        return self.plite_linuxdo_ck
 
     @property
     def need_upload_audio(self) -> bool:
@@ -140,6 +165,11 @@ class Config(BaseModel):
     def append_url(self) -> bool:
         """是否在解析结果中添加原始URL"""
         return self.plite_append_url
+
+    @property
+    def embed_url(self) -> bool:
+        """是否在解析结果中添加嵌入式播放链接"""
+        return self.plite_embed_url
 
     @property
     def append_qrcode(self) -> bool:
@@ -165,6 +195,11 @@ class Config(BaseModel):
     def lazy_download(self) -> bool:
         """是否开启懒下载模式"""
         return self.plite_lazy_download
+
+    @property
+    def lazy_download_tip(self) -> bool:
+        """懒下载是否发送命令提示"""
+        return self.plite_lazy_download_tip
 
     @property
     def lazy_download_timeout(self) -> int:
@@ -195,6 +230,19 @@ class Config(BaseModel):
     def forward_text_threshold(self) -> int:
         """纯文本文本长度阈值，超过此长度的文本将会强制转发"""
         return self.plite_forward_text_threshold
+
+    @property
+    def max_retries(self) -> int:
+        """最大下载重试次数"""
+        return self.plite_max_retries
+
+    @property
+    def day_range_minutes(self) -> tuple[int, int]:
+        """白天时间范围，返回 (开始分钟, 结束分钟)"""
+        return (
+            parse_hm_to_minutes(self.plite_day_range[0]),
+            parse_hm_to_minutes(self.plite_day_range[1]),
+        )
 
 
 # 初始化配置实例

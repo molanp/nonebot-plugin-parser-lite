@@ -1,0 +1,88 @@
+{
+  "result": {
+    "feed": {
+      "id": "6a747089ed602c039ed03cd5",
+      "uid": "f286ea88872c4273a283cd9d8f3f7068",
+      "type": 3,
+      "content": "{\"type\":3,\"body\":{\"text\":\"今日蛋闻：主播提醒你领88电竞节福利啦！\\n• 想要限时蛋币？120枚都给你！8月8日登录先领60枚，8月9日-9日巅峰派对、逃出惊魂夜总冠军决出后再分别领30枚！\\n• 想要彩虹币？8月7日-9日每日20：00，彩虹币红包雨来袭，保底12枚，最高666枚彩虹币！\\n• 想要典藏外观？8月8日起，参与活动直接拿下典藏外观及幻想时装！\\n• 想要更多外观？参与活动攒抽奖券，8月8日起巅峰拍档外观、惊魂夜外观统统免费抽！\\n\\n同时，《蛋仔派对》第三届全国总决赛即将开赛！8月8日-9日14：00，锁定官方直播间，见证冠军实力登顶，更有未来版本爆料抢先看！\\n#蛋仔派对# #蛋仔电竞节# #蛋仔派对全国总决赛#\",\"media\":[{\"name\":\"电竞节蛋闻联播v4.mp4\",\"url\":\"https://vod.cc.163.com/file/6a746f2c8896cbf7d0f2aaca.mp4?client_type=ios&protocol=https\",\"text\":\"【电竞节】8月8日福利来袭！\",\"mimeType\":\"video/mp4\",\"size\":69117023,\"duration\":45350,\"width\":1920,\"height\":1080,\"videoWidth\":1920,\"videoHeight\":1080,\"cover\":\"https://ok.166.net/reunionpub/1_kol_20260806_85d13a6035452ecce975d5e57293753b\",\"coverStyle\":{\"style\":0.0,\"width\":1920.0,\"height\":1080.0},\"previewVideoUrl\":\"http://api.cc.163.com/v1/vodapi/preview/82115d4021072187f76a493d6008e80a.mp4\",\"ldPreview\":false,\"watermark\":true,\"videoCheckToken\":0,\"mediaId\":\"6a746f2c8896cbf7d0f2aaca\",\"sourceMediaId\":\"6a746f2c8896cbf7d0f2aaca\"}],\"mediaId\":\"6a746f2c8896cbf7d0f2aaca\"}}",
+      "deleteTime": 0,
+      "createTime": 1786015881235,
+      "updateTime": 1786015881235,
+      "clientType": 152,
+      "tagList": ["60054d66d5456877d2268a7e"],
+      "attributeInfoList": [],
+      "topicInfoList": [
+        {
+          "topicName": "蛋仔派对",
+          "type": "DEFAULT"
+        },
+        {
+          "topicName": "蛋仔电竞节",
+          "type": "DEFAULT"
+        },
+        {
+          "topicName": "蛋仔派对全国总决赛",
+          "type": "DEFAULT"
+        }
+      ],
+      "pendant": {},
+      "interactOption": {
+        "comment": "DEFAULT",
+        "repost": "DEFAULT",
+        "handpick": false,
+        "contentStatementOption": "DEFAULT"
+      },
+      "displayIpInfo": {
+        "ipLocationName": "浙江"
+      },
+      "record": {
+        "id": "6a747089ed602c039ed03cd5",
+        "repostCount": 1,
+        "commentCount": 38,
+        "likeCount": 5178,
+        "shareCount": 0,
+        "favCount": 9,
+        "createTime": 1786015937294
+      }
+    },
+    "userInfos": [
+      {
+        "user": {
+          "uid": "f286ea88872c4273a283cd9d8f3f7068",
+          "nick": "蛋仔派对",
+          "icon": "https://ok.166.net/reunionpub/3_20260729_19fa97c33ad712538.jpeg",
+          "intro": "咔咔~欢迎各位光临蛋仔岛！(*╹▽╹*)",
+          "gender": 1,
+          "identityAuthenticInfo": "《蛋仔派对》官方号",
+          "identityType": "1",
+          "followerLevel": 1,
+          "deleteTime": 0,
+          "createTime": 1639474576165,
+          "updateTime": 1785254918509
+        },
+        "record": {
+          "uid": "f286ea88872c4273a283cd9d8f3f7068",
+          "feedCount": 5416,
+          "followerCount": 659281,
+          "followingCount": 2,
+          "squareCount": 1,
+          "likeCount": 842372,
+          "lastPostIpLocation": "浙江"
+        }
+      }
+    ],
+    "tdk": {
+      "title": "电竞节】8月8日福利来袭！_蛋仔派对 | 大神",
+      "desc": "今日蛋闻：主播提醒你领88电竞节福利啦！• 想要限时蛋币？120枚都给你！8月8日登录先领60枚，8月9日-9日巅峰派对、逃出惊魂夜总冠军决出后再分别领30枚！• 想要彩虹币",
+      "keywords": ""
+    },
+    "squareBasicInfo": {
+      "squareId": "60054a7dd5456877d226706e",
+      "icon": "https://img.166.net/reunionpub/100_20260515_19e29a8892b606375.png",
+      "name": "蛋仔派对",
+      "tag": "60054d66d5456877d2268a7e"
+    }
+  },
+  "code": 200,
+  "errmsg": "OK"
+}

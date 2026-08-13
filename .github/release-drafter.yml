@@ -1,0 +1,76 @@
+template: $CHANGES
+name-template: "$RESOLVED_VERSION"
+tag-template: "$RESOLVED_VERSION"
+exclude-labels:
+  - reverted
+  - no-changelog
+  - skip-changelog
+  - invalid
+autolabeler:
+  - label: "bug"
+    title:
+      - "/:bug:.+/"
+      - "/🐛.+/"
+  - label: "enhancement"
+    title:
+      - "/:sparkles:.+/"
+      - "/✨.+/"
+  - label: "ci"
+    files:
+      - .github/**/*
+  - label: "breaking-change"
+    title:
+      - "/.+!:.+/"
+  - label: "documentation"
+    files:
+      - "*.md"
+      - api_txt/**/*
+  - label: "dependencies"
+    files:
+      - "requirements.txt"
+    title:
+      - "/:wrench:.+/"
+      - "/🔧.+/"
+  - label: "resources"
+    files:
+      - src/nonebot_plugin_parser_lite/render/templates/**/*
+categories:
+  - title: 💥 破坏性变更
+    labels:
+      - breaking-change
+  - title: 🚀 新功能
+    labels:
+      - enhancement
+  - title: 🐛 Bug 修复
+    labels:
+      - bug
+  - title: 📝 文档更新
+    labels:
+      - documentation
+  - title: 👻 自动化程序
+    labels:
+      - chore
+      - internal
+      - maintenance
+  - title: 🚦 测试
+    labels:
+      - test
+      - tests
+  - title: 📦 依赖更新
+    labels:
+      - dependencies
+    collapse-after: 15
+  - title: 💫 杂项
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+version-resolver:
+  major:
+    labels:
+      - "major"
+  minor:
+    labels:
+      - "minor"
+  patch:
+    labels:
+      - "patch"
+  default: patch

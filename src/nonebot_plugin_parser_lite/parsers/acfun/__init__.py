@@ -14,7 +14,6 @@ from .video import decoder
 
 
 class AcfunParser(BaseParser):
-    # 平台信息
     platform: ClassVar[Platform] = Platform(
         name=PlatformEnum.ACFUN, display_name="ACFUN"
     )
@@ -64,7 +63,7 @@ class AcfunParser(BaseParser):
         response.raise_for_status()
         raw = response.text
 
-        matched = re.search(r"window\.videoInfo =(.*?)</script>", raw)
+        matched = re.search(r"window\.videoInfo\s*=(.*?)</script>", raw)
         if not matched:
             raise ParseException("解析 acfun 视频信息失败")
 

@@ -1,0 +1,639 @@
+{
+  "code": 0,
+  "message": "success",
+  "result": {
+    "activity": {
+      "head_bg_url": "",
+      "id": 0,
+      "title": ""
+    },
+    "actors": "劳埃德·福杰：江口拓也\n阿尼亚·福杰：种崎敦美\n约尔·福杰：早见沙织\n邦德·福杰：松田健一郎\n弗兰克·富兰克林：吉野裕行\n西尔维亚·舍伍德：甲斐田裕子\n菲奥娜·弗洛斯特：佐仓绫音",
+    "alias": "",
+    "areas": [
+      {
+        "id": 2,
+        "name": "日本"
+      }
+    ],
+    "bkg_cover": "",
+    "cover": "https://i0.hdslb.com/bfs/bangumi/image/92da93b86cca3c48cd91adb5ec87cf1513920feb.png",
+    "delivery_fragment_video": false,
+    "enable_vt": false,
+    "episodes": [],
+    "evaluate": "每个人都有不可告人的一面。\n\n这是一个世界各国均暗地里进行激烈情报战的时代。奥斯塔尼亚（Ostania）与维斯达利斯（Westalis）的冷战状态已经持续数十年。\n\n\u003C黄昏\u003E是维斯达利斯情报局奥斯塔尼亚对策科\u003CWISE\u003E的一名优秀间谍。为调查威胁两国和平的人物——奥斯塔尼亚国家统一党总裁多诺万·德斯蒙，上级给予了他一个绝密任务。\n\n任务名为：\u003C枭（Strix）\u003E行动。\n\n内容是“一周之内组建家庭，潜入德斯蒙儿子就读的名门学校的联谊会”。\n\n于是\u003C黄昏\u003E扮演成精神科医生劳埃德·福杰，开始组建家庭。\n然而，他找来的女儿阿尼亚是个能读心的超能力者，妻子约尔是个杀手！\n三人利害关系一致，便互相隐瞒身份，开始了共同生活。\n世界的和平，就掌握在这意外不断的临时一家人手中。",
+    "freya": {
+      "bubble_show_cnt": 0,
+      "icon_show": 0
+    },
+    "hide_ep_vv_vt_dm": 1,
+    "icon_font": {
+      "name": "playdata-square-line@500",
+      "text": "1248.4万"
+    },
+    "jp_title": "",
+    "link": "bilibili://pgc/media/27709925",
+    "media_id": 27709925,
+    "mode": 2,
+    "new_ep": {
+      "desc": "连载中",
+      "id": 0,
+      "is_new": 0,
+      "title": ""
+    },
+    "payment": {
+      "discount": 100,
+      "pay_type": {
+        "allow_discount": 0,
+        "allow_pack": 0,
+        "allow_ticket": 0,
+        "allow_time_limit": 0,
+        "allow_vip_discount": 0,
+        "forbid_bb": 0
+      },
+      "price": "0.0",
+      "promotion": "",
+      "tip": "大会员专享观看特权哦~",
+      "view_start_time": 0,
+      "vip_discount": 100,
+      "vip_first_promotion": "",
+      "vip_price": "0",
+      "vip_promotion": "成为大会员抢先看"
+    },
+    "play_strategy": {
+      "strategies": [
+        "common_section-formal_first_ep",
+        "common_section-common_section",
+        "common_section-next_season",
+        "formal-finish-next_season",
+        "formal-end-other_section",
+        "formal-end-next_season",
+        "ord"
+      ]
+    },
+    "positive": {
+      "id": 223106,
+      "title": "正片"
+    },
+    "publish": {
+      "is_finish": 0,
+      "is_started": 1,
+      "pub_time": "2026-01-31 23:59:00",
+      "pub_time_show": "敬请期待",
+      "unknow_pub_date": 1,
+      "weekday": 0
+    },
+    "record": "",
+    "rights": {
+      "allow_bp": 0,
+      "allow_bp_rank": 0,
+      "allow_download": 0,
+      "allow_review": 0,
+      "area_limit": 328,
+      "ban_area_show": 1,
+      "can_watch": 1,
+      "copyright": "bilibili",
+      "forbid_pre": 0,
+      "freya_white": 0,
+      "is_cover_show": 0,
+      "is_preview": 1,
+      "is_sponsor": 0,
+      "only_vip_download": 1,
+      "resource": "",
+      "watch_platform": 0
+    },
+    "season_id": 112827,
+    "season_title": "间谍过家家 第三季",
+    "seasons": [
+      {
+        "badge": "大会员",
+        "badge_info": {
+          "bg_color": "#FB7299",
+          "bg_color_night": "#D44E7D",
+          "text": "大会员"
+        },
+        "badge_type": 0,
+        "cover": "http://i0.hdslb.com/bfs/bangumi/image/f50a08cc1562f2c1e933b656c00db3fcafd110e9.png",
+        "enable_vt": false,
+        "horizontal_cover_1610": "http://i0.hdslb.com/bfs/bangumi/image/9f4c54037441f5c011b0ff36756bcafba437dc70.png",
+        "horizontal_cover_169": "http://i0.hdslb.com/bfs/bangumi/image/3be37c401cc7598b204184919a85424357af01a1.png",
+        "icon_font": {
+          "name": "playdata-square-line@500",
+          "text": "8.9亿"
+        },
+        "media_id": 28237119,
+        "new_ep": {
+          "cover": "http://i0.hdslb.com/bfs/archive/9dad909d42cc0fa9240fa65e90199f8b95ff5f19.jpg",
+          "id": 718242,
+          "index_show": "全25话"
+        },
+        "season_id": 41410,
+        "season_title": "第一季",
+        "season_type": 1,
+        "stat": {
+          "favorites": 12957261,
+          "series_follow": 14086452,
+          "views": 885915840,
+          "vt": 0
+        }
+      },
+      {
+        "badge": "大会员",
+        "badge_info": {
+          "bg_color": "#FB7299",
+          "bg_color_night": "#D44E7D",
+          "text": "大会员"
+        },
+        "badge_type": 0,
+        "cover": "https://i0.hdslb.com/bfs/bangumi/image/a524567f86ec21368731f6dc283f66bd1bd0af92.png",
+        "enable_vt": false,
+        "horizontal_cover_1610": "https://i0.hdslb.com/bfs/bangumi/image/cc4021702fc164a5b5bb6693d1f204165864ba38.png",
+        "horizontal_cover_169": "https://i0.hdslb.com/bfs/bangumi/image/565688e597cc68d3adde83a12ed5a8751a2e0efd.png",
+        "icon_font": {
+          "name": "playdata-square-line@500",
+          "text": "2亿"
+        },
+        "media_id": 21086686,
+        "new_ep": {
+          "cover": "http://i0.hdslb.com/bfs/archive/3baaa44c01d238185cbef1988692ec44d5b8bfc7.png",
+          "id": 810670,
+          "index_show": "全12话"
+        },
+        "season_id": 46085,
+        "season_title": "第二季",
+        "season_type": 1,
+        "stat": {
+          "favorites": 12598633,
+          "series_follow": 14086452,
+          "views": 197846905,
+          "vt": 0
+        }
+      },
+      {
+        "badge": "大会员",
+        "badge_info": {
+          "bg_color": "#FB7299",
+          "bg_color_night": "#D44E7D",
+          "text": "大会员"
+        },
+        "badge_type": 0,
+        "cover": "https://i0.hdslb.com/bfs/bangumi/image/92da93b86cca3c48cd91adb5ec87cf1513920feb.png",
+        "enable_vt": false,
+        "horizontal_cover_1610": "https://i0.hdslb.com/bfs/bangumi/image/1c8c01dcfc1b336dd13203ac9cb03d3ed2d1506f.png",
+        "horizontal_cover_169": "https://i0.hdslb.com/bfs/bangumi/image/0b9e292c07024b1d2089e76f456c677cd802c847.png",
+        "icon_font": {
+          "name": "playdata-square-line@500",
+          "text": "1248.4万"
+        },
+        "media_id": 27709925,
+        "new_ep": {
+          "cover": "",
+          "id": 0,
+          "index_show": ""
+        },
+        "season_id": 112827,
+        "season_title": "第三季",
+        "season_type": 1,
+        "stat": {
+          "favorites": 13650525,
+          "series_follow": 14086452,
+          "views": 12484074,
+          "vt": 0
+        }
+      },
+      {
+        "badge": "大会员",
+        "badge_info": {
+          "bg_color": "#FB7299",
+          "bg_color_night": "#D44E7D",
+          "text": "大会员"
+        },
+        "badge_type": 0,
+        "cover": "http://i0.hdslb.com/bfs/bangumi/image/63bbcd872b765f2d76fbc353193bb09f59ed48a1.png",
+        "enable_vt": false,
+        "horizontal_cover_1610": "http://i0.hdslb.com/bfs/bangumi/image/a17e99f6b0f25ff0dc8e4c5eefa494b528ac071b.png",
+        "horizontal_cover_169": "http://i0.hdslb.com/bfs/bangumi/image/e97a5393341cb19ba528ebffb1a426a3ed3bc72a.png",
+        "icon_font": {
+          "name": "playdata-square-line@500",
+          "text": "2991.4万"
+        },
+        "media_id": 28339619,
+        "new_ep": {
+          "cover": "http://i0.hdslb.com/bfs/archive/9b1c1e68705ccad836c46138aed6de7c98c291c6.png",
+          "id": 704005,
+          "index_show": "全25话"
+        },
+        "season_id": 43056,
+        "season_title": "第一季(粤配)",
+        "season_type": 1,
+        "stat": {
+          "favorites": 8862074,
+          "series_follow": 14086452,
+          "views": 29914389,
+          "vt": 0
+        }
+      },
+      {
+        "badge": "大会员",
+        "badge_info": {
+          "bg_color": "#FB7299",
+          "bg_color_night": "#D44E7D",
+          "text": "大会员"
+        },
+        "badge_type": 0,
+        "cover": "http://i0.hdslb.com/bfs/bangumi/image/b35f2f8e9a445e1b7d1db1e9053ea0f70bd35527.png",
+        "enable_vt": false,
+        "horizontal_cover_1610": "http://i0.hdslb.com/bfs/bangumi/image/e98c1500a71c962e95da2fdd8e0ff3504422ac27.png",
+        "horizontal_cover_169": "http://i0.hdslb.com/bfs/bangumi/image/a2dddce5d4dcae9748fdf7774e4a8ae35f084022.png",
+        "icon_font": {
+          "name": "playdata-square-line@500",
+          "text": "6434.3万"
+        },
+        "media_id": 28340196,
+        "new_ep": {
+          "cover": "http://i0.hdslb.com/bfs/archive/2fe1e92aa0f47cbe3bdec2b993ca120108530d0d.png",
+          "id": 736264,
+          "index_show": "全25话"
+        },
+        "season_id": 43622,
+        "season_title": "第一季(中配)",
+        "season_type": 1,
+        "stat": {
+          "favorites": 9399181,
+          "series_follow": 14086452,
+          "views": 64342646,
+          "vt": 0
+        }
+      },
+      {
+        "badge": "大会员",
+        "badge_info": {
+          "bg_color": "#FB7299",
+          "bg_color_night": "#D44E7D",
+          "text": "大会员"
+        },
+        "badge_type": 0,
+        "cover": "https://i0.hdslb.com/bfs/bangumi/image/db3f15b8e5a9eb21890447745ce1c8215a985d52.png",
+        "enable_vt": false,
+        "horizontal_cover_1610": "https://i0.hdslb.com/bfs/bangumi/image/1ccd52f851699c78907a379a07db58fd4b5c4b63.png",
+        "horizontal_cover_169": "https://i0.hdslb.com/bfs/bangumi/image/c911273aff8f5ee02d55b640605618895df82e2f.png",
+        "icon_font": {
+          "name": "playdata-square-line@500",
+          "text": "1730.8万"
+        },
+        "media_id": 21618488,
+        "new_ep": {
+          "cover": "http://i0.hdslb.com/bfs/archive/a8db808e3ea1754c4ad0edd78f8811503f11f968.png",
+          "id": 822878,
+          "index_show": "全12话"
+        },
+        "season_id": 47794,
+        "season_title": "第二季(中配)",
+        "season_type": 1,
+        "stat": {
+          "favorites": 9501374,
+          "series_follow": 14086452,
+          "views": 17307765,
+          "vt": 0
+        }
+      },
+      {
+        "badge": "大会员",
+        "badge_info": {
+          "bg_color": "#FB7299",
+          "bg_color_night": "#D44E7D",
+          "text": "大会员"
+        },
+        "badge_type": 0,
+        "cover": "https://i0.hdslb.com/bfs/bangumi/image/295c0441df86fb8ce6627db92edbc9e7bb453de0.png",
+        "enable_vt": false,
+        "horizontal_cover_1610": "https://i0.hdslb.com/bfs/bangumi/image/edd8a95156ca73f2ce4bc611b51ec0ccb90520ef.png",
+        "horizontal_cover_169": "https://i0.hdslb.com/bfs/bangumi/image/ad73da24dd410f2b0bff437454727a86b4ce5b85.png",
+        "icon_font": {
+          "name": "playdata-square-line@500",
+          "text": "1834.7万"
+        },
+        "media_id": 21219259,
+        "new_ep": {
+          "cover": "http://i0.hdslb.com/bfs/archive/17599c289f9cf7c9e950a63197aa8050429b7a4f.png",
+          "id": 1426639,
+          "index_show": "2024年4月30日上映"
+        },
+        "season_id": 47468,
+        "season_title": "剧场版（代号：白）",
+        "season_type": 2,
+        "stat": {
+          "favorites": 419973,
+          "series_follow": 14086452,
+          "views": 18346589,
+          "vt": 0
+        }
+      }
+    ],
+    "section": [
+      {
+        "attr": 0,
+        "episode_id": 0,
+        "episode_ids": [],
+        "episodes": [
+          {
+            "aid": 115344031158150,
+            "badge": "",
+            "badge_info": {
+              "bg_color": "#FB7299",
+              "bg_color_night": "#D44E7D",
+              "text": ""
+            },
+            "badge_type": 0,
+            "bvid": "BV192xCzcEBX",
+            "cid": 32945144896,
+            "cover": "http://i0.hdslb.com/bfs/archive/513e81817792ff3541d7315a0a510ef180c440cf.png",
+            "dimension": {
+              "height": 1080,
+              "rotate": 0,
+              "width": 1920
+            },
+            "duration": 82000,
+            "enable_vt": false,
+            "ep_id": 2243599,
+            "from": "bangumi",
+            "icon_font": {
+              "name": "playdata-square-line@500",
+              "text": "977.4万"
+            },
+            "id": 2243599,
+            "is_view_hide": false,
+            "link": "https://www.bilibili.com/bangumi/play/ep2243599",
+            "long_title": "bilibili引进！敬请期待~",
+            "pub_time": 1763114400,
+            "pv": 0,
+            "release_date": "",
+            "rights": {
+              "allow_dm": 1,
+              "allow_download": 0,
+              "area_limit": 0,
+              "cache_auth": 0
+            },
+            "section_type": 2,
+            "share_copy": "《间谍过家家 第三季》正式PV bilibili引进！敬请期待~",
+            "share_url": "https://www.bilibili.com/bangumi/play/ep2243599",
+            "short_link": "https://b23.tv/ep2243599",
+            "showDrmLoginDialog": false,
+            "show_title": "正式PV bilibili引进！敬请期待~",
+            "stat": {
+              "coin": 7713,
+              "danmakus": 1141,
+              "likes": 40981,
+              "play": 9774068,
+              "reply": 5451,
+              "vt": 0
+            },
+            "stat_for_unity": {
+              "coin": 7713,
+              "danmaku": {
+                "icon": "danmu-square-line@500",
+                "pure_text": "",
+                "text": "1141",
+                "value": 1141
+              },
+              "likes": 40981,
+              "reply": 5451,
+              "vt": {
+                "icon": "playdata-square-line@500",
+                "pure_text": "977.4万播放",
+                "text": "977.4万",
+                "value": 9774068
+              }
+            },
+            "status": 2,
+            "subtitle": "已观看1248.4万次",
+            "title": "正式PV",
+            "vid": ""
+          },
+          {
+            "aid": 115344031088969,
+            "badge": "",
+            "badge_info": {
+              "bg_color": "#FB7299",
+              "bg_color_night": "#D44E7D",
+              "text": ""
+            },
+            "badge_type": 0,
+            "bvid": "BV1e2xCzcEoF",
+            "cid": 32945082358,
+            "cover": "http://i0.hdslb.com/bfs/archive/d55c9a78017e47fa6c9a973b00ae72768164d8ba.png",
+            "dimension": {
+              "height": 1080,
+              "rotate": 0,
+              "width": 1920
+            },
+            "duration": 43000,
+            "enable_vt": false,
+            "ep_id": 2243598,
+            "from": "bangumi",
+            "icon_font": {
+              "name": "playdata-square-line@500",
+              "text": "160.4万"
+            },
+            "id": 2243598,
+            "is_view_hide": false,
+            "link": "https://www.bilibili.com/bangumi/play/ep2243598",
+            "long_title": "",
+            "pub_time": 1763114400,
+            "pv": 0,
+            "release_date": "",
+            "rights": {
+              "allow_dm": 1,
+              "allow_download": 0,
+              "area_limit": 0,
+              "cache_auth": 0
+            },
+            "section_type": 2,
+            "share_copy": "《间谍过家家 第三季》角色PV：劳埃德 ",
+            "share_url": "https://www.bilibili.com/bangumi/play/ep2243598",
+            "short_link": "https://b23.tv/ep2243598",
+            "showDrmLoginDialog": false,
+            "show_title": "角色PV：劳埃德",
+            "stat": {
+              "coin": 1054,
+              "danmakus": 187,
+              "likes": 9804,
+              "play": 1603966,
+              "reply": 1121,
+              "vt": 0
+            },
+            "stat_for_unity": {
+              "coin": 1054,
+              "danmaku": {
+                "icon": "danmu-square-line@500",
+                "pure_text": "",
+                "text": "187",
+                "value": 187
+              },
+              "likes": 9804,
+              "reply": 1121,
+              "vt": {
+                "icon": "playdata-square-line@500",
+                "pure_text": "160.4万播放",
+                "text": "160.4万",
+                "value": 1603966
+              }
+            },
+            "status": 2,
+            "subtitle": "已观看1248.4万次",
+            "title": "角色PV：劳埃德",
+            "vid": ""
+          },
+          {
+            "aid": 115344031091833,
+            "badge": "",
+            "badge_info": {
+              "bg_color": "#FB7299",
+              "bg_color_night": "#D44E7D",
+              "text": ""
+            },
+            "badge_type": 0,
+            "bvid": "BV1Y2xCzcEo9",
+            "cid": 32945144840,
+            "cover": "http://i0.hdslb.com/bfs/archive/1bbbbc33f01248cb857dc998295f563c0d44add3.png",
+            "dimension": {
+              "height": 1080,
+              "rotate": 0,
+              "width": 1920
+            },
+            "duration": 51000,
+            "enable_vt": false,
+            "ep_id": 2243597,
+            "from": "bangumi",
+            "icon_font": {
+              "name": "playdata-square-line@500",
+              "text": "110.6万"
+            },
+            "id": 2243597,
+            "is_view_hide": false,
+            "link": "https://www.bilibili.com/bangumi/play/ep2243597",
+            "long_title": "",
+            "pub_time": 1763114400,
+            "pv": 0,
+            "release_date": "",
+            "rights": {
+              "allow_dm": 1,
+              "allow_download": 0,
+              "area_limit": 0,
+              "cache_auth": 0
+            },
+            "section_type": 2,
+            "share_copy": "《间谍过家家 第三季》先导PV ",
+            "share_url": "https://www.bilibili.com/bangumi/play/ep2243597",
+            "short_link": "https://b23.tv/ep2243597",
+            "showDrmLoginDialog": false,
+            "show_title": "先导PV",
+            "stat": {
+              "coin": 1239,
+              "danmakus": 281,
+              "likes": 10607,
+              "play": 1106050,
+              "reply": 1427,
+              "vt": 0
+            },
+            "stat_for_unity": {
+              "coin": 1239,
+              "danmaku": {
+                "icon": "danmu-square-line@500",
+                "pure_text": "",
+                "text": "281",
+                "value": 281
+              },
+              "likes": 10607,
+              "reply": 1427,
+              "vt": {
+                "icon": "playdata-square-line@500",
+                "pure_text": "110.6万播放",
+                "text": "110.6万",
+                "value": 1106050
+              }
+            },
+            "status": 2,
+            "subtitle": "已观看1248.4万次",
+            "title": "先导PV",
+            "vid": ""
+          }
+        ],
+        "id": 253427,
+        "title": "PV",
+        "type": 2,
+        "type2": 0
+      }
+    ],
+    "series": {
+      "display_type": 0,
+      "series_id": 6012,
+      "series_title": "间谍过家家"
+    },
+    "share_copy": "《间谍过家家 第三季》世界和平还得靠我！",
+    "share_sub_title": "世界和平还得靠我！",
+    "share_url": "https://www.bilibili.com/bangumi/play/ss112827",
+    "show": {
+      "wide_screen": 0
+    },
+    "show_season_type": 1,
+    "square_cover": "https://i0.hdslb.com/bfs/bangumi/image/6367232290d677fbc39438a34fa0740954365681.png",
+    "staff": "原作：远藤达哉 连载于集英社《少年JUMP+》\n导演：今井友纪子\n剧本统筹：山崎莉乃\n角色设计、总作画导演：岛田和晃\n美术设计：竹内柚纪（kusanagi）、杉本智美（Unstable）\n美术导演：臼井南\n色彩设计：原恭子\nCG导演：渡边启太\n摄影导演：佐久间悠也\n副摄影导演：伊藤幸子\n剪辑：小口理菜\n音响导演：秦昌二\n音响效果：出云范子\n音乐：(K)NoW_NAME:Makoto Miyazaki\n制作：WIT STUDIO×CloverWorks",
+    "stat": {
+      "coins": 10006,
+      "danmakus": 1609,
+      "favorite": 13253,
+      "favorites": 13650525,
+      "follow_text": "1408.6万系列追番",
+      "likes": 61392,
+      "reply": 7999,
+      "share": 6060,
+      "views": 12484074,
+      "vt": 0
+    },
+    "status": 13,
+    "styles": [
+      "漫画改",
+      "日常",
+      "搞笑"
+    ],
+    "subtitle": "已观看1248.4万次",
+    "title": "间谍过家家 第三季",
+    "total": 13,
+    "type": 1,
+    "up_info": {
+      "avatar": "https://i1.hdslb.com/bfs/face/040528a1ec634b9907ba3a9ba957819bb07def06.jpg",
+      "avatar_subscript_url": "",
+      "follower": 8953149,
+      "is_follow": 0,
+      "mid": 928123,
+      "nickname_color": "#FB7299",
+      "pendant": {
+        "image": "",
+        "name": "",
+        "pid": 0
+      },
+      "theme_type": 0,
+      "uname": "哔哩哔哩番剧",
+      "verify_type": 3,
+      "vip_label": {
+        "bg_color": "#FB7299",
+        "bg_style": 1,
+        "border_color": "",
+        "text": "十年大会员",
+        "text_color": "#FFFFFF"
+      },
+      "vip_status": 1,
+      "vip_type": 2
+    },
+    "user_status": {
+      "area_limit": 0,
+      "ban_area_show": 0,
+      "follow": 0,
+      "follow_status": 0,
+      "login": 0,
+      "pay": 0,
+      "pay_pack_paid": 0,
+      "sponsor": 0
+    }
+  }
+}

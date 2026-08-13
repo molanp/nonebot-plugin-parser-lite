@@ -1,0 +1,431 @@
+{
+  "id": "490753319",
+  "type": "topic",
+  "uri": "douban://douban.com/group/topic/490753319?_spm_id=MTYzNDAwNzEz",
+  "url": "https://www.douban.com/group/topic/490753319/?_spm_id=MTYzNDAwNzEz",
+  "title": "谨慎对待所有“走关系”获得的东西",
+  "create_time": "2026-06-14 10:48:29",
+  "cover_url": "https://img9.doubanio.com/view/group_topic/sqxs/public/p735760366.jpg",
+  "has_poll": false,
+  "is_ad": false,
+  "abstract": "先说结论：“走关系托人情”获得的机会，看起来占好处、走捷径、省力气...",
+  "anthologies": [],
+  "author": {
+    "avatar": "https://img9.doubanio.com/icon/up163400713-35.jpg",
+    "avatar_side_icon": "https://img9.doubanio.com/view/files/raw/file-1764744154.png",
+    "avatar_side_icon_id": "440",
+    "avatar_side_icon_type": 3,
+    "followed": false,
+    "gender": "F",
+    "id": "163400713",
+    "is_banned_forever": false,
+    "is_club": false,
+    "is_readonly_forever": false,
+    "kind": "user",
+    "loc": {
+      "id": "108288",
+      "name": "北京",
+      "uid": "beijing"
+    },
+    "name": "三文鱼穴居人",
+    "reg_time": "2017-07-06 08:12:08",
+    "type": "user",
+    "uid": "163400713",
+    "uri": "douban://douban.com/user/163400713",
+    "url": "https://www.douban.com/people/163400713/",
+    "is_manager": false
+  },
+  "can_add_image_comment": true,
+  "can_author_delete": false,
+  "can_comment_outside": false,
+  "can_relate_gallery_topic": false,
+  "can_transfer_accessible": false,
+  "can_transfer_reply_limit": false,
+  "comments_count": 9,
+  "content": "<div id='content'><p data-align=\"left\">先说结论：“走关系托人情”获得的机会，看起来占好处、走捷径、省力气、获得了别人得不到的，‼️最后到底是什么，是否适合自己，<strong style=\"font-weight: bold;\">是否让渡自身的权力（这点最重要…）</strong>，最后怎么收场，都很难说，都有代价。\n\n<strong style=\"font-weight: bold;\">姐妹们请</strong><strong style=\"font-weight: bold;\">务必靠自己，靠自已，靠自己！！</strong></p><p data-align=\"left\">一些血泪教训（别学俺）：</p><ol><li class=\"ordered-list-item\">初中，托关系塞进所谓“名师”的班级，三年都属于成绩拔尖也很乖的学生。但发现：名师的教学水平其实很普通（更看生源），倚仗名气，很猖狂地办课外班（明示暗示你去），出身过于贫苦所以教育理念很保守古板…大家都认为你去了好学校好班级，实则那三年自己过得非常压抑。但“托关系”进来，综合其他因素，对“名师”的抽象操作基本只能<strong style=\"font-weight: bold;\">接受和妥协</strong></li><li class=\"ordered-list-item\">毕业后找工作很艰难，犯懒不想靠自己继续找了，被介绍去远房亲戚的公司。看着还行，抱着侥幸心理进去，才发现牛鬼蛇神齐聚一堂，但因为“亲戚”身份，很多事只能<strong style=\"font-weight: bold;\">忍忍</strong><strong style=\"font-weight: bold;\">忍，</strong>特别是跳槽要走的时候，有的事也很尴尬。</li></ol><p data-align=\"left\">反观靠自己考进高中，靠自己跳槽，无论是好是坏，起码心安理得，也更喜欢这种状态。（还是感谢那些当年人情，但如果重来，那还是不了🫠🥹</p><p data-align=\"left\">\n🌏以上只是自己的解读，<strong style=\"font-weight: bold;\">对于自己的课题，不犯懒、不妥协、不逃避、不推诿、不外包给他人。一定一定靠自己，对自己负责！</strong></p></div>",
+  "edit_time": "2026-06-14 10:50:10",
+  "enable_photo_watermark": false,
+  "explanation_types": "",
+  "gallery_topic": null,
+  "gift_ranking_info": [
+    {
+      "ranking": null,
+      "title": "人气创作",
+      "url": "douban://douban.com/club/23225541#%E4%BA%BA%E6%B0%94%E5%88%9B%E4%BD%9C"
+    }
+  ],
+  "group": {
+    "admin_banner": ["banner_url", "uri"],
+    "alert": "",
+    "allow_binding_gallery_topic": true,
+    "allow_binding_video": true,
+    "allow_downvote_comment": false,
+    "allow_downvote_topic": false,
+    "allow_send_status": true,
+    "allow_topic_event": true,
+    "avatar": "https://img1.doubanio.com/view/group/sqxs/public/12aad4c193f3869.jpg",
+    "background_mask_color": "#e56b6b",
+    "can_create_topic_event": false,
+    "can_set_checkin_tab": false,
+    "can_set_collection_photos": false,
+    "can_set_safeguard_mode": false,
+    "can_use_group_quiz": true,
+    "category": {
+      "id": 843,
+      "title": "生活",
+      "uri": "douban://douban.com/group/category_groups?name=%E7%94%9F%E6%B4%BB"
+    },
+    "censor_message": "",
+    "club_id": "",
+    "comment_box_placeholder": "",
+    "create_time": "2023-10-16 12:26:30",
+    "desc": "我们是平凡女性（含低收入群体），我们也是互帮互助的姐妹会。希望本组能够帮助在生活中遇到困难的女性脱离贫困和信息茧房。本组将作为一个纯女性生存互助的交流平台。\n\n\n进组要求-新版：🈲男，账号6月以上，无其他组拒绝违禁记录（如果有可以私信管理员告知原因），主页管理员能看到的有动态，动态无辱女言论，正常个人号而非广告号\n🖍🖍🖍进组请认真阅读组规🖍🖍🖍进组暗号在组规里https://www.douban.com/group/topic/340933844/",
+    "domain": "P",
+    "elite_total": 247,
+    "enable_checkin": true,
+    "enable_feature_funding": true,
+    "enable_hot_search_board": true,
+    "enable_official_activity": false,
+    "enable_subscribe": true,
+    "feed_tags": [
+      {
+        "sortby": "new",
+        "title": "最新"
+      },
+      {
+        "sortby": "hot",
+        "title": "热门"
+      },
+      {
+        "sortby": "elite",
+        "title": "精华"
+      }
+    ],
+    "group_joining_quiz_id": null,
+    "group_joining_quiz_url": null,
+    "group_posting_quiz_id": null,
+    "group_posting_quiz_url": null,
+    "group_tabs": [
+      {
+        "type": "topic_tag",
+        "id": "139266",
+        "name": "经验分享",
+        "uri": "",
+        "seq": 1,
+        "landing": false,
+        "rule": {
+          "text": "资源共享站，信息布告栏，具体技能实操，强身健体，思想觉醒",
+          "links": []
+        }
+      },
+      {
+        "type": "topic_tag",
+        "id": "139533",
+        "name": "寻求建议",
+        "uri": "",
+        "seq": 2,
+        "landing": false,
+        "rule": {
+          "text": "工作/学习/实操生活技巧等方面遇到的困难请发布在该区。请将问题简述在标题。只是发泄情绪的内容请发布在树洞楼。",
+          "links": []
+        }
+      },
+      {
+        "type": "topic_tag",
+        "id": "140863",
+        "name": "女性燎原日常",
+        "uri": "",
+        "seq": 3,
+        "landing": false,
+        "rule": {
+          "text": "女性日常互助小事/职业打卡/学习打卡/大女人事例请发布在这里",
+          "links": []
+        }
+      },
+      {
+        "type": "topic_tag",
+        "id": "139265",
+        "name": "组务",
+        "uri": "",
+        "seq": 5,
+        "landing": false,
+        "rule": {
+          "text": "组规，举报楼，建议楼",
+          "links": []
+        }
+      }
+    ],
+    "hot_topic_count": 0,
+    "id": "740472",
+    "is_enable_reply_comment": false,
+    "is_new_owner": false,
+    "is_official": false,
+    "is_readonly": false,
+    "is_subject_group": false,
+    "is_subscribed": false,
+    "join_type": "R",
+    "joined_guide": {
+      "links": [],
+      "text": "欢迎加入平凡女性生存手册小组！恭喜你成为本组的大女人"
+    },
+    "joining_guide": {
+      "text": "欢迎你来平凡女性生存手册小组",
+      "links": []
+    },
+    "large_avatar": "https://img1.doubanio.com/view/group/medium/public/12aad4c193f3869.jpg",
+    "manager_name": "大女人 ",
+    "member_count": 52057,
+    "member_count_text": "52057",
+    "member_name": "大女人",
+    "member_role": 1000,
+    "name": "平凡女性生存手册",
+    "need_pop_rules": false,
+    "new_topic_event_template": true,
+    "other_feed_tags": [
+      {
+        "sortby": "new",
+        "title": "最新"
+      },
+      {
+        "sortby": "hot",
+        "title": "热门"
+      }
+    ],
+    "owner": {
+      "avatar": "https://img9.doubanio.com/icon/up192510900-4.jpg",
+      "followed": false,
+      "gender": "F",
+      "id": "192510900",
+      "is_banned_forever": false,
+      "is_club": false,
+      "is_readonly_forever": false,
+      "kind": "user",
+      "loc": {
+        "id": "118254",
+        "name": "武汉",
+        "uid": "wuhan"
+      },
+      "name": "撸啦撸啦",
+      "reg_time": "2019-02-27 16:44:39",
+      "type": "user",
+      "uid": "192510900",
+      "uri": "douban://douban.com/user/192510900",
+      "url": "https://www.douban.com/people/192510900/"
+    },
+    "owner_id": "192510900",
+    "post_guide": {
+      "text": "组员你好，发言前请先了解本组最新的发言规则",
+      "links": []
+    },
+    "post_limit_info": {
+      "post_limit": false
+    },
+    "preview_checkin_tab": false,
+    "preview_collection_photos": false,
+    "reject_status": null,
+    "rules_desc": "1 本组发言禁止非常见的缩写，首字母 2 本组禁止推广自媒体，课程，广告和交友群 3 本组不欢迎【不平凡】的言论 4 通常意义下违规贴/回复都算违规行为 5 请勿发布《社区指导原则》不允许的内容",
+    "safeguard_until": null,
+    "sharing_url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2F740472",
+    "show_checkin_tab": false,
+    "show_collection_photos": false,
+    "slogan": "姐姐妹妹站起来",
+    "subtitle": "最近更新: 入组抽奖",
+    "topic_count": 10324,
+    "topic_tags_normal": [
+      {
+        "id": "139266",
+        "name": "经验分享",
+        "short_name": "",
+        "type": "normal",
+        "subject_id": 0,
+        "is_hot": false,
+        "icon": "",
+        "n_topics": 2472,
+        "subject_type": "movie",
+        "rule": {
+          "text": "资源共享站，信息布告栏，具体技能实操，强身健体，思想觉醒",
+          "links": []
+        }
+      },
+      {
+        "id": "139533",
+        "name": "寻求建议",
+        "short_name": "",
+        "type": "normal",
+        "subject_id": 0,
+        "is_hot": false,
+        "icon": "",
+        "n_topics": 8795,
+        "subject_type": "movie",
+        "rule": {
+          "text": "工作/学习/实操生活技巧等方面遇到的困难请发布在该区。请将问题简述在标题。只是发泄情绪的内容请发布在树洞楼。",
+          "links": []
+        }
+      },
+      {
+        "id": "140863",
+        "name": "女性燎原日常",
+        "short_name": "",
+        "type": "normal",
+        "subject_id": 0,
+        "is_hot": false,
+        "icon": "",
+        "n_topics": 1236,
+        "subject_type": "movie",
+        "rule": {
+          "text": "女性日常互助小事/职业打卡/学习打卡/大女人事例请发布在这里",
+          "links": []
+        }
+      },
+      {
+        "id": "139265",
+        "name": "组务",
+        "short_name": "",
+        "type": "normal",
+        "subject_id": 0,
+        "is_hot": false,
+        "icon": "",
+        "n_topics": 36,
+        "subject_type": "movie",
+        "rule": {
+          "text": "组规，举报楼，建议楼",
+          "links": []
+        }
+      }
+    ],
+    "topics_list_hidden_reason": "",
+    "type": "group",
+    "uri": "douban://douban.com/group/740472",
+    "url": "https://www.douban.com/group/740472/"
+  },
+  "has_related_contents": false,
+  "image_layout": "horizontal",
+  "interest": null,
+  "interest_tags": [],
+  "is_admin_locked": false,
+  "is_douban_ad_author": false,
+  "is_elite": false,
+  "is_event": false,
+  "is_hidden_in_hobbit": false,
+  "is_locked": false,
+  "is_original": false,
+  "is_private": false,
+  "is_richtext": true,
+  "is_selected_in_hobbit": false,
+  "is_status_sent": true,
+  "label": "",
+  "locked": false,
+  "read_count": 0,
+  "recommended_search_keyword": null,
+  "related_search_keyword": null,
+  "reply_limit": "A",
+  "reshares_count": 45,
+  "sharing_url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F490753319&_spm_id=MTYzNDAwNzEz&_i=82064124",
+  "subject": null,
+  "subtype": "group",
+  "total_cnt_for_author": 0,
+  "update_time": "2026-06-20 17:22:51",
+  "video_info": null,
+  "like_count": 418,
+  "ip_location": "北京",
+  "screenshot_url": "douban://partial.douban.com/screenshot/group/topic/490753319/_content?_spm_id=MTYzNDAwNzEz",
+  "screenshot_type": "rexxar",
+  "screenshot_title": "生成海报",
+  "wechat_timeline_share": "url",
+  "topic_tags": [
+    {
+      "id": "139266",
+      "name": "经验分享",
+      "short_name": "",
+      "type": "normal",
+      "subject_id": 0,
+      "is_hot": false,
+      "icon": "",
+      "n_topics": 2472,
+      "subject_type": "movie"
+    }
+  ],
+  "is_enable_reply_comment": false,
+  "sub_topic_tags": [],
+  "kwcxubfid": "490753319",
+  "collections_count": 384,
+  "is_collected": false,
+  "reactions_count": 418,
+  "reaction_type": 0,
+  "gifts_count": 0,
+  "photos": [
+    {
+      "author_id": "163400713",
+      "creation_date": "2026-06-14 10:50:09",
+      "id": "735760366",
+      "image": {
+        "is_animated": false,
+        "is_live": false,
+        "large": {
+          "height": 490,
+          "size": 0,
+          "url": "https://img9.doubanio.com/view/group_topic/l/public/p735760366.jpg",
+          "width": 500
+        },
+        "normal": {
+          "height": 490,
+          "size": 0,
+          "url": "https://img9.doubanio.com/view/group_topic/l/public/p735760366.jpg",
+          "width": 500
+        },
+        "primary_color": "FEFEFE",
+        "raw": null
+      },
+      "layout": "C",
+      "seq_id": "5",
+      "size": {
+        "height": 490,
+        "width": 500
+      },
+      "title": "",
+      "topic_id": "490753319"
+    },
+    {
+      "author_id": "163400713",
+      "creation_date": "2026-06-14 10:50:09",
+      "id": "735760365",
+      "image": {
+        "is_animated": false,
+        "is_live": false,
+        "large": {
+          "height": 504,
+          "size": 0,
+          "url": "https://img9.doubanio.com/view/group_topic/l/public/p735760365.jpg",
+          "width": 500
+        },
+        "normal": {
+          "height": 504,
+          "size": 0,
+          "url": "https://img9.doubanio.com/view/group_topic/l/public/p735760365.jpg",
+          "width": 500
+        },
+        "primary_color": "FEFEFE",
+        "raw": null
+      },
+      "layout": "C",
+      "seq_id": "6",
+      "size": {
+        "height": 504,
+        "width": 500
+      },
+      "title": "",
+      "topic_id": "490753319"
+    }
+  ],
+  "gadget_beanshop": {
+    "context": "{\"object_kind\":1000,\"object_id\":\"163400713\",\"object_title\":\"三文鱼穴居人\",\"source_title\":\"小组讨论 谨慎对待所...\",\"source_url\":\"douban:\\/\\/douban.com\\/group\\/topic\\/490753319?_spm_id=MTYzNDAwNzEz\",\"source_type\":9,\"source_id\":\"490753319\"}",
+    "id": 4,
+    "is_default": false,
+    "title": "送礼物给",
+    "uri": "douban.internal://douban.com/beanshop/4?context=%7B%22object_kind%22%3A1000%2C%22object_id%22%3A%22163400713%22%2C%22object_title%22%3A%22%E4%B8%89%E6%96%87%E9%B1%BC%E7%A9%B4%E5%B1%85%E4%BA%BA%22%2C%22source_title%22%3A%22%E5%B0%8F%E7%BB%84%E8%AE%A8%E8%AE%BA+%E8%B0%A8%E6%85%8E%E5%AF%B9%E5%BE%85%E6%89%80...%22%2C%22source_url%22%3A%22douban%3A%5C%2F%5C%2Fdouban.com%5C%2Fgroup%5C%2Ftopic%5C%2F490753319%3F_spm_id%3DMTYzNDAwNzEz%22%2C%22source_type%22%3A9%2C%22source_id%22%3A%22490753319%22%7D&isTransparent=true"
+  },
+  "ad_filter_type": 0,
+  "ad_info": null,
+  "can_show_ad": true,
+  "is_report_stock": true
+}

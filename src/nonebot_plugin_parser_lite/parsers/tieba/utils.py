@@ -3,11 +3,11 @@ from pathlib import Path
 
 from google.protobuf import descriptor_pb2, descriptor_pool
 from google.protobuf.message_factory import GetMessageClass
-from httpx import AsyncClient
 
 from ...constants import STICKER_CDN
 from ...creator import Creator
-from ...data import Comment, MediaContent
+from ...data import Comment, ContentItem
+from ...download import DOWNLOADER
 from .models import (
     Contents,
     FragAt,
@@ -20,8 +20,6 @@ from .models import (
     Posts,
 )
 
-_CLIENT = AsyncClient()
-
 
 @lru_cache(maxsize=2)
 def get_message(name: str):
@@ -33,10 +31,6 @@ def get_message(name: str):
 
     msg_descriptor = pool.FindMessageTypeByName(name)
     return GetMessageClass(msg_descriptor)
-
-
-async def close_client() -> None:
-    await _CLIENT.aclose()
 
 
 def make_req(tid: int) -> bytes:
@@ -74,7 +68,7 @@ async def pack_req(data: bytes) -> bytes:
     )
 
     # 设置 Content-Type，带上固定 boundary
-    response = await _CLIENT.post(
+    response = await DOWNLOADER.client.post(
         "http://tiebac.baidu.com/c/f/pb/page",
         headers={
             "x_bd_data_type": "protobuf",
@@ -106,7 +100,7 @@ async def get_post(tid: int) -> Posts:
     return parse_res(data)
 
 
-def build_content(posts: Posts) -> list[MediaContent | str]:
+def build_content(posts: Posts) -> list[ContentItem]:
     """
     构建帖子内容
 
@@ -114,7 +108,7 @@ def build_content(posts: Posts) -> list[MediaContent | str]:
 
     :return: 富文本内容列表
     """
-    contents: list[MediaContent | str] = [posts.thread.title]
+    contents: list[ContentItem] = [posts.thread.title]
 
     # 提取帖子正文
     for part in posts.objs[0].contents.objs:
@@ -131,7 +125,7 @@ def build_content(posts: Posts) -> list[MediaContent | str]:
         elif isinstance(part, FragImage):
             contents.append(
                 Creator.graphic(
-                    image_url=part.origin_src,
+                    url=part.origin_src,
                     ext_headers={"Referer": "https://tieba.baidu.com/"},
                 )
             )
@@ -166,13 +160,13 @@ def build_content(posts: Posts) -> list[MediaContent | str]:
     return contents
 
 
-def build_comment(contents: Contents) -> list[MediaContent | str]:
+def build_comment(contents: Contents) -> list[ContentItem]:
     """
     构建帖子评论内容
 
     :param contents: 内容碎片列表
     """
-    content: list[MediaContent | str] = []
+    content: list[ContentItem] = []
     for part in contents.objs:
         if isinstance(part, FragText):
             content.append(part.text)

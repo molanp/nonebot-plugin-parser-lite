@@ -8,7 +8,7 @@ from msgspec import Struct, field
 
 from ...constants import STICKER_CDN
 from ...creator import Creator
-from ...data import MediaContent
+from ...data import ContentItem
 from ...utils.format import replace_placeholder_to_sticker
 
 HEYBOX_PATTERN = re.compile(r"\[(?P<name>[^]]+)\]")
@@ -18,6 +18,10 @@ def size_resolver(name: str) -> Literal["small", "medium"]:
     return "medium" if "bigemoji" in name else "small"
 
 
+class Battery(Struct):
+    count: int | None = None
+
+
 class User(Struct):
     avatar: str
     username: str
@@ -25,7 +29,13 @@ class User(Struct):
 
     @property
     def avatar_url(self) -> str:
-        return self.avatar + "\\" if "?" in self.avatar else self.avatar
+        return (
+            self.avatar + "\\"
+            if "?" in self.avatar
+            and not self.avatar.endswith(">")
+            and not self.avatar.endswith("%3E")
+            else self.avatar
+        )
 
 
 class Img(Struct):
@@ -46,7 +56,7 @@ class CommentItem(Struct):
     imgs: list[Img] = field(default_factory=list)
 
     @property
-    def content(self) -> list[MediaContent | str]:
+    def content(self) -> list[ContentItem]:
         content = replace_placeholder_to_sticker(
             self.text, HEYBOX_PATTERN, "heybox", size_resolver
         )
@@ -90,13 +100,14 @@ class Link(Struct):
     forward_num: int
     """转发数"""
     user: User
+    battery: Battery
     video_url: str | None = None
     video_thumb: str | None = None
 
     @property
-    def content(self) -> list[MediaContent | str]:
+    def content(self) -> list[ContentItem]:
         """格式化的富文本内容"""
-        content: list[MediaContent | str] = []
+        content: list[ContentItem] = []
         try:
             parts = json.loads(self.text)
             for part in parts:
@@ -111,7 +122,14 @@ class Link(Struct):
                         )
                     )
                 elif part["type"] == "img":
-                    content.append(Creator.image(url=part["url"] + "\\"))
+                    if live_url := part.get("live_url"):
+                        content.append(
+                            Creator.live_photo(
+                                video_url=live_url, image_url=part["url"] + "\\"
+                            )
+                        )
+                    else:
+                        content.append(Creator.image(url=part["url"] + "\\"))
         except (json.JSONDecodeError, TypeError):
             content.append(self.text)
         if self.has_video and self.video_url and self.video_thumb:
@@ -126,38 +144,33 @@ class BaseResult(Struct):
     link: Link
 
 
-def extract_from_html(html: str) -> list[MediaContent | str]:
+def extract_from_html(html: str) -> list[ContentItem]:
     """
     从 HTML 内容中按顺序提取纯文本和图片
 
     :param html: 包含知乎内容的 HTML 字符串。
-    :return: 由纯文本字符串和 MediaContent 对象组成的列表
+    :return: 由纯文本字符串和 ContentItem 对象组成的列表
     """
 
-    soup = BeautifulSoup(html.replace(r"\"", '"'), "html.parser")
+    soup = BeautifulSoup(html, "html.parser")
 
     # 忽略 <noscript> 中的内容，避免重复或无效的占位文本干扰顺序
     for noscript in soup.find_all("noscript"):
         noscript.decompose()
 
-    result: list[MediaContent | str] = []
+    result: list[ContentItem] = []
 
     for element in soup.descendants:
         # 处理图片标签
         if isinstance(element, Tag) and element.name == "img":
-            attrs: dict[str, str] = {
-                str(k): str(v[0] if isinstance(v, list) and v else v)
-                for k, v in (element.attrs or {}).items()
-                if v is not None
-            }
             if src := (
-                attrs.get("data-original")
-                or attrs.get("data-actualsrc")
-                or attrs.get("data-default-watermark-src")
+                element.get("data-original")
+                or element.get("data-actualsrc")
+                or element.get("data-default-watermark-src")
             ):
                 result.append(
                     Creator.image(
-                        url=src,
+                        url=str(src),
                     )
                 )
         # 处理纯文本节点

@@ -1,0 +1,308 @@
+{
+  "retcode": 0,
+  "message": "OK",
+  "data": {
+    "post": {
+      "post": {
+        "game_id": 8,
+        "post_id": "76005456",
+        "f_forum_id": 57,
+        "uid": "93233570",
+        "subject": "【搬运/心臓弱眞君】今日更新587简/希希芙/普罗米娅/艾莲",
+        "content": "{\"describe\":\"🏄‍♀️🦈\\n每晚在米游社同步更新作者动态\\n已获得作者允许，原作者：心臓弱眞君， xinzoruo\\n上回书说到：\\n\",\"imgs\":[\"https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/c0aa7ffd0b5c4bfc046f98f91fd80513_4414949387549562794.jpg\",\"https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/e33cb688a2cc8515675521c4cbc157a6_2161778630585155714.jpg\",\"https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/f1e082477747db507779e586fbb8708d_1464335819622892638.jpg\"],\"link_card_ids\":[\"2066122699340345344\"]}",
+        "cover": "https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/c0aa7ffd0b5c4bfc046f98f91fd80513_4414949387549562794.jpg",
+        "view_type": 2,
+        "created_at": 1781437027,
+        "images": [
+          "https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/c0aa7ffd0b5c4bfc046f98f91fd80513_4414949387549562794.jpg",
+          "https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/e33cb688a2cc8515675521c4cbc157a6_2161778630585155714.jpg",
+          "https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/f1e082477747db507779e586fbb8708d_1464335819622892638.jpg"
+        ],
+        "post_status": {
+          "is_top": false,
+          "is_good": false,
+          "is_official": false,
+          "post_status": 0
+        },
+        "topic_ids": [1660, 1869, 2328, 2363],
+        "view_status": 1,
+        "max_floor": 11,
+        "is_original": 0,
+        "republish_authorization": 0,
+        "reply_time": "2026-06-15 22:35:27",
+        "is_deleted": 0,
+        "is_interactive": false,
+        "structured_content": "[{\"insert\":\"🏄‍♀️🦈\\n每晚在米游社同步更新作者动态\\n已获得作者允许，原作者：心臓弱眞君， xinzoruo\\n上回书说到：\\n\"}]",
+        "structured_content_rows": [],
+        "review_id": 0,
+        "is_profit": false,
+        "is_in_profit": false,
+        "updated_at": 1781534127,
+        "deleted_at": 0,
+        "pre_pub_status": 0,
+        "cate_id": 0,
+        "profit_post_status": -2,
+        "audit_status": 0,
+        "meta_content": "",
+        "is_missing": false,
+        "block_reply_img": 1,
+        "is_showing_missing": false,
+        "block_latest_reply_time": 0,
+        "selected_comment": 2,
+        "is_mentor": false,
+        "post_extra": {
+          "ugc_master_post_extra": {
+            "game_uid": "0",
+            "game_region": ""
+          },
+          "minos_aigc_info": {
+            "is_aigc": false
+          }
+        },
+        "ai_content_type": "AI_CONTENT_TYPE_NOT_AI",
+        "user_ai_content_choice": "USER_AI_CONTENT_CHOICE_NOT_AI",
+        "aigc_meta": {
+          "PropagateID": "cG9zdDo3NjAwNTQ1Ng==",
+          "AIGCLabel": "0",
+          "ContentPropagator": "001191310104MA1FRNHC9420000"
+        }
+      },
+      "forum": {
+        "id": 57,
+        "name": "咖啡馆",
+        "icon": "https://upload-bbs.mihoyo.com/upload/2022/05/07/191821d85a10c635c4fc95e779af1daf.png",
+        "game_id": 8,
+        "forum_cate": null
+      },
+      "topics": [
+        {
+          "id": 1660,
+          "name": "艾莲",
+          "cover": "https://bbs-static.miyoushe.com/static/2023/11/17/6c452f0bb1192dc401e8b219b5d9ed7b_8409459827970413296.jpg",
+          "is_top": false,
+          "is_good": false,
+          "is_interactive": false,
+          "game_id": 0,
+          "content_type": 1
+        },
+        {
+          "id": 1869,
+          "name": "简",
+          "cover": "https://bbs-static.miyoushe.com/static/2024/07/15/882ce0eb61684f77ab7cd38311ff8b7d_3855528262019475734.png",
+          "is_top": false,
+          "is_good": false,
+          "is_interactive": false,
+          "game_id": 0,
+          "content_type": 1
+        },
+        {
+          "id": 2328,
+          "name": "希希芙",
+          "cover": "https://bbs-static.miyoushe.com/static/2026/02/13/11b52b3ab7776c203ca1ea105360053b_6325195436809486885.png",
+          "is_top": false,
+          "is_good": false,
+          "is_interactive": false,
+          "game_id": 0,
+          "content_type": 1
+        },
+        {
+          "id": 2363,
+          "name": "普罗米娅",
+          "cover": "https://bbs-static.miyoushe.com/static/2026/03/28/1416a87a8199aa67c4a76d12928d3e6d_4194816415830993776.png",
+          "is_top": false,
+          "is_good": false,
+          "is_interactive": false,
+          "game_id": 0,
+          "content_type": 1
+        }
+      ],
+      "user": {
+        "uid": "93233570",
+        "nickname": "MadokaChan",
+        "introduce": "可可爱爱，没有脑袋",
+        "avatar": "100041",
+        "gender": 0,
+        "certification": {
+          "type": 0,
+          "label": ""
+        },
+        "level_exp": {
+          "level": 12,
+          "exp": 20116
+        },
+        "is_following": false,
+        "is_followed": false,
+        "avatar_url": "https://bbs-static.miyoushe.com/communityweb/upload/247bf074f83f9e2de0f61402c269669f.png",
+        "pendant": "https://bbs-static.miyoushe.com/static/2023/09/27/549f1034c4ef45c3d17dc1fd5773a601_824798917743388249.png",
+        "certifications": [],
+        "is_creator": false,
+        "avatar_ext": {
+          "avatar_type": 0,
+          "avatar_assets_id": "",
+          "resources": [],
+          "hd_resources": []
+        }
+      },
+      "self_operation": {
+        "attitude": 0,
+        "is_collected": false,
+        "upvote_type": 0
+      },
+      "stat": {
+        "view_num": 4533,
+        "reply_num": 13,
+        "like_num": 470,
+        "bookmark_num": 12,
+        "forward_num": 2,
+        "original_like_num": 470,
+        "post_upvote_stat": [
+          {
+            "upvote_type": 1,
+            "upvote_cnt": 470
+          },
+          {
+            "upvote_type": 2,
+            "upvote_cnt": 0
+          },
+          {
+            "upvote_type": 3,
+            "upvote_cnt": 0
+          },
+          {
+            "upvote_type": 4,
+            "upvote_cnt": 0
+          },
+          {
+            "upvote_type": 5,
+            "upvote_cnt": 0
+          }
+        ],
+        "share_num": 11
+      },
+      "help_sys": null,
+      "cover": {
+        "url": "https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/c0aa7ffd0b5c4bfc046f98f91fd80513_4414949387549562794.jpg",
+        "height": 999,
+        "width": 1445,
+        "format": "jpg",
+        "size": "227077",
+        "crop": null,
+        "is_user_set_cover": true,
+        "image_id": "254884140",
+        "entity_type": "IMG_ENTITY_POST",
+        "entity_id": "76005456",
+        "is_deleted": false,
+        "aigc_label": "AIGC_LABEL_UNKNOWN",
+        "aigc_meta": ""
+      },
+      "image_list": [
+        {
+          "url": "https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/c0aa7ffd0b5c4bfc046f98f91fd80513_4414949387549562794.jpg",
+          "height": 999,
+          "width": 1445,
+          "format": "jpg",
+          "size": "227077",
+          "crop": null,
+          "is_user_set_cover": false,
+          "image_id": "254884140",
+          "entity_type": "IMG_ENTITY_POST",
+          "entity_id": "76005456",
+          "is_deleted": false,
+          "aigc_label": "AIGC_LABEL_UNKNOWN",
+          "aigc_meta": ""
+        },
+        {
+          "url": "https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/e33cb688a2cc8515675521c4cbc157a6_2161778630585155714.jpg",
+          "height": 1000,
+          "width": 1445,
+          "format": "jpg",
+          "size": "168958",
+          "crop": null,
+          "is_user_set_cover": false,
+          "image_id": "254884141",
+          "entity_type": "IMG_ENTITY_POST",
+          "entity_id": "76005456",
+          "is_deleted": false,
+          "aigc_label": "AIGC_LABEL_UNKNOWN",
+          "aigc_meta": ""
+        },
+        {
+          "url": "https://upload-bbs.miyoushe.com/upload/2026/06/14/93233570/f1e082477747db507779e586fbb8708d_1464335819622892638.jpg",
+          "height": 1000,
+          "width": 1445,
+          "format": "jpg",
+          "size": "201585",
+          "crop": null,
+          "is_user_set_cover": false,
+          "image_id": "254884142",
+          "entity_type": "IMG_ENTITY_POST",
+          "entity_id": "76005456",
+          "is_deleted": false,
+          "aigc_label": "AIGC_LABEL_UNKNOWN",
+          "aigc_meta": ""
+        }
+      ],
+      "is_official_master": false,
+      "is_user_master": false,
+      "hot_reply_exist": true,
+      "vote_count": 0,
+      "last_modify_time": 0,
+      "recommend_type": "",
+      "collection": {
+        "prev_post_id": "75950336",
+        "next_post_id": "76068302",
+        "collection_id": "2940718",
+        "cur": 187,
+        "total": 190,
+        "collection_title": "【搬运/心臓弱眞君】短漫合集3",
+        "prev_post_game_id": 8,
+        "next_post_game_id": 2,
+        "prev_post_view_type": 2,
+        "next_post_view_type": 2
+      },
+      "vod_list": [],
+      "is_block_on": false,
+      "forum_rank_info": null,
+      "link_card_list": [
+        {
+          "link_type": 1,
+          "origin_url": "https://www.miyoushe.com/ys/article/75950336",
+          "landing_url": "https://www.miyoushe.com/ys/article/75950336",
+          "cover": "https://upload-bbs.miyoushe.com/upload/2026/06/11/93233570/72865625dc8c500ed035a2b73b35dabd_672229629305964214.jpg",
+          "title": "【搬运/心臓弱眞君】今日更新586 简/希希芙/普罗米娅",
+          "origin_user_avatar": "",
+          "origin_user_nickname": "",
+          "card_id": "2066122699340345344",
+          "card_status": 1,
+          "market_price": "",
+          "price": "",
+          "button_text": "",
+          "landing_url_type": 1,
+          "card_meta": null,
+          "origin_user_avatar_url": ""
+        }
+      ],
+      "news_meta": null,
+      "recommend_reason": {
+        "tags": [],
+        "is_mentor_rec_block": false
+      },
+      "villa_card": null,
+      "is_mentor": false,
+      "villa_room_card": null,
+      "reply_avatar_action_info": null,
+      "challenge": null,
+      "hot_reply_list": [],
+      "villa_msg_image_list": [],
+      "contribution_act": null,
+      "is_has_vote": false,
+      "is_has_lottery": false,
+      "release_time_type": "ReleaseTimeTypeNone",
+      "future_release_time": 0,
+      "external_link": null,
+      "post_full_extra_info": null,
+      "post_attachment_info": null,
+      "feed_attachment_info": null
+    }
+  }
+}

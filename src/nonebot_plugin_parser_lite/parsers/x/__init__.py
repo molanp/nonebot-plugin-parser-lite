@@ -1,13 +1,13 @@
 from typing import ClassVar
 
-from curl_cffi import AsyncSession
 from msgspec import convert
 
 from ...utils.format import format_num
 from ..base import (
+    DOWNLOADER,
     BaseParser,
+    ContentItem,
     MatchWithParams,
-    MediaContent,
     ParseException,
     ParseResult,
     Platform,
@@ -20,18 +20,11 @@ from .model import TweetEntry
 class XParser(BaseParser):
     platform: ClassVar[Platform] = Platform(name=PlatformEnum.X, display_name="X")
 
-    def __init__(self):
-        super().__init__()
-        self.session = AsyncSession(impersonate="chrome146")
-        self.headers.update(
-            {"Host": "easycomment.ai", "Content-Type": "application/json"}
-        )
-
     def collect_data(self, raw: TweetEntry, is_repost: bool = False) -> ParseResult:
         tweet = raw.result.as_tweet
         legacy = tweet.legacy
 
-        content: list[MediaContent | str] = [legacy.text]
+        content: list[ContentItem] = [legacy.text]
         content.extend(legacy.medias)
 
         user = tweet.core.user_results.result
@@ -99,10 +92,12 @@ class XParser(BaseParser):
     async def _parse(self, searched: MatchWithParams) -> ParseResult:
         tweet_id = searched[1]
 
-        response = await self.session.post(
+        response = await DOWNLOADER.client.post(
             "https://easycomment.ai/api/twitter/v1/free/get-tweet-detail",
             json={"pid": tweet_id},
-            headers=self.headers,
+            headers=self.headers
+            | {"Host": "easycomment.ai", "Content-Type": "application/json"},
+            use_curl_cffi=True,
         )
         try:
             response.raise_for_status()

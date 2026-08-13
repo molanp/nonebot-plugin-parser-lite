@@ -1,0 +1,76 @@
+name: Publish standalone branch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: publish-standalone
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Generate standalone tree
+        run: python scripts/generate_standalone.py
+
+      - name: Normalize generated imports
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: check --select I --fix src/nonebot_plugin_parser_lite
+
+      - name: Verify generated source
+        run: python scripts/verify_standalone.py
+
+      - name: Install standalone dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Verify imports without NoneBot
+        run: python scripts/verify_standalone.py --imports
+
+      - name: Publish generated tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin +refs/heads/main:refs/remotes/origin/main
+          git fetch origin +refs/heads/standalone:refs/remotes/origin/standalone || true
+
+          source_main="$(git rev-parse HEAD)"
+          latest_main="$(git rev-parse origin/main)"
+          if [[ "$source_main" != "$latest_main" ]]; then
+            echo "main advanced during generation; the newer workflow run will publish it"
+            exit 0
+          fi
+
+          git add --all
+          tree="$(git write-tree)"
+          main_parent="$source_main"
+          expected_standalone=""
+          if git rev-parse --verify refs/remotes/origin/standalone >/dev/null 2>&1; then
+            expected_standalone="$(git rev-parse refs/remotes/origin/standalone)"
+          fi
+          commit="$(printf '%s\n' "auto: publish standalone for ${main_parent:0:12}" |
+            git commit-tree "$tree" -p "$main_parent")"
+          echo "publishing standalone as one snapshot commit on ${main_parent:0:12}"
+          git push origin \
+            --force-with-lease="refs/heads/standalone:${expected_standalone}" \
+            "$commit:refs/heads/standalone"

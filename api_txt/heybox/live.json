@@ -1,0 +1,2542 @@
+{
+  "msg": "",
+  "result": {
+    "cy_control": false,
+    "show_interact_list": false,
+    "comments": [
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927855047,
+            "userid": 28703009,
+            "create_at": 1786205219,
+            "text": "看了看这么多网友的评论，我确信我的steam中病毒了，假入库是一两年前的事情，结果憋到现在给我来了一泡大的让我的真cdk被牛了，广大网友千万别买假入库啊[cube_摘墨镜][cube_摘墨镜][cube_摘墨镜]",
+            "ip_location": "河北",
+            "child_num": 43,
+            "up": 1278,
+            "is_support": 2,
+            "is_link_owner": 1,
+            "floor_num": 127,
+            "has_more": 1,
+            "top_comment": 1,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "28703009",
+              "username": "哎还能肝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 15,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927860241,
+            "userid": 81553784,
+            "create_at": 1786205798,
+            "text": "记得置顶哦，不然别人看不到",
+            "ip_location": "浙江",
+            "replyid": 927855047,
+            "replyuserid": 28703009,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "81553784",
+              "username": "好凡啊啊啊",
+              "avatar": "https://imgheybox.max-c.com/avatar/2026/01/30/bd7e5372422b33871a8500ab9e9cce9a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2026/01/30/bd7e5372422b33871a8500ab9e9cce9a.jpeg?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "28703009",
+              "username": "哎还能肝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 15,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927861805,
+            "userid": 22978488,
+            "create_at": 1786205977,
+            "text": "假入库真的长记性吧，想玩也没必要假入库啊",
+            "ip_location": "山东",
+            "replyid": 927855047,
+            "replyuserid": 28703009,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "22978488",
+              "username": "玩家66t88",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/06/01/54840496250d27698b7d789d0f706612.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/06/01/54840496250d27698b7d789d0f706612.jpeg?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "28703009",
+              "username": "哎还能肝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 15,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927663255,
+            "userid": 60793279,
+            "create_at": 1786184473,
+            "text": "这个游戏名叫：该兑换码不正确，请重新输入！",
+            "ip_location": "浙江",
+            "child_num": 19,
+            "up": 2928,
+            "is_support": 2,
+            "floor_num": 23,
+            "has_more": 1,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "60793279",
+              "username": "哒叼牛",
+              "avatar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_1.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_1.png?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 16,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927703904,
+            "userid": 102040359,
+            "create_at": 1786188503,
+            "text": "《你的名字》[cube_笑cry]",
+            "ip_location": "四川",
+            "replyid": 927663255,
+            "replyuserid": 60793279,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "102040359",
+              "username": "赢365次赢的受不了",
+              "avatar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_1.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_1.png?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "60793279",
+              "username": "哒叼牛",
+              "avatar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_1.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_1.png?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 16,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927728200,
+            "userid": 22868505,
+            "create_at": 1786191049,
+            "text": "什么意思",
+            "ip_location": "安徽",
+            "replyid": 927703904,
+            "replyuserid": 102040359,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "22868505",
+              "username": "猜冥",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/04/24/7af33bd51da087eb2e9cdabcb873ab8c.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/04/24/7af33bd51da087eb2e9cdabcb873ab8c.png?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "102040359",
+              "username": "赢365次赢的受不了",
+              "avatar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_1.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_1.png?imageMogr2/thumbnail/100x100%3E"
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927697001,
+            "userid": 28359363,
+            "create_at": 1786187826,
+            "text": "喜欢占小便宜买假入库，电脑中这么久病毒都不知道",
+            "ip_location": "江苏",
+            "child_num": 55,
+            "up": 759,
+            "is_support": 2,
+            "floor_num": 53,
+            "has_more": 1,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "28359363",
+              "username": "合成反馈之灵",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/10/04/d7dfecc55b02553f59756a3923e123c0.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/10/04/d7dfecc55b02553f59756a3923e123c0.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 17,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927710175,
+            "userid": 92279338,
+            "create_at": 1786189129,
+            "text": "黑盒还有假入库吗[cube_摘墨镜]",
+            "ip_location": "山西",
+            "replyid": 927697001,
+            "replyuserid": 28359363,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "92279338",
+              "username": "花雨落逝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/12/23/f34b9660a8888d47027357d8f72d3038.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/12/23/f34b9660a8888d47027357d8f72d3038.png?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "28359363",
+              "username": "合成反馈之灵",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/10/04/d7dfecc55b02553f59756a3923e123c0.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/10/04/d7dfecc55b02553f59756a3923e123c0.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 17,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927712562,
+            "userid": 66723399,
+            "create_at": 1786189377,
+            "text": "之前中的 又不是现在",
+            "ip_location": "安徽",
+            "replyid": 927710175,
+            "replyuserid": 92279338,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "66723399",
+              "username": "玩家66723399",
+              "avatar": "https://cdn.max-c.com/app/heybox/icon_83.5@3x.png?imageMogr2/thumbnail/!100p/format/jpg",
+              "avartar": "https://cdn.max-c.com/app/heybox/icon_83.5@3x.png?imageMogr2/thumbnail/!100p/format/jpg"
+            },
+            "replyuser": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "92279338",
+              "username": "花雨落逝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/12/23/f34b9660a8888d47027357d8f72d3038.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/12/23/f34b9660a8888d47027357d8f72d3038.png?imageMogr2/thumbnail/100x100%3E"
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927804312,
+            "userid": 76967226,
+            "create_at": 1786199539,
+            "text": "好了不管是不是黑心，你盒都彻底撇清责任了，你在一个被魔改的有问题的steam客户端输了key，直接被牛走了[cube_捂脸哭]，属于你自己泄露了，快点看看能不能在手机上激活一下，被给你下病毒的p子激活了就完了\n装360吧，360扫完全盘让ai指导你进安全模式把360卸了",
+            "ip_location": "新疆",
+            "child_num": 24,
+            "up": 421,
+            "is_support": 2,
+            "floor_num": 102,
+            "has_more": 1,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "76967226",
+              "username": "混久了应该有个名",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/04/16/91444f40a16115db3aade5257cdb57a1.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/04/16/91444f40a16115db3aade5257cdb57a1.png?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 16,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927845728,
+            "userid": 89336701,
+            "create_at": 1786204159,
+            "text": "这种只能重装系统[cube_笑cry]",
+            "ip_location": "广东",
+            "replyid": 927804312,
+            "replyuserid": 76967226,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "89336701",
+              "username": "玩家89336701",
+              "avatar": "https://cdn.max-c.com/app/heybox/icon_83.5@3x.png?imageMogr2/thumbnail/!100p/format/jpg",
+              "avartar": "https://cdn.max-c.com/app/heybox/icon_83.5@3x.png?imageMogr2/thumbnail/!100p/format/jpg"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "76967226",
+              "username": "混久了应该有个名",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/04/16/91444f40a16115db3aade5257cdb57a1.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/04/16/91444f40a16115db3aade5257cdb57a1.png?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 16,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927862305,
+            "userid": 73501302,
+            "create_at": 1786206034,
+            "text": "我列个痘，我朋友全玩的假入库 就死亡搁浅2黑盒买的cdk，关键是能兑换",
+            "ip_location": "北京",
+            "replyid": 927804312,
+            "replyuserid": 76967226,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "73501302",
+              "username": "bh薄荷蓝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2026/04/21/fd983f1c61c6dbe0062e2363d7fb651f.webp?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2026/04/21/fd983f1c61c6dbe0062e2363d7fb651f.webp?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "76967226",
+              "username": "混久了应该有个名",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/04/16/91444f40a16115db3aade5257cdb57a1.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/04/16/91444f40a16115db3aade5257cdb57a1.png?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 16,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927648019,
+            "userid": 15051018,
+            "create_at": 1786182924,
+            "text": "找黑盒啊，先确定下库里确实没有，然后找黑盒客服吧",
+            "ip_location": "河北",
+            "child_num": 10,
+            "up": 410,
+            "is_support": 2,
+            "floor_num": 3,
+            "has_more": 1,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "15051018",
+              "username": "huaihuaikuang",
+              "avatar": "https://cdn.max-c.com/heybox/avatar/steam/1589862597/5c8ab4bea0c501472e88f1c6bb05db5d?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://cdn.max-c.com/heybox/avatar/steam/1589862597/5c8ab4bea0c501472e88f1c6bb05db5d?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 27,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927650163,
+            "userid": 28703009,
+            "create_at": 1786183127,
+            "text": "确实没激活我正在找客服，但是这个cdk的意思是已经被使用了吗",
+            "ip_location": "河北",
+            "replyid": 927648019,
+            "replyuserid": 15051018,
+            "is_support": 2,
+            "is_link_owner": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "28703009",
+              "username": "哎还能肝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 15,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "15051018",
+              "username": "huaihuaikuang",
+              "avatar": "https://cdn.max-c.com/heybox/avatar/steam/1589862597/5c8ab4bea0c501472e88f1c6bb05db5d?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://cdn.max-c.com/heybox/avatar/steam/1589862597/5c8ab4bea0c501472e88f1c6bb05db5d?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 27,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927655350,
+            "userid": 82973559,
+            "create_at": 1786183658,
+            "text": "有没有可能是你没有输入对",
+            "ip_location": "重庆",
+            "replyid": 927650163,
+            "replyuserid": 28703009,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "82973559",
+              "username": "喻天wm",
+              "avatar": "https://imgheybox.max-c.com/heybox/avatar/wx/2025/05/31/e2c8ec2f752fcebf66f610c83f8cefe2.jpg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/heybox/avatar/wx/2025/05/31/e2c8ec2f752fcebf66f610c83f8cefe2.jpg?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "28703009",
+              "username": "哎还能肝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 15,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927655667,
+            "userid": 49754271,
+            "create_at": 1786183693,
+            "text": "这上面不是说的激活成功吗？",
+            "ip_location": "福建",
+            "child_num": 9,
+            "up": 269,
+            "is_support": 2,
+            "floor_num": 7,
+            "has_more": 1,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "49754271",
+              "username": "1424km",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/12/17/ed36bc53143459b141554ab8005dd2f5.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/12/17/ed36bc53143459b141554ab8005dd2f5.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 19,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927668080,
+            "userid": 28703009,
+            "create_at": 1786184947,
+            "text": "是这么说但是我库里没有",
+            "ip_location": "河北",
+            "replyid": 927655667,
+            "replyuserid": 49754271,
+            "is_support": 2,
+            "is_link_owner": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "28703009",
+              "username": "哎还能肝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 15,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "49754271",
+              "username": "1424km",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/12/17/ed36bc53143459b141554ab8005dd2f5.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/12/17/ed36bc53143459b141554ab8005dd2f5.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 19,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927714824,
+            "userid": 49754271,
+            "create_at": 1786189605,
+            "text": "有邮件吗？",
+            "ip_location": "福建",
+            "replyid": 927668080,
+            "replyuserid": 28703009,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "49754271",
+              "username": "1424km",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/12/17/ed36bc53143459b141554ab8005dd2f5.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/12/17/ed36bc53143459b141554ab8005dd2f5.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 19,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "28703009",
+              "username": "哎还能肝",
+              "avatar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 15,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927717464,
+            "userid": 46090421,
+            "create_at": 1786189885,
+            "text": "我看了别人发的，这个才是被激活的页面",
+            "imgs": [
+              {
+                "url": "https://imgheybox1.max-c.com/bbs/2026/08/08/62208bbc7cce3b2ec3b660a6e7c38cc2/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/850x1450%3E",
+                "thumb": "https://imgheybox1.max-c.com/bbs/2026/08/08/62208bbc7cce3b2ec3b660a6e7c38cc2/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/850x1450%3E",
+                "width": 850,
+                "height": 638,
+                "mimetype": "image/jpeg"
+              }
+            ],
+            "ip_location": "安徽",
+            "up": 222,
+            "is_support": 2,
+            "floor_num": 59,
+            "has_more": 0,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "46090421",
+              "username": "emmmmm理中客",
+              "avatar": "https://imgheybox.max-c.com/avatar/2022/12/08/760b40a22d9415e1a187bbdb8329644a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2022/12/08/760b40a22d9415e1a187bbdb8329644a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 19,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927668942,
+            "userid": 36162994,
+            "create_at": 1786185034,
+            "text": "激活成功怎么弹个这玩意儿[cube_捂脸哭]全新bug吗",
+            "ip_location": "河北",
+            "child_num": 3,
+            "up": 215,
+            "is_support": 2,
+            "floor_num": 27,
+            "has_more": 1,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "36162994",
+              "username": "？？？？",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/06/20/da3f1be622f6920f1130e1886fca0d44.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/06/20/da3f1be622f6920f1130e1886fca0d44.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 18,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927673733,
+            "userid": 12212533,
+            "create_at": 1786185504,
+            "text": "假入库后的魔改steam客户端",
+            "ip_location": "广东",
+            "replyid": 927668942,
+            "replyuserid": 36162994,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "12212533",
+              "username": "LoveStoryProject绘恋",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/01/30/66240e338d9ca213d70e936884757dac.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/01/30/66240e338d9ca213d70e936884757dac.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "max_id": 12728102
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "36162994",
+              "username": "？？？？",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/06/20/da3f1be622f6920f1130e1886fca0d44.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/06/20/da3f1be622f6920f1130e1886fca0d44.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 18,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927820094,
+            "userid": 49086946,
+            "create_at": 1786201334,
+            "text": "看下面小字，登陆此账号。他这客户端有问题",
+            "ip_location": "四川",
+            "replyid": 927668942,
+            "replyuserid": 36162994,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "49086946",
+              "username": "stop121",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/06/07/5c8faa2d89aacb89bc29bc457337e7e4.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/06/07/5c8faa2d89aacb89bc29bc457337e7e4.jpeg?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "36162994",
+              "username": "？？？？",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/06/20/da3f1be622f6920f1130e1886fca0d44.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/06/20/da3f1be622f6920f1130e1886fca0d44.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 18,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927744759,
+            "userid": 17449064,
+            "create_at": 1786192853,
+            "text": "之前买过假入库，steam 被魔改了，导致激活不了",
+            "ip_location": "湖北",
+            "child_num": 8,
+            "up": 183,
+            "is_support": 2,
+            "floor_num": 73,
+            "has_more": 1,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "17449064",
+              "username": "天使的挽歌",
+              "avatar": "https://cdn.max-c.com/heybox/avatar/steam/1589323969/8ffbdb77c1e42ca3213200f5757f7f7c?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://cdn.max-c.com/heybox/avatar/steam/1589323969/8ffbdb77c1e42ca3213200f5757f7f7c?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 21,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927768836,
+            "userid": 97884229,
+            "create_at": 1786195537,
+            "text": "长见识了[cube_滑稽]，第一次见魔改steam",
+            "ip_location": "河北",
+            "replyid": 927744759,
+            "replyuserid": 17449064,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "97884229",
+              "username": "江南时节好风景",
+              "avatar": "https://imgheybox.max-c.com/avatar/2026/05/30/941bcd5581b32c317a4019c1506fcaca.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2026/05/30/941bcd5581b32c317a4019c1506fcaca.jpeg?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "17449064",
+              "username": "天使的挽歌",
+              "avatar": "https://cdn.max-c.com/heybox/avatar/steam/1589323969/8ffbdb77c1e42ca3213200f5757f7f7c?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://cdn.max-c.com/heybox/avatar/steam/1589323969/8ffbdb77c1e42ca3213200f5757f7f7c?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 21,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927819482,
+            "userid": 52837167,
+            "create_at": 1786201265,
+            "text": "假入库原理就是修改steam软件，跳过购买验证直接下载",
+            "ip_location": "广东",
+            "replyid": 927768836,
+            "replyuserid": 97884229,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "52837167",
+              "username": "玩家52837167",
+              "avatar": "https://cdn.max-c.com/app/heybox/icon_83.5@3x.png?imageMogr2/thumbnail/!100p/format/jpg",
+              "avartar": "https://cdn.max-c.com/app/heybox/icon_83.5@3x.png?imageMogr2/thumbnail/!100p/format/jpg"
+            },
+            "replyuser": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "97884229",
+              "username": "江南时节好风景",
+              "avatar": "https://imgheybox.max-c.com/avatar/2026/05/30/941bcd5581b32c317a4019c1506fcaca.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2026/05/30/941bcd5581b32c317a4019c1506fcaca.jpeg?imageMogr2/thumbnail/100x100%3E"
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927702744,
+            "userid": 18850928,
+            "create_at": 1786188384,
+            "text": "看起来像是假入库魔改客户端里输了错的cdk",
+            "ip_location": "四川",
+            "child_num": 2,
+            "up": 107,
+            "is_support": 2,
+            "floor_num": 58,
+            "has_more": 0,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "18850928",
+              "username": "btr司机",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/12/18/9beab951edab89f87a03bf2bdf80519a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/12/18/9beab951edab89f87a03bf2bdf80519a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avatar_decoration": {
+                "src_type": "image",
+                "src_url": "https://cdn.max-c.com/heybox/dailynews/img/fe37eb505f2065462078af808a9bf2aa.gif"
+              },
+              "level_info": {
+                "level": 16,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 928511616,
+            "userid": 22942857,
+            "create_at": 1786297217,
+            "text": "确实",
+            "ip_location": "河南",
+            "replyid": 927702744,
+            "replyuserid": 18850928,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "22942857",
+              "username": "里幻",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/12/11/3d8245d5e8657c618e7458f52dd1816d.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/12/11/3d8245d5e8657c618e7458f52dd1816d.jpeg?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "18850928",
+              "username": "btr司机",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/12/18/9beab951edab89f87a03bf2bdf80519a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/12/18/9beab951edab89f87a03bf2bdf80519a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avatar_decoration": {
+                "src_type": "image",
+                "src_url": "https://cdn.max-c.com/heybox/dailynews/img/fe37eb505f2065462078af808a9bf2aa.gif"
+              },
+              "level_info": {
+                "level": 16,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 928814027,
+            "userid": 12978457,
+            "create_at": 1786343051,
+            "text": "btr怎么开这来了，我扛着坦克电池找你跑了多远知道吗[cube_生气]",
+            "ip_location": "安徽",
+            "replyid": 927702744,
+            "replyuserid": 18850928,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "12978457",
+              "username": "土命暮光闪闪",
+              "avatar": "https://imgheybox.max-c.com/avatar/2024/08/06/aab1d19517d62abafcb257ee18d1a15a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2024/08/06/aab1d19517d62abafcb257ee18d1a15a.jpeg?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "18850928",
+              "username": "btr司机",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/12/18/9beab951edab89f87a03bf2bdf80519a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/12/18/9beab951edab89f87a03bf2bdf80519a.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avatar_decoration": {
+                "src_type": "image",
+                "src_url": "https://cdn.max-c.com/heybox/dailynews/img/fe37eb505f2065462078af808a9bf2aa.gif"
+              },
+              "level_info": {
+                "level": 16,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "comment": [
+          {
+            "is_cy": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "is_meaningless": 0,
+            "commentid": 927793353,
+            "userid": 59595005,
+            "create_at": 1786198304,
+            "text": "你这steam界面被人魔改了，输入的key应该转发到魔改的凶手手里了[cube_欧润吉]",
+            "ip_location": "湖北",
+            "child_num": 8,
+            "up": 84,
+            "is_support": 2,
+            "floor_num": 96,
+            "has_more": 1,
+            "is_top": 1,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "59595005",
+              "username": "思同",
+              "avatar": "https://imgheybox.max-c.com/avatar/2023/12/28/dc417d6b649c2ce65be90ee49064fa3f.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2023/12/28/dc417d6b649c2ce65be90ee49064fa3f.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 19,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927814498,
+            "userid": 21326791,
+            "create_at": 1786200693,
+            "text": "楼主神人，楼主说他是几年前买的假入库，到现在还留着这个假客户端，没杀过毒，没重装过系统，我只能说神完了",
+            "ip_location": "浙江",
+            "replyid": 927793353,
+            "replyuserid": 59595005,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "21326791",
+              "username": "GTA10",
+              "avatar": "https://imgheybox.max-c.com/avatar/2026/03/07/156a0fe57f7b3dc25eeb647eb14e0530.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2026/03/07/156a0fe57f7b3dc25eeb647eb14e0530.jpeg?imageMogr2/thumbnail/100x100%3E"
+            },
+            "replyuser": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "59595005",
+              "username": "思同",
+              "avatar": "https://imgheybox.max-c.com/avatar/2023/12/28/dc417d6b649c2ce65be90ee49064fa3f.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2023/12/28/dc417d6b649c2ce65be90ee49064fa3f.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 19,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            }
+          },
+          {
+            "is_cy": 0,
+            "child_num": 0,
+            "up": 0,
+            "is_link_owner": 0,
+            "is_author_award": 0,
+            "floor_num": 0,
+            "is_meaningless": 0,
+            "commentid": 927866112,
+            "userid": 76967226,
+            "create_at": 1786206492,
+            "text": "感觉好像各个领域的p子都有一种洗脑的魔力，也没有什么特别的话术什么的，就是概念神一般的能让人相信，真的好羡慕啊，如果我也有这种魔力就不愁卖不掉校园卡了（明明我的卡没问题我自己也在用，回答的问题干的事也更多[cube_感动]）",
+            "ip_location": "新疆",
+            "replyid": 927814498,
+            "replyuserid": 21326791,
+            "is_support": 2,
+            "user": {
+              "medal": [],
+              "is_blacklist": false,
+              "userid": "76967226",
+              "username": "混久了应该有个名",
+              "avatar": "https://imgheybox.max-c.com/avatar/2025/04/16/91444f40a16115db3aade5257cdb57a1.png?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2025/04/16/91444f40a16115db3aade5257cdb57a1.png?imageMogr2/thumbnail/100x100%3E",
+              "level_info": {
+                "level": 16,
+                "status": 1
+              },
+              "medals": [
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 31,
+                  "name": "个人认证",
+                  "description": "说明：UP主、主播、职业选手等个人认证",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 55,
+                  "name": "新人作者",
+                  "description": "达到作者等级 1 级",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 47,
+                  "name": "小试牛刀",
+                  "description": "累计消费 10 元",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                },
+                {
+                  "achieved": 0,
+                  "wear": 0,
+                  "level": 0,
+                  "medal_id": 44,
+                  "name": "百科贡献者",
+                  "description": "获得 50 点百科经验",
+                  "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                }
+              ]
+            },
+            "replyuser": {
+              "medal": [],
+              "medals": [],
+              "is_blacklist": false,
+              "userid": "21326791",
+              "username": "GTA10",
+              "avatar": "https://imgheybox.max-c.com/avatar/2026/03/07/156a0fe57f7b3dc25eeb647eb14e0530.jpeg?imageMogr2/thumbnail/100x100%3E",
+              "avartar": "https://imgheybox.max-c.com/avatar/2026/03/07/156a0fe57f7b3dc25eeb647eb14e0530.jpeg?imageMogr2/thumbnail/100x100%3E"
+            }
+          }
+        ]
+      }
+    ],
+    "link": {
+      "has_video": 0,
+      "up": 0,
+      "click": 0,
+      "forward_num": 0,
+      "can_edit": 0,
+      "is_hot_post": 0,
+      "is_article": 0,
+      "hashtags": [],
+      "multidimensional_score": [],
+      "is_award_link": 0,
+      "is_favour": 0,
+      "follow_status": 0,
+      "is_only_me_view": false,
+      "show_user_battery_botton": 0,
+      "linkid": 187629913,
+      "userid": 28703009,
+      "title": "cdk显示已被使用",
+      "description": "我刚在小黑盒买的cdk结果显示已被激活怎么办",
+      "text": "[{\"text\":\"我刚在小黑盒买的cdk结果显示已被激活怎么办\",\"type\":\"text\"},{\"height\":\"810.0\",\"live_url\":\"https://imgheybox.max-c.com/live/2026/08/08/82a275e6ad241977e18707b43271b014/webp/video.mov\",\"type\":\"img\",\"url\":\"https://imgheybox1.max-c.com/live/2026/08/08/82a275e6ad241977e18707b43271b014.webp?imageMogr2/auto-orient/ignore-error/1/thumbnail/850x1450%3E\",\"width\":\"1080.0\"}]",
+      "link_tag": 27,
+      "is_web": 1,
+      "use_concept_type": 1,
+      "create_at": 1786182729,
+      "modify_at": 1786440381,
+      "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link&h_src=YXBwX3NoYXJl&link_id=01397244b436",
+      "comment_num": 490,
+      "link_award_num": 447,
+      "favour_count": 167,
+      "battery": {
+        "charge_limits": [1, 2, 5]
+      },
+      "ip_location": "河北",
+      "user": {
+        "medal": [],
+        "userid": 28703009,
+        "username": "哎还能肝",
+        "avatar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+        "avartar": "https://imgheybox.max-c.com/avatar/2022/09/14/614c6355b84fcbeeaceec2e34ce0b3a6.jpeg?imageMogr2/thumbnail/100x100%3E",
+        "level_info": {
+          "level": 15,
+          "status": 1
+        },
+        "medals": [
+          {
+            "achieved": 0,
+            "wear": 0,
+            "level": 0,
+            "medal_id": 31,
+            "name": "个人认证",
+            "description": "说明：UP主、主播、职业选手等个人认证",
+            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+          },
+          {
+            "achieved": 0,
+            "wear": 0,
+            "level": 0,
+            "medal_id": 55,
+            "name": "新人作者",
+            "description": "达到作者等级 1 级",
+            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+          },
+          {
+            "achieved": 0,
+            "wear": 0,
+            "level": 0,
+            "medal_id": 47,
+            "name": "小试牛刀",
+            "description": "累计消费 10 元",
+            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+          },
+          {
+            "achieved": 0,
+            "wear": 0,
+            "level": 0,
+            "medal_id": 44,
+            "name": "百科贡献者",
+            "description": "获得 50 点百科经验",
+            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+          }
+        ]
+      },
+      "topics": [
+        {
+          "topic_id": 425422,
+          "name": "Steam",
+          "pic_url": "https://cdn.max-c.com/mobile/app/icon/ccb3c23e275bef48aa7863ac5609ce8b.png",
+          "app_id": 99928013,
+          "game_type": "mobile",
+          "hot_value_v2": 79833151.55
+        }
+      ],
+      "feedback": [
+        {
+          "cate": "favour",
+          "text": "不感兴趣（选择后将减少相似推荐）",
+          "col_count": 2,
+          "options": [
+            {
+              "reason": 3,
+              "text": "不喜欢该社区: Steam",
+              "topic_id": 425422,
+              "topic_name": "Steam",
+              "event_id": "425422"
+            },
+            {
+              "reason": 8,
+              "text": "不喜欢该作者: 哎还能肝",
+              "user_id": 28703009,
+              "user_name": "哎还能肝",
+              "event_id": "28703009"
+            },
+            {
+              "reason": 18,
+              "text": "不喜欢该内容",
+              "event_id": "187629913"
+            }
+          ]
+        },
+        {
+          "cate": "report",
+          "text": "内容反馈",
+          "col_count": 2,
+          "options": [
+            {
+              "reason": 23,
+              "text": "软文广告",
+              "event_id": "187629913"
+            },
+            {
+              "reason": 27,
+              "text": "标题党",
+              "event_id": "187629913"
+            },
+            {
+              "reason": 28,
+              "text": "不实炒作",
+              "event_id": "187629913"
+            },
+            {
+              "reason": 29,
+              "text": "AI生成",
+              "event_id": "187629913"
+            },
+            {
+              "reason": 24,
+              "text": "内容低俗",
+              "event_id": "187629913"
+            },
+            {
+              "reason": 30,
+              "text": "分区错误",
+              "event_id": "187629913"
+            },
+            {
+              "reason": 10,
+              "text": "内容质量差",
+              "event_id": "187629913"
+            },
+            {
+              "reason": 22,
+              "text": "内容不适",
+              "event_id": "187629913"
+            }
+          ]
+        }
+      ],
+      "feedback_config": {
+        "extra": {},
+        "disable_report": 0,
+        "ad_report": 0,
+        "keyword_block_config": {
+          "manage_text": "管理已屏蔽词条",
+          "input_hint": "添加后，含关键词的内容将减少推荐",
+          "max_keyword_length": 20
+        }
+      },
+      "content_tags": [
+        {
+          "icon": "https://cdn.max-c.com/mobile/app/icon/ccb3c23e275bef48aa7863ac5609ce8b.png",
+          "text": "Steam",
+          "style_type": 1,
+          "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/topic\",\"params\":{\"h_src\":\"\",\"page\":\"link\",\"topic_id\":\"425422\"}}",
+          "bg_color": "#F3F4F5#232526",
+          "text_color": "#14191E#CCCDCE",
+          "align": "top"
+        }
+      ],
+      "view_limit": 1
+    },
+    "sort_filter": [
+      {
+        "text": "热门",
+        "key": "hot"
+      },
+      {
+        "text": "正序",
+        "key": "time_aes"
+      },
+      {
+        "text": "倒序",
+        "key": "time_desc"
+      }
+    ],
+    "total_page": 47,
+    "has_more_floors": 1,
+    "total_floor_num": 232,
+    "folded_comment_tips": "被折叠的评论包含疑似无意义、广告、不友好的内容"
+  },
+  "status": "ok"
+}

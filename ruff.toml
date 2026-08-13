@@ -34,9 +34,9 @@ select = [
 extra-standard-library = ["typing_extensions"]
 force-sort-within-sections = true
 
-[flake8-pytest-style]
+[lint.flake8-pytest-style]
 fixture-parentheses = false
 mark-parentheses = false
 
-[pyupgrade]
+[lint.pyupgrade]
 keep-runtime-typing = true

@@ -1,0 +1,646 @@
+{
+  "aweme_detail": {
+    "activity_video_type": 0,
+    "anchors": null,
+    "authentication_token": "MS4wLjAAAAAAxxx",
+    "author": {
+      "avatar_thumb": {
+        "height": 720,
+        "uri": "100x100/aweme-avatar/tos-cn-avt-0015_4d0c6850c1234e1899cd88e01d5f6c29",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_4d0c6850c1234e1899cd88e01d5f6c29.jpeg?from=327834062"
+        ],
+        "width": 720
+      },
+      "awemehts_greet_info": "",
+      "cf_list": null,
+      "close_friend_type": 0,
+      "contacts_status": 2,
+      "contrail_list": null,
+      "cover_url": [
+        {
+          "height": 720,
+          "uri": "c8510002be9a3a61aad2",
+          "url_list": [
+            "https://p3-pc-sign.douyinpic.com/obj/c8510002be9a3a61aad2?lk3s=138a59ce&x-expires=1787742000&x-signature=Sf%2Fk4LWd4n7V7NVlnk2fKfotMWQ%3D&from=327834062",
+            "https://p9-pc-sign.douyinpic.com/obj/c8510002be9a3a61aad2?lk3s=138a59ce&x-expires=1787742000&x-signature=S%2F3P61R%2BEVn9wiVe0StiiZk3E%2Fo%3D&from=327834062"
+          ],
+          "width": 720
+        }
+      ],
+      "create_time": 0,
+      "custom_verify": "",
+      "data_label_list": null,
+      "endorsement_info_list": null,
+      "enterprise_verify_reason": "",
+      "favoriting_count": 0,
+      "follow_status": 0,
+      "follower_count": 32066,
+      "follower_list_secondary_information_struct": null,
+      "follower_status": 0,
+      "following_count": 0,
+      "hide_others_recommend_interest": 0,
+      "hide_self_recommend_interest": 1,
+      "im_role_ids": null,
+      "is_ad_fake": false,
+      "is_blocked_v2": false,
+      "is_blocking_v2": false,
+      "is_cf": 0,
+      "live_high_value": 0,
+      "mate_add_permission": 1,
+      "max_follower_count": 0,
+      "nickname": "用户0629",
+      "offline_info_list": null,
+      "personal_tag_list": null,
+      "prevent_download": false,
+      "risk_notice_text": "",
+      "sec_uid": "MS4wLjABAAAAwwl4OKtOPcHxgFOi45UQ9L-GAXNgdRo1g7luoxk9KMfi0yufIZvMArCG3sa_1t3I",
+      "secret": 0,
+      "share_info": {
+        "share_desc": "",
+        "share_desc_info": "",
+        "share_qrcode_url": {
+          "height": 720,
+          "uri": "",
+          "url_list": [],
+          "width": 720
+        },
+        "share_title": "",
+        "share_title_myself": "",
+        "share_title_other": "",
+        "share_url": "",
+        "share_weibo_desc": ""
+      },
+      "short_id": "78197059531",
+      "signature": "好幸运 你像个礼物出现在我的世界\n（主页所发都是真实事件，没有剧本。本账号是情侣共用账号，所以会出现两种不同视角。）",
+      "signature_extra": null,
+      "special_follow_status": 0,
+      "special_people_labels": null,
+      "status": 1,
+      "story25_comment": 1,
+      "story_interactive": 4,
+      "story_ttl": 1,
+      "text_extra": null,
+      "total_favorited": 2753843,
+      "uid": "1712356709904876",
+      "unique_id": "78197059531",
+      "user_age": -1,
+      "user_canceled": false,
+      "user_permissions": null,
+      "verification_type": 1
+    },
+    "author_mask_tag": 0,
+    "author_user_id": 1712356709904876,
+    "aweme_control": {
+      "can_comment": true,
+      "can_forward": true,
+      "can_share": true,
+      "can_show_comment": true
+    },
+    "aweme_id": "7664861346790614702",
+    "aweme_listen_struct": {
+      "trace_info": "{\"copyright_not_speech\":\"true\",\"copyright_reason\":\"not_intercept\",\"copyright_tag_hit\":\"0\",\"copyright_use_aed_default\":\"false\",\"copyright_use_tag_default\":\"false\",\"cp_ab\":\"true\",\"desc\":\"\",\"duration_over\":\"false\",\"hit_high_risk\":\"false\",\"media_type\":\"2\",\"reason\":\"hit_ab_0\",\"show\":\"false\"}"
+    },
+    "aweme_type": 0,
+    "aweme_type_tags": "",
+    "boost_status": 0,
+    "can_be_oc_cover": true,
+    "can_cache_to_local": false,
+    "caption": "",
+    "category_da": 16,
+    "cf_assets_type": 0,
+    "cf_recheck_ts": 0,
+    "challenge_position": null,
+    "chapter_list": null,
+    "collect_stat": 0,
+    "collection_corner_mark": 0,
+    "comment_gid": 7664861346790614702,
+    "comment_list": null,
+    "comment_permission_info": {
+      "can_comment": true,
+      "comment_permission_status": 0,
+      "item_detail_entry": false,
+      "press_entry": false,
+      "toast_guide": false
+    },
+    "commerce_config_data": null,
+    "component_control": {
+      "data_source_url": "/aweme/v1/web/aweme/detail/"
+    },
+    "component_info_v2": "{\"desc_lines_limit\":0,\"hide_marquee\":false}",
+    "cover_labels": null,
+    "create_time": 1784614601,
+    "desc": "被爱的前提是漂亮吗？在聊这个问题之前，我其实更想问，漂亮的标准，到底是谁定的。漂亮一定是大眼睛吗，一定是高鼻梁吗，一定是白皮肤吗，一定是瓜子脸吗。这些标准是从哪里来的。是从杂志封面……版本过低，升级后可展示全部信息",
+    "disable_relation_bar": 0,
+    "dislike_dimension_list": null,
+    "dislike_dimension_list_v2": null,
+    "distribute_circle": {
+      "campus_block_interaction": false,
+      "distribute_type": 0,
+      "is_campus": false
+    },
+    "diversion_bar_info": [],
+    "douplus_user_type": 0,
+    "douyin_pc_video_extra_seo": "",
+    "duet_aggregate_in_music_tab": false,
+    "duration": 0,
+    "ecom_comment_atmosphere_type": 0,
+    "enable_comment_sticker_rec": false,
+    "enable_decorated_emoji": true,
+    "ent_log_extra": {
+      "log_extra": "{\"global_log_extra\":null,\"page_log_extra\":null,\"aweme_log_extra\":{\"ce_current_group_id\":\"7664861346790614702\",\"author_id\":\"1712356709904876\"},\"extra_log_extra\":null}"
+    },
+    "entertainment_product_info": {
+      "market_info": {
+        "limit_free": {
+          "in_free": false
+        }
+      }
+    },
+    "entertainment_recommend_info": "{\"recommend_free_count\":0,\"test_info\":\"\",\"recommend_playlet_trigger_reqid\":\"\",\"recommend_playlet_trigger_cid\":\"\",\"recommend_playlet_trigger_reqid_type\":\"\",\"playlet_continue_play_config\":null,\"roi3_mode\":0,\"predict_identity\":\"\"}",
+    "entertainment_video_paid_way": {
+      "enable_use_new_ent_data": false,
+      "paid_type": 0,
+      "paid_ways": []
+    },
+    "entertainment_video_type": 3,
+    "fall_card_struct": {
+      "recommend_reason_v2": "[]"
+    },
+    "feed_comment_config": {
+      "audio_comment_permission": 1,
+      "author_audit_status": 0,
+      "common_comment_permission": 0,
+      "common_flags": "{\"api_ab\":\"0\",\"hashtag\":\"[{\\\"name\\\":\\\"情感\\\",\\\"id\\\":1572618705886286}]\",\"item_author_nickname\":\"用户0629\",\"video_labels_v2_tag1\":\"随拍\",\"video_labels_v2_tag2\":\"生活随拍\",\"video_type\":\"all\"}",
+      "double_publish_limit": 1,
+      "input_config_text": "善语结善缘，恶言伤人心",
+      "input_config_text_type": "default_guide"
+    },
+    "flash_mob_trends": 0,
+    "follow_shoot_clip_info": {
+      "clip_from_platform": 7265694567188450105,
+      "clip_video_all": 7265694567188450105,
+      "origin_clip_id": 7265694567188450105
+    },
+    "friend_recommend_info": {
+      "disable_friend_recommend_guide_label": false,
+      "friend_recommend_source": 26
+    },
+    "game_tag_info": {
+      "is_game": false
+    },
+    "geofencing": [],
+    "geofencing_regions": null,
+    "group_id": "7664861346790614702",
+    "guide_scene_info": {},
+    "hybrid_label": null,
+    "image_album_music_info": {
+      "begin_time": 0,
+      "end_time": 22000,
+      "volume": 100
+    },
+    "image_comment": {
+      "comment_highlight_text": ""
+    },
+    "image_crop_ctrl": 0,
+    "image_infos": null,
+    "image_item_quality_level": 0,
+    "image_list": null,
+    "images": [
+      {
+        "download_url_list": [
+          "https://p3-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~tplv-dy-water-v2:5oqW6Z-z5Y-377yaNzgxOTcwNTk1MzE=:1170:336.webp?lk3s=138a59ce&x-expires=1789124400&x-signature=3m%2B71dJC5zGlt5GpjmfGZnX05eE%3D&sig=Jauqw9G7s6GqU6sd0GBArEbYjfY%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&sc=image&biz_tag=aweme_images&l=20260812195619F500D977BAE578E3A9CF",
+          "https://p9-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~tplv-dy-water-v2:5oqW6Z-z5Y-377yaNzgxOTcwNTk1MzE=:1170:336.webp?lk3s=138a59ce&x-expires=1789124400&x-signature=00c0IQZk2CE50lV1rWZbNdLifEU%3D&sig=Jauqw9G7s6GqU6sd0GBArEbYjfY%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&sc=image&biz_tag=aweme_images&l=20260812195619F500D977BAE578E3A9CF",
+          "https://p3-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~tplv-dy-water-v2:5oqW6Z-z5Y-377yaNzgxOTcwNTk1MzE=:1170:336.jpeg?lk3s=138a59ce&x-expires=1789124400&x-signature=PO70pMLsl0L%2FasPY%2F1ES6%2FjbES0%3D&sig=g_QRI5LTvK5_t5vOyzyvK99pYzU%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&sc=image&biz_tag=aweme_images&l=20260812195619F500D977BAE578E3A9CF"
+        ],
+        "height": 336,
+        "is_aigc_media": false,
+        "is_new_text_mode": 0,
+        "resolution_log_param": {
+          "image_publish_height": 336,
+          "image_publish_width": 1170,
+          "image_source_height": 335,
+          "image_source_width": 1170
+        },
+        "uri": "tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA",
+        "url_list": [
+          "https://p3-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~tplv-dy-aweme-images:q75.webp?lk3s=138a59ce&x-expires=1789124400&x-signature=2aTfHwUDhEoceoGFAvAtDqTRNqg%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&sc=image&biz_tag=aweme_images&l=20260812195619F500D977BAE578E3A9CF",
+          "https://p9-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~tplv-dy-aweme-images:q75.webp?lk3s=138a59ce&x-expires=1789124400&x-signature=Pn60x6wecVErge9I6US7ufQSaCA%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&sc=image&biz_tag=aweme_images&l=20260812195619F500D977BAE578E3A9CF",
+          "https://p3-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~tplv-dy-aweme-images:q75.jpeg?lk3s=138a59ce&x-expires=1789124400&x-signature=Wj2damEbla3Gm6Tnvk3%2FWAEnDao%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&sc=image&biz_tag=aweme_images&l=20260812195619F500D977BAE578E3A9CF"
+        ],
+        "width": 1170
+      }
+    ],
+    "img_bitrate": [],
+    "impression_data": {
+      "group_id_list_a": [],
+      "group_id_list_b": [],
+      "group_id_list_c": [],
+      "group_id_list_d": [7641886006417643712, 7641518042261959330],
+      "similar_id_list_a": null,
+      "similar_id_list_b": null
+    },
+    "incentive_item_type": 0,
+    "interaction_stickers": null,
+    "is_24_story": 0,
+    "is_25_story": 0,
+    "is_ads": false,
+    "is_aigc_media": false,
+    "is_collects_selected": 0,
+    "is_duet_sing": false,
+    "is_from_ad_auth": false,
+    "is_image_beat": false,
+    "is_life_item": false,
+    "is_moment_history": 0,
+    "is_moment_story": 0,
+    "is_multi_content": 0,
+    "is_new_text_mode": 0,
+    "is_share_post": false,
+    "is_story": 0,
+    "is_subtitled": 0,
+    "is_top": 0,
+    "is_use_music": true,
+    "item_aigc_follow_shot": 1,
+    "item_title": "",
+    "item_warn_notification": {
+      "content": "",
+      "show": false,
+      "type": 0
+    },
+    "label_top_text": null,
+    "libfinsert_task_id": "",
+    "long_video": null,
+    "mark_largely_following": false,
+    "media_type": 2,
+    "music": {
+      "album": "",
+      "artist_user_infos": null,
+      "artists": [],
+      "audition_duration": 22,
+      "author": "KD_B Music",
+      "author_deleted": false,
+      "author_position": null,
+      "author_status": 1,
+      "avatar_large": {
+        "height": 720,
+        "uri": "1080x1080/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId.jpeg?from=327834062"
+        ],
+        "width": 720
+      },
+      "avatar_medium": {
+        "height": 720,
+        "uri": "720x720/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId.jpeg?from=327834062"
+        ],
+        "width": 720
+      },
+      "avatar_thumb": {
+        "height": 720,
+        "uri": "100x100/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId.jpeg?from=327834062"
+        ],
+        "width": 720
+      },
+      "binded_challenge_id": 0,
+      "can_background_play": true,
+      "collect_stat": 0,
+      "cover_hd": {
+        "height": 720,
+        "uri": "1080x1080/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId.jpeg?from=327834062"
+        ],
+        "width": 720
+      },
+      "cover_large": {
+        "height": 720,
+        "uri": "1080x1080/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId.jpeg?from=327834062"
+        ],
+        "width": 720
+      },
+      "cover_medium": {
+        "height": 720,
+        "uri": "720x720/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId.jpeg?from=327834062"
+        ],
+        "width": 720
+      },
+      "cover_thumb": {
+        "height": 720,
+        "uri": "100x100/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_oMDhlc4OEhKACgeCH1nztAM9h0AfAArgAzpkId.jpeg?from=327834062"
+        ],
+        "width": 720
+      },
+      "dmv_auto_show": false,
+      "dsp_status": 10,
+      "duration": 22,
+      "end_time": 0,
+      "external_song_info": [],
+      "extra": "{\"aed_music_score\":0.16,\"aed_singing_score\":0.83,\"aggregate_exempt_conf\":[],\"aigc_clip\":false,\"beats\":{\"audio_effect_onset\":\"https://sf11-cdn-tos.douyinstatic.com/obj/ies-music/strong_beat/audio_effect_onset/v3/7265694567188450105\",\"beats_tracker\":\"https://sf6-cdn-tos.douyinstatic.com/obj/ies-music/strong_beat/beats_tracker/v3/7265694567188450105\",\"energy_trace\":\"https://sf11-cdn-tos.douyinstatic.com/obj/ies-music/strong_beat/energy_trace/v3/7265694567188450105\",\"merged_beats\":\"https://sf6-cdn-tos.douyinstatic.com/obj/ies-music/strong_beat/merged_beats/v3/7265694567188450105\"},\"cover_colors\":null,\"diversion_music_detail_preload\":{\"author\":\"\",\"cover_medium\":null,\"diversion_code\":1,\"is_same\":false,\"luna_song_id\":7662669342434592778,\"scene\":0,\"show_head\":false,\"title\":\"\"},\"douyin_beats_info\":{},\"dsp_switch\":0,\"extract_item_id\":7265694498288602420,\"has_edited\":0,\"hotsoon_review_time\":-1,\"is_aed_music\":1,\"is_red\":0,\"is_subsidy_exp\":false,\"long_pic_video_usable\":true,\"music_display_mapping_title\":\"红尘客栈 - 美羊羊\",\"music_label_id\":null,\"music_tagging\":{\"AEDs\":[\"Vocal\"],\"Genres\":[\"Chinese Style\"],\"Instruments\":null,\"Languages\":[\"Chinese\"],\"Moods\":[\"Sorrow\"],\"SingingVersions\":null,\"Themes\":[\"Love\",\"Evening\"]},\"review_unshelve_reason\":0,\"reviewed\":1,\"schedule_search_time\":0,\"uniqa_speech_score\":0.1,\"with_aed_model\":1}",
+      "id": 7265694567188450105,
+      "id_str": "7265694567188450105",
+      "is_audio_url_with_cookie": false,
+      "is_commerce_music": false,
+      "is_del_video": false,
+      "is_matched_metadata": false,
+      "is_original": false,
+      "is_original_sound": true,
+      "is_pgc": false,
+      "is_restricted": false,
+      "is_video_self_see": false,
+      "lyric_short_position": null,
+      "mid": "7265694567188450105",
+      "music_chart_ranks": null,
+      "music_collect_count": 0,
+      "music_cover_atmosphere_color_value": "",
+      "music_status": 1,
+      "musician_user_infos": null,
+      "mute_share": false,
+      "offline_desc": "",
+      "owner_handle": "HuaBi666_888",
+      "owner_id": "2986703882043175",
+      "owner_nickname": "KD_B Music",
+      "pgc_music_type": 2,
+      "play_url": {
+        "height": 720,
+        "uri": "https://sf11-cdn-tos.douyinstatic.com/obj/ies-music/7265694565414341431.mp3",
+        "url_key": "7265694567188450105",
+        "url_list": [
+          "https://sf11-cdn-tos.douyinstatic.com/obj/ies-music/7265694565414341431.mp3",
+          "https://sf6-cdn-tos.douyinstatic.com/obj/ies-music/7265694565414341431.mp3"
+        ],
+        "width": 720
+      },
+      "position": null,
+      "prevent_download": false,
+      "prevent_item_download_status": 0,
+      "preview_end_time": 0,
+      "preview_start_time": 0,
+      "reason_type": 0,
+      "redirect": false,
+      "schema_url": "",
+      "search_impr": {
+        "entity_id": "7265694567188450105"
+      },
+      "sec_uid": "MS4wLjABAAAA-oVDPUCCUoB2ozHJ7RnNeQSXNrYLVe0aI8hsIDIhG7ZdDUTIAwD0YDcwvqOe6eSw",
+      "shoot_duration": 22,
+      "show_origin_clip": false,
+      "source_platform": 23,
+      "start_time": 0,
+      "status": 1,
+      "strong_beat_url": {
+        "height": 720,
+        "uri": "https://sf11-cdn-tos.douyinstatic.com/obj/ies-music/pattern/4cc4a04bca3a2b278d995951d03d5eca.json",
+        "url_list": [
+          "https://sf11-cdn-tos.douyinstatic.com/obj/ies-music/pattern/4cc4a04bca3a2b278d995951d03d5eca.json",
+          "https://sf6-cdn-tos.douyinstatic.com/obj/ies-music/pattern/4cc4a04bca3a2b278d995951d03d5eca.json"
+        ],
+        "width": 720
+      },
+      "tag_list": null,
+      "title": "@KD_B Music创作的原声",
+      "unshelve_countries": null,
+      "user_count": 0,
+      "video_duration": 22
+    },
+    "nickname_position": null,
+    "origin_comment_ids": null,
+    "origin_duet_resource_uri": "",
+    "origin_text_extra": [],
+    "original": 0,
+    "original_images": null,
+    "pack_usage_scene_by_req_path": "/aweme/v1/web/aweme/detail/",
+    "packed_clips": null,
+    "pc_need_login": false,
+    "personal_page_botton_diagnose_style": 0,
+    "photo_search_entrance": {
+      "ecom_type": 0
+    },
+    "position": null,
+    "preview_title": "被爱的前提是漂亮吗？在聊这个问题之前，我其实更想问，漂亮的标准，到底是谁定的。漂亮一定是大眼睛吗，一定是高鼻梁吗，一定是白皮肤吗，一定是瓜子脸吗。这些标准是从哪里来的。是从杂志封面……版本过低，升级后可展示全部信息",
+    "preview_video_status": 1,
+    "product_genre_info": {
+      "material_genre_sub_type_set": [1],
+      "product_genre_type": 1,
+      "special_info": {
+        "recommend_group_name": 1
+      }
+    },
+    "promotions": [],
+    "publish_plus_alienation": {
+      "alienation_type": 0
+    },
+    "rate": 12,
+    "region": "CN",
+    "related_music_anchor": {
+      "extra": "{\"luna_sid\":7662669342434592778,\"medium_cover_urls\":[\"https://p3.douyinpic.com/tos-cn-v-2774c002/oAiUfK6aAFARAzfKAQLQrHaGHeXA8QoIBaCFdQ~tplv-dy-resize-walign-adapt-aq:720:q75.heic?biz_tag=aweme_music\\u0026s=PackSourceEnum_FEED\\u0026sc=cover\",\"https://p26.douyinpic.com/tos-cn-v-2774c002/oAiUfK6aAFARAzfKAQLQrHaGHeXA8QoIBaCFdQ~tplv-dy-resize-walign-adapt-aq:720:q75.heic?biz_tag=aweme_music\\u0026s=PackSourceEnum_FEED\\u0026sc=cover\"],\"hit_strategy\":33685512,\"hit_strategy_v2\":0,\"author\":\"美羊羊\",\"title\":\"红尘客栈\",\"promotion_anchor_type\":\"\",\"promotion_anchor_landing_page_url\":\"\",\"middle_page_color\":\"{\\\"base_5\\\":\\\"8b99a5\\\",\\\"base_7\\\":\\\"4e5a63\\\",\\\"base_8\\\":\\\"313a41\\\",\\\"gradient_effect_end\\\":\\\"64737e\\\",\\\"gradient_effect_start\\\":\\\"8b99a5\\\"}\",\"media_type\":\"\",\"mv_meta_song_id\":0,\"aweme_copyright\":true,\"anchor_text\":\"汽水音乐\",\"anchor_icon\":\"https://p3-luna.douyinpic.com/tos-cn-i-b829550vbb/sodaIcon.svg~tplv-b829550vbb-obj.image\"}",
+      "image_url": {
+        "uri": "",
+        "url_list": [
+          "https://lf3-cdn-tos.douyinstatic.com/obj/aweme-server-static-resource/qishuiyinyue_jiantou.png"
+        ]
+      },
+      "priority": 9050,
+      "schema_url": "aweme://music_streaming/whole_song_detail?accessibility_text=%E6%B1%BD%E6%B0%B4%E9%9F%B3%E4%B9%90%E6%8C%89%E9%92%AE&enter_method=luna_logo&luna_song_id=7662669342434592778&meta_song_id=0",
+      "type": "luna_anchor_v2"
+    },
+    "relation_labels": null,
+    "risk_infos": {
+      "content": "",
+      "risk_sink": false,
+      "type": 0,
+      "vote": false,
+      "warn": false
+    },
+    "sec_item_id": "MS4wLjAAAAAA8Os-Cjsz3ExWa06vkDoysV-ayDYWmhhcpEsiLKebsV5KfdiHgvcDCmEbHyigwf8N",
+    "select_anchor_expanded_content": 0,
+    "seo_info": {},
+    "series_basic_info": {},
+    "series_paid_info": {
+      "item_price": 0,
+      "series_paid_status": 0
+    },
+    "share_info": {
+      "share_desc": "在抖音，记录美好生活",
+      "share_desc_info": "#在抖音，记录美好生活#被爱的前提是漂亮吗？在聊这个问题之前，我其实更想问，漂亮的标准，到底是谁定的。漂亮一定是大眼睛吗，一定是高鼻梁吗，一定是白皮肤吗，一定是瓜子脸吗。这些标准是从哪里来的。是从杂志封面上那些精修的照片里来的？还是从手机屏幕上那些一层一层叠上去的滤镜里来的？还是从你刷到的那些网红博主，明星模特，选秀节目里那些被反复夸赞的长相里来的？互联网上漂亮的人铺天盖地，日复一日地出现在你眼前。你看得多了，就会不自觉地把它们当成参照。久而久之，你开始用这套标准去衡量别人，也用这套标准去衡量自己。你以为那是你自己的审美，其实很多时候，那是被塑造出来的审美。每个人的审美是不一样的。你觉得好看的人，换一个人可能完全无感。你觉得一般的人，在别人眼里可能是惊艳。有人喜欢浓颜系，就会有人喜欢淡颜系。很多时候翻一翻社交平台上那些被追捧的长相，会发现她们的美并不遵循同一套公式，有人赢在眉眼间的灵气，有人胜在笑起来的那种清纯的感觉，有人靠的是某种说不清的气质，站在那里就让人想多看几眼。审美本身就是一件很私人的事。它被太多东西影响，你的成长环境，你的文化背景，你经历过的人和事。如果漂亮本身都没有一个统一的标准，那它怎么可能成为被爱的统一前提。\n\n但话说回来，我也不想装清高，说什么外貌不重要。外貌确实重要。我不否认，漂亮确实会带来一些便利。长得好看的人就是更容易被注意到，更容易收到善意，在同样的条件下可能会获得更多的机会。外貌红利是真实存在的，它就像一张隐形的通行证，在某些时刻悄无声息地帮你打开一些门。人是视觉动物，第一个让你多看两眼的人，大概率是因为ta长得好看。这是本能，跟性别无关。\n\n但漂亮带来的那些东西，真的就是被爱吗。我觉得不是。那些因为漂亮而产生的关注，更像是一种条件反射。就像你路过一家店的橱窗，看到一件好看的衣服，你会停下来多看两眼。但多看两眼和把它买回家穿三年，是两回事。前者是吸引，后者是选择。吸引可以只靠外表，选择不是。一个人能因为好看被注意到，这是漂亮能做的事。但一个人能不能被一直爱着，被接住情绪，被理解，被包容，这跟漂不漂亮没关系。这是两套完全不同的逻辑。漂亮负责开头，但能不能走到最后，靠的是别的东西。\n\n漂亮的人也许不缺追求者，但她们自己也会困惑，困惑对方喜欢的到底是自己这个人，还是自己这张脸。我身边那些漂亮的朋友，她们的恋爱往往开始得很快，结束得也很快。因为对方只是带着对外貌的期待走近，却没有耐心去了解外貌之外的部分。她们不缺喜欢，但缺那种被人真正放在心上的感觉。你问那些追求者喜欢你什么，可能想了半天，他们除了“好看”说不出别的。如果一个人喜欢你只是因为你的脸，那这份喜欢太容易被替代了。因为永远会有更好看的脸。建立在容貌基础上的喜欢，保质期往往比你想象的短。并不是漂亮本身有问题，而是只有漂亮的喜欢，根基太单薄了。有时候只是新鲜感没了，这份喜欢就结束了。长得好看，开始一段关系可能确实更容易。但开始容易不代表长久容易。长久靠的是你们之间有没有真正能连接在一起的东西。看的是你们有没有共同的价值观，能不能聊到一块去。看的是你们能不能互相信任，互相包容。遇到事情是互相埋怨还是互相托底。这些事情光看脸是感受不出来的。\n\n生活中也有很多不被外貌偏爱的人。他们的长相放在人群里不算出众，但你就是会觉得跟他们待在一起很舒服。他们身上有种东西，是长相替代不了的。可能是说话时那种不急不慢的节奏，可能是你难过时他们不说大道理就静静听着的耐心，可能是他们对服务员，对路边摊贩都一样的礼貌和尊重。这些东西跟脸没有关系，跟这个人是谁有关系。你跟他们相处久了会发现，好不好看这件事，真的会慢慢变得不重要。因为那个人本身，已经让你觉得足够好了。如果有一天有人爱上你的这些品质，并不是因为你的五官符合某种审美模板，是因为这些东西让你成为了你，而他刚好就是喜欢你这样的人。\n\n真正爱一个人，不是光靠眼睛去看，更是用心去感受。你好看的时候他喜欢你，这谁都能做到。但在你不那么好看的时候，你素颜的时候，你熬夜赶作业顶着黑眼圈的时候，你刚哭完鼻子红红的眼睛肿肿的时候，他还会不会喜欢你，这才是衡量喜欢的标准。真正喜欢你的人，不会因为你有一天不好看了就转身离开。因为他眼里已经不只有你的脸了。他看见的是你整个人。他看见你的脆弱，看见你的疲惫，看见你卸下所有防备之后那个最真实的你，然后他还是觉得，除了你，别人都不行。\n\n外貌是会变的。再好看的人，也会扛不住时间。这是每个人都要面对的事。但有些东西是不会被时间拿走的，她对待身边人的方式，她骨子里的善良和韧性。甚至有些时候，你跟她在一起越久，就会觉得她越好看，因为你对她有感情了。感情是会给外貌加滤镜的，你越了解一个人，越喜欢一个人，就越会觉得她好看。那种好看，跟五官无关。这就是为什么有些人明明长得普通，但在爱她的人眼里，她就是最好看的。\n也就印证了那句情人眼里出西施。\n\n我并不想否定漂亮的价值，长得好看是好事，是值得开心的事，是老天爷赏的一份额外的礼物。你完全可以因为自己漂亮而自信，但也完全不必因为自己不够漂亮而自卑。因为自信的来源从来不该只有外貌这一条。漂亮不是被爱的前提。它只是加分项，但不是必答题。它是一段关系的起点优势，但不是终点保障。它可能让你更容易被爱，但它不决定你能不能一直被爱。真正决定你能不能一直被爱的，是你这个人本身。是你所有优点和缺点的总和，是那个独一无二的你。\n\n外貌确实是一个人被注意到的第一张牌。但审美是流动的，是因人而异的。你可能长了一张很符合大众审美的脸，但有可能偏偏你喜欢的那个人，他喜欢的是另一种类型。如果你为了迎合某种标准把自己变得不像自己，到头来可能既没讨好到别人，也弄丢了自己。也许你可能不是传统意义上的美女，但就是有人觉得你好看。不是客气的夸奖，不是敷衍的安慰，是他发自内心地觉得，你的眼睛很好看，你笑起来的样子很好看，你认真做一件事的时候很好看。这些评价，并不是因为你符合了哪条标准，是因为在他眼里，你就是标准。这才是真正值得你在意的认可。所以不要被“标准”困住。不要因为自己不符合某种审美模板，就觉得自己不配被爱。\n\n漂亮是漂亮，被爱是被爱，这两件事本来就不该被绑在一起。你努力变漂亮，可以是为了自己开心，为了取悦自己，为了在镜子前面多看自己两眼。但你不应该是为了被爱才去变漂亮，更不应该因为觉得自己不够漂亮就觉得自己不配被爱。别人的爱又不是什么通关奖励，你没有义务用一张脸去兑换它。你不是货架上的商品，不需要等着被人挑走。漂亮是你自己的事，被爱是两个人的事，这两件事从一开始就不该被捆在一起。所以不必为自己的外貌焦虑，你不是不够漂亮，你只是还没遇到那个刚好喜欢你这一款的人。世界上有人爱吃香菜，就有人不爱吃香菜。众口难调，总会有人觉得你不够好，但也一定会有人觉得你刚刚好。\n\n就像那句歌词，“任武林谁领风骚，我却只为你折腰”。我相信总有一天，你会遇到那个为你折腰的人。但在那之前，你先为你自己折腰。你不需要用漂亮去换被爱，你本来就值得。\n#情感",
+      "share_link_desc": "5.89 01/28 P@X.zt :0pm gba:/ 被爱的前提是漂亮吗？在聊这个问题之前，我其实更想问，漂亮的标准，到底是谁定的。漂亮一定是大眼睛吗，一定是高鼻梁吗，一定是白皮肤吗，一定是瓜子脸吗。这些标准是从哪里来的。是从杂志封面上那些精修的照片里来的？还是从手机屏幕上那些一层一层叠上去的滤镜里来的？还是从你刷到的那些网红博主，明星模特，选秀节目里那些被反复夸赞的长相里来的？互联网上漂亮的人铺天盖地，日复一日地出现在你眼前。你看得多了，就会不自觉地把它们当成参照。久而久之，你开始用这套标准去衡量别人，也用这套标准去衡量自己。你以为那是你自己的审美，其实很多时候，那是被塑造出来的审美。每个人的审美是不一样的。你觉得好看的人，换一个人可能完全无感。你觉得一般的人，在别人眼里可能是惊艳。有人喜欢浓颜系，就会有人喜欢淡颜系。很多时候翻一翻社交平台上那些被追捧的长相，会发现她们的美并不遵循同一套公式，有人赢在眉眼间的灵气，有人胜在笑起来的那种清纯的感觉，有人靠的是某种说不清的气质，站在那里就让人想多看几眼。审美本身就是一件很私人的事。它被太多东西影响，你的成长环境，你的文化背景，你经历过的人和事。如果漂亮本身都没有一个统一的标准，那它怎么可能成为被爱的统一前提。 但话说回来，我也不想装清高，说什么外貌不重要。外貌确实重要。我不否认，漂亮确实会带来一些便利。长得好看的人就是更容易被注意到，更容易收到善意，在同样的条件下可能会获得更多的机会。外貌红利是真实存在的，它就像一张隐形的通行证，在某些时刻悄无声息地帮你打开一些门。人是视觉动物，第一个让你多看两眼的人，大概率是因为ta长得好看。这是本能，跟性别无关。 但漂亮带来的那些东西，真的就是被爱吗。我觉得不是。那些因为漂亮而产生的关注，更像是一种条件反射。就像你路过一家店的橱窗，看到一件好看的衣服，你会停下来多看两眼。但多看两眼和把它买回家穿三年，是两回事。前者是吸引，后者是选择。吸引可以只靠外表，选择不是。一个人能因为好看被注意到，这是漂亮能做的事。但一个人能不能被一直爱着，被接住情绪，被理解，被包容，这跟漂不漂亮没关系。这是两套完全不同的逻辑。漂亮负责开头，但能不能走到最后，靠的是别的东西。 漂亮的人也许不缺追求者，但她们自己也会困惑，困惑对方喜欢的到底是自己这个人，还是自己这张脸。我身边那些漂亮的朋友，她们的恋爱往往开始得很快，结束得也很快。因为对方只是带着对外貌的期待走近，却没有耐心去了解外貌之外的部分。她们不缺喜欢，但缺那种被人真正放在心上的感觉。你问那些追求者喜欢你什么，可能想了半天，他们除了“好看”说不出别的。如果一个人喜欢你只是因为你的脸，那这份喜欢太容易被替代了。因为永远会有更好看的脸。建立在容貌基础上的喜欢，保质期往往比你想象的短。并不是漂亮本身有问题，而是只有漂亮的喜欢，根基太单薄了。有时候只是新鲜感没了，这份喜欢就结束了。长得好看，开始一段关系可能确实更容易。但开始容易不代表长久容易。长久靠的是你们之间有没有真正能连接在一起的东西。看的是你们有没有共同的价值观，能不能聊到一块去。看的是你们能不能互相信任，互相包容。遇到事情是互相埋怨还是互相托底。这些事情光看脸是感受不出来的。 生活中也有很多不被外貌偏爱的人。他们的长相放在人群里不算出众，但你就是会觉得跟他们待在一起很舒服。他们身上有种东西，是长相替代不了的。可能是说话时那种不急不慢的节奏，可能是你难过时他们不说大道理就静静听着的耐心，可能是他们对服务员，对路边摊贩都一样的礼貌和尊重。这些东西跟脸没有关系，跟这个人是谁有关系。你跟他们相处久了会发现，好不好看这件事，真的会慢慢变得不重要。因为那个人本身，已经让你觉得足够好了。如果有一天有人爱上你的这些品质，并不是因为你的五官符合某种审美模板，是因为这些东西让你成为了你，而他刚好就是喜欢你这样的人。 真正爱一个人，不是光靠眼睛去看，更是用心去感受。你好看的时候他喜欢你，这谁都能做到。但在你不那么好看的时候，你素颜的时候，你熬夜赶作业顶着黑眼圈的时候，你刚哭完鼻子红红的眼睛肿肿的时候，他还会不会喜欢你，这才是衡量喜欢的标准。真正喜欢你的人，不会因为你有一天不好看了就转身离开。因为他眼里已经不只有你的脸了。他看见的是你整个人。他看见你的脆弱，看见你的疲惫，看见你卸下所有防备之后那个最真实的你，然后他还是觉得，除了你，别人都不行。 外貌是会变的。再好看的人，也会扛不住时间。这是每个人都要面对的事。但有些东西是不会被时间拿走的，她对待身边人的方式，她骨子里的善良和韧性。甚至有些时候，你跟她在一起越久，就会觉得她越好看，因为你对她有感情了。感情是会给外貌加滤镜的，你越了解一个人，越喜欢一个人，就越会觉得她好看。那种好看，跟五官无关。这就是为什么有些人明明长得普通，但在爱她的人眼里，她就是最好看的。 也就印证了那句情人眼里出西施。 我并不想否定漂亮的价值，长得好看是好事，是值得开心的事，是老天爷赏的一份额外的礼物。你完全可以因为自己漂亮而自信，但也完全不必因为自己不够漂亮而自卑。因为自信的来源从来不该只有外貌这一条。漂亮不是被爱的前提。它只是加分项，但不是必答题。它是一段关系的起点优势，但不是终点保障。它可能让你更容易被爱，但它不决定你能不能一直被爱。真正决定你能不能一直被爱的，是你这个人本身。是你所有优点和缺点的总和，是那个独一无二的你。 外貌确实是一个人被注意到的第一张牌。但审美是流动的，是因人而异的。你可能长了一张很符合大众审美的脸，但有可能偏偏你喜欢的那个人，他喜欢的是另一种类型。如果你为了迎合某种标准把自己变得不像自己，到头来可能既没讨好到别人，也弄丢了自己。也许你可能不是传统意义上的美女，但就是有人觉得你好看。不是客气的夸奖，不是敷衍的安慰，是他发自内心地觉得，你的眼睛很好看，你笑起来的样子很好看，你认真做一件事的时候很好看。这些评价，并不是因为你符合了哪条标准，是因为在他眼里，你就是标准。这才是真正值得你在意的认可。所以不要被“标准”困住。不要因为自己不符合某种审美模板，就觉得自己不配被爱。 漂亮是漂亮，被爱是被爱，这两件事本来就不该被绑在一起。你努力变漂亮，可以是为了自己开心，为了取悦自己，为了在镜子前面多看自己两眼。但你不应该是为了被爱才去变漂亮，更不应该因为觉得自己不够漂亮就觉得自己不配被爱。别人的爱又不是什么通关奖励，你没有义务用一张脸去兑换它。你不是货架上的商品，不需要等着被人挑走。漂亮是你自己的事，被爱是两个人的事，这两件事从一开始就不该被捆在一起。所以不必为自己的外貌焦虑，你不是不够漂亮，你只是还没遇到那个刚好喜欢你这一款的人。世界上有人爱吃香菜，就有人不爱吃香菜。众口难调，总会有人觉得你不够好，但也一定会有人觉得你刚刚好。 就像那句歌词，“任武林谁领风骚，我却只为你折腰”。我相信总有一天，你会遇到那个为你折腰的人。但在那之前，你先为你自己折腰。你不需要用漂亮去换被爱，你本来就值得。 # 情感  %s 复制此链接，打开Dou音搜索，直接观看视频！",
+      "share_url": "https://www.iesdouyin.com/share/video/7664861346790614702/?region=CN&mid=7265694567188450105&u_code=-1&did=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&video_share_track_ver=&titleType=title&schema_type=37&share_sign=fVtbN.kK_KALpP9dmH7wYCzyg1pK_tzRQqMgUo6nv1o-&share_version=0&ts=1786535779&from_aid=6383&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D"
+    },
+    "share_rec_extra": "",
+    "share_url": "https://www.iesdouyin.com/share/video/7664861346790614702/?region=CN&mid=7265694567188450105&u_code=-1&did=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&video_share_track_ver=&titleType=title&schema_type=37&share_sign=fVtbN.kK_KALpP9dmH7wYCzyg1pK_tzRQqMgUo6nv1o-&share_version=0&ts=1786535779&from_aid=6383&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+    "shoot_way": "direct_shoot",
+    "should_open_ad_report": false,
+    "show_follow_button": {},
+    "social_tag_list": null,
+    "statistics": {
+      "admire_count": 1,
+      "aweme_id": "7664861346790614702",
+      "collect_count": 1192,
+      "comment_count": 387,
+      "digg_count": 9198,
+      "play_count": 0,
+      "recommend_count": 708,
+      "share_count": 1230
+    },
+    "status": {
+      "allow_friend_recommend": false,
+      "allow_friend_recommend_guide": true,
+      "allow_self_recommend_to_friend": true,
+      "allow_share": true,
+      "aweme_id": "7664861346790614702",
+      "enable_soft_delete": 0,
+      "in_reviewing": false,
+      "is_delete": false,
+      "is_prohibited": false,
+      "listen_video_status": 2,
+      "not_allow_soft_del_reason": "ab",
+      "part_see": 0,
+      "private_status": 0,
+      "review_result": {
+        "review_status": 0
+      }
+    },
+    "text_extra": [
+      {
+        "caption_end": 0,
+        "caption_start": 0,
+        "end": 2869,
+        "hashtag_id": "1572618705886286",
+        "hashtag_name": "情感",
+        "is_commerce": false,
+        "start": 2866,
+        "type": 1
+      }
+    ],
+    "trends_event_track": "{}",
+    "uniqid_position": null,
+    "user_digged": 0,
+    "user_recommend_status": 1,
+    "video": {
+      "audio": {},
+      "big_thumbs": null,
+      "bit_rate_audio": null,
+      "cover": {
+        "height": 720,
+        "uri": "tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA",
+        "url_list": [
+          "https://p9-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~noop.jpeg?lk3s=138a59ce&x-expires=1787742000&x-signature=6zRLZRsaIcgp%2FQtRQc39CIgMNJ8%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&biz_tag=pcweb_cover&l=20260812195619F500D977BAE578E3A9CF",
+          "https://p3-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~noop.jpeg?lk3s=138a59ce&x-expires=1787742000&x-signature=2oYv0%2BUi7yacdQm9UryWqA5yuxY%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&biz_tag=pcweb_cover&l=20260812195619F500D977BAE578E3A9CF"
+        ],
+        "width": 720
+      },
+      "duration": 0,
+      "has_watermark": false,
+      "height": 336,
+      "is_h265": 0,
+      "meta": "{}",
+      "origin_cover": {
+        "height": 720,
+        "uri": "tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA",
+        "url_list": [
+          "https://p9-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~noop.jpeg?lk3s=138a59ce&x-expires=1787742000&x-signature=6zRLZRsaIcgp%2FQtRQc39CIgMNJ8%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&biz_tag=pcweb_cover&l=20260812195619F500D977BAE578E3A9CF",
+          "https://p3-pc-sign.douyinpic.com/tos-cn-i-0813/o0DkAExA7QDXFFzASNVfCTgsP9AmC9gmfqIwAA~noop.jpeg?lk3s=138a59ce&x-expires=1787742000&x-signature=2oYv0%2BUi7yacdQm9UryWqA5yuxY%3D&from=327834062&s=PackSourceEnum_AWEME_DETAIL&se=false&biz_tag=pcweb_cover&l=20260812195619F500D977BAE578E3A9CF"
+        ],
+        "width": 720
+      },
+      "play_addr": {
+        "height": 720,
+        "uri": "https://sf11-cdn-tos.douyinstatic.com/obj/ies-music/7265694565414341431.mp3",
+        "url_key": "7265694567188450105",
+        "url_list": [
+          "https://sf11-cdn-tos.douyinstatic.com/obj/ies-music/7265694565414341431.mp3",
+          "https://sf6-cdn-tos.douyinstatic.com/obj/ies-music/7265694565414341431.mp3"
+        ],
+        "width": 720
+      },
+      "ratio": "default",
+      "width": 1170
+    },
+    "video_control": {
+      "allow_douplus": true,
+      "allow_download": true,
+      "allow_duet": true,
+      "allow_dynamic_wallpaper": true,
+      "allow_music": true,
+      "allow_react": true,
+      "allow_record": true,
+      "allow_share": true,
+      "allow_stitch": true,
+      "disable_record_reason": "",
+      "download_ignore_visibility": true,
+      "download_info": {
+        "level": 0
+      },
+      "draft_progress_bar": 0,
+      "duet_ignore_visibility": true,
+      "duet_info": {
+        "fail_info": {
+          "code": 100017,
+          "reason": "aweme_type"
+        },
+        "level": 2
+      },
+      "prevent_download_type": 0,
+      "share_grayed": false,
+      "share_ignore_visibility": true,
+      "share_type": 1,
+      "show_ai_corner": false,
+      "show_progress_bar": 0,
+      "show_watermark": false,
+      "text_copy_type": 0,
+      "timer_info": {},
+      "timer_status": 1
+    },
+    "video_game_data_channel_config": {},
+    "video_labels": null,
+    "video_share_edit_status": 0,
+    "video_tag": [
+      {
+        "level": 1,
+        "tag_id": 2029,
+        "tag_name": "随拍"
+      },
+      {
+        "level": 2,
+        "tag_id": 2029002,
+        "tag_name": "录屏"
+      },
+      {
+        "level": 3,
+        "tag_id": 2029002004,
+        "tag_name": "文字录屏"
+      }
+    ],
+    "video_text": [],
+    "visual_search_info": {
+      "is_ecom_img": false,
+      "is_high_accuracy_ecom": false,
+      "is_high_recall_ecom": false,
+      "is_show_img_entrance": true,
+      "visual_search_longpress": 1
+    },
+    "vtag_search": {
+      "vtag_delay_ts": 3,
+      "vtag_enable": true
+    },
+    "xigua_base_info": {
+      "item_id": 0,
+      "star_altar_order_id": 0,
+      "star_altar_type": 0,
+      "status": 0
+    }
+  },
+  "log_pb": {
+    "impr_id": "20260812195619F500D977BAE578E3A9CF"
+  },
+  "status_code": 0
+}

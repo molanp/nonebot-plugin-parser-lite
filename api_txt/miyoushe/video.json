@@ -1,0 +1,364 @@
+{
+  "retcode": 0,
+  "message": "OK",
+  "data": {
+    "post": {
+      "post": {
+        "game_id": 2,
+        "post_id": "76074820",
+        "f_forum_id": 26,
+        "uid": "284209755",
+        "subject": "桑多涅人物志",
+        "content": "\n",
+        "cover": "https://upload-bbs.miyoushe.com/upload/2026/06/18/284209755/7f1b90078616e7a22977eab8cc7be713_3403336283276895956.png",
+        "view_type": 5,
+        "created_at": 1781725494,
+        "images": [],
+        "post_status": {
+          "is_top": false,
+          "is_good": false,
+          "is_official": false,
+          "post_status": 0
+        },
+        "topic_ids": [238, 947, 1141, 2423],
+        "view_status": 1,
+        "max_floor": 78,
+        "is_original": 1,
+        "republish_authorization": 2,
+        "reply_time": "2026-06-25 12:50:04",
+        "is_deleted": 0,
+        "is_interactive": false,
+        "structured_content": "[{\"insert\":\"\\n\"},{\"insert\":{\"vod\":{\"id\":\"2067325652662505472\",\"duration\":304433,\"cover\":\"https://upload-bbs.miyoushe.com/upload/2026/06/18/284209755/7f1b90078616e7a22977eab8cc7be713_3403336283276895956.png\",\"resolutions\":[{\"url\":\"https://prod-vod-sign.miyoushe.com/o0LAAJ4lMxqRVBef85xvWg7SCM6FZG6gOpOEss?auth_key=1782680885-46c05cbf53-0-131f249f239599cbc70f9186aa338ed6\",\"definition\":\"480P\",\"height\":480,\"width\":854,\"bitrate\":430261,\"size\":16375038,\"format\":\"MP4\",\"label\":\"480P\",\"codec\":\"h264\"},{\"url\":\"https://prod-vod-sign.miyoushe.com/o0VHy47LAgBZhLgYe5xcCqIEMQeGu9Fpv6WEU2?auth_key=1782680885-66b29ba484-0-0a50355f80d62e843c54e6f983811626\",\"definition\":\"720P\",\"height\":720,\"width\":1280,\"bitrate\":840910,\"size\":32003675,\"format\":\"MP4\",\"label\":\"720P\",\"codec\":\"h264\"},{\"url\":\"https://prod-vod-sign.miyoushe.com/osDyduQGqFIh9j0IQ4C1bJAL9sAheiilMX3EWv?auth_key=1782680885-dd390362d7-0-72f69a7c430e8a81c5151097b1666470\",\"definition\":\"1080P\",\"height\":1080,\"width\":1920,\"bitrate\":1530358,\"size\":58242956,\"format\":\"MP4\",\"label\":\"1080P\",\"codec\":\"h264\"},{\"url\":\"https://prod-vod-sign.miyoushe.com/o0Vq2LFpEDxMHleZ966G7QsgAWz2IgBevciCYL?auth_key=1782680885-96041b741d-0-a7d736d9050b112691ecf6cd644d5a36\",\"definition\":\"2K\",\"height\":1440,\"width\":2560,\"bitrate\":2475493,\"size\":94213249,\"format\":\"MP4\",\"label\":\"2K\",\"codec\":\"h264\"}],\"view_num\":19286,\"transcoding_status\":2,\"review_status\":2,\"backup_resolutions\":[{\"url\":\"https://prod-vod-sign.miyoushe.com/o0LAAJ4lMxqRVBef85xvWg7SCM6FZG6gOpOEss?auth_key=1782680885-46c05cbf53-0-131f249f239599cbc70f9186aa338ed6\",\"definition\":\"480P\",\"height\":480,\"width\":854,\"bitrate\":430261,\"size\":16375038,\"format\":\"MP4\",\"label\":\"480P\",\"codec\":\"h264\"},{\"url\":\"https://prod-vod-sign.miyoushe.com/o0VHy47LAgBZhLgYe5xcCqIEMQeGu9Fpv6WEU2?auth_key=1782680885-66b29ba484-0-0a50355f80d62e843c54e6f983811626\",\"definition\":\"720P\",\"height\":720,\"width\":1280,\"bitrate\":840910,\"size\":32003675,\"format\":\"MP4\",\"label\":\"720P\",\"codec\":\"h264\"},{\"url\":\"https://prod-vod-sign.miyoushe.com/osDyduQGqFIh9j0IQ4C1bJAL9sAheiilMX3EWv?auth_key=1782680885-dd390362d7-0-72f69a7c430e8a81c5151097b1666470\",\"definition\":\"1080P\",\"height\":1080,\"width\":1920,\"bitrate\":1530358,\"size\":58242956,\"format\":\"MP4\",\"label\":\"1080P\",\"codec\":\"h264\"},{\"url\":\"https://prod-vod-sign.miyoushe.com/o0Vq2LFpEDxMHleZ966G7QsgAWz2IgBevciCYL?auth_key=1782680885-96041b741d-0-a7d736d9050b112691ecf6cd644d5a36\",\"definition\":\"2K\",\"height\":1440,\"width\":2560,\"bitrate\":2475493,\"size\":94213249,\"format\":\"MP4\",\"label\":\"2K\",\"codec\":\"h264\"}]}}}]",
+        "structured_content_rows": [],
+        "review_id": 0,
+        "is_profit": false,
+        "is_in_profit": true,
+        "updated_at": 1782363004,
+        "deleted_at": 0,
+        "pre_pub_status": 0,
+        "cate_id": 9,
+        "profit_post_status": -2,
+        "audit_status": 0,
+        "meta_content": "{\"describe\":[{\"insert\":\"\\n\"}],\"vods\":[{\"id\":\"2067325652662505472\"}],\"ActivityMeta\":null,\"contribution_act\":{\"act_id\":\"\",\"game_uid\":0,\"game_region\":\"\",\"game_nickname\":\"\"}}",
+        "is_missing": false,
+        "block_reply_img": 1,
+        "is_showing_missing": false,
+        "block_latest_reply_time": 0,
+        "selected_comment": 2,
+        "is_mentor": false,
+        "post_extra": {
+          "ugc_master_post_extra": {
+            "game_uid": "0",
+            "game_region": ""
+          },
+          "minos_aigc_info": {
+            "is_aigc": false
+          }
+        },
+        "ai_content_type": "AI_CONTENT_TYPE_NOT_AI",
+        "user_ai_content_choice": "USER_AI_CONTENT_CHOICE_NOT_AI",
+        "aigc_meta": {
+          "PropagateID": "cG9zdDo3NjA3NDgyMA==",
+          "AIGCLabel": "0",
+          "ContentPropagator": "001191310104MA1FRNHC9420000"
+        }
+      },
+      "forum": {
+        "id": 26,
+        "name": "酒馆",
+        "icon": "https://upload-bbs.mihoyo.com/upload/2020/04/05/e046661d73173486f054d72922fffb08.png",
+        "game_id": 2,
+        "forum_cate": {
+          "id": 9,
+          "name": "考据杂谈",
+          "forum_id": 26
+        }
+      },
+      "topics": [
+        {
+          "id": 238,
+          "name": "游戏心得",
+          "cover": "https://upload-bbs.mihoyo.com/upload/2022/09/15/fd23185db4fca7f51e2a90d754593499_4788857205412352439.png",
+          "is_top": false,
+          "is_good": false,
+          "is_interactive": false,
+          "game_id": 0,
+          "content_type": 2
+        },
+        {
+          "id": 947,
+          "name": "原神观测枢",
+          "cover": "https://upload-bbs.mihoyo.com/upload/2022/02/14/8efc5670a3dd0467bf7fb1866bd5d203_2630690909080422615.png",
+          "is_top": false,
+          "is_good": false,
+          "is_interactive": false,
+          "game_id": 0,
+          "content_type": 2
+        },
+        {
+          "id": 1141,
+          "name": "愚人众执行官「木偶」",
+          "cover": "https://upload-bbs.mihoyo.com/upload/2022/07/14/63c5f055777afe1c2f3cc40032f5e8df_2016255279401711284.png",
+          "is_top": false,
+          "is_good": false,
+          "is_interactive": false,
+          "game_id": 0,
+          "content_type": 2
+        },
+        {
+          "id": 2423,
+          "name": "桑多涅的故事",
+          "cover": "https://bbs-static.miyoushe.com/static/2026/06/15/49fd6ce5cc823ba4e20548da447d0d1e_7903572499161810144.jpg",
+          "is_top": false,
+          "is_good": false,
+          "is_interactive": false,
+          "game_id": 0,
+          "content_type": 2
+        }
+      ],
+      "user": {
+        "uid": "284209755",
+        "nickname": "叶落空归",
+        "introduce": "全网同名：叶落空归，米游剧情交流：1055754768，入群答案：探索、了解、建立、连结",
+        "avatar": "100126",
+        "gender": 0,
+        "certification": {
+          "type": 2,
+          "label": "星学家、原学家、观测者"
+        },
+        "level_exp": {
+          "level": 16,
+          "exp": 45313
+        },
+        "is_following": false,
+        "is_followed": false,
+        "avatar_url": "https://bbs-static.miyoushe.com/communityweb/upload/d728c63133906a6e155985edeba52a91.png",
+        "pendant": "https://bbs-static.miyoushe.com/static/2025/10/15/5917791e4d39641fc13bcff6b4806a99_8143565034937242775.png",
+        "certifications": [
+          {
+            "type": 2,
+            "label": "星学家"
+          },
+          {
+            "type": 2,
+            "label": "原学家"
+          },
+          {
+            "type": 2,
+            "label": "观测者"
+          }
+        ],
+        "is_creator": true,
+        "avatar_ext": {
+          "avatar_type": 0,
+          "avatar_assets_id": "",
+          "resources": [],
+          "hd_resources": []
+        }
+      },
+      "self_operation": {
+        "attitude": 0,
+        "is_collected": false,
+        "upvote_type": 0
+      },
+      "stat": {
+        "view_num": 25517,
+        "reply_num": 131,
+        "like_num": 10467,
+        "bookmark_num": 297,
+        "forward_num": 30,
+        "original_like_num": 10467,
+        "post_upvote_stat": [
+          {
+            "upvote_type": 1,
+            "upvote_cnt": 10383
+          },
+          {
+            "upvote_type": 2,
+            "upvote_cnt": 12
+          },
+          {
+            "upvote_type": 3,
+            "upvote_cnt": 15
+          },
+          {
+            "upvote_type": 4,
+            "upvote_cnt": 15
+          },
+          {
+            "upvote_type": 5,
+            "upvote_cnt": 42
+          }
+        ],
+        "share_num": 179
+      },
+      "help_sys": null,
+      "cover": {
+        "url": "https://upload-bbs.miyoushe.com/upload/2026/06/18/284209755/7f1b90078616e7a22977eab8cc7be713_3403336283276895956.png",
+        "height": 554,
+        "width": 985,
+        "format": "png",
+        "size": "1097943",
+        "crop": null,
+        "is_user_set_cover": false,
+        "image_id": "255035093",
+        "entity_type": "IMG_ENTITY_UNKNOWN",
+        "entity_id": "2067325652662505472",
+        "is_deleted": false,
+        "aigc_label": "AIGC_LABEL_UNKNOWN",
+        "aigc_meta": ""
+      },
+      "image_list": [
+        {
+          "url": "https://upload-bbs.miyoushe.com/upload/2026/06/18/284209755/7f1b90078616e7a22977eab8cc7be713_3403336283276895956.png",
+          "height": 554,
+          "width": 985,
+          "format": "png",
+          "size": "1097943",
+          "crop": null,
+          "is_user_set_cover": false,
+          "image_id": "255035093",
+          "entity_type": "IMG_ENTITY_UNKNOWN",
+          "entity_id": "2067325652662505472",
+          "is_deleted": false,
+          "aigc_label": "AIGC_LABEL_UNKNOWN",
+          "aigc_meta": ""
+        }
+      ],
+      "is_official_master": false,
+      "is_user_master": false,
+      "hot_reply_exist": true,
+      "vote_count": 0,
+      "last_modify_time": 0,
+      "recommend_type": "",
+      "collection": null,
+      "vod_list": [
+        {
+          "id": "2067325652662505472",
+          "duration": 304433,
+          "cover": "https://upload-bbs.miyoushe.com/upload/2026/06/18/284209755/7f1b90078616e7a22977eab8cc7be713_3403336283276895956.png",
+          "resolutions": [
+            {
+              "url": "https://prod-vod-sign.miyoushe.com/o0LAAJ4lMxqRVBef85xvWg7SCM6FZG6gOpOEss?auth_key=1782680885-46c05cbf53-0-131f249f239599cbc70f9186aa338ed6",
+              "definition": "480P",
+              "height": 480,
+              "width": 854,
+              "bitrate": 430261,
+              "size": "16375038",
+              "format": "MP4",
+              "label": "480P",
+              "codec": "h264"
+            },
+            {
+              "url": "https://prod-vod-sign.miyoushe.com/o0VHy47LAgBZhLgYe5xcCqIEMQeGu9Fpv6WEU2?auth_key=1782680885-66b29ba484-0-0a50355f80d62e843c54e6f983811626",
+              "definition": "720P",
+              "height": 720,
+              "width": 1280,
+              "bitrate": 840910,
+              "size": "32003675",
+              "format": "MP4",
+              "label": "720P",
+              "codec": "h264"
+            },
+            {
+              "url": "https://prod-vod-sign.miyoushe.com/osDyduQGqFIh9j0IQ4C1bJAL9sAheiilMX3EWv?auth_key=1782680885-dd390362d7-0-72f69a7c430e8a81c5151097b1666470",
+              "definition": "1080P",
+              "height": 1080,
+              "width": 1920,
+              "bitrate": 1530358,
+              "size": "58242956",
+              "format": "MP4",
+              "label": "1080P",
+              "codec": "h264"
+            },
+            {
+              "url": "https://prod-vod-sign.miyoushe.com/o0Vq2LFpEDxMHleZ966G7QsgAWz2IgBevciCYL?auth_key=1782680885-96041b741d-0-a7d736d9050b112691ecf6cd644d5a36",
+              "definition": "2K",
+              "height": 1440,
+              "width": 2560,
+              "bitrate": 2475493,
+              "size": "94213249",
+              "format": "MP4",
+              "label": "2K",
+              "codec": "h264"
+            }
+          ],
+          "view_num": 19286,
+          "transcoding_status": 2,
+          "review_status": 2,
+          "brief_intro": "",
+          "backup_resolutions": [
+            {
+              "url": "https://prod-vod-sign.miyoushe.com/o0LAAJ4lMxqRVBef85xvWg7SCM6FZG6gOpOEss?auth_key=1782680885-46c05cbf53-0-131f249f239599cbc70f9186aa338ed6",
+              "definition": "480P",
+              "height": 480,
+              "width": 854,
+              "bitrate": 430261,
+              "size": "16375038",
+              "format": "MP4",
+              "label": "480P",
+              "codec": "h264"
+            },
+            {
+              "url": "https://prod-vod-sign.miyoushe.com/o0VHy47LAgBZhLgYe5xcCqIEMQeGu9Fpv6WEU2?auth_key=1782680885-66b29ba484-0-0a50355f80d62e843c54e6f983811626",
+              "definition": "720P",
+              "height": 720,
+              "width": 1280,
+              "bitrate": 840910,
+              "size": "32003675",
+              "format": "MP4",
+              "label": "720P",
+              "codec": "h264"
+            },
+            {
+              "url": "https://prod-vod-sign.miyoushe.com/osDyduQGqFIh9j0IQ4C1bJAL9sAheiilMX3EWv?auth_key=1782680885-dd390362d7-0-72f69a7c430e8a81c5151097b1666470",
+              "definition": "1080P",
+              "height": 1080,
+              "width": 1920,
+              "bitrate": 1530358,
+              "size": "58242956",
+              "format": "MP4",
+              "label": "1080P",
+              "codec": "h264"
+            },
+            {
+              "url": "https://prod-vod-sign.miyoushe.com/o0Vq2LFpEDxMHleZ966G7QsgAWz2IgBevciCYL?auth_key=1782680885-96041b741d-0-a7d736d9050b112691ecf6cd644d5a36",
+              "definition": "2K",
+              "height": 1440,
+              "width": 2560,
+              "bitrate": 2475493,
+              "size": "94213249",
+              "format": "MP4",
+              "label": "2K",
+              "codec": "h264"
+            }
+          ]
+        }
+      ],
+      "is_block_on": false,
+      "forum_rank_info": null,
+      "link_card_list": [],
+      "news_meta": null,
+      "recommend_reason": {
+        "tags": [],
+        "is_mentor_rec_block": false
+      },
+      "villa_card": null,
+      "is_mentor": false,
+      "villa_room_card": null,
+      "reply_avatar_action_info": null,
+      "challenge": null,
+      "hot_reply_list": [],
+      "villa_msg_image_list": [],
+      "contribution_act": null,
+      "is_has_vote": false,
+      "is_has_lottery": false,
+      "release_time_type": "ReleaseTimeTypeNone",
+      "future_release_time": 0,
+      "external_link": null,
+      "post_full_extra_info": null,
+      "post_attachment_info": null,
+      "feed_attachment_info": null
+    }
+  }
+}

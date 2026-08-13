@@ -1,0 +1,88 @@
+{
+  "result": {
+    "feed": {
+      "id": "6a72c0978ae5b5008129d034",
+      "uid": "f286ea88872c4273a283cd9d8f3f7068",
+      "type": 2,
+      "content": "{\"type\":2,\"body\":{\"text\":\"重磅福利！惊喜加倍！官服蛋仔福利必领榜迎来更新——8月7日（周五）-8月20日，蛋仔天官暑期福利狂送上亿蛋币，每人230枚限时蛋币好礼速来抱走！仅限官服蛋仔！\\n\\n🎉天官限时福利大放送：官服蛋仔累计登录5天，即可领取100枚限时蛋币；前往网易大神还可再领30枚限时蛋币！共计130枚蛋币轻松收入囊中！\\n🎉加倍奖励来袭：仅需1元可额外解锁共计100枚限时蛋币的加倍奖励！前往网易大神领取0.9元代金券，到手价低至0.1元！\\n#蛋仔派对# #玩蛋仔就来官服# #用官服就领蛋币#\",\"media\":[{\"name\":\"天宫.png\",\"url\":\"https://ok.166.net/reunionpub/1_kol_20260805_5e6074522c8e395b2345f636199ac358\",\"mimeType\":\"image/png\",\"size\":1606196,\"width\":1518,\"height\":1006,\"watermark\":true}]}}",
+      "deleteTime": 0,
+      "createTime": 1785905299567,
+      "updateTime": 1785905303903,
+      "clientType": 152,
+      "tagList": ["60054d66d5456877d2268a7e"],
+      "attributeInfoList": [],
+      "topicInfoList": [
+        {
+          "topicName": "蛋仔派对",
+          "type": "DEFAULT"
+        },
+        {
+          "topicName": "玩蛋仔就来官服",
+          "type": "DEFAULT"
+        },
+        {
+          "topicName": "用官服就领蛋币",
+          "type": "DEFAULT"
+        }
+      ],
+      "pendant": {},
+      "interactOption": {
+        "comment": "DEFAULT",
+        "repost": "DEFAULT",
+        "handpick": false,
+        "contentStatementOption": "DEFAULT"
+      },
+      "displayIpInfo": {
+        "ipLocationName": "浙江"
+      },
+      "record": {
+        "id": "6a72c0978ae5b5008129d034",
+        "repostCount": 1,
+        "commentCount": 513,
+        "likeCount": 498,
+        "shareCount": 34,
+        "favCount": 154,
+        "createTime": 1785905339887
+      }
+    },
+    "userInfos": [
+      {
+        "user": {
+          "uid": "f286ea88872c4273a283cd9d8f3f7068",
+          "nick": "蛋仔派对",
+          "icon": "https://ok.166.net/reunionpub/3_20260729_19fa97c33ad712538.jpeg",
+          "intro": "咔咔~欢迎各位光临蛋仔岛！(*╹▽╹*)",
+          "gender": 1,
+          "identityAuthenticInfo": "《蛋仔派对》官方号",
+          "identityType": "1",
+          "followerLevel": 1,
+          "deleteTime": 0,
+          "createTime": 1639474576165,
+          "updateTime": 1785254918509
+        },
+        "record": {
+          "uid": "f286ea88872c4273a283cd9d8f3f7068",
+          "feedCount": 5416,
+          "followerCount": 659278,
+          "followingCount": 2,
+          "squareCount": 1,
+          "likeCount": 842368,
+          "lastPostIpLocation": "浙江"
+        }
+      }
+    ],
+    "tdk": {
+      "title": "重磅福利！惊喜加倍_蛋仔派对 | 大神",
+      "desc": "重磅福利！惊喜加倍！官服蛋仔福利必领榜迎来更新——8月7日（周五）-8月20日，蛋仔天官暑期福利狂送上亿蛋币，每人230枚限时蛋币好礼速来抱走！仅限官服蛋仔",
+      "keywords": ""
+    },
+    "squareBasicInfo": {
+      "squareId": "60054a7dd5456877d226706e",
+      "icon": "https://img.166.net/reunionpub/100_20260515_19e29a8892b606375.png",
+      "name": "蛋仔派对",
+      "tag": "60054d66d5456877d2268a7e"
+    }
+  },
+  "code": 200,
+  "errmsg": "OK"
+}

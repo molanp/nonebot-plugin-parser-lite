@@ -1,19 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="{{ theme }}">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Media Card · New</title>
-        <meta name="referrer" content="no-referrer" />
-        <link rel="preconnect" href="https://sticker.sokoko.org" crossorigin />
-        <link rel="dns-prefetch" href="https://sticker.sokoko.org" />
         <link rel="stylesheet" href="icon.css" />
         <link rel="stylesheet" href="tailwind.css" />
         {% from "macros.jinja" import render_content %}
         <style>
             body {
                 font-family: "PingFang SC", sans-serif;
-                background-color: #e2e8f0;
                 -webkit-font-smoothing: antialiased;
                 margin: 15px;
             }
@@ -39,7 +35,7 @@
             }
         </style>
     </head>
-    <body class="flex justify-center break-all">{{ render_content(result) }}</body>
+    <body class="flex justify-center break-all bg-slate-200 dark:bg-slate-950">{{ render_content(result) }}</body>
     <script defer>
         document.addEventListener("DOMContentLoaded", function() {
             document

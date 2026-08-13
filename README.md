@@ -18,36 +18,47 @@
 
 ## 📖 支持的平台
 
-| 平台       | 图文/文章/帖子/动态 | 视频 | 音频 | 图集/相册 | 评论区渲染 | Live Photo |
-| :--------- | :-----------------: | :--: | :--: | :-------: | :--------: | :--------: |
-| B 站       |         ✅          |  ✅  |  ✅  |    ✅     |     ✅     |     ✅     |
-| 抖音       |         ✅          |  ✅  |  🚫  |    ✅     | ⛔(仅文章) |     ✅     |
-| 微博       |         ✅          |  ✅  |  🚫  |    ✅     |     ✅     |     ✅     |
-| 小红书     |         ✅          |  ✅  |  🚫  |    ✅     |     ✅     |     ✅     |
-| 快手       |         🚫          |  ✅  |  🚫  |    ❌     |     ✅     |     🚫     |
-| AcFun      |         ✅          |  ✅  |  🚫  |    🚫     |     ❌     |     🚫     |
-| X          |         ✅          |  ✅  |  🚫  |    ✅     |     ❌     |     🚫     |
-| 酷狗音乐   |         🚫          |  🚫  |  ✅  |    🚫     |     🚫     |     🚫     |
-| 网易云音乐 |         🚫          |  🚫  |  ✅  |    🚫     |     🚫     |     🚫     |
-| QQ音乐     |         🚫          |  🚫  |  ✅  |    🚫     |     🚫     |     🚫     |
-| 汽水音乐   |         🚫          |  🚫  |  ✅  |    🚫     |     ❌     |     🚫     |
-| 酷我音乐   |         🚫          |  🚫  |  ✅  |    🚫     |     ❌     |     🚫     |
-| 百度贴吧   |         🚫          |  ❌  |  🚫  |    ✅     |     ✅     |     🚫     |
-| 今日头条   |         🚫          |  ✅  |  🚫  |    🚫     |     ❌     |     🚫     |
-| 知乎       |  ✅(专栏尚未适配)   |  ✅  |  🚫  |    ✅     |     ✅     |     🚫     |
-| 堆糖       |         ✅          |  🚫  |  🚫  |    ✅     |     ✅     |     🚫     |
-| 小黑盒     |         ✅          |  ✅  |  🚫  |    ✅     |     ✅     |     🚫     |
-| ILLU       |         ✅          |  🚫  |  🚫  |    ✅     |     ✅     |     🚫     |
-| LOFTER     |         ✅          |  🚫  |  🚫  |    ✅     |     ✅     |     🚫     |
-| BUFF       |         ✅          |  ✅  |  🚫  |    ✅     |     ✅     |     🚫     |
-| 酷安       |         ✅          |  🚫  |  🚫  |    ✅     |     ✅     |     🚫     |
+| 平台                 | 图文 | 评论区渲染 | 视频 | Live Photo |
+| :------------------- | :--- | :--------- | :--- | :--------- |
+| **B 站**             | ✅   | ✅         | ✅   | ✅         |
+| **抖音**             | ✅   | ❌         | ✅   | ✅         |
+| **微博**             | ✅   | ✅         | ✅   | ✅         |
+| **小红书**           | ✅   | ✅         | ✅   | ✅         |
+| **快手**             | ✅   | ❌         | ✅   | 🚫         |
+| **AcFun**            | ✅   | ❌         | ✅   | 🚫         |
+| **X (Twitter)**      | ✅   | ❌         | ✅   | 🚫         |
+| **百度贴吧**         | ✅   | ✅         | ❌   | 🚫         |
+| **知乎**             | ✅   | ✅         | ✅   | 🚫         |
+| **堆糖**             | ✅   | ✅         | 🚫   | 🚫         |
+| **小黑盒**           | ✅   | ✅         | ✅   | ✅         |
+| **ILLU**             | ✅   | ✅         | 🚫   | 🚫         |
+| **LOFTER**           | ✅   | ✅         | 🚫   | 🚫         |
+| **网易 BUFF**        | ✅   | ✅         | 🚫   | 🚫         |
+| **酷安**             | ✅   | ✅         | 🚫   | 🚫         |
+| **虎扑**             | ✅   | ✅         | ✅   | 🚫         |
+| **米游社**           | ✅   | ✅         | ✅   | 🚫         |
+| **豆瓣**             | ✅   | ✅         | 🚫   | 🚫         |
+| **5EPlay**           | ✅   | ✅         | ✅   | 🚫         |
+| **豆包**             | 🚫   | 🚫         | ✅   | 🚫         |
+| **Linux Do**         | ✅   | ✅         | 🚫   | 🚫         |
+| **完美世界竞技平台** | ✅   | ✅         | ✅   | 🚫         |
+| **壁吧专楼吧**       | ✅   | ✅         | 🚫   | 🚫         |
+| **TapTap**           | ✅   | ✅         | ✅   | 🚫         |
+| **网易大神**         | ✅   | ✅         | ✅   | 🚫         |
+
+| 平台           | 音频支持 | 评论区渲染 |
+| :------------- | :------- | :--------- |
+| **网易云音乐** | ✅       | ❌         |
+| **酷狗音乐**   | ✅       | ❌         |
+| **汽水音乐**   | ✅       | ❌         |
+| **酷我音乐**   | ✅       | ❌         |
 
 > 💡 **标识说明**
 >
-> - `✅` 表示完整支持解析与富文本渲染
-> - `❌` 表示插件尚未适配该模块
-> - `🚫` 表示该平台暂无此类内容形态(至少我不知道有，如果有，你可以提交issue告诉我)
-> - “图文/文章/帖子/动态”列指的文字+图片混排、专栏、问答、动态、show 等文本型内容
+> - ✅ 表示完整支持解析与富文本渲染
+> - ❌ 表示插件尚未适配该模块
+> - 🚫 表示该平台暂无此类内容形态 (如有遗漏或平台更新，欢迎提交 Issue 告知)
+> - **图文**：指代一切以文本为主体、图片混排、多图相册、社区长文、问答、多媒体笔记等内容形态。
 
 支持的链接，可参考 [测试链接](https://github.com/fllesser/nonebot-plugin-parser/blob/master/tests/others/test_urls.md)
 
@@ -81,7 +92,11 @@ uv add --requirements requirements.txt
 
 <details>
 <summary>渲染效果</summary>
-<img width="1240" height="2880" alt="142f794a8df94207bf742c75434c942b" src="https://github.com/user-attachments/assets/7c73228d-bf1c-44e1-96be-adcf9ef32f85" />
+
+|                                                                            哔哩哔哩                                                                             |                                                                               小红书                                                                                |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img width="1240" height="2880" alt="142f794a8df94207bf742c75434c942b" src="https://github.com/user-attachments/assets/7c73228d-bf1c-44e1-96be-adcf9ef32f85" /> | <img width="1240" height="5382" alt="203b2500-2393-53c4-901c-77169489e4ee" src="https://github.com/user-attachments/assets/969290cd-9bb3-4945-8f26-8d6cdeb51f57" /> |
+
 </details>
 
 ## ⚙️ 配置
@@ -94,15 +109,15 @@ uv add --requirements requirements.txt
 <summary>配置项</summary>
 
 ```bash
-# [可选] nonebot2 内置配置，若服务器上传带宽太低，建议调高，防止超时
-API_TIMEOUT=30.0
+# [可选] nonebot2 内置配置，若服务器上传带宽太低或报错发送消息超时，建议调高，防止超时
+API_TIMEOUT=100
 
 # [可选] B 站 cookie, 必须含有 SESSDATA 项，可附加 B 站 AI 总结功能
-# 如果需要长期使用此凭据则不应该在浏览器登录账户导致 cookie 被刷新，建议注册个小号获取
-# 各项获取方式 https://nemo2011.github.io/bilibili-api/#/get-credential
-# ac_time_value 相对特殊，仅用于刷新 Cookies
-# B站网页打开开发者工具，进入控制台，输入 window.localStorage.ac_time_value 即可获取其值。
-plite_bili_ck="SESSDATA=xxxxxxxxxx;ac_time_value=131231241231241"
+# 获取方式（觉得麻烦可以看最下面的指令扫码登陆）
+# B站网页打开开发者工具，切换到网络标签页，刷新后点击一个类型为`fetch`的网络请求复制请求头中 Cookie 的全部内容
+# 若希望cookie会自动刷新,请进入控制台，输入 window.localStorage.ac_time_value 并执行即可获取其值。
+# 然后按照如下格式填写，xxxx为你的 Cookie 内容, abc 为 ac_time_value 的值
+plite_bili_ck="xxxxxxxxxx;ac_time_value=abc"
 
 # [可选] 允许的 B 站视频编码，越靠前的编码优先级越高
 # 可选 "avc"(H.264，体积较大), "hev"(HEVC), "av01"(AV1), "unknown"(未知)
@@ -112,12 +127,6 @@ plite_bili_video_codes=["avc", "av01", "hev", "unknown"]
 # [可选] B 站视频清晰度
 # 360p(16), 480p(32), 720p(64), 1080p(80), 1080p+(112), 1080p_60(116), 4k(120)
 plite_bili_video_quality=80
-
-# [可选] 小红书 Cookie, 部分链接无法解析，可填
-plite_xhs_ck=""
-
-# [必填] 快手 Cookie，此cookie无需登录态，首页匿名用户ck即可(只需要确保did字段存在)
-plite_ks_ck=""
 
 # [可选] 音频解析，是否需要上传群文件
 plite_need_upload_audio=False
@@ -148,6 +157,9 @@ plite_blacklist_users=[]
 # [可选] 是否在解析结果中附加原始URL
 plite_append_url=False
 
+# [可选] 是否在解析结果中附加嵌入式播放链接
+plite_embed_url=False
+
 # [可选] 是否在解析结果中添加原始URL二维码
 plite_append_qrcode=False
 
@@ -156,6 +168,9 @@ plite_need_forward_contents=True
 
 # [可选] 是否开启懒下载模式，仅在用户请求时才下载视频
 plite_lazy_download=False
+
+# [可选] 懒下载是否发送命令提示
+plite_lazy_download_tip=False
 
 # [可选] 懒下载模式等待命令超时时间
 plite_lazy_download_timeout=30
@@ -171,13 +186,27 @@ plite_browser_path=""
 plite_live_photo=True
 
 # [可选] 浏览器是否使用无头模式，无头模式有可能会被检测到
-plite_headless=False
+plite_headless=True
 
 # [可选] 最大评论数量
 plite_max_comments=5
 
 # [可选] 纯文本文本长度阈值，超过此长度的文本将会强制转发
-plite_forward_text_threshold=300
+plite_forward_text_threshold=1000
+
+# [可选] 最大下载重试次数
+plite_max_retries=3
+
+# [可选] 白天时间范围 [开始, 结束]，格式 h:m；范围内为浅色主题，范围外为夜间模式
+# 支持跨午夜范围，例如 ["22:30", "6:00"]
+plite_day_range=["6:00", "19:00"]
+
+# [可选] 知乎 cookie, 需要具有登录态的cookie才能完整获取回答内容
+# 必须包含 z_c0 项，建议包含 d_c0, _xsrf 项
+plite_zhihu_ck="z_c0=xxxx"
+
+# [可选] linuxdo cookie, 部分帖子需要登录或有一定的阅读等级才可以查看
+plite_linuxdo_ck="xxxx"
 ```
 
 </details>
@@ -186,10 +215,28 @@ plite_forward_text_threshold=300
 
 |   指令   |          参数           |         权限          | 需要@ | 范围 |       说明        |
 | :------: | :---------------------: | :-------------------: | :---: | :--: | :---------------: |
-| 开启解析 |            -            | SUPERUSER/OWNER/ADMIN |  是   | 群聊 |     开启解析      |
-| 关闭解析 |            -            | SUPERUSER/OWNER/ADMIN |  是   | 群聊 |     关闭解析      |
-|    bm    | bv号或引用一个链接/卡片 |           -           |  否   | 群聊 |   下载 B 站音频   |
+| 开启解析 |            -            | SUPERUSER/OWNER/ADMIN |  是   | 全部 |     开启解析      |
+| 关闭解析 |            -            | SUPERUSER/OWNER/ADMIN |  是   | 全部 |     关闭解析      |
+|    bm    | bv号或引用一个链接/卡片 |           -           |  否   | 全部 |   下载 B 站音频   |
 |  blogin  |            -            |       SUPERUSER       |  是   | 全部 | 扫码获取 B 站凭证 |
+
+## 🎨 构建模板样式
+
+> 此处教程适用于已修改默认模板的用户
+
+首次构建前安装 Tailwind CSS 开发依赖：
+
+```shell
+npm install
+```
+
+修改 `src/nonebot_plugin_parser_lite/render/templates` 下的 Jinja 模板后，重新生成静态样式表：
+
+```shell
+npm run build:css
+```
+
+脚本会自动输出样式文件到渲染目录
 
 ## 🎉 致谢
 

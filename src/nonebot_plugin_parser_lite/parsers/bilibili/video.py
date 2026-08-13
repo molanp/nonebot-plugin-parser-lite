@@ -80,7 +80,6 @@ class VideoInfo(Struct):
             page = self.pages[page_idx]
             title += f" | 分集 - {page.part}"
             duration = page.duration
-            cover = page.first_frame
             timestamp = page.ctime
 
         return PageInfo(

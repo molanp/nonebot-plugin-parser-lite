@@ -5,7 +5,7 @@ from typing import Any
 from msgspec import Struct, convert
 
 from ...creator import Creator
-from ...data import MediaContent
+from ...data import ContentItem
 
 
 class AuthorInfo(Struct):
@@ -91,26 +91,9 @@ class DynamicMajor(Struct):
             return self.desc.rich_text_nodes
         return []
 
-    # @property
-    # def image_urls(self) -> list[str]:
-    #     """获取图片URL列表"""
-    #     # 优先从opus获取图片
-    #     # 不可能是图文，因为图文不走动态解析
-    #     # if self.type == "MAJOR_TYPE_OPUS" and self.opus and self.opus.pics:
-    #     #     return [pic.url for pic in self.opus.pics]
-    #     # 从draw类型获取图片
-    #     if self.type == "MAJOR_TYPE_DRAW" and self.draw:
-    #         pictures = self.draw.get("pictures", [])
-    #         return [pic.get("img_src", "") for pic in pictures if pic.get("img_src")]
-    #     # 从视频archive获取封面
-    #     elif self.type == "MAJOR_TYPE_ARCHIVE" and self.archive and self.archive.cover:  # noqa: E501
-    #         return [self.archive.cover]
-    #     elif self.type == "MAJOR_TYPE_OPUS" and self.opus:
-    #         return [pic.url for pic in self.opus.pics]
-    #     return []
 
     @property
-    def medias(self) -> list[MediaContent]:
+    def medias(self) -> list[ContentItem]:
         """
         获取媒体资源列表（图片 + Live Photo）
         说明:
@@ -120,7 +103,7 @@ class DynamicMajor(Struct):
             - 对于 draw.pictures:
                 - 当前只有普通图片（没有 live）
         """
-        items: list[MediaContent] = []
+        items: list[ContentItem] = []
 
         # 优先处理 opus 图文里的图片 / livephoto
         if self.type == "MAJOR_TYPE_OPUS" and self.opus:
@@ -246,7 +229,7 @@ class DynamicInfo(Struct):
         return None
 
     @property
-    def medias(self) -> list[MediaContent]:
+    def medias(self) -> list[ContentItem]:
         """
         统一获取当前动态的媒体资源（图片 + Live Photo）
 
