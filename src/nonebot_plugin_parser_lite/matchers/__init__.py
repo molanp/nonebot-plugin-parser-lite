@@ -233,12 +233,16 @@ if pconfig.lazy_download:
     async def _(session: Uninfo):
         """懒下载命令：发送上次解析结果中的媒体内容。"""
         user_id = session.user.id
-        result = LazyManager.get(user_id)
+        result = LazyManager.claim(user_id)
+        if result is None:
+            await UniMessage("资源正在下载或发送中，请勿重复请求").send()
+            return
+
         try:
             async for message in RENDERER.send_content(result):
                 await message.send()
         finally:
-            LazyManager.remove(user_id)
+            LazyManager.release(user_id)
 
 
 class LazyManager:
@@ -253,6 +257,7 @@ class LazyManager:
 
     # user_id -> Session
     SESSIONS: ClassVar[dict[str, "LazyManager.Session"]] = {}
+    ACTIVE_USERS: ClassVar[set[str]] = set()
 
     @classmethod
     def add(cls, user_id: str, parse_result: ParseResult) -> None:
@@ -268,15 +273,28 @@ class LazyManager:
         cls.SESSIONS[user_id] = session
 
     @classmethod
-    def get(cls, user_id: str) -> ParseResult:
-        """获取用户当前的懒下载解析结果（调用方保证一定存在）。"""
-        session = cls.SESSIONS.get(user_id)
-        assert session is not None, "LazyManager.get: session should exist"
+    def claim(cls, user_id: str) -> ParseResult | None:
+        """原子领取待下载结果；同一用户已有任务运行时返回 None。"""
+        if user_id in cls.ACTIVE_USERS:
+            return None
+
+        session = cls.SESSIONS.pop(user_id, None)
+        if session is None:
+            return None
+
+        if not session.task.done():
+            session.task.cancel()
+        cls.ACTIVE_USERS.add(user_id)
         return session.result
 
     @classmethod
     def has(cls, user_id: str) -> bool:
-        return user_id in cls.SESSIONS
+        return user_id in cls.SESSIONS or user_id in cls.ACTIVE_USERS
+
+    @classmethod
+    def release(cls, user_id: str) -> None:
+        """标记该用户的下载发送流程结束。"""
+        cls.ACTIVE_USERS.discard(user_id)
 
     @classmethod
     def remove(cls, user_id: str, *, current_task: asyncio.Task | None = None) -> None:
