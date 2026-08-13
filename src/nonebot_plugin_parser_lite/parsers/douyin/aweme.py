@@ -1,8 +1,7 @@
 from msgspec import Struct, field
 import ujson
 
-from ...creator import Creator
-from ...data import ContentItem
+from ...creator import ContentItem, Creator
 
 
 class Addr(Struct):
@@ -24,10 +23,6 @@ class Statistics(Struct):
     """收藏数"""
 
 
-class Cover(Struct):
-    url_list: list[str]
-
-
 class UrlList(Struct):
     url_list: list[str]
 
@@ -37,11 +32,11 @@ class Author(Struct):
     nickname: str
     avatar_thumb: UrlList
     """头像"""
-    signature: str
+    signature: str | None = None
 
 
 class Video(Struct):
-    cover: Cover
+    cover: UrlList
     duration: int
     """视频时长(/1000)"""
     play_addr: Addr
