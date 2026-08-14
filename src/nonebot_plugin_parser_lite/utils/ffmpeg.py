@@ -17,7 +17,7 @@ class FFmpeg:
     _available: bool | None = None
 
     @classmethod
-    def __generate_file_name(cls, *args: Path) -> str:
+    def hash_filename(cls, *args: Path) -> str:
         """
         根据若干路径（或字符串）生成一个稳定的 MD5 文件名（不带扩展名）
         """
@@ -394,7 +394,7 @@ class FFmpeg:
         :param a_path: 音频文件路径
         :param file_name: 输出文件名
         """
-        file_name = file_name or cls.__generate_file_name(v_path, a_path)
+        file_name = file_name or cls.hash_filename(v_path, a_path)
         cache_dir = await CacheManager.ensure_dir(CacheManager.MEDIA)
         output_path = cache_dir / f"{file_name}.mp4"
         if await output_path.exists():
@@ -479,7 +479,7 @@ class FFmpeg:
         :param file_name: 输出文件名（不含扩展名），为空时根据输入路径生成稳定名称
         :return: 转码后的 mp3 文件路径
         """
-        file_name = file_name or cls.__generate_file_name(audio_path)
+        file_name = file_name or cls.hash_filename(audio_path)
         cache_dir = await CacheManager.ensure_dir(CacheManager.MEDIA)
         output_path = cache_dir / f"{file_name}.mp3"
         replaces_input = output_path == audio_path
