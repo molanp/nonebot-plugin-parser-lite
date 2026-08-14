@@ -253,6 +253,7 @@ class Creator:
                 audio_name=audio_name,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
+                convert_to_mp3=True,
             )
         elif isinstance(url_or_task, DownloadTaskWrapper):
             # 2) 传入 DownloadTaskWrapper: 保持原样

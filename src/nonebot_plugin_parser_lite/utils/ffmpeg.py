@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 from typing import Any
+from uuid import uuid4
 
 from anyio import Path
 from nonebot import logger
@@ -16,7 +17,7 @@ class FFmpeg:
     _available: bool | None = None
 
     @classmethod
-    def generate_file_name(cls, *args: Path) -> str:
+    def __generate_file_name(cls, *args: Path) -> str:
         """
         根据若干路径（或字符串）生成一个稳定的 MD5 文件名（不带扩展名）
         """
@@ -66,6 +67,28 @@ class FFmpeg:
             error_msg = stderr.decode(errors="ignore").strip()
             raise RuntimeError(f"ffprobe 执行失败: {error_msg}")
         return stdout
+
+    @classmethod
+    async def _is_mp3_audio(cls, audio_path: Path) -> bool:
+        """检查首个音频流是否已经使用 MP3 编码。"""
+        try:
+            stdout = await cls.exec_probe(
+                [
+                    "-v",
+                    "error",
+                    "-select_streams",
+                    "a:0",
+                    "-show_entries",
+                    "stream=codec_name",
+                    "-of",
+                    "default=noprint_wrappers=1:nokey=1",
+                    str(audio_path),
+                ]
+            )
+        except RuntimeError as e:
+            logger.debug(f"检测音频编码失败，将继续转码: {audio_path}: {e}")
+            return False
+        return stdout.decode(errors="ignore").strip().casefold() == "mp3"
 
     @classmethod
     async def _probe_media(cls, media_path: Path) -> dict[str, Any]:
@@ -371,7 +394,7 @@ class FFmpeg:
         :param a_path: 音频文件路径
         :param file_name: 输出文件名
         """
-        file_name = file_name or cls.generate_file_name(v_path, a_path)
+        file_name = file_name or cls.__generate_file_name(v_path, a_path)
         cache_dir = await CacheManager.ensure_dir(CacheManager.MEDIA)
         output_path = cache_dir / f"{file_name}.mp4"
         if await output_path.exists():
@@ -456,12 +479,21 @@ class FFmpeg:
         :param file_name: 输出文件名（不含扩展名），为空时根据输入路径生成稳定名称
         :return: 转码后的 mp3 文件路径
         """
-        file_name = file_name or cls.generate_file_name(audio_path)
+        file_name = file_name or cls.__generate_file_name(audio_path)
         cache_dir = await CacheManager.ensure_dir(CacheManager.MEDIA)
         output_path = cache_dir / f"{file_name}.mp3"
+        replaces_input = output_path == audio_path
 
-        if await output_path.exists():
+        if not replaces_input and await output_path.exists():
             return output_path
+        if replaces_input and await cls._is_mp3_audio(audio_path):
+            return audio_path
+
+        ffmpeg_output_path = output_path
+        if replaces_input:
+            ffmpeg_output_path = output_path.with_name(
+                f".{output_path.stem}.{uuid4().hex}.tmp.mp3"
+            )
 
         logger.info(
             f"Converting audio '{audio_path.name}' to mp3 as '{output_path.name}'"
@@ -477,10 +509,16 @@ class FFmpeg:
             "-vn",  # 明确丢弃视频流（若有）
             "-acodec",
             "libmp3lame",  # 使用 mp3 编码器
-            str(output_path),
+            str(ffmpeg_output_path),
         ]
 
-        await cls.exec_ffmpeg(cmd)
+        try:
+            await cls.exec_ffmpeg(cmd)
+            if replaces_input:
+                await ffmpeg_output_path.replace(output_path)
+        finally:
+            if ffmpeg_output_path != output_path:
+                await ffmpeg_output_path.unlink(missing_ok=True)
         logger.success(
             f"Converted to mp3: {output_path.name}, size={await fmt_size(output_path)}"
         )

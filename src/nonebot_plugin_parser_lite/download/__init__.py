@@ -23,7 +23,14 @@ from ..config import pconfig
 from ..constants import COMMON_HEADER, DOWNLOAD_TIMEOUT
 from ..exception import DownloadException, SizeLimitException, ZeroSizeException
 from ..utils.cache import CacheManager
-from ..utils.common import generate_file_name, make_filename, safe_unlink
+from ..utils.common import (
+    STANDARD_AUDIO_SUFFIXES,
+    STANDARD_IMAGE_SUFFIXES,
+    STANDARD_VIDEO_SUFFIXES,
+    generate_file_name,
+    make_filename,
+    safe_unlink,
+)
 from ..utils.ffmpeg import FFmpeg
 from .client import RetryableDownloadError, UniHttpClient, UniResponse
 from .task import auto_task
@@ -342,7 +349,9 @@ class StreamDownloader:
         :raise DownloadException: 重试多次仍失败时抛出
         """
         if video_name is None:
-            video_name = generate_file_name(url, ".mp4")
+            video_name = generate_file_name(
+                url, ".mp4", allowed_suffixes=STANDARD_VIDEO_SUFFIXES
+            )
 
         return await self.streamd(
             url=url,
@@ -683,6 +692,7 @@ class StreamDownloader:
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
         use_curl_cffi: bool = False,
+        convert_to_mp3: bool = False,
     ) -> Path:
         """
         下载音频
@@ -692,19 +702,25 @@ class StreamDownloader:
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
         :param use_curl_cffi: 是否使用 curl_cffi 下载
+        :param convert_to_mp3: 下载完成后是否使用 ffmpeg 转换为 mp3
 
         :return: 下载完成后的音频文件路径
         :raise DownloadException: 下载过程中发生错误时抛出
         """
         if audio_name is None:
-            audio_name = generate_file_name(url, ".mp3")
-        return await self.streamd(
+            audio_name = generate_file_name(
+                url, ".mp3", allowed_suffixes=STANDARD_AUDIO_SUFFIXES
+            )
+        audio_path = await self.streamd(
             url=url,
             file_name=audio_name,
             ext_headers=ext_headers,
             cache_type=cache_type,
             use_curl_cffi=use_curl_cffi,
         )
+        if convert_to_mp3:
+            return await FFmpeg.convert_audio_to_mp3(audio_path)
+        return audio_path
 
     @auto_task
     async def download_img(
@@ -729,7 +745,9 @@ class StreamDownloader:
         :raise DownloadException: 下载过程中发生错误时抛出
         """
         if img_name is None:
-            img_name = generate_file_name(url, ".jpg")
+            img_name = generate_file_name(
+                url, ".jpg", allowed_suffixes=STANDARD_IMAGE_SUFFIXES
+            )
         return await self.streamd(
             url=url,
             file_name=img_name,

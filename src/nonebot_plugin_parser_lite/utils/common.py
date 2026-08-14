@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from collections.abc import Collection
 import hashlib
 import re
 from typing import TypeVar
@@ -22,6 +23,38 @@ STANDARD_IMAGE_SUFFIXES = {
     ".heic",
     ".heif",
     ".jfif",
+}
+STANDARD_VIDEO_SUFFIXES = {
+    ".3gp",
+    ".avi",
+    ".flv",
+    ".m2ts",
+    ".m4v",
+    ".mkv",
+    ".mov",
+    ".mp4",
+    ".mpeg",
+    ".mpg",
+    ".ts",
+    ".webm",
+    ".wmv",
+}
+STANDARD_AUDIO_SUFFIXES = {
+    ".aac",
+    ".ac3",
+    ".aiff",
+    ".alac",
+    ".amr",
+    ".ape",
+    ".flac",
+    ".m4a",
+    ".m4s",
+    ".mp3",
+    ".ogg",
+    ".opus",
+    ".wav",
+    ".weba",
+    ".wma",
 }
 
 
@@ -70,11 +103,16 @@ async def fmt_size(file_path: Path) -> str:
     return f"大小: {stat.st_size / 1024 / 1024:.2f} MB"
 
 
-def generate_file_name(url: str, default_suffix: str = "") -> str:
+def generate_file_name(
+    url: str,
+    default_suffix: str = ".bin",
+    allowed_suffixes: Collection[str] | None = None,
+) -> str:
     """根据 URL 生成文件名，保留可能参与资源定位的 query。
 
     :param url: 原始资源 URL
-    :param default_suffix: 默认后缀名（当 path 中不含后缀时使用）
+    :param default_suffix: URL 后缀缺失或不受支持时使用的后缀名，默认 .bin
+    :param allowed_suffixes: 允许从 URL 保留的后缀集合；为空时允许任意后缀
 
     :return: 适合作为文件名的短 md5（含后缀）
     """
@@ -83,7 +121,9 @@ def generate_file_name(url: str, default_suffix: str = "") -> str:
     path = Path(parsed.path)
     path_suffix = path.suffix.lower()
 
-    if path_suffix in STANDARD_IMAGE_SUFFIXES:
+    if path_suffix and (
+        allowed_suffixes is None or path_suffix in allowed_suffixes
+    ):
         suffix = path_suffix
     else:
         suffix = default_suffix

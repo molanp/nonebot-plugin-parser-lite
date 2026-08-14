@@ -26,7 +26,6 @@ from ..parsers.base import BaseParser, ParseResult
 from ..parsers.weibo.auth import AuthHelper as WeiboAuthHelper
 from ..render import RENDERER
 from ..utils.common import LimitedSizeDict
-from ..utils.ffmpeg import FFmpeg
 from .rule import Searched, SearchResult, _extract_text, on_keyword_regex
 
 # 关键词 / 类型 -> Parser 映射
@@ -191,14 +190,12 @@ async def register_bili_matcher():
                 url=audio_url,
                 audio_name=f"{bvid}-{page_idx + 1}_audio.m4s",
                 ext_headers=bilip.headers,
-            )
-            converted_path = await FFmpeg.convert_audio_to_mp3(
-                audio_path=audio_path, file_name=f"{bvid}-{page_idx + 1}.mp3"
+                convert_to_mp3=True,
             )
             if pconfig.need_upload_audio:
-                await UniMessage(await UniHelper.file_seg(converted_path)).send()
+                await UniMessage(await UniHelper.file_seg(audio_path)).send()
             else:
-                await UniMessage(await UniHelper.record_seg(converted_path)).send()
+                await UniMessage(await UniHelper.record_seg(audio_path)).send()
 
         @on_alconna(
             Alconna("blogin"), block=True, permission=SUPERUSER, rule=to_me()
