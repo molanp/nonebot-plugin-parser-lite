@@ -26,10 +26,10 @@ T = TypeVar("T", bound=MediaContent)
 
 
 @runtime_checkable
-class VideoDownloadFunc(Protocol):
-    """自定义视频下载函数协议：必须暴露真实视频 URL。"""
+class DownloadFunc(Protocol):
+    """自定义下载函数协议：必须暴露 URL。"""
 
-    video_url: str
+    url: str
     ext_headers: dict[str, str] | None = None
 
     def __call__(self) -> Coroutine[Any, Any, Path]:
@@ -85,7 +85,7 @@ class Creator:
 
     @staticmethod
     def video(
-        url_or_task: str | DownloadTaskWrapper[Path] | VideoDownloadFunc,
+        url_or_task: str | DownloadTaskWrapper[Path] | DownloadFunc,
         cover_url: str | None = None,
         duration: float = 0.0,
         video_name: str | None = None,
@@ -95,11 +95,10 @@ class Creator:
     ):
         """
         创建视频内容,
-        传入 `VideoDownloadFunc` 时,
-        会使用 `VideoDownloadFunc` 的 `ext_headers` 而不是传入的.
-        这个问题会在后续版本进行修复
+        传入 `DownloadFunc` 时,
+        会使用 `DownloadFunc` 的 `ext_headers` 而不是传入的.
 
-        :param url: 视频 URL
+        :param url_or_task: 视频 URL 或下载任务
         :param cover_url: 封面 URL
         :param duration: 视频时长
         :param video_name: 视频名称
@@ -125,7 +124,7 @@ class Creator:
         elif isinstance(url_or_task, DownloadTaskWrapper):
             # 2) 传入 DownloadTaskWrapper: 保持原样
             video_task = url_or_task
-        elif isinstance(url_or_task, VideoDownloadFunc):
+        elif isinstance(url_or_task, DownloadFunc):
             # 3) 传入下载函数: 自定义下载逻辑（不走 auto_task）
             download_func = url_or_task
 
@@ -137,7 +136,7 @@ class Creator:
                 func=_runner,
                 args=(),
                 kwargs={},
-                url=download_func.video_url,
+                url=download_func.url,
                 ext_headers=download_func.ext_headers,
                 use_curl_cffi=use_curl_cffi,
             )
@@ -145,7 +144,7 @@ class Creator:
             # 4) 传入了不受支持的类型：立即报错，避免 AttributeError
             raise TypeError(
                 f"Creator.video 收到了不受支持的 url_or_task 类型: {type(url_or_task)},"
-                "期望 str / DownloadTaskWrapper / VideoDownloadFunc 协议对象"
+                "期望 str / DownloadTaskWrapper / DownloadFunc 协议对象"
             )
         return _with_need_send(
             VideoContent(path_task=video_task, cover=cover_task, duration=duration),
@@ -227,7 +226,7 @@ class Creator:
 
     @staticmethod
     def audio(
-        url: str,
+        url_or_task: str | DownloadTaskWrapper[Path] | DownloadFunc,
         duration: float = 0.0,
         audio_name: str | None = None,
         need_send: bool = True,
@@ -235,9 +234,11 @@ class Creator:
         use_curl_cffi: bool = False,
     ):
         """
-        创建音频内容
+        创建音频内容,
+        传入 `DownloadFunc` 时,
+        会使用 `DownloadFunc` 的 `ext_headers` 而不是传入的.
 
-        :param url: 音频 URL
+        :param url_or_task: 音频 URL 或下载任务
         :param duration: 音频时长
         :param audio_name: 音频名称
         :param need_send: 是否发送
@@ -245,15 +246,42 @@ class Creator:
         :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
-        task = DOWNLOADER.download_audio(
-            url=url,
-            audio_name=audio_name,
-            ext_headers=ext_headers,
-            use_curl_cffi=use_curl_cffi,
-        )
+        if isinstance(url_or_task, str):
+            # 1) 传入 URL: 使用默认下载逻辑
+            audio_task = DOWNLOADER.download_audio(
+                url=url_or_task,
+                audio_name=audio_name,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
+        elif isinstance(url_or_task, DownloadTaskWrapper):
+            # 2) 传入 DownloadTaskWrapper: 保持原样
+            audio_task = url_or_task
+        elif isinstance(url_or_task, DownloadFunc):
+            # 3) 传入下载函数: 自定义下载逻辑（不走 auto_task）
+            download_func = url_or_task
+
+            async def _runner() -> Path:
+                return await download_func()
+
+            # 这里手动构造一个 DownloadTaskWrapper，url 塞个占位描述字符串
+            audio_task = DownloadTaskWrapper(
+                func=_runner,
+                args=(),
+                kwargs={},
+                url=download_func.url,
+                ext_headers=download_func.ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
+        else:
+            # 4) 传入了不受支持的类型：立即报错，避免 AttributeError
+            raise TypeError(
+                f"Creator.audio 收到了不受支持的 url_or_task 类型: {type(url_or_task)},"
+                "期望 str / DownloadTaskWrapper / DownloadFunc 协议对象"
+            )
 
         return _with_need_send(
-            AudioContent(path_task=task, duration=duration), need_send
+            AudioContent(path_task=audio_task, duration=duration), need_send
         )
 
     @staticmethod

@@ -98,7 +98,7 @@ class Aweme(Struct):
             if music_url:
                 content.append(
                     Creator.audio(
-                        url=music_url,
+                        url_or_task=music_url,
                         duration=music.duration,
                         ext_headers={"Referer": "https://www.douyin.com/"},
                     )

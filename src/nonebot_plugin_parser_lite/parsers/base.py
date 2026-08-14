@@ -28,7 +28,7 @@ from ..constants import (
     ParamRules,
 )
 from ..constants import PlatformEnum as PlatformEnum
-from ..creator import Creator, VideoDownloadFunc
+from ..creator import Creator, DownloadFunc
 from ..data import (
     Author,
     Comment,
@@ -363,7 +363,7 @@ class BaseParser:
 
     def create_video(
         self,
-        url_or_task: str | DownloadTaskWrapper[Path] | VideoDownloadFunc,
+        url_or_task: str | DownloadTaskWrapper[Path] | DownloadFunc,
         cover_url: str | None = None,
         duration: float = 0.0,
         video_name: str | None = None,
@@ -480,7 +480,7 @@ class BaseParser:
         """
 
         return Creator.audio(
-            url=url,
+            url_or_task=url,
             duration=duration,
             audio_name=audio_name,
             need_send=need_send,

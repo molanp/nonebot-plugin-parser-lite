@@ -296,21 +296,21 @@ class BilibiliParser(BaseParser):
         class BiliVideoDownloader:
             def __init__(
                 self,
-                video_url: str,
+                url: str,
                 audio_url: str | None,
                 ext_headers: dict[str, str] | None,
             ):
-                self.video_url = video_url
-                self._audio_url = audio_url
+                self.url = url
+                self.audio_url = audio_url
                 self.ext_headers = ext_headers
 
             async def __call__(self) -> Path:
                 file_base = f"{video_info.bvid}-{page_num}"
                 # 有单独音频流时，走 av 合并
-                if self._audio_url:
+                if self.audio_url:
                     return await DOWNLOADER.download_av_and_merge(
-                        video_url=self.video_url,
-                        audio_url=self._audio_url,
+                        video_url=self.url,
+                        audio_url=self.audio_url,
                         merge_name=file_base,
                         video_name=f"{file_base}_video.m4s",
                         audio_name=f"{file_base}_audio.m4s",
@@ -318,7 +318,7 @@ class BilibiliParser(BaseParser):
                     )
                 # 否则直接用流式下载
                 return await DOWNLOADER.streamd(
-                    url=self.video_url,
+                    url=self.url,
                     file_name=f"{file_base}.mp4",
                     ext_headers=self.ext_headers,
                 )
