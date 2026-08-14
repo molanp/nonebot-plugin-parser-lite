@@ -372,9 +372,11 @@ class BaseParser:
         use_curl_cffi: bool = False,
     ):
         """
-        创建视频内容
+        创建视频内容,
+        传入 `DownloadFunc` 时,
+        会使用 `DownloadFunc` 的 `ext_headers` 而不是传入的.
 
-        :param url: 视频 URL
+        :param url_or_task: 视频 URL 或下载任务
         :param cover_url: 封面 URL
         :param duration: 视频时长
         :param video_name: 视频名称
@@ -469,9 +471,11 @@ class BaseParser:
         use_curl_cffi: bool = False,
     ):
         """
-        创建音频内容
+        创建音频内容,
+        传入 `DownloadFunc` 时,
+        会使用 `DownloadFunc` 的 `ext_headers` 而不是传入的.
 
-        :param url: 音频 URL
+        :param url_or_task: 音频 URL 或下载任务
         :param duration: 音频时长
         :param audio_name: 音频名称
         :param need_send: 是否发送
