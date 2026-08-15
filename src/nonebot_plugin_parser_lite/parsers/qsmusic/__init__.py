@@ -35,14 +35,15 @@ class QSMusicParser(BaseParser):
             raw = matched[1]
         else:
             raise ParseException("未找到结构化数据")
-        music_data = shareDecoder.decode(
+        track = shareDecoder.decode(
             raw
-        ).loaderData.track_page.audioWithLyricsOption
+        ).loaderData.track_page
+        music_data = track.audioWithLyricsOption
         contents: list[ContentItem] = [
             self.create_audio(
                 music_data.url,
                 duration=music_data.duration,
-                audio_name=f"{music_data.trackName}.mp3",
+                cache_key=f"qsmusic:{track.track_id}",
             )
         ]
         extra = {

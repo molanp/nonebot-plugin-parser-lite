@@ -125,6 +125,7 @@ class DouyinParser(BaseParser):
                 avatar_url=aweme.author.avatar_thumb.url_list[0],
                 description=aweme.author.signature,
                 id=aweme.author.uid,
+                avatar_cache_key=f"douyin:{aweme.author.uid}",
                 location=aweme.region,
                 ext_headers={"Referer": "https://www.douyin.com/"},
             ),

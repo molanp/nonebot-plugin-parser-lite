@@ -45,6 +45,7 @@ class Photo(Struct):
     coverUrls: list[MvorCoverCdnUrl]
     ext_params: ExtParams
     photoId: str
+    userId: int
     photoType: str
     mainMvUrls: list[MvorCoverCdnUrl] | None = None
     duration: int = 0
@@ -55,6 +56,7 @@ class Photo(Struct):
         return Creator.author(
             name=self.userName.replace("\u3164", "").strip(),
             avatar_url=self.headUrl,
+            avatar_cache_key=f"kuaishou:{self.userId}",
         )
 
     @property
@@ -75,10 +77,19 @@ class Photo(Struct):
                     url_or_task=video[0].url,
                     duration=self.duration // 1000,
                     cover_url=self.coverUrls[0].url,
+                    cache_key=f"kuaishou:{self.photoId}",
                 )
             )
         elif atlas := self.ext_params.atlas:
-            content.extend(Creator.images(atlas.img_urls))
+            content.extend(
+                Creator.images(
+                    atlas.img_urls,
+                    cache_keys=[
+                        f"kuaishou:{self.photoId}:{route}"
+                        for route in atlas.img_list
+                    ],
+                )
+            )
         return content
 
 

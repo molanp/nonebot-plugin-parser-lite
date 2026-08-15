@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import time
 from typing import ClassVar
 
+import aiofiles
 from anyio import Path
 from nonebot import logger
 
@@ -33,7 +34,6 @@ class CacheManager:
         LOGO: CachePolicy("logo", 60 * 60 * 24 * 30),
         STICKER: CachePolicy("sticker", 60 * 60 * 24 * 15),
     }
-
     @classmethod
     def cache_dir(cls, cache_type: str = MEDIA) -> Path:
         policy = cls._POLICIES.get(cache_type, cls._POLICIES[cls.MEDIA])
@@ -44,6 +44,36 @@ class CacheManager:
         cache_dir = cls.cache_dir(cache_type)
         await cache_dir.mkdir(parents=True, exist_ok=True)
         return cache_dir
+
+    @classmethod
+    async def set_cached_file(cls, base_path: Path, file_path: Path) -> None:
+        meta_path = base_path.with_suffix(".meta")
+        partial_path = base_path.with_suffix(".meta.part")
+        try:
+            async with aiofiles.open(partial_path, "w") as file:
+                await file.write(file_path.suffix.lower())
+            await partial_path.replace(meta_path)
+        except OSError as e:
+            await safe_unlink(partial_path)
+            logger.warning(f"写入缓存索引 {meta_path} 失败: {e!r}")
+
+    @classmethod
+    async def get_cached_file(
+        cls,
+        base_path: Path,
+    ) -> Path | None:
+        meta_path = base_path.with_suffix(".meta")
+        try:
+            async with aiofiles.open(meta_path) as file:
+                suffix = (await file.read()).strip().lower()
+        except OSError:
+            return None
+
+        cached_path = base_path.with_suffix(suffix)
+        if await cached_path.is_file():
+            return cached_path
+        await safe_unlink(meta_path)
+        return None
 
     @classmethod
     async def iter_files(cls, path: Path) -> AsyncIterator[Path]:

@@ -65,6 +65,7 @@ class BBS(Struct):
                     url_or_task=video.src,
                     cover_url=video.img,
                     duration=int(video.duration),
+                    cache_key=f"hupu:{self.tid}",
                 )
             )
         return c
@@ -75,6 +76,7 @@ class BBS(Struct):
             name=self.author.name,
             avatar_url=self.author.header,
             id=str(self.author.puid),
+            avatar_cache_key=f"hupu:{self.author.puid}",
         )
 
     @property

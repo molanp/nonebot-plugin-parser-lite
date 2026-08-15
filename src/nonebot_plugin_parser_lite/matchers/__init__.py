@@ -188,7 +188,8 @@ async def register_bili_matcher():
 
             audio_path = await DOWNLOADER.download_audio(
                 url=audio_url,
-                audio_name=f"{bvid}-{page_idx + 1}_audio.m4s",
+                cache_key=f"bilibili:{bvid}:{page_idx + 1}",
+                cache_variant="source",
                 ext_headers=bilip.headers,
                 convert_to_mp3=True,
             )

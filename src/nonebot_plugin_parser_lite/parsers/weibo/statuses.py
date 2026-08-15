@@ -28,14 +28,18 @@ class Pic(Struct):
 
     @property
     def content(self):
+        cache_key = f"weibo:{self.pic_id}"
         if self.type == "livephoto":
             return Creator.live_photo(
                 video_url=self.video,
                 image_url=self.original.url,
+                cache_key=cache_key,
                 ext_headers={"Referer": "https://weibo.com/"},
             )
         return Creator.image(
-            url=self.original.url, ext_headers={"Referer": "https://weibo.com/"}
+            url=self.original.url,
+            cache_key=cache_key,
+            ext_headers={"Referer": "https://weibo.com/"},
         )
 
 
@@ -49,11 +53,11 @@ class PageInfo(Struct):
     page_title: str
     media_info: MediaInfo
 
-    @property
-    def content(self):
+    def build_content(self, cache_key: str):
         return Creator.video(
             url_or_task=self.media_info.stream_url_hd,
             cover_url=self.page_pic,
+            cache_key=cache_key,
             ext_headers={"Referer": "https://weibo.com/"},
         )
 
@@ -103,7 +107,9 @@ class WeiboData(Struct):
         if self.pic_infos:
             content.extend(pic.content for pic in self.pic_infos.values())
         if self.page_info:
-            content.append(self.page_info.content)
+            content.append(
+                self.page_info.build_content(cache_key=f"weibo:{self.idstr}")
+            )
         return content
 
     @property

@@ -59,6 +59,7 @@ class Response(Struct):
                     name=c.userName,
                     avatar_url=c.userImg,
                     id=c.puid,
+                    avatar_cache_key=f"hupu:{c.puid}",
                     location=c.location,
                 ),
                 content=c.content,

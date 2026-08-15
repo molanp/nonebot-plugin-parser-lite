@@ -17,6 +17,7 @@ class KsComment(Struct):
     comment_id: int
     headurl: str
     author_name: str
+    user_id: int
     subCommentCount: int = 0
     authorArea: str | None = None
 
@@ -31,6 +32,7 @@ def _build_comment(comment: KsComment, *, include_reply_count: bool = False) -> 
         author=Creator.author(
             name=comment.author_name,
             avatar_url=comment.headurl,
+            avatar_cache_key=f"kuaishou:{comment.user_id}",
             location=comment.authorArea,
         ),
         content=replace_placeholder_to_sticker(

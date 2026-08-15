@@ -292,6 +292,7 @@ class BilibiliParser(BaseParser):
         v_url, a_url = await self.extract_download_urls(
             video=video, page_index=page_info.index
         )
+        cache_key = f"bilibili:{video_info.bvid}:{page_info.index + 1}"
 
         class BiliVideoDownloader:
             def __init__(
@@ -305,21 +306,19 @@ class BilibiliParser(BaseParser):
                 self.ext_headers = ext_headers
 
             async def __call__(self) -> Path:
-                file_base = f"{video_info.bvid}-{page_num}"
                 # 有单独音频流时，走 av 合并
                 if self.audio_url:
                     return await DOWNLOADER.download_av_and_merge(
                         video_url=self.url,
                         audio_url=self.audio_url,
-                        merge_name=file_base,
-                        video_name=f"{file_base}_video.m4s",
-                        audio_name=f"{file_base}_audio.m4s",
+                        cache_key=cache_key,
                         ext_headers=self.ext_headers,
                     )
                 # 否则直接用流式下载
-                return await DOWNLOADER.streamd(
+                return await DOWNLOADER.download_video(
                     url=self.url,
-                    file_name=f"{file_base}.mp4",
+                    cache_key=cache_key,
+                    cache_variant="source",
                     ext_headers=self.ext_headers,
                 )
 
@@ -330,6 +329,7 @@ class BilibiliParser(BaseParser):
             cover_url=page_info.cover,
             duration=page_info.duration,
             ext_headers=self.headers,
+            cache_key=cache_key,
         )
 
         # 提取统计数据

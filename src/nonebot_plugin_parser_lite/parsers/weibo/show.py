@@ -7,6 +7,7 @@ class PlayInfo(Struct):
     title: str
     text: str
     author: str
+    author_id: int
     avatar: str
     cover_image: str
     stream_url: str

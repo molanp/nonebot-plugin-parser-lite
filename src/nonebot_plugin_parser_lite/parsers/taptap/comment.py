@@ -53,6 +53,7 @@ class Response(Struct):
                 id=str(tc.author.id),
                 name=tc.author.name,
                 avatar_url=tc.author.avatar,
+                avatar_cache_key=f"taptap:{tc.author.id}",
             )
 
         def to_comment(tc: TComment):

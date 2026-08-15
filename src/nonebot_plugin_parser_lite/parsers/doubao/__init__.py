@@ -47,6 +47,7 @@ class DouBaoParser(BaseParser):
                 self.create_video(
                     url_or_task=result.play_info.main,
                     cover_url=result.play_info.poster_url,
+                    cache_key=f"doubao:{video_id}",
                 ),
             ],
         )

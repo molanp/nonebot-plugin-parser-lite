@@ -479,6 +479,11 @@ class FFmpeg:
         :param file_name: 输出文件名（不含扩展名），为空时根据输入路径生成稳定名称
         :return: 转码后的 mp3 文件路径
         """
+        if audio_path.suffix.casefold() == ".mp3" and await cls._is_mp3_audio(
+            audio_path
+        ):
+            return audio_path
+
         file_name = file_name or cls.hash_filename(audio_path)
         cache_dir = await CacheManager.ensure_dir(CacheManager.MEDIA)
         output_path = cache_dir / f"{file_name}.mp3"

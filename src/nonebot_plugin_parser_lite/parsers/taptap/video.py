@@ -31,9 +31,13 @@ class Data(Struct):
     def content(self) -> list[ContentItem]:
         return [
             Creator.video(
-                url_or_task=DOWNLOADER.download_m3u8_video(url=video.play_url.url),
+                url_or_task=DOWNLOADER.download_m3u8_video(
+                    url=video.play_url.url,
+                    cache_key=f"taptap:{video.video_id}",
+                ),
                 cover_url=video.raw_cover.url,
                 duration=video.info.duration,
+                cache_key=f"taptap:{video.video_id}",
             )
             for video in self.videos
         ]

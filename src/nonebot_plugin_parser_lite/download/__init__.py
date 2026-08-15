@@ -2,10 +2,9 @@ import asyncio
 from collections.abc import Callable, Generator
 import contextlib
 from functools import partial
-import hashlib
-import os
+import mimetypes
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import aiofiles
 from anyio import Path
@@ -24,11 +23,8 @@ from ..constants import COMMON_HEADER, DOWNLOAD_TIMEOUT
 from ..exception import DownloadException, SizeLimitException, ZeroSizeException
 from ..utils.cache import CacheManager
 from ..utils.common import (
-    STANDARD_AUDIO_SUFFIXES,
-    STANDARD_IMAGE_SUFFIXES,
-    STANDARD_VIDEO_SUFFIXES,
+    compose_cache_key,
     generate_file_name,
-    make_filename,
     safe_unlink,
 )
 from ..utils.ffmpeg import FFmpeg
@@ -36,6 +32,34 @@ from .client import RetryableDownloadError, UniHttpClient, UniResponse
 from .task import auto_task
 
 _RE_RANGE_PATTERN = re.compile(r"bytes\s+(\d+)-\d+/(\d+|\*)")
+_CONTENT_TYPE_SUFFIX_OVERRIDES = {
+    "audio/m4a": ".m4a",
+    "audio/mp4": ".m4a",
+    "audio/ogg": ".ogg",
+    "audio/webm": ".weba",
+    "audio/x-m4a": ".m4a",
+    "video/x-matroska": ".mkv",
+}
+
+
+def _resolve_suffix(
+    url: str,
+    content_type: str | None,
+    default_suffix: str,
+) -> str:
+    if content_type:
+        media_type = content_type.partition(";")[0].strip().lower()
+        suffix = _CONTENT_TYPE_SUFFIX_OVERRIDES.get(
+            media_type
+        ) or mimetypes.guess_extension(media_type, strict=False)
+        if suffix:
+            suffix = suffix.lower()
+        if suffix:
+            return suffix
+
+    if url_suffix := Path(urlparse(url).path).suffix.lower():
+        return url_suffix
+    return default_suffix if default_suffix.startswith(".") else f".{default_suffix}"
 
 
 class StreamDownloader:
@@ -48,8 +72,7 @@ class StreamDownloader:
         self.headers: dict[str, str] = COMMON_HEADER.copy()
         self.cache_dir: Path = pconfig.cache_dir
         self.client = UniHttpClient(timeout=DOWNLOAD_TIMEOUT)
-        self._active_downloads: dict[str, asyncio.Task[None]] = {}
-        self._ffmpeg_available: bool | None = None
+        self._active_downloads: dict[str, asyncio.Task[Path]] = {}
 
     async def aclose(self) -> None:
         await self.client.aclose()
@@ -113,14 +136,16 @@ class StreamDownloader:
         self,
         *,
         url: str,
-        file_name: str | None = None,
+        cache_key: str | None = None,
+        default_suffix: str = ".bin",
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
         use_curl_cffi: bool = False,
     ) -> Path:
         """
         :param url: 下载文件的链接地址
-        :param file_name: 保存到本地的文件名，为空时根据 url 自动生成
+        :param cache_key: 稳定缓存标识，为空时根据 URL 生成
+        :param default_suffix: 响应和 URL 均无法确定后缀时使用的后缀名
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -130,70 +155,73 @@ class StreamDownloader:
         :raise SizeLimitException: 资源大小超过配置的最大限制时抛出
         :raise DownloadException: 重试多次仍失败时抛出
         """
-        file_name = make_filename(file_name) if file_name else generate_file_name(url)
+        cache_name = generate_file_name(url, cache_key)
+        fallback_suffix = _resolve_suffix(url, None, default_suffix)
         cache_dir = await CacheManager.ensure_dir(cache_type)
-        file_path = cache_dir / file_name
-        partial_path = file_path.parent / f"{file_path.name}.part"
-
-        if await file_path.exists():
-            return file_path
+        base_path = cache_dir / cache_name
+        partial_path = cache_dir / f"{cache_name}.part"
 
         headers = {**self.headers, **(ext_headers or {})}
-        download_key = str(file_path)
+        download_key = str(base_path)
         active_download = self._active_downloads.get(download_key)
         if active_download is not None:
-            await active_download
-            return file_path
+            return await active_download
 
-        async def __download_task() -> None:
-            if await file_path.exists():
-                return
-            await self.__download_with_retry(
+        async def __download_task() -> Path:
+            if cached_path := await CacheManager.get_cached_file(base_path):
+                return cached_path
+            result = await self.__download_with_retry(
                 url=url,
-                file_path=file_path,
+                base_path=base_path,
                 partial_path=partial_path,
+                fallback_suffix=fallback_suffix,
                 headers=headers,
-                desc=file_name,
+                desc=f"{cache_name}{fallback_suffix}",
                 use_curl_cffi=use_curl_cffi,
             )
+            await CacheManager.set_cached_file(base_path, result)
+            return result
 
         download_task = asyncio.create_task(__download_task())
         self._active_downloads[download_key] = download_task
 
         try:
-            await download_task
+            return await download_task
         except (SizeLimitException, ZeroSizeException):
-            await safe_unlink(file_path)
             await safe_unlink(partial_path)
             raise
         finally:
             if self._active_downloads.get(download_key) is download_task:
                 self._active_downloads.pop(download_key, None)
 
-        return file_path
-
     async def __download_with_retry(
         self,
         url: str,
-        file_path: Path,
+        base_path: Path,
         partial_path: Path,
+        fallback_suffix: str,
         headers: dict[str, str],
         desc: str,
         use_curl_cffi: bool = False,
-    ) -> None:
+    ) -> Path:
         last_error: Exception | None = None
 
         for retry in range(self.MAX_RETRIES + 1):
             try:
-                await self.__download_once(
+                content_type = await self.__download_once(
                     url=url,
                     file_path=partial_path,
                     headers=headers,
                     desc=desc,
                     use_curl_cffi=use_curl_cffi,
                 )
+                suffix = _resolve_suffix(url, content_type, fallback_suffix)
+                file_path = base_path.with_suffix(suffix)
+                if await file_path.exists():
+                    await safe_unlink(partial_path)
+                    return file_path
                 await partial_path.rename(file_path)
-                return
+                return file_path
             except (SizeLimitException, ZeroSizeException):
                 await safe_unlink(partial_path)
                 raise
@@ -245,7 +273,7 @@ class StreamDownloader:
         headers: dict[str, str],
         desc: str,
         use_curl_cffi: bool,
-    ):
+    ) -> str | None:
         downloaded = (await file_path.stat()).st_size if await file_path.exists() else 0
         async with self.client.stream(
             "GET",
@@ -255,6 +283,7 @@ class StreamDownloader:
         ) as response:
             self.__validate_response(response, downloaded)
             content_length = response.headers.get("content-length")
+            content_type = response.headers.get("content-type")
 
             total_size = (
                 downloaded + int(content_length)
@@ -323,13 +352,15 @@ class StreamDownloader:
                         f"(差值: {size_diff} bytes, 超过允许的 "
                         f"{self._SIZE_MISMATCH_TOLERANCE_BYTES} bytes)"
                     )
+            return content_type
 
     @auto_task
     async def download_video(
         self,
         *,
         url: str,
-        video_name: str | None = None,
+        cache_key: str | None = None,
+        cache_variant: str | None = None,
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
         use_curl_cffi: bool = False,
@@ -338,7 +369,8 @@ class StreamDownloader:
         下载普通视频
 
         :param url: 视频下载地址
-        :param video_name: 保存到本地的视频文件名，为空时根据 url 自动生成 mp4 文件名
+        :param cache_key: 视频的稳定缓存标识，为空时根据 URL 生成
+        :param cache_variant: 同一资源下的视频用途标识
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -348,14 +380,10 @@ class StreamDownloader:
         :raise SizeLimitException: 资源大小超过配置的最大限制时抛出
         :raise DownloadException: 重试多次仍失败时抛出
         """
-        if video_name is None:
-            video_name = generate_file_name(
-                url, ".mp4", allowed_suffixes=STANDARD_VIDEO_SUFFIXES
-            )
-
         return await self.streamd(
             url=url,
-            file_name=video_name,
+            cache_key=compose_cache_key("video", cache_key, cache_variant),
+            default_suffix=".mp4",
             ext_headers=ext_headers,
             cache_type=cache_type,
             use_curl_cffi=use_curl_cffi,
@@ -366,7 +394,8 @@ class StreamDownloader:
         self,
         *,
         url: str,
-        video_name: str | None = None,
+        cache_key: str | None = None,
+        cache_variant: str | None = None,
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
         use_curl_cffi: bool = False,
@@ -375,7 +404,8 @@ class StreamDownloader:
         下载 m3u8 视频并合并到 mp4
 
         :param m3u8_url: m3u8 播放列表链接地址
-        :param video_name: 输出的 mp4 文件名，为空时根据 m3u8 链接生成
+        :param cache_key: 视频的稳定缓存标识，为空时根据 URL 生成
+        :param cache_variant: 同一资源下的视频用途标识
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -384,10 +414,11 @@ class StreamDownloader:
         :raise SizeLimitException: 资源大小超过配置的最大限制时抛出
         :raise DownloadException: m3u8 解析、下载或转封装失败时抛出
         """
-        file_id = hashlib.md5(url.encode()).hexdigest()[:16]
-
-        if video_name is None:
-            video_name = f"{file_id}.mp4"
+        file_id = generate_file_name(
+            url=url,
+            cache_key=compose_cache_key("m3u8", cache_key, cache_variant),
+        )
+        video_name = f"{file_id}.mp4"
 
         cache_dir = await CacheManager.ensure_dir(cache_type)
         final_video_path = cache_dir / video_name
@@ -518,8 +549,8 @@ class StreamDownloader:
             )
 
         # 转封装处理
-        if await self._has_ffmpeg():
-            await self._remux_to_mp4(temp_ts_path, final_video_path)
+        if await FFmpeg.is_available():
+            await FFmpeg.remux_to_mp4(temp_ts_path, final_video_path)
         elif await temp_ts_path.exists():
             await temp_ts_path.rename(final_video_path)
 
@@ -647,48 +678,13 @@ class StreamDownloader:
             raise DownloadException(f"请求失败: {resp.status_code}")
         return resp.content
 
-    async def _has_ffmpeg(self) -> bool:
-        """
-        :return: 本机是否可用 ffmpeg 可执行程序
-        """
-        if self._ffmpeg_available is not None:
-            return self._ffmpeg_available
-
-        try:
-            proc = await asyncio.create_subprocess_shell(
-                "ffmpeg -version",
-                stdout=asyncio.subprocess.DEVNULL,
-                stderr=asyncio.subprocess.DEVNULL,
-            )
-            await proc.communicate()
-            self._ffmpeg_available = proc.returncode == 0
-        except Exception:
-            self._ffmpeg_available = False
-        return self._ffmpeg_available
-
-    async def _remux_to_mp4(self, input_path: Path, output_path: Path):
-        """
-        :param input_path: 输入的 ts 或其他容器格式文件路径
-        :param output_path: 转封装后输出的 mp4 文件路径
-        :return: None
-        """
-        # 增加 -f mp4 强制格式，增加 probesize 防止开头数据分析失败
-        cmd = (
-            f'ffmpeg -y -v error -probesize 50M -analyzeduration 100M -i "{input_path}"'
-            f' -c copy -bsf:a aac_adtstoasc "{output_path}"'
-        )
-        proc = await asyncio.create_subprocess_shell(cmd)
-        await proc.communicate()
-
-        if await output_path.exists() and await input_path.exists():
-            os.remove(input_path)
-
     @auto_task
     async def download_audio(
         self,
         *,
         url: str,
-        audio_name: str | None = None,
+        cache_key: str | None = None,
+        cache_variant: str | None = None,
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
         use_curl_cffi: bool = False,
@@ -698,7 +694,8 @@ class StreamDownloader:
         下载音频
 
         :param url: 音频下载地址
-        :param audio_name: 保存到本地的音频文件名，为空时根据 url 自动生成 mp3 文件名
+        :param cache_key: 音频的稳定缓存标识，为空时根据 URL 生成
+        :param cache_variant: 同一资源下的音频用途标识
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -707,13 +704,10 @@ class StreamDownloader:
         :return: 下载完成后的音频文件路径
         :raise DownloadException: 下载过程中发生错误时抛出
         """
-        if audio_name is None:
-            audio_name = generate_file_name(
-                url, ".mp3", allowed_suffixes=STANDARD_AUDIO_SUFFIXES
-            )
         audio_path = await self.streamd(
             url=url,
-            file_name=audio_name,
+            cache_key=compose_cache_key("audio", cache_key, cache_variant),
+            default_suffix=".mp3",
             ext_headers=ext_headers,
             cache_type=cache_type,
             use_curl_cffi=use_curl_cffi,
@@ -727,7 +721,8 @@ class StreamDownloader:
         self,
         *,
         url: str,
-        img_name: str | None = None,
+        cache_key: str | None = None,
+        cache_variant: str | None = None,
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
         use_curl_cffi: bool = False,
@@ -736,7 +731,8 @@ class StreamDownloader:
         下载图片
 
         :param url: 图片下载地址
-        :param img_name: 保存到本地的图片文件名，为空时根据 url 自动生成 jpg 文件名
+        :param cache_key: 图片的稳定缓存标识，为空时根据 URL 生成
+        :param cache_variant: 同一资源下的图片用途标识
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -744,13 +740,10 @@ class StreamDownloader:
         :return: 下载完成后的图片文件路径
         :raise DownloadException: 下载过程中发生错误时抛出
         """
-        if img_name is None:
-            img_name = generate_file_name(
-                url, ".jpg", allowed_suffixes=STANDARD_IMAGE_SUFFIXES
-            )
         return await self.streamd(
             url=url,
-            file_name=img_name,
+            cache_key=compose_cache_key("image", cache_key, cache_variant),
+            default_suffix=".jpg",
             ext_headers=ext_headers,
             cache_type=cache_type,
             use_curl_cffi=use_curl_cffi,
@@ -760,9 +753,7 @@ class StreamDownloader:
         self,
         video_url: str,
         audio_url: str,
-        merge_name: str,
-        video_name: str | None = None,
-        audio_name: str | None = None,
+        cache_key: str | None = None,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
     ) -> Path:
@@ -771,14 +762,16 @@ class StreamDownloader:
 
         :param video_url: 视频流下载地址
         :param audio_url: 音频流下载地址
-        :param merge_name: 合并后输出文件名(不含扩展名)
-        :param video_name: 保存到本地的视频文件名，为空时根据 url 自动生成 mp4 文件名
-        :param audio_name: 保存到本地的音频文件名，为空时根据 url 自动生成 mp3 文件名
+        :param cache_key: 合并任务的稳定缓存标识，为空时根据两个 URL 生成
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param use_curl_cffi: 是否使用 curl_cffi 下载
         :return: 合并后的视频文件本地路径(mp4)
         :raise DownloadException: 下载或合并过程中发生错误时抛出
         """
+        merge_cache_key = compose_cache_key("video", cache_key, "merged")
+        if merge_cache_key is None:
+            merge_cache_key = f"video:{video_url}\naudio:{audio_url}\nmerged"
+        merge_name = generate_file_name(url=video_url, cache_key=merge_cache_key)
         cache_dir = await CacheManager.ensure_dir(CacheManager.MEDIA)
         output_path = cache_dir / f"{merge_name}.mp4"
         if await output_path.exists():
@@ -786,13 +779,15 @@ class StreamDownloader:
         v_path, a_path = await asyncio.gather(
             self.download_video(
                 url=video_url,
-                video_name=video_name,
+                cache_key=cache_key,
+                cache_variant="source" if cache_key is not None else None,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
             ),
             self.download_audio(
                 url=audio_url,
-                audio_name=audio_name,
+                cache_key=cache_key,
+                cache_variant="source" if cache_key is not None else None,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
             ),

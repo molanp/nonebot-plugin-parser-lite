@@ -196,7 +196,8 @@ class Platform:
     async def get_logo_path(self) -> Path:
         return await DOWNLOADER.download_img(
             url=STICKER_CDN.format(platform="logo", name=self.name),
-            img_name=f"{self.name}.webp",
+            cache_key=f"platform:{self.name}",
+            cache_variant="logo",
             cache_type=CacheManager.LOGO,
         )
 

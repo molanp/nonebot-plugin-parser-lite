@@ -156,6 +156,7 @@ class NoteDetail(Struct):
                     url_or_task=self.video.url,
                     cover_url=f"https://ci.xiaohongshu.com/{self.cover.fileId}?imageView2/2/w/1080/format/jpg",
                     duration=self.video.capa.duration,
+                    cache_key=f"rednote:{self.video.consumer.originVideoKey}",
                 )
             )
         else:
@@ -165,12 +166,14 @@ class NoteDetail(Struct):
                         Creator.live_photo(
                             video_url=img.stream.url,
                             image_url=img.url,
+                            cache_key=f"rednote:{img.fileId}" if img.fileId else None,
                         )
                     )
                 else:
                     items.append(
                         Creator.image(
                             url=img.url,
+                            cache_key=f"rednote:{img.fileId}" if img.fileId else None,
                         )
                     )
 

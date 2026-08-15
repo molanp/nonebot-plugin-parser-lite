@@ -35,11 +35,10 @@ class KuWoParser(BaseParser):
         if not audio_url.startswith("http"):
             raise ParseException("无效音乐URL")
         duration = music_data["duration_seconds"]
-        audio_name = f"{music_data['title']}-{music_data['artist']}.mp3"
         audio_content = self.create_audio(
             url=audio_url,
             duration=duration,
-            audio_name=audio_name,
+            cache_key=f"kuwo:{rid}",
         )
         dis_dura = audio_content.display_duration
 

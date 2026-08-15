@@ -154,12 +154,10 @@ class KuGouParser(BaseParser):
         if not audio_url:
             raise ParseException("未找到音频资源")
 
-        audio_name = f"{playinfo.fileName}.{playinfo.extName}"
-
         audio_content = self.create_audio(
             url=audio_url,
             duration=playinfo.timeLength,
-            audio_name=audio_name,
+            cache_key=f"kugou:{playinfo.hash}",
         )
         author = self.create_author(
             name=playinfo.singerName  # , playinfo.imgUrl.format(size=480)

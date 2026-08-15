@@ -70,12 +70,13 @@ class HeyBoxParser(BaseParser):
 
         return self.result(
             title=data.link.title,
-            content=data.link.content,
+            content=data.link.build_content(cache_key=f"heybox:{link_id}"),
             timestamp=data.link.create_at,
             url=f"https://www.xiaoheihe.cn/app/bbs/link/{link_id}",
             author=self.create_author(
                 name=data.link.user.username,
                 avatar_url=data.link.user.avatar_url,
+                avatar_cache_key=f"heybox:{data.link.user.userid}",
             ),
             comments=comments,
             stats=self.create_stats(
@@ -107,6 +108,7 @@ class HeyBoxParser(BaseParser):
                 author=self.create_author(
                     name=root.user.username,
                     avatar_url=root.user.avatar_url,
+                    avatar_cache_key=f"heybox:{root.user.userid}",
                     location=root.ip_location,
                 ),
                 content=root.content,
@@ -123,6 +125,7 @@ class HeyBoxParser(BaseParser):
                         author=self.create_author(
                             name=child.user.username,
                             avatar_url=child.user.avatar_url,
+                            avatar_cache_key=f"heybox:{child.user.userid}",
                             location=child.ip_location,
                         ),
                         content=child.content,

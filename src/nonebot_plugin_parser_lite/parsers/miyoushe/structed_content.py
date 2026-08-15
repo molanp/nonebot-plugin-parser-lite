@@ -19,6 +19,7 @@ class Resolution(Struct):
 
 
 class Video(Struct):
+    id: str
     duration: int
     cover: str
     resolutions: list[Resolution]
@@ -69,6 +70,7 @@ def build_body(s: str):
                     url_or_task=v.resolutions[0].url,
                     cover_url=v.cover,
                     duration=v.duration,
+                    cache_key=f"miyoushe:{v.id}",
                 )
             )
         elif link := ins.link_card:

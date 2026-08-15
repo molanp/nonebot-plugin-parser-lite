@@ -60,6 +60,7 @@ class Response(Struct):
                 name=user.nickname,
                 avatar_url=user.avatar_url,
                 id=user.uid,
+                avatar_cache_key=f"miyoushe:{user.uid}",
                 location=user.ip_region,
             )
 

@@ -100,11 +100,10 @@ class NCMParser(BaseParser):
         audio_type = ext if ext in {"flac", "wav", "m4a", "aac", "mp3"} else "mp3"
         contents: list[ContentItem] = []
 
-        audio_name = f"{title}-{artist}.{audio_type}"
         audio = self.create_audio(
             audio_url,
             duration=duration,
-            audio_name=audio_name,
+            cache_key=f"netease:{ncm_id}",
         )
         contents.append(audio)
 

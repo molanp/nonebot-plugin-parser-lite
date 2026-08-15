@@ -26,14 +26,18 @@ class Pic(Struct):
 
     @property
     def content(self):
+        cache_key = f"weibo:{self.pic_id}"
         if self.video:
             return Creator.live_photo(
                 video_url=self.video,
                 image_url=self.original.url,
+                cache_key=cache_key,
                 ext_headers={"Referer": "https://weibo.com/"},
             )
         return Creator.image(
-            url=self.original.url, ext_headers={"Referer": "https://weibo.com/"}
+            url=self.original.url,
+            cache_key=cache_key,
+            ext_headers={"Referer": "https://weibo.com/"},
         )
 
 
@@ -47,7 +51,7 @@ class User(Struct):
 class TvComment(Struct):
     created_at: str
     text_raw: str
-    id: str
+    id: int
     source: str
     user: User
     like_counts: int = 0

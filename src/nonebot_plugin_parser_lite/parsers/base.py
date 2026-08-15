@@ -338,6 +338,7 @@ class BaseParser:
         location: str | None = None,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        avatar_cache_key: str | None = None,
     ):
         """
         创建作者对象
@@ -349,6 +350,7 @@ class BaseParser:
         :param location: 位置信息
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载头像
+        :param avatar_cache_key: 头像的稳定缓存标识，为空时根据 URL 生成
         """
 
         return Creator.author(
@@ -359,6 +361,7 @@ class BaseParser:
             location=location,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
+            avatar_cache_key=avatar_cache_key,
         )
 
     def create_video(
@@ -366,10 +369,10 @@ class BaseParser:
         url_or_task: str | DownloadTaskWrapper[Path] | DownloadFunc,
         cover_url: str | None = None,
         duration: float = 0.0,
-        video_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建视频内容,
@@ -379,7 +382,7 @@ class BaseParser:
         :param url_or_task: 视频 URL 或下载任务
         :param cover_url: 封面 URL
         :param duration: 视频时长
-        :param video_name: 视频名称
+        :param cache_key: 稳定缓存标识，为空时根据各自 URL 生成
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载视频/封面
@@ -389,10 +392,10 @@ class BaseParser:
             url_or_task=url_or_task,
             cover_url=cover_url,
             duration=duration,
-            video_name=video_name,
             need_send=need_send,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
+            cache_key=cache_key,
         )
 
     def create_videos(
@@ -400,11 +403,13 @@ class BaseParser:
         video_urls: list[str],
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_keys: list[str | None] | None = None,
     ):
         """
         创建视频内容列表
 
         :param video_urls: 视频 URL 列表
+        :param cache_keys: 与视频 URL 一一对应的稳定缓存标识
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
@@ -413,6 +418,7 @@ class BaseParser:
             video_urls=video_urls,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
+            cache_keys=cache_keys,
         )
 
     def create_images(
@@ -420,11 +426,13 @@ class BaseParser:
         image_urls: list[str],
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_keys: list[str | None] | None = None,
     ):
         """
         创建图片内容列表
 
         :param image_urls: 图片 URL 列表
+        :param cache_keys: 与图片 URL 一一对应的稳定缓存标识
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
@@ -433,21 +441,22 @@ class BaseParser:
             image_urls=image_urls,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
+            cache_keys=cache_keys,
         )
 
     def create_image(
         self,
         url: str,
-        img_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建图片内容
 
         :param url: 图片 URL
-        :param img_name: 图片名称
+        :param cache_key: 稳定缓存标识，为空时根据 URL 生成
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -455,20 +464,20 @@ class BaseParser:
 
         return Creator.image(
             url=url,
-            img_name=img_name,
             need_send=need_send,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
+            cache_key=cache_key,
         )
 
     def create_audio(
         self,
         url: str,
         duration: float = 0.0,
-        audio_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建音频内容,
@@ -477,7 +486,7 @@ class BaseParser:
 
         :param url_or_task: 音频 URL 或下载任务
         :param duration: 音频时长
-        :param audio_name: 音频名称
+        :param cache_key: 稳定缓存标识，为空时根据 URL 生成
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -486,26 +495,26 @@ class BaseParser:
         return Creator.audio(
             url_or_task=url,
             duration=duration,
-            audio_name=audio_name,
             need_send=need_send,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
+            cache_key=cache_key,
         )
 
     def create_graphic(
         self,
         url: str,
-        img_name: str | None = None,
         alt: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         图片,此图片不参与九宫格且无高度限制
 
         :param url: 图片 URL
-        :param img_name: 图片名称
+        :param cache_key: 稳定缓存标识，为空时根据 URL 生成
         :param alt: 图片描述
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
@@ -514,11 +523,11 @@ class BaseParser:
 
         return Creator.graphic(
             url=url,
-            img_name=img_name,
             alt=alt,
             need_send=need_send,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
+            cache_key=cache_key,
         )
 
     def create_sticker(
@@ -528,11 +537,13 @@ class BaseParser:
         desc: str | None = None,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建贴纸内容
 
         :param url: 贴纸图片链接
+        :param cache_key: 稳定缓存标识，为空时根据 URL 生成
         :param size: 贴纸大小
             - small: 比文字大一点
             - medium: 文字大小的两倍大一点
@@ -547,6 +558,7 @@ class BaseParser:
             desc=desc,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
+            cache_key=cache_key,
         )
 
     def create_live_photo(
@@ -558,12 +570,14 @@ class BaseParser:
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建  iPhone Live Photo 内容
 
         :param video_url: iPhone Live Photo 变化过程视频
         :param image_url: iPhone Live Photo 底图
+        :param cache_key: 稳定缓存标识，为空时根据各自 URL 生成
         :param bgm_url: iPhone Live Photo 背景音乐
         :param loop: iPhone Live Photo 循环次数
         :param need_send: 是否发送
@@ -578,6 +592,7 @@ class BaseParser:
             need_send=need_send,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
+            cache_key=cache_key,
         )
 
     def create_stats(

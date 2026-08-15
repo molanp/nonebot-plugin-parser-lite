@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from bs4 import BeautifulSoup, Tag
 from msgspec import Struct, field
 from msgspec.json import Decoder
@@ -39,9 +41,12 @@ class Data(Struct):
             elif element.name == "img":
                 src = element.get("src")
                 if isinstance(src, str):
+                    stable_url = urlparse(src)._replace(query="", fragment="").geturl()
                     content.append(
                         Creator.image(
-                            url=src, ext_headers={"Referer": "https://weibo.com/"}
+                            url=src,
+                            cache_key=f"weibo:{stable_url}",
+                            ext_headers={"Referer": "https://weibo.com/"},
                         )
                     )
         return content

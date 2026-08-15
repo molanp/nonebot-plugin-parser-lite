@@ -92,6 +92,7 @@ class Data(Struct):
             name=self.moment.author.user.name,
             avatar_url=self.moment.author.user.avatar,
             id=str(self.moment.author.user.id),
+            avatar_cache_key=f"taptap:{self.moment.author.user.id}",
         )
 
     @property

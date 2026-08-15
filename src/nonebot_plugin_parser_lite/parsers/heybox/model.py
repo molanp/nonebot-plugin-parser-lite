@@ -104,8 +104,7 @@ class Link(Struct):
     video_url: str | None = None
     video_thumb: str | None = None
 
-    @property
-    def content(self) -> list[ContentItem]:
+    def build_content(self, cache_key: str | None = None) -> list[ContentItem]:
         """格式化的富文本内容"""
         content: list[ContentItem] = []
         try:
@@ -134,7 +133,11 @@ class Link(Struct):
             content.append(self.text)
         if self.has_video and self.video_url and self.video_thumb:
             content.append(
-                Creator.video(url_or_task=self.video_url, cover_url=self.video_thumb)
+                Creator.video(
+                    url_or_task=self.video_url,
+                    cover_url=self.video_thumb,
+                    cache_key=cache_key,
+                )
             )
         return content
 

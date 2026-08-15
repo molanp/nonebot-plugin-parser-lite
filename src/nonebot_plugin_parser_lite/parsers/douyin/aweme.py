@@ -48,6 +48,7 @@ class Video(Struct):
 
 class Image(Struct):
     url_list: list[str]
+    uri: str = field(default="")
     clip_type: int | None = field(default=None)
     """=2 or None 是普通图片"""
     video: Video | None = field(default=None)
@@ -60,6 +61,7 @@ class MusicPlayUrl(Struct):
 
 class Music(Struct):
     duration: int
+    mid: str
     play_url: MusicPlayUrl
     extra: str
 
@@ -74,6 +76,7 @@ class ShareInfo(Struct):
 
 
 class Aweme(Struct):
+    aweme_id: str
     author: Author
     share_info: ShareInfo
     statistics: Statistics
@@ -88,6 +91,7 @@ class Aweme(Struct):
     @property
     def content(self) -> list[ContentItem]:
         content: list[ContentItem] = [self.share_info.text]
+        aweme_cache_key = f"douyin:{self.aweme_id}"
         music_url: str | None = None
         if music := self.music:
             if music.play_url.uri == "":
@@ -100,15 +104,20 @@ class Aweme(Struct):
                     Creator.audio(
                         url_or_task=music_url,
                         duration=music.duration,
+                        cache_key=f"douyin:{music.mid}",
                         ext_headers={"Referer": "https://www.douyin.com/"},
                     )
                 )
         if self.images:
             for image in self.images:
+                image_cache_key = (
+                    f"{aweme_cache_key}:{image.uri}" if image.uri else None
+                )
                 if image.clip_type == 2 or image.clip_type is None:
                     content.append(
                         Creator.image(
                             url=image.url_list[-1],
+                            cache_key=image_cache_key,
                             ext_headers={"Referer": "https://www.douyin.com/"},
                         )
                     )
@@ -118,6 +127,7 @@ class Aweme(Struct):
                             video_url=image_video.play_addr.url,
                             image_url=image_video.cover.url_list[-1],
                             bgm_url=music_url,
+                            cache_key=image_cache_key,
                             ext_headers={"Referer": "https://www.douyin.com/"},
                             loop=3,
                         )
@@ -128,6 +138,7 @@ class Aweme(Struct):
                     url_or_task=video.play_addr.url,
                     cover_url=video.cover.url_list[-1],
                     duration=video.duration // 1000,
+                    cache_key=aweme_cache_key,
                     ext_headers={"Referer": "https://www.douyin.com/"},
                 )
             )

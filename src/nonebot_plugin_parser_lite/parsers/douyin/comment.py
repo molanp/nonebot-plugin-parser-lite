@@ -41,6 +41,11 @@ class DComment(Struct):
             content.extend(
                 Creator.image(
                     url=image.origin_url.url_list[-1],
+                    cache_key=(
+                        f"douyin:{image.origin_url.uri}"
+                        if image.origin_url.uri
+                        else None
+                    ),
                     ext_headers={"Referer": "https://www.douyin.com/"},
                 )
                 for image in image_list
@@ -49,6 +54,11 @@ class DComment(Struct):
             content.append(
                 Creator.image(
                     url=sticker.static_url.url_list[-1],
+                    cache_key=(
+                        f"douyin:{sticker.static_url.uri}"
+                        if sticker.static_url.uri
+                        else None
+                    ),
                     ext_headers={"Referer": "https://www.douyin.com/"},
                 )
             )
@@ -65,6 +75,7 @@ class Response(Struct):
                 author=Creator.author(
                     name=comment.user.nickname,
                     avatar_url=comment.user.avatar_thumb.url_list[-1],
+                    avatar_cache_key=f"douyin:{comment.user.uid}",
                     location=comment.ip_label,
                 ),
                 content=comment.content,

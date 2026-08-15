@@ -53,6 +53,7 @@ class Creator:
         location: str | None = None,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        avatar_cache_key: str | None = None,
     ):
         """
         创建作者对象
@@ -64,11 +65,14 @@ class Creator:
         :param location: 位置信息
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载头像
+        :param avatar_cache_key: 头像的稳定缓存标识，为空时根据 URL 生成
         """
 
         avatar_task = (
             DOWNLOADER.download_img(
                 url=avatar_url,
+                cache_key=avatar_cache_key,
+                cache_variant="avatar" if avatar_cache_key is not None else None,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
             )
@@ -88,10 +92,10 @@ class Creator:
         url_or_task: str | DownloadTaskWrapper[Path] | DownloadFunc,
         cover_url: str | None = None,
         duration: float = 0.0,
-        video_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建视频内容,
@@ -101,7 +105,7 @@ class Creator:
         :param url_or_task: 视频 URL 或下载任务
         :param cover_url: 封面 URL
         :param duration: 视频时长
-        :param video_name: 视频名称
+        :param cache_key: 稳定缓存标识，为空时根据各自 URL 生成
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载视频/封面
@@ -110,6 +114,8 @@ class Creator:
         if cover_url:
             cover_task = DOWNLOADER.download_img(
                 url=cover_url,
+                cache_key=cache_key,
+                cache_variant="cover" if cache_key is not None else None,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
             )
@@ -117,7 +123,7 @@ class Creator:
             # 1) 传入 URL: 使用默认下载逻辑
             video_task = DOWNLOADER.download_video(
                 url=url_or_task,
-                video_name=video_name,
+                cache_key=cache_key,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
             )
@@ -156,37 +162,44 @@ class Creator:
         video_urls: list[str],
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_keys: list[str | None] | None = None,
     ):
         """
         创建视频内容列表
 
         :param video_urls: 视频 URL 列表
+        :param cache_keys: 与视频 URL 一一对应的稳定缓存标识
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
+        if cache_keys is None:
+            cache_keys = [None] * len(video_urls)
+        if len(cache_keys) != len(video_urls):
+            raise ValueError("cache_keys 与 video_urls 长度必须一致")
         return [
             Creator.video(
                 url_or_task=url,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
+                cache_key=cache_key,
             )
-            for url in video_urls
+            for url, cache_key in zip(video_urls, cache_keys, strict=True)
         ]
 
     @staticmethod
     def image(
         url: str,
-        img_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建图片内容
 
         :param url: 图片 URL
-        :param img_name: 图片名称
+        :param cache_key: 稳定缓存标识，为空时根据 URL 生成
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -194,7 +207,7 @@ class Creator:
 
         task = DOWNLOADER.download_img(
             url=url,
-            img_name=img_name,
+            cache_key=cache_key,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
         )
@@ -206,32 +219,39 @@ class Creator:
         image_urls: list[str],
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_keys: list[str | None] | None = None,
     ):
         """
         创建图片内容列表
 
         :param image_urls: 图片 URL 列表
+        :param cache_keys: 与图片 URL 一一对应的稳定缓存标识
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载
         """
 
+        if cache_keys is None:
+            cache_keys = [None] * len(image_urls)
+        if len(cache_keys) != len(image_urls):
+            raise ValueError("cache_keys 与 image_urls 长度必须一致")
         return [
             Creator.image(
                 url=url,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
+                cache_key=cache_key,
             )
-            for url in image_urls
+            for url, cache_key in zip(image_urls, cache_keys, strict=True)
         ]
 
     @staticmethod
     def audio(
         url_or_task: str | DownloadTaskWrapper[Path] | DownloadFunc,
         duration: float = 0.0,
-        audio_name: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建音频内容,
@@ -240,7 +260,7 @@ class Creator:
 
         :param url_or_task: 音频 URL 或下载任务
         :param duration: 音频时长
-        :param audio_name: 音频名称
+        :param cache_key: 稳定缓存标识，为空时根据 URL 生成
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -250,7 +270,7 @@ class Creator:
             # 1) 传入 URL: 使用默认下载逻辑
             audio_task = DOWNLOADER.download_audio(
                 url=url_or_task,
-                audio_name=audio_name,
+                cache_key=cache_key,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
                 convert_to_mp3=True,
@@ -288,17 +308,17 @@ class Creator:
     @staticmethod
     def graphic(
         url: str,
-        img_name: str | None = None,
         alt: str | None = None,
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         图片,此图片不参与九宫格且无高度限制
 
         :param url: 图片 URL
-        :param img_name: 图片名称
+        :param cache_key: 稳定缓存标识，为空时根据 URL 生成
         :param alt: 图片描述
         :param need_send: 是否发送
         :param ext_headers: 额外请求头
@@ -307,7 +327,7 @@ class Creator:
 
         image_task = DOWNLOADER.download_img(
             url=url,
-            img_name=img_name,
+            cache_key=cache_key,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
         )
@@ -320,11 +340,13 @@ class Creator:
         desc: str | None = None,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建贴纸内容
 
         :param url: 贴纸图片链接
+        :param cache_key: 稳定缓存标识，为空时根据 URL 生成
         :param size: 贴纸大小
             - small: 比文字大一点
             - medium: 文字大小的两倍大一点
@@ -335,6 +357,7 @@ class Creator:
 
         image_task = DOWNLOADER.download_img(
             url=url,
+            cache_key=cache_key,
             ext_headers=ext_headers,
             cache_type=CacheManager.STICKER,
             use_curl_cffi=use_curl_cffi,
@@ -350,12 +373,14 @@ class Creator:
         need_send: bool = True,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        cache_key: str | None = None,
     ):
         """
         创建  iPhone Live Photo 内容
 
         :param video_url: iPhone Live Photo 变化过程视频
         :param image_url: iPhone Live Photo 底图
+        :param cache_key: 稳定缓存标识，为空时根据各自 URL 生成
         :param bgm_url: iPhone Live Photo 背景音乐
         :param loop: iPhone Live Photo 循环次数
         :param need_send: 是否发送
@@ -365,17 +390,23 @@ class Creator:
 
         video_task = DOWNLOADER.download_video(
             url=video_url,
+            cache_key=cache_key,
+            cache_variant="motion" if cache_key is not None else None,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
         )
         image_task = DOWNLOADER.download_img(
             url=image_url,
+            cache_key=cache_key,
+            cache_variant="base" if cache_key is not None else None,
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
         )
         if bgm_url:
             bgm_task = DOWNLOADER.download_audio(
                 url=bgm_url,
+                cache_key=cache_key,
+                cache_variant="bgm" if cache_key is not None else None,
                 ext_headers=ext_headers,
                 use_curl_cffi=use_curl_cffi,
             )

@@ -117,6 +117,7 @@ class WeiBoParser(BaseParser):
                     author=self.create_author(
                         name=sc.user_info.screen_name,
                         avatar_url=sc.user_info.profile_image_url,
+                        avatar_cache_key=f"weibo:{sc.user_info.id}",
                         ext_headers={"Referer": "https://weibo.com/"},
                     ),
                     content=sc.content,
@@ -133,6 +134,7 @@ class WeiBoParser(BaseParser):
             author=self.create_author(
                 name=data.userinfo.screen_name,
                 avatar_url=data.userinfo.profile_image_url,
+                avatar_cache_key=f"weibo:{data.userinfo.id}",
                 location=data.region_info.region_name,
                 ext_headers={"Referer": "https://weibo.com/"},
             ),
@@ -160,6 +162,7 @@ class WeiBoParser(BaseParser):
             url_or_task=play_info.video_url,
             cover_url=play_info.cover_url,
             duration=play_info.duration_time,
+            cache_key=f"weibo:{fid}",
             ext_headers={"Referer": "https://weibo.com/"},
         )
 
@@ -180,6 +183,7 @@ class WeiBoParser(BaseParser):
                     author=self.create_author(
                         name=sc.user.screen_name,
                         avatar_url=sc.user.profile_image_url,
+                        avatar_cache_key=f"weibo:{sc.user.id}",
                         location=sc.source,
                         ext_headers={"Referer": "https://weibo.com/"},
                     ),
@@ -194,6 +198,7 @@ class WeiBoParser(BaseParser):
                             author=self.create_author(
                                 name=c.user.screen_name,
                                 avatar_url=c.user.profile_image_url,
+                                avatar_cache_key=f"weibo:{c.user.id}",
                                 location=c.source,
                                 ext_headers={"Referer": "https://weibo.com/"},
                             ),
@@ -213,6 +218,7 @@ class WeiBoParser(BaseParser):
             author=self.create_author(
                 name=play_info.author,
                 avatar_url=play_info.avatar_url,
+                avatar_cache_key=f"weibo:{play_info.author_id}",
                 location=play_info.ip_info_str,
                 ext_headers={"Referer": "https://weibo.com/"},
             ),
@@ -253,6 +259,7 @@ class WeiBoParser(BaseParser):
                         author=self.create_author(
                             name=sc.user.screen_name,
                             avatar_url=sc.user.profile_image_url,
+                            avatar_cache_key=f"weibo:{sc.user.id}",
                             location=sc.source,
                             ext_headers={"Referer": "https://weibo.com/"},
                         ),
@@ -267,6 +274,7 @@ class WeiBoParser(BaseParser):
                                 author=self.create_author(
                                     name=c.user.screen_name,
                                     avatar_url=c.user.profile_image_url,
+                                    avatar_cache_key=f"weibo:{c.user.id}",
                                     location=c.source,
                                     ext_headers={"Referer": "https://weibo.com/"},
                                 ),
@@ -289,6 +297,7 @@ class WeiBoParser(BaseParser):
                 name=data.user.screen_name,
                 avatar_url=data.user.profile_image_url,
                 id=data.user.idstr,
+                avatar_cache_key=f"weibo:{data.user.idstr}",
                 location=data.region_name,
                 ext_headers={"Referer": "https://weibo.com/"},
             ),

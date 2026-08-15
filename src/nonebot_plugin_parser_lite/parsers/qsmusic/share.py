@@ -117,6 +117,7 @@ class AudioWithLyricsOption(Struct):
 
 class TrackPage(Struct):
     audioWithLyricsOption: AudioWithLyricsOption
+    track_id: str
 
 
 class LoaderData(Struct):
