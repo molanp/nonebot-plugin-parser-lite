@@ -28,6 +28,10 @@ class Video(Struct):
 class LinkCard(Struct):
     title: str
     origin_url: str
+    cover: str | None = None
+    card_id: str | None = None
+    origin_user_avatar: str | None = None
+    origin_user_nickname: str | None = None
 
 
 class CustomEmoticon(Struct):
@@ -76,8 +80,12 @@ def build_body(s: str):
         elif link := ins.link_card:
             content.append(
                 Creator.link(
-                    text=link.title,
+                    title=link.title,
                     url=link.origin_url,
+                    site_name=link.origin_user_nickname or "米游社",
+                    icon_url=link.origin_user_avatar or None,
+                    preview_url=link.cover,
+                    cache_key=f"miyoushe:link:{link.card_id or link.origin_url}",
                 )
             )
         elif url := ins.image:
@@ -94,7 +102,9 @@ def build_body(s: str):
             if bvid := qs.get("bvid"):
                 content.append(
                     Creator.link(
-                        url=f"https://www.bilibili.com/video/{bvid[0]}", text=bvid[0]
+                        url=f"https://www.bilibili.com/video/{bvid[0]}",
+                        title=bvid[0],
+                        site_name="哔哩哔哩",
                     )
                 )
 

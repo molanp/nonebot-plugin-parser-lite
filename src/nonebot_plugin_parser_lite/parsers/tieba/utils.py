@@ -6,7 +6,7 @@ from google.protobuf.message_factory import GetMessageClass
 
 from ...constants import STICKER_CDN
 from ...creator import Creator
-from ...data import Comment, ContentItem
+from ...data import Comment, ContentItem, PollOption
 from ...download import DOWNLOADER
 from .models import (
     Contents,
@@ -156,6 +156,20 @@ def build_content(posts: Posts) -> list[ContentItem]:
         # elif isinstance(part, FragVoice):
         #     audio_task = DOWNLOADER.download_audio(part.md5, ext_headers=headers)
         #     contents.append(post.create_audio_content(audio_task, part.duration))
+
+    if vote := posts.thread.vote_info:
+        contents.append(
+            Creator.poll(
+                options=[
+                    PollOption(text=option.text, votes=option.vote_num)
+                    for option in vote.options
+                ],
+                title=vote.title,
+                total_votes=vote.total_vote,
+                total_voters=vote.total_user,
+                multiple=vote.is_multi,
+            )
+        )
 
     return contents
 

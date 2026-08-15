@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 from msgspec import Struct
 from msgspec.json import Decoder
 
@@ -27,7 +29,7 @@ class Post(Struct):
 
     @property
     def avatar_url(self) -> str:
-        return f"https://linux.do/{self.avatar_template.format(size=288)}"
+        return urljoin("https://linux.do/", self.avatar_template.format(size=288))
 
     @property
     def content(self):
