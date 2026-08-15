@@ -81,6 +81,10 @@ class Config(BaseModel):
     """最大下载重试次数"""
     plite_day_range: list[str] = ["6:00", "19:00"]
     """白天时间范围 [开始, 结束]，格式 h:m；范围内为浅色主题，范围外为夜间模式"""
+    plite_bili_cdn_region: str = "zh"
+    """哔哩哔哩 CDN 地区；zh、en、ja 为内置基础线路"""
+    plite_bili_cdn_domain: str | None = None
+    """自定义哔哩哔哩 CDN 域名，优先于地区配置"""
 
     @property
     def nickname(self) -> str:
@@ -229,6 +233,16 @@ class Config(BaseModel):
             parse_hm_to_minutes(self.plite_day_range[0]),
             parse_hm_to_minutes(self.plite_day_range[1]),
         )
+
+    @property
+    def bili_cdn_region(self) -> str:
+        """哔哩哔哩 CDN 地区"""
+        return self.plite_bili_cdn_region
+
+    @property
+    def bili_cdn_domain(self) -> str | None:
+        """自定义哔哩哔哩 CDN 域名"""
+        return self.plite_bili_cdn_domain
 
 
 # 初始化配置实例

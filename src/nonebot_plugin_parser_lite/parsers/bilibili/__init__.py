@@ -950,6 +950,8 @@ class BilibiliParser(BaseParser):
             codecs=pconfig.bili_video_codes,
             no_dolby_video=True,
             no_hdr=True,
+            cdn_region=pconfig.bili_cdn_region,
+            cdn_domain=pconfig.bili_cdn_domain,
         )
         video_stream = streams[0]
         if video_stream is None:

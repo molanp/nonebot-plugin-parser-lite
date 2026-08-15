@@ -128,6 +128,15 @@ plite_bili_video_codes=["avc", "av01", "hev", "unknown"]
 # 360p(16), 480p(32), 720p(64), 1080p(80), 1080p+(112), 1080p_60(116), 4k(120)
 plite_bili_video_quality=80
 
+# [可选] B 站下载 CDN 地区；地区列表会在启动时及每 24 小时在线更新
+# 可选地区见 https://kanda-akihito-kun.github.io/ccb/api/region.json
+# zh、en、ja 是无需在线列表也能使用的内置基础线路
+plite_bili_cdn_region="zh"
+
+# [可选] 自定义 B 站下载 CDN 域名，设置后优先于地区配置
+# 留空则使用地区配置；只接受 bilivideo.com 域名，不要包含协议、端口或路径
+plite_bili_cdn_domain=""
+
 # [可选] 音频解析，是否需要上传群文件
 plite_need_upload_audio=False
 
