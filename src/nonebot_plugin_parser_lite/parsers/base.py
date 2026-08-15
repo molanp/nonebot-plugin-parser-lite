@@ -36,6 +36,7 @@ from ..data import (
     ParseResult,
     ParseResultKwargs,
     Platform,
+    PollOption,
     Stats,
 )
 from ..download import DOWNLOADER as DOWNLOADER
@@ -173,7 +174,7 @@ class BaseParser:
         )
 
     async def aclose(self) -> None:
-        """关闭底层 HTTP 客户端，释放连接等资源。"""
+        """关闭底层 HTTP 客户端，释放连接等资源"""
         await self.httpx.aclose()
 
     def __init_subclass__(cls, **kwargs):
@@ -716,4 +717,35 @@ class BaseParser:
             ext_headers=ext_headers,
             use_curl_cffi=use_curl_cffi,
             cache_key=cache_key,
+        )
+
+    def create_poll(
+        self,
+        options: list[PollOption],
+        title: str | None = None,
+        total_votes: int | None = None,
+        total_voters: int | None = None,
+        multiple: bool = False,
+        closed: bool = False,
+        close_at: str | None = None,
+    ):
+        """
+        创建平台无关的投票内容
+
+        :param options: 投票选项列表
+        :param title: 投票标题
+        :param total_votes: 平台返回的总票数，多选时可能大于投票人数
+        :param total_voters: 投票人数
+        :param multiple: 是否允许多选
+        :param closed: 投票是否已结束
+        :param close_at: 投票结束时间，保留平台的原始表示
+        """
+        return Creator.poll(
+            options=options,
+            title=title,
+            total_votes=total_votes,
+            total_voters=total_voters,
+            multiple=multiple,
+            closed=closed,
+            close_at=close_at,
         )

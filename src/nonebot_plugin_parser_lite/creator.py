@@ -14,6 +14,8 @@ from .data import (
     LinkContent,
     LivePhotoContent,
     MediaContent,
+    PollContent,
+    PollOption,
     QuoteContent,
     Stats,
     StickerContent,
@@ -28,7 +30,7 @@ T = TypeVar("T", bound=MediaContent)
 
 @runtime_checkable
 class DownloadFunc(Protocol):
-    """自定义下载函数协议：必须暴露 URL。"""
+    """自定义下载函数协议：必须暴露 URL"""
 
     url: str
     ext_headers: dict[str, str] | None = None
@@ -571,3 +573,34 @@ class Creator:
             else None
         )
         return QuoteContent(text=text, title=title, url=url, icon=icon)
+
+    @staticmethod
+    def poll(
+        options: list[PollOption],
+        title: str | None = None,
+        total_votes: int | None = None,
+        total_voters: int | None = None,
+        multiple: bool = False,
+        closed: bool = False,
+        close_at: str | None = None,
+    ):
+        """
+        创建平台无关的投票内容
+
+        :param options: 投票选项列表
+        :param title: 投票标题
+        :param total_votes: 平台返回的总票数，多选时可能大于投票人数
+        :param total_voters: 投票人数
+        :param multiple: 是否允许多选
+        :param closed: 投票是否已结束
+        :param close_at: 投票结束时间，保留平台的原始表示
+        """
+        return PollContent(
+            options=options,
+            title=title,
+            total_votes=total_votes,
+            total_voters=total_voters,
+            multiple=multiple,
+            closed=closed,
+            close_at=close_at,
+        )

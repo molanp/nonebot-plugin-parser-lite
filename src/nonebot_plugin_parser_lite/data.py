@@ -37,7 +37,7 @@ class MediaContent:
 
     @staticmethod
     def _format_size(size_bytes: int | None) -> str:
-        """将字节大小格式化为可读字符串（KB / MB / GB）。"""
+        """将字节大小格式化为可读字符串（KB / MB / GB）"""
         if not size_bytes or size_bytes <= 0:
             return "未知大小"
 
@@ -310,6 +310,49 @@ class QuoteContent:
         return None if self.icon is None else await self.icon
 
 
+@dataclass(slots=True)
+class PollOption:
+    """投票选项"""
+
+    text: str
+    """选项文本"""
+    votes: int = 0
+    """选项票数"""
+
+
+@dataclass(slots=True)
+class PollContent:
+    """平台无关的投票内容"""
+
+    options: list[PollOption]
+    """投票选项"""
+    title: str | None = None
+    """投票标题"""
+    total_votes: int | None = None
+    """平台返回的总票数，多选时可能大于投票人数"""
+    total_voters: int | None = None
+    """投票人数"""
+    multiple: bool = False
+    """是否允许多选"""
+    closed: bool = False
+    """投票是否已结束"""
+    close_at: str | None = None
+    """投票结束时间，由平台保留原始表示"""
+
+    @property
+    def option_vote_total(self) -> int:
+        """选项票数之和，用作各选项占比的分母"""
+        return sum(max(option.votes, 0) for option in self.options)
+
+    def option_percentage(
+        self, option: PollOption, option_vote_total: int | None = None
+    ) -> float:
+        total = (
+            self.option_vote_total if option_vote_total is None else option_vote_total
+        )
+        return max(option.votes, 0) / total * 100 if total else 0.0
+
+
 @dataclass(repr=False, slots=True)
 class ParseResult:
     """完整的解析结果"""
@@ -404,6 +447,7 @@ class ParseResultKwargs(TypedDict, total=False):
 ContentItem = (
     LinkContent
     | QuoteContent
+    | PollContent
     | LivePhotoContent
     | StickerContent
     | GraphicContent

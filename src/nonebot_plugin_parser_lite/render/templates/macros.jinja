@@ -192,6 +192,37 @@
         </div>
     {% endif %}
 {% endmacro %}
+{# 投票卡片 #}
+{% macro render_poll(poll) %}
+    {% set option_vote_total = poll.option_vote_total %}
+    <div class="mt-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0 text-sm font-semibold leading-snug text-slate-800 dark:text-slate-100">{{ (poll.title or '投票') | e }}</div>
+            <div class="shrink-0 text-xs font-medium {{ 'text-slate-400 dark:text-slate-500' if poll.closed else 'text-emerald-600 dark:text-emerald-400' }}">
+                {{ '已结束' if poll.closed else '进行中' }}
+            </div>
+        </div>
+        <div class="mt-2.5 space-y-2.5">
+            {% for option in poll.options %}
+                {% set percentage = poll.option_percentage(option, option_vote_total) %}
+                <div>
+                    <div class="mb-1 flex items-baseline justify-between gap-3 text-xs">
+                        <span class="min-w-0 text-slate-700 dark:text-slate-200">{{ option.text | e }}</span>
+                        <span class="shrink-0 font-medium text-slate-500 dark:text-slate-400">{{ option.votes }} 票 · {{ '%.1f' | format(percentage) }}%</span>
+                    </div>
+                    <div class="h-1.5 overflow-hidden rounded-sm bg-slate-200 dark:bg-slate-700">
+                        <div class="h-full rounded-sm bg-cyan-600 dark:bg-cyan-500" style="width: {{ '%.2f' | format(percentage) }}%"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="mt-2.5 flex gap-2 text-xs text-slate-500 dark:text-slate-400">
+            {% if poll.total_voters is not none %}<span>{{ poll.total_voters }} 人参与</span>{% endif %}
+            {% if poll.multiple %}<span>多选</span>{% endif %}
+            {% if poll.total_votes is not none and poll.total_votes != poll.total_voters %}<span>{{ poll.total_votes }} 票</span>{% endif %}
+        </div>
+    </div>
+{% endmacro %}
 {# 内容渲染（Tailwind 版本） #}
 {% macro render_content_items(content) %}
     {% set html_parts = [] %}
@@ -308,9 +339,12 @@
             {% set _ = html_parts.append(
                             '<div class="mt-3 border-l-[3px] border-slate-300 py-1 pl-3 dark:border-slate-600">'
                             '<div class="flex items-center gap-2">' ~ icon_html ~ title_html ~ '</div>'
-                            '<div class="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-slate-600 line-clamp-5 dark:text-slate-300">' ~ (cont.text|e) ~ '</div>'
+                            '<div class="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-slate-600 dark:text-slate-300">' ~ (cont.text|e) ~ '</div>'
                             '</div>'
                         ) %}
+        {% elif cls == 'PollContent' %}
+            {% set _ = flush_images() %}
+            {% set _ = html_parts.append(render_poll(cont)) %}
     {% endif %}
 {% endfor %}
 {% set _ = flush_images() %}

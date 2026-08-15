@@ -1,5 +1,6 @@
 import base64
 from collections.abc import AsyncGenerator, Awaitable, Callable
+from dataclasses import dataclass, field
 from datetime import datetime
 from io import BytesIO
 from itertools import chain
@@ -20,6 +21,7 @@ from ..data import (
     LivePhotoContent,
     MediaContent,
     ParseResult,
+    PollContent,
     QuoteContent,
     StickerContent,
     VideoContent,
@@ -45,6 +47,7 @@ MAX_FORWARD_NODES = 90
 IS_DEBUG = gconfig.log_level in ["DEBUG", "TRACE", 10, 5]
 
 Theme = Literal["light", "dark"]
+TEXT_SPLIT_PUNCTUATION = frozenset("。！？!?；;，,、…")
 
 
 def get_theme() -> Theme:
@@ -60,6 +63,21 @@ def get_theme() -> Theme:
     else:
         in_day = current >= start or current < end
     return "light" if in_day else "dark"
+
+
+def _find_text_split_end(text: str, start: int, max_len: int) -> int:
+    """返回下一段的结束索引，优先落在标点之后"""
+    end = min(start + max_len, len(text))
+    if end == len(text):
+        return end
+    return next(
+        (
+            index + 1
+            for index in range(end - 1, start - 1, -1)
+            if text[index] in TEXT_SPLIT_PUNCTUATION
+        ),
+        end,
+    )
 
 
 def split_text_by_length_with_punct(text: str, max_len: int) -> list[str]:
@@ -78,36 +96,84 @@ def split_text_by_length_with_punct(text: str, max_len: int) -> list[str]:
     if max_len <= 0 or len(text) <= max_len:
         return [text]
 
-    # 常见句末/停顿标点（中英文）
-    puncts = "。！？!?；;，,、…"
     result: list[str] = []
     start = 0
     length = len(text)
 
     while start < length:
-        # 预算本段的理论结束位置
-        end = min(start + max_len, length)
-        segment = text[start:end]
+        end = _find_text_split_end(text, start, max_len)
+        result.append(text[start:end])
+        start = end
 
-        if end == length:
-            # 已到末尾，直接收尾
-            result.append(segment)
-            break
+    return result
 
-        cut_pos = next(
-            (i + 1 for i in range(len(segment) - 1, -1, -1) if segment[i] in puncts),
-            -1,
+
+@dataclass(slots=True)
+class _ForwardTextPart:
+    text: str
+    protected: bool = False
+
+
+@dataclass(slots=True)
+class _ForwardText:
+    """保留块边界的待拆分转发文本"""
+
+    author_name: str
+    parts: list[_ForwardTextPart]
+    text_length: int = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.text_length = (
+            len(self.author_name) + 1 + sum(len(part.text) for part in self.parts)
         )
-        if cut_pos <= 0:
-            # 没找到合适标点，直接在 max_len 处切
-            result.append(segment)
-            start = end
-        else:
-            # 在标点后断句
-            result.append(segment[:cut_pos])
-            start += cut_pos
 
-    return [seg for seg in result if seg]
+    @property
+    def text(self) -> str:
+        return f"{self.author_name}：{''.join(part.text for part in self.parts)}"
+
+    def split(self, max_len: int) -> list[str]:
+        if max_len <= 0 or self.text_length <= max_len:
+            return [self.text]
+
+        prefix = f"{self.author_name}："
+        chunks: list[str] = []
+        current = prefix
+
+        def flush() -> None:
+            nonlocal current
+            if current:
+                chunks.append(current)
+                current = ""
+
+        for part in self.parts:
+            if part.protected:
+                # 受保护块可以超过软拆分阈值，但不会在块内部切开。
+                if (
+                    current
+                    and current != prefix
+                    and len(current) + len(part.text) > max_len
+                ):
+                    flush()
+                current += part.text
+                continue
+
+            start = 0
+            part_length = len(part.text)
+            while start < part_length:
+                room = max_len - len(current)
+                if room <= 0:
+                    flush()
+                    room = max_len
+                if part_length - start <= room:
+                    current += part.text[start:]
+                    break
+                end = _find_text_split_end(part.text, start, room)
+                current += part.text[start:end]
+                start = end
+                flush()
+
+        flush()
+        return chunks
 
 
 async def safe_src(
@@ -184,11 +250,11 @@ class Renderer:
         """
         failed_count = 0
         repost_medias = result.repost.content if result.repost else []
-        media_contents = [
+        media_contents = (
             cont
             for cont in chain(result.content, repost_medias)
             if isinstance(cont, MediaContent) and cont.need_send
-        ]
+        )
         for cont in media_contents:
             # 先处理需要立即发送的音视频
             try:
@@ -219,15 +285,16 @@ class Renderer:
 
             for seg in ordered_segs:
                 node_count += 1
-                if isinstance(seg, str):
+                if isinstance(seg, _ForwardText):
+                    total_plain_len += seg.text_length
+                    processed_segs.extend(seg.split(SPLIT_THRESHOLD))
+                elif isinstance(seg, str):
                     seg_len = len(seg)
                     total_plain_len += seg_len
                     if seg_len > SPLIT_THRESHOLD:
-                        parts = split_text_by_length_with_punct(seg, SPLIT_THRESHOLD)
-                        for part in parts:
-                            if not part:
-                                continue
-                            processed_segs.append(part)
+                        processed_segs.extend(
+                            split_text_by_length_with_punct(seg, SPLIT_THRESHOLD)
+                        )
                     else:
                         processed_segs.append(seg)
                 else:
@@ -250,16 +317,14 @@ class Renderer:
                 # 需要合并转发：根据平台限制按文本长度 / 节点数分批构造 forward
                 current_chunk: list[ForwardNodeInner] = []
                 current_text_len = 0
-                current_nodes = 0
 
                 def flush_chunk() -> UniMessage[Any] | None:
-                    nonlocal current_chunk, current_text_len, current_nodes
+                    nonlocal current_text_len
                     if not current_chunk:
                         return None
                     msg = UniMessage(UniHelper.construct_forward_message(current_chunk))
                     current_chunk.clear()
                     current_text_len = 0
-                    current_nodes = 0
                     return msg
 
                 for seg in processed_segs:
@@ -268,7 +333,7 @@ class Renderer:
                     # 如果加上当前节点会超出单个 forward 限制，则先 flush 当前 chunk
                     if current_chunk and (
                         current_text_len + seg_text_len > MAX_FORWARD_TEXT_LEN
-                        or current_nodes + 1 > MAX_FORWARD_NODES
+                        or len(current_chunk) >= MAX_FORWARD_NODES
                     ):
                         msg = flush_chunk()
                         if msg is not None:
@@ -276,7 +341,6 @@ class Renderer:
 
                     current_chunk.append(seg)
                     current_text_len += seg_text_len
-                    current_nodes += 1
 
                 # 收尾：还有未发送的 chunk
                 last_msg = flush_chunk()
@@ -324,7 +388,7 @@ class Renderer:
     async def __build_forward_segs(
         self,
         result: ParseResult,
-    ) -> list[ForwardNodeInner]:
+    ) -> list[ForwardNodeInner | _ForwardText]:
         """根据当前内容和转发内容构造有序的转发段列表（文本 + 媒体，保持顺序）
 
         规则：
@@ -336,18 +400,27 @@ class Renderer:
           - 然后对转发 ParseResult 做同样处理
         """
 
-        async def build_nodes(pr: ParseResult) -> list[ForwardNodeInner]:
+        async def build_nodes(pr: ParseResult) -> list[ForwardNodeInner | _ForwardText]:
             author_name = pr.author.name
-            nodes: list[ForwardNodeInner] = []
-            text_buffer: list[str] = []
+            nodes: list[ForwardNodeInner | _ForwardText] = []
+            text_buffer: list[_ForwardTextPart] = []
 
             async def flush_text() -> None:
                 nonlocal text_buffer
                 if text_buffer:
-                    text = "".join(text_buffer)
-                    if text:
-                        nodes.append(f"{author_name}：{text}")
+                    nodes.append(_ForwardText(author_name, text_buffer))
                     text_buffer = []
+
+            def append_text(text: str) -> None:
+                text_buffer.append(_ForwardTextPart(text))
+
+            def append_text_block(text: str) -> None:
+                """将块级文本加入当前文本段，并与相邻内容换行分隔"""
+                if not text:
+                    return
+                if text_buffer and not text_buffer[-1].text.endswith("\n"):
+                    append_text("\n")
+                text_buffer.append(_ForwardTextPart(f"{text}\n", protected=True))
 
             async def append_media(cont: MediaContent) -> None:
                 """将单个媒体内容转换为若干 ForwardNodeInner，并追加到 nodes"""
@@ -403,22 +476,35 @@ class Renderer:
                 if isinstance(item, str):
                     # 文本：缓冲，遇到媒体或结束时 flush
                     if text := item.strip():
-                        text_buffer.append(text)
+                        append_text(text)
                 elif isinstance(item, StickerContent):
-                    text_buffer.append(item.desc or "[表情]")
+                    append_text(item.desc or "[表情]")
                 elif isinstance(item, MediaContent) and item.need_send:
                     # 媒体：先输出之前的文本，再输出媒体段
                     await flush_text()
                     await append_media(item)
                 elif isinstance(item, LinkContent):
-                    text_buffer.append(item.url)
+                    append_text(item.url)
                 elif isinstance(item, QuoteContent):
-                    await flush_text()
                     quote_parts = [part for part in (item.title, item.text) if part]
                     if item.url:
                         quote_parts.append(item.url)
-                    text_buffer.append("\n".join(quote_parts))
-                    await flush_text()
+                    append_text_block("\n".join(quote_parts))
+                elif isinstance(item, PollContent):
+                    option_vote_total = item.option_vote_total
+                    poll_parts = [f"【投票】{item.title or '投票'}"]
+                    poll_parts.extend(
+                        f"- {option.text}: {option.votes} 票 "
+                        f"({item.option_percentage(option, option_vote_total):.1f}%)"
+                        for option in item.options
+                    )
+                    status = ["已结束" if item.closed else "进行中"]
+                    if item.multiple:
+                        status.append("多选")
+                    if item.total_voters is not None:
+                        status.append(f"{item.total_voters} 人参与")
+                    poll_parts.append(" · ".join(status))
+                    append_text_block("\n".join(poll_parts))
                 else:
                     # 其他类型暂不处理
                     continue
@@ -427,7 +513,7 @@ class Renderer:
             await flush_text()
             return nodes
 
-        ordered: list[ForwardNodeInner] = []
+        ordered: list[ForwardNodeInner | _ForwardText] = []
         # 1. 主帖节点
         ordered.extend(await build_nodes(result))
         # 2. 转发内容
