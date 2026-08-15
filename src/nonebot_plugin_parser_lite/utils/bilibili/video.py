@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum, IntEnum
 import re
-from typing import Any
+from typing import Any, Final
+from urllib.parse import urlsplit
 
 from yarl import URL
 
@@ -10,6 +11,13 @@ from .client import CLIENT
 from .credential import Credential
 from .exceptions import BiliHelperException
 from .sign import encWbi, getWbiKeys
+
+OFFICIAL_CDN_DOMAIN: Final[dict[str, str]] = {
+    "zh": "upos-sz-mirrorcos.bilivideo.com",
+    "en": "upos-sz-mirroraliov.bilivideo.com",
+    "ja": "upos-sz-mirroralib.bilivideo.com",
+}
+REPLACE_CDN_DOMAIN = OFFICIAL_CDN_DOMAIN["zh"]
 
 
 class BiliVideoQuality(IntEnum):
@@ -378,66 +386,30 @@ def sanitize_stream_urls(
 
     1. 若 base_url 为 PCDN，则优先使用 backup_url 中第一个非 PCDN 链接；
     2. 若 backup_url 里也没有非 PCDN，则保留原 base_url (真倒霉)
+    3. PCDN 清洗完成后，统一替换主链接与备用链接的 CDN
 
     :param video: 视频流 URL 信息
     :param audio: 音频流 URL 信息
     :return: (清洗后的 video, audio)
     """
 
-    def _sanitize_video(
-        v: VideoStreamDownloadURL | FLVStreamDownloadURL | MP4StreamDownloadURL | None,
-    ):
-        if v is None:
-            return None
+    def _replace_host(url: str) -> str:
+        return urlsplit(url)._replace(netloc=REPLACE_CDN_DOMAIN).geturl()
 
-        base_url = v.url
-        backups = v.backup_url
+    for stream in (video, audio):
+        if stream is None:
+            continue
 
-        # 如果主 URL 不是 PCDN，则优先使用它
-        if not is_pcdn_url(base_url):
-            return v
+        if is_pcdn_url(stream.url):
+            clean_backups = [url for url in stream.backup_url if not is_pcdn_url(url)]
+            if clean_backups:
+                stream.url = clean_backups[0]
+                stream.backup_url = clean_backups[1:]
 
-        # 主 URL 是 PCDN，尝试从 backup_url 里找干净的替换
-        clean_backups = [u for u in backups if not is_pcdn_url(u)]
-        if clean_backups:
-            new_base = clean_backups[0]
-            rest_backups = clean_backups[1:]
-            if isinstance(v, VideoStreamDownloadURL):
-                return VideoStreamDownloadURL(
-                    url=new_base,
-                    video_quality=v.video_quality,
-                    video_codecs=v.video_codecs,
-                    backup_url=rest_backups,
-                )
-            if isinstance(v, FLVStreamDownloadURL):
-                return FLVStreamDownloadURL(url=new_base, backup_url=rest_backups)
-            return MP4StreamDownloadURL(url=new_base, backup_url=rest_backups)
+        stream.url = _replace_host(stream.url)
+        stream.backup_url = [_replace_host(url) for url in stream.backup_url]
 
-        return v
-
-    def _sanitize_audio(a: AudioStreamDownloadURL | None):
-        if a is None:
-            return None
-
-        base_url = a.url
-        backups = a.backup_url
-
-        if not is_pcdn_url(base_url):
-            return a
-
-        clean_backups = [u for u in backups if not is_pcdn_url(u)]
-        if clean_backups:
-            new_base = clean_backups[0]
-            rest_backups = clean_backups[1:]
-            return AudioStreamDownloadURL(
-                url=new_base,
-                audio_quality=a.audio_quality,
-                backup_url=rest_backups,
-            )
-
-        return a
-
-    return _sanitize_video(video), _sanitize_audio(audio)
+    return video, audio
 
 
 class VideoDownloadURLDataDetecter:
@@ -519,8 +491,7 @@ class VideoDownloadURLDataDetecter:
                     backup_url=backup_url,
                 )
 
-            video_stream, _ = sanitize_stream_urls(video_stream, None)
-            return video_stream, None
+            return sanitize_stream_urls(video_stream, None)
 
         # DASH 正常情况
         videos_data = self.__data["dash"]["video"]
@@ -645,6 +616,4 @@ class VideoDownloadURLDataDetecter:
         best_video = max(video_streams, key=video_score) if video_streams else None
         best_audio = max(audio_streams, key=audio_score) if audio_streams else None
 
-        # 清洗 PCDN URL，尽量替换为正规 CDN
-        best_video, best_audio = sanitize_stream_urls(best_video, best_audio)
-        return best_video, best_audio
+        return sanitize_stream_urls(best_video, best_audio)
