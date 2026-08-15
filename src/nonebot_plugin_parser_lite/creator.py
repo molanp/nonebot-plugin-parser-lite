@@ -14,6 +14,7 @@ from .data import (
     LinkContent,
     LivePhotoContent,
     MediaContent,
+    QuoteContent,
     Stats,
     StickerContent,
     VideoContent,
@@ -482,13 +483,91 @@ class Creator:
         )
 
     @staticmethod
-    def link(url: str, text: str | None = None):
+    def link(
+        url: str,
+        title: str | None = None,
+        site_name: str | None = None,
+        description: str | None = None,
+        icon_url: str | None = None,
+        preview_url: str | None = None,
+        ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
+        cache_key: str | None = None,
+    ):
         """
         创建链接内容
 
         :param url: 链接地址
-        :param text: 链接文本
+        :param title: 链接标题，为空时使用链接地址
+        :param site_name: 来源站点名称
+        :param description: 链接摘要
+        :param icon_url: 来源站点图标 URL
+        :param preview_url: 链接预览图 URL
+        :param cache_key: 稳定缓存标识，为空时根据图片 URL 生成
         """
-        if text is None:
-            text = url
-        return LinkContent(url=url, text=text)
+        if title is None:
+            title = url
+        icon = (
+            DOWNLOADER.download_img(
+                url=icon_url,
+                cache_key=cache_key,
+                cache_variant="link-icon" if cache_key is not None else None,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
+            if icon_url
+            else None
+        )
+        preview = (
+            DOWNLOADER.download_img(
+                url=preview_url,
+                cache_key=cache_key,
+                cache_variant="link-preview" if cache_key is not None else None,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
+            if preview_url
+            else None
+        )
+        return LinkContent(
+            url=url,
+            title=title,
+            site_name=site_name,
+            description=description,
+            icon=icon,
+            preview=preview,
+        )
+
+    @staticmethod
+    def quote(
+        text: str,
+        title: str | None = None,
+        url: str | None = None,
+        icon_url: str | None = None,
+        ext_headers: dict[str, str] | None = None,
+        use_curl_cffi: bool = False,
+        cache_key: str | None = None,
+    ):
+        """
+        创建引用内容
+
+        :param text: 引用正文
+        :param title: 引用来源标题
+        :param url: 引用来源链接
+        :param icon_url: 引用来源图标或头像 URL
+        :param ext_headers: 额外请求头
+        :param use_curl_cffi: 是否使用 curl_cffi 下载
+        :param cache_key: 图标的稳定缓存标识，为空时根据 URL 生成
+        """
+        icon = (
+            DOWNLOADER.download_img(
+                url=icon_url,
+                cache_key=cache_key,
+                cache_variant="quote-icon" if cache_key is not None else None,
+                ext_headers=ext_headers,
+                use_curl_cffi=use_curl_cffi,
+            )
+            if icon_url
+            else None
+        )
+        return QuoteContent(text=text, title=title, url=url, icon=icon)

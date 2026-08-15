@@ -20,6 +20,7 @@ from ..data import (
     LivePhotoContent,
     MediaContent,
     ParseResult,
+    QuoteContent,
     StickerContent,
     VideoContent,
 )
@@ -411,6 +412,13 @@ class Renderer:
                     await append_media(item)
                 elif isinstance(item, LinkContent):
                     text_buffer.append(item.url)
+                elif isinstance(item, QuoteContent):
+                    await flush_text()
+                    quote_parts = [part for part in (item.title, item.text) if part]
+                    if item.url:
+                        quote_parts.append(item.url)
+                    text_buffer.append("\n".join(quote_parts))
+                    await flush_text()
                 else:
                     # 其他类型暂不处理
                     continue

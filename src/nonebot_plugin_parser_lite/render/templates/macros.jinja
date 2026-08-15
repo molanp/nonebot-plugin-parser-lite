@@ -274,21 +274,43 @@
             {# 6. 链接卡片 #}
         {% elif cls == 'LinkContent' %}
             {% set _ = flush_images() %}
+            {% set icon_src = cont | safe_src("get_icon_path", return_none_on_fail=True) %}
+            {% set preview_src = cont | safe_src("get_preview_path", return_none_on_fail=True) %}
+            {% set rich_link = cont.site_name or cont.description or icon_src or preview_src %}
+            {% set preview_html = '<img src="' ~ preview_src ~ '" class="h-40 w-full object-cover" />' if preview_src else '' %}
+            {% set icon_html = '<img src="' ~ icon_src ~ '" class="h-4 w-4 shrink-0 rounded-[2px] object-cover" />' if icon_src else '' %}
+            {% set source_html = '<div class="mb-1.5 flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">' ~ icon_html ~ '<span class="truncate">' ~ ((cont.site_name or cont.url)|e) ~ '</span></div>' if rich_link else '' %}
+            {% set description_html = '<div class="mt-1 text-xs leading-relaxed text-slate-500 line-clamp-2 dark:text-slate-400">' ~ (cont.description|e) ~ '</div>' if cont.description else '' %}
+            {% set url_html = '' if rich_link else '<div class="mt-0.5 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">' ~ (cont.url|e) ~ '</div>' %}
             {% set _ = html_parts.append(
                             '<a href="'~(cont.url|e)~'"
                target="_blank"
                rel="noreferrer noopener"
-               class="block mt-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors duration-150 shadow-sm">
-                            <div class="px-3 py-2.5">
-                                <div class="flex items-center justify-between space-x-2">
-                                    <div class="flex-1 min-w-0">
-                                        <div class="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">'~(cont.text|e)~'</div>
-                                        <div class="mt-0.5 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">'~(cont.url|e)~'</div>
-                                    </div>
-                                </div>
-                            </div>
+               class="mt-3 block overflow-hidden rounded-lg border border-slate-200 bg-slate-50 shadow-sm transition-colors duration-150 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700">'
+                            ~ preview_html ~
+                            '<div class="px-3 py-2.5">'
+                                ~ source_html ~
+                                '<div class="text-sm font-semibold leading-snug text-slate-800 line-clamp-2 dark:text-slate-100">' ~ (cont.title|e) ~ '</div>'
+                                ~ description_html ~ url_html ~
+                            '</div>
                         </a>'
                     ) %}
+        {% elif cls == 'QuoteContent' %}
+            {% set _ = flush_images() %}
+            {% set icon_src = cont | safe_src("get_icon_path", return_none_on_fail=True) %}
+            {% set quote_title = cont.title or cont.url or '引用内容' %}
+            {% set icon_html = '<img src="' ~ icon_src ~ '" class="h-5 w-5 shrink-0 rounded-[2px] object-cover" />' if icon_src else '' %}
+            {% if cont.url %}
+                {% set title_html = '<a href="' ~ (cont.url|e) ~ '" target="_blank" rel="noreferrer noopener" class="min-w-0 truncate text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">' ~ (quote_title|e) ~ '</a>' %}
+            {% else %}
+                {% set title_html = '<span class="min-w-0 truncate text-xs font-semibold text-slate-600 dark:text-slate-300">' ~ (quote_title|e) ~ '</span>' %}
+            {% endif %}
+            {% set _ = html_parts.append(
+                            '<div class="mt-3 border-l-[3px] border-slate-300 py-1 pl-3 dark:border-slate-600">'
+                            '<div class="flex items-center gap-2">' ~ icon_html ~ title_html ~ '</div>'
+                            '<div class="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-slate-600 line-clamp-5 dark:text-slate-300">' ~ (cont.text|e) ~ '</div>'
+                            '</div>'
+                        ) %}
     {% endif %}
 {% endfor %}
 {% set _ = flush_images() %}

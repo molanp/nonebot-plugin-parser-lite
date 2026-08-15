@@ -269,14 +269,45 @@ class Comment:
         return datetime.fromtimestamp(self.timestamp).strftime("%Y-%m-%d %H:%M:%S")
 
 
-@dataclass(slots=True)
+@dataclass(repr=False, slots=True)
 class LinkContent:
     """链接信息"""
 
     url: str
     """链接地址"""
+    title: str
+    """链接标题"""
+    site_name: str | None = None
+    """来源站点名称"""
+    description: str | None = None
+    """链接摘要"""
+    icon: DownloadTaskWrapper[Path] | None = None
+    """来源站点图标"""
+    preview: DownloadTaskWrapper[Path] | None = None
+    """链接预览图"""
+
+    async def get_icon_path(self) -> Path | None:
+        return None if self.icon is None else await self.icon
+
+    async def get_preview_path(self) -> Path | None:
+        return None if self.preview is None else await self.preview
+
+
+@dataclass(repr=False, slots=True)
+class QuoteContent:
+    """引用内容"""
+
     text: str
-    """链接文本"""
+    """引用正文"""
+    title: str | None = None
+    """引用来源标题"""
+    url: str | None = None
+    """引用来源链接"""
+    icon: DownloadTaskWrapper[Path] | None = None
+    """引用来源图标或头像"""
+
+    async def get_icon_path(self) -> Path | None:
+        return None if self.icon is None else await self.icon
 
 
 @dataclass(repr=False, slots=True)
@@ -372,6 +403,7 @@ class ParseResultKwargs(TypedDict, total=False):
 
 ContentItem = (
     LinkContent
+    | QuoteContent
     | LivePhotoContent
     | StickerContent
     | GraphicContent
