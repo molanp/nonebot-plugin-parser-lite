@@ -454,6 +454,14 @@ class FFmpeg:
         if await output_path.exists():
             return output_path
 
+        input_names = f"{image_path.name} and {video_path.name}"
+        if has_bgm and bgm_path:
+            input_names += f" with {bgm_path.name}"
+        logger.info(
+            f"Creating Live Photo video from {input_names} to {output_path.name}, "
+            f"loop={loop}"
+        )
+
         video_probe = await cls._probe_media(video_path)
         duration = cls._get_duration(video_probe, video_path)
         video_fps = cls._get_video_frame_rate(video_probe, video_path)
@@ -466,14 +474,18 @@ class FFmpeg:
         )
         cmd = cls._build_live_command(inputs, filter_parts, *audio_options, output_path)
         await cls.exec_ffmpeg(cmd)
+        logger.success(
+            f"Created Live Photo video {output_path.name}, "
+            f"{await fmt_size(output_path)}"
+        )
         return output_path
 
     @classmethod
-    async def convert_audio_to_mp3(
+    async def convert_to_mp3(
         cls, audio_path: Path, file_name: str | None = None
     ) -> Path:
         """
-        将任意音频文件转码为 mp3。
+        将任意音视频文件转码为 mp3。
 
         :param audio_path: 输入音频文件路径
         :param file_name: 输出文件名（不含扩展名），为空时根据输入路径生成稳定名称

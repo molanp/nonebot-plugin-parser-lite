@@ -713,7 +713,7 @@ class StreamDownloader:
             use_curl_cffi=use_curl_cffi,
         )
         if convert_to_mp3:
-            return await FFmpeg.convert_audio_to_mp3(audio_path)
+            return await FFmpeg.convert_to_mp3(audio_path)
         return audio_path
 
     @auto_task
