@@ -13,6 +13,71 @@ class Views(Struct):
     """浏览数"""
 
 
+class CardImage(Struct):
+    url: str = ""
+
+
+class CardValue(Struct):
+    string_value: str | None = None
+    image_value: CardImage | None = None
+
+
+class CardBindingValue(Struct):
+    key: str = ""
+    value: CardValue = field(default_factory=CardValue)
+
+
+class CardLegacy(Struct):
+    name: str = ""
+    url: str = ""
+    binding_values: list[CardBindingValue] = field(default_factory=list)
+
+
+class TweetCard(Struct):
+    legacy: CardLegacy | None = None
+
+
+class UnifiedText(Struct):
+    content: str = ""
+
+
+class UnifiedComponentData(Struct):
+    id: str | None = None
+    destination: str | None = None
+    title: UnifiedText | None = None
+    subtitle: UnifiedText | None = None
+
+
+class UnifiedComponent(Struct):
+    type: str = ""
+    data: UnifiedComponentData = field(default_factory=UnifiedComponentData)
+
+
+class UnifiedUrlData(Struct):
+    url: str = ""
+    vanity: str | None = None
+
+
+class UnifiedDestinationData(Struct):
+    url_data: UnifiedUrlData | None = None
+
+
+class UnifiedDestination(Struct):
+    type: str = ""
+    data: UnifiedDestinationData = field(default_factory=UnifiedDestinationData)
+
+
+class UnifiedMediaEntity(Struct):
+    media_url_https: str = ""
+
+
+class UnifiedCard(Struct):
+    components: list[str] = field(default_factory=list)
+    component_objects: dict[str, UnifiedComponent] = field(default_factory=dict)
+    destination_objects: dict[str, UnifiedDestination] = field(default_factory=dict)
+    media_entities: dict[str, UnifiedMediaEntity] = field(default_factory=dict)
+
+
 class VideoVariant(Struct):
     content_type: str
     """视频编码类型，如 'video/mp4' 或 'application/x-mpegURL'"""
@@ -160,6 +225,41 @@ class TweetCore(Struct):
     user_results: UserResult
 
 
+class NoteTweetResult(Struct):
+    text: str = ""
+
+
+class NoteTweetResults(Struct):
+    result: NoteTweetResult | None = None
+
+
+class NoteTweet(Struct):
+    note_tweet_results: NoteTweetResults | None = None
+
+
+class ArticleMediaInfo(Struct):
+    original_img_url: str = ""
+
+
+class ArticleCoverMedia(Struct):
+    media_info: ArticleMediaInfo | None = None
+
+
+class ArticleResult(Struct):
+    title: str = ""
+    preview_text: str = ""
+    rest_id: str = ""
+    cover_media: ArticleCoverMedia | None = None
+
+
+class ArticleResults(Struct):
+    result: ArticleResult | None = None
+
+
+class Article(Struct):
+    article_results: ArticleResults | None = None
+
+
 class Tweet(Struct):
     core: TweetCore
     legacy: TweetLegacy
@@ -167,10 +267,57 @@ class Tweet(Struct):
     views: Views
     rest_id: str
     """推文id"""
+    card: TweetCard | None = None
+    """推文链接卡片"""
+    note_tweet: NoteTweet | None = None
+    """长文本推文结构"""
+    article: Article | None = None
+    """X Article 结构，按普通正文处理"""
     quoted_status_result: TweetEntry | None = None
     """被引用推文(转发时说话了)"""
     retweeted_status_result: TweetEntry | None = None
     """被转发推文(直接转发啥都没说,正文RT @开头)"""
+
+    @property
+    def text(self) -> str:
+        """完整正文，优先使用 note_tweet / Article 内容"""
+        note_results = self.note_tweet.note_tweet_results if self.note_tweet else None
+        note_result = note_results.result if note_results else None
+        if note_result and note_result.text:
+            return note_result.text
+
+        if article_result := self._article_result:
+            if parts := [
+                value
+                for value in (
+                    article_result.title,
+                    article_result.preview_text,
+                )
+                if value
+            ]:
+                article_text = "\n\n".join(parts)
+                return (
+                    f"{self.legacy.text}\n\n{article_text}"
+                    if self.legacy.text
+                    else article_text
+                )
+
+        return self.legacy.text
+
+    @property
+    def _article_result(self) -> ArticleResult | None:
+        article_results = self.article.article_results if self.article else None
+        return article_results.result if article_results else None
+
+    @property
+    def article_cover_url(self) -> str | None:
+        """Article 封面"""
+        result = self._article_result
+        cover_media = result.cover_media if result else None
+        media_info = cover_media.media_info if cover_media else None
+        if media_info and media_info.original_img_url:
+            return media_info.original_img_url
+        return None
 
 
 class TweetData(Struct):
@@ -182,6 +329,9 @@ class TweetData(Struct):
     legacy: TweetLegacy | None = None
     views: Views | None = None
     rest_id: str | None = None
+    card: TweetCard | None = None
+    note_tweet: NoteTweet | None = None
+    article: Article | None = None
     quoted_status_result: TweetEntry | None = None
     retweeted_status_result: TweetEntry | None = None
 
@@ -199,6 +349,9 @@ class TweetData(Struct):
             legacy=self.legacy,
             views=self.views,
             rest_id=self.rest_id,
+            card=self.card,
+            note_tweet=self.note_tweet,
+            article=self.article,
             quoted_status_result=self.quoted_status_result,
             retweeted_status_result=self.retweeted_status_result,
         )

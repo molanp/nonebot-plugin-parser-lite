@@ -14,18 +14,81 @@ from ..base import (
     PlatformEnum,
     handle,
 )
-from .model import TweetEntry
+from .model import TweetCard, TweetEntry
+from .util import parse_link_card
+
+
+def _get_timeline_tweet_result(entry: dict) -> dict | None:
+    """
+    从单个 entry 中提取 tweet_results.result
+    (Tweet 或 TweetWithVisibilityResults)
+    """
+    content = entry.get("content")
+    if not isinstance(content, dict):
+        return None
+
+    if (
+        content.get("__typename") != "TimelineTimelineItem"
+        or content.get("itemContent", {}).get("__typename") != "TimelineTweet"
+    ):
+        return None
+
+    tweet_results = content["itemContent"].get("tweet_results") or {}
+    result = tweet_results.get("result") or {}
+    typename = result.get("__typename")
+    if typename not in {"Tweet", "TweetWithVisibilityResults"}:
+        return None
+    return tweet_results
+
+
+def _get_rest_id(result: dict) -> str | None:
+    """兼容 Tweet / TweetWithVisibilityResults，取出真实 tweet 的 rest_id."""
+    typename = result.get("__typename")
+    if typename == "Tweet":
+        return result.get("rest_id")
+    if typename == "TweetWithVisibilityResults":
+        inner = result.get("tweet") or {}
+        return inner.get("rest_id")
+    return None
 
 
 class XParser(BaseParser):
     platform: ClassVar[Platform] = Platform(name=PlatformEnum.X, display_name="X")
 
+    def __init__(self):
+        super().__init__()
+        self.headers.update(
+            {"Host": "easycomment.ai", "Content-Type": "application/json"}
+        )
+
+    def _get_link_card(self, card: TweetCard | None) -> ContentItem | None:
+        """将 X 的 unified_card 或传统 binding_values 转换为链接卡片"""
+        if link_card := parse_link_card(card):
+            return self.create_link(
+                url=link_card.url,
+                title=link_card.title,
+                site_name=link_card.site_name,
+                description=link_card.description,
+                preview_url=link_card.preview_url,
+                cache_key=f"x:link:{link_card.url}",
+            )
+        return None
+
     def collect_data(self, raw: TweetEntry, is_repost: bool = False) -> ParseResult:
         tweet = raw.result.as_tweet
         legacy = tweet.legacy
 
-        content: list[ContentItem] = [legacy.text]
+        content: list[ContentItem] = [tweet.text]
         content.extend(legacy.medias)
+        if article_cover := tweet.article_cover_url:
+            content.append(
+                self.create_image(
+                    url=article_cover,
+                    cache_key=f"x:article-cover:{tweet.rest_id}",
+                )
+            )
+        if link_card := self._get_link_card(tweet.card):
+            content.append(link_card)
 
         user = tweet.core.user_results.result
 
@@ -54,39 +117,6 @@ class XParser(BaseParser):
             repost=repost,
         )
 
-    def _get_timeline_tweet_result(self, entry: dict) -> dict | None:
-        """
-        从单个 entry 中提取 tweet_results.result
-        (Tweet 或 TweetWithVisibilityResults)
-        """
-        content = entry.get("content")
-        if not isinstance(content, dict):
-            return None
-
-        if (
-            content.get("__typename") != "TimelineTimelineItem"
-            or content.get("itemContent", {}).get("__typename") != "TimelineTweet"
-        ):
-            return None
-
-        tweet_results = content["itemContent"].get("tweet_results") or {}
-        result = tweet_results.get("result") or {}
-        typename = result.get("__typename")
-        if typename not in {"Tweet", "TweetWithVisibilityResults"}:
-            return None
-        return tweet_results
-
-    @staticmethod
-    def _get_rest_id(result: dict) -> str | None:
-        """兼容 Tweet / TweetWithVisibilityResults，取出真实 tweet 的 rest_id."""
-        typename = result.get("__typename")
-        if typename == "Tweet":
-            return result.get("rest_id")
-        if typename == "TweetWithVisibilityResults":
-            inner = result.get("tweet") or {}
-            return inner.get("rest_id")
-        return None
-
     @handle("twitter.com", r"twitter.com/[0-9-a-zA-Z_]{1,20}/status/([0-9]+)")
     @handle("x.com", r"x.com/[0-9-a-zA-Z_]{1,20}/status/([0-9]+)")
     async def _parse(self, searched: MatchWithParams) -> ParseResult:
@@ -95,8 +125,7 @@ class XParser(BaseParser):
         response = await DOWNLOADER.client.post(
             "https://easycomment.ai/api/twitter/v1/free/get-tweet-detail",
             json={"pid": tweet_id},
-            headers=self.headers
-            | {"Host": "easycomment.ai", "Content-Type": "application/json"},
+            headers=self.headers,
             use_curl_cffi=True,
         )
         try:
@@ -127,12 +156,12 @@ class XParser(BaseParser):
         root_entry: dict | None = None
 
         for entry in entries:
-            tweet_results = self._get_timeline_tweet_result(entry)
+            tweet_results = _get_timeline_tweet_result(entry)
             if not tweet_results:
                 continue
 
             result = tweet_results.get("result") or {}
-            rest_id = self._get_rest_id(result)
+            rest_id = _get_rest_id(result)
             if not rest_id:
                 continue
 
