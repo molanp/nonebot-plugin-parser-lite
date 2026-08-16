@@ -109,7 +109,7 @@ class DouyinParser(BaseParser):
                     id=room.owner.id_str,
                 ),
                 content=[self.create_image(url=room.cover.url_list[-1])],
-                url=f"https://live.douyin.com/{room.id_str}",
+                url=f"https://live.douyin.com/{web_rid}",
                 title=room.title,
                 stats=self.create_stats(
                     view_count=format_num(room.room_view_stats.display_value),
