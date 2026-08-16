@@ -231,7 +231,6 @@ class BaseParser:
             f"关键字 {keyword!r} 存在 handler 但无任何模式匹配 {text!r}"
         )
 
-    @retry(max_retries=3)
     async def parse_with_redirect(
         self,
         url: str,

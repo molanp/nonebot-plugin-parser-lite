@@ -1,0 +1,1412 @@
+{
+  "data": {
+    "data": [
+      {
+        "id_str": "7674613819385613097",
+        "status": 2,
+        "status_str": "2",
+        "title": "王归来",
+        "user_count_str": "100+",
+        "cover": {
+          "url_list": [
+            "https://p3-webcast-sign.douyinpic.com/image-cut-tos-priv/eb57097bd2792c7569807fd8d9c20273~tplv-qz53dukwul-common-resize:0:0.image?biz_tag=app_6383_webcast&from=webcast.room.pack&l=20260816213921865DB0E07458AFF40A9A&lk3s=39e7556e&s=enter_room&sc=webcast_cover&x-expires=1789479561&x-signature=2qr6QfKneUicyA2oUv7LQQvzfDE%3D",
+            "https://p11-webcast-sign.douyinpic.com/image-cut-tos-priv/eb57097bd2792c7569807fd8d9c20273~tplv-qz53dukwul-common-resize:0:0.image?biz_tag=app_6383_webcast&from=webcast.room.pack&l=20260816213921865DB0E07458AFF40A9A&lk3s=39e7556e&s=enter_room&sc=webcast_cover&x-expires=1789479561&x-signature=33W%2BuxSuC9BWPi3OhUdTUY%2FdFFU%3D"
+          ]
+        },
+        "stream_url": {
+          "flv_pull_url": {
+            "FULL_HD1": "http://pull-flv-q13.douyincdn.com/thirdgame/stream-408146217065251646_or4.flv?expire=1787492361&sign=ea6a50d2d110f2673192d6361bab1317&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_flv_or4&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq",
+            "SD1": "http://pull-flv-q13.douyincdn.com/thirdgame/stream-408146217065251646_ld.flv?expire=1787492361&sign=42405b80a315983ea9fe24ca301bf12f&arch_hrchy=h1&exp_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_flv_ld&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq",
+            "SD2": "http://pull-flv-q13.douyincdn.com/thirdgame/stream-408146217065251646_sd.flv?expire=1787492361&sign=2e9fa232709fdb4941ed317ea67f5450&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_flv_sd&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq"
+          },
+          "default_resolution": "FULL_HD1",
+          "hls_pull_url_map": {
+            "FULL_HD1": "http://pull-hls-q13.douyincdn.com/thirdgame/stream-408146217065251646_or4.m3u8?expire=1787492361&sign=4704fd7045ddcde590c69f25034e7cb8&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq",
+            "SD1": "http://pull-hls-q13.douyincdn.com/thirdgame/stream-408146217065251646_ld.m3u8?expire=1787492361&sign=5b143ae7e27b5e97e3578629c7c0e4a6&major_anchor_level=common&arch_hrchy=h1&exp_hrchy=h1&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq",
+            "SD2": "http://pull-hls-q13.douyincdn.com/thirdgame/stream-408146217065251646_sd.m3u8?expire=1787492361&sign=eeb3552aa9af8a66ccb19a738bb00ec0&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq"
+          },
+          "hls_pull_url": "http://pull-hls-q13.douyincdn.com/thirdgame/stream-408146217065251646_sd.m3u8?expire=1787492361&sign=eeb3552aa9af8a66ccb19a738bb00ec0&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq",
+          "stream_orientation": 2,
+          "live_core_sdk_data": {
+            "pull_data": {
+              "options": {
+                "default_quality": {
+                  "name": "高清",
+                  "sdk_key": "sd",
+                  "v_codec": "264",
+                  "resolution": "1280x720",
+                  "level": 2,
+                  "v_bit_rate": 0,
+                  "additional_content": "",
+                  "fps": 0,
+                  "disable": 0
+                },
+                "qualities": [
+                  {
+                    "name": "标清",
+                    "sdk_key": "ld",
+                    "v_codec": "264",
+                    "resolution": "960x540",
+                    "level": 1,
+                    "v_bit_rate": 1000000,
+                    "additional_content": "",
+                    "fps": 25,
+                    "disable": 0
+                  },
+                  {
+                    "name": "高清",
+                    "sdk_key": "sd",
+                    "v_codec": "264",
+                    "resolution": "1280x720",
+                    "level": 2,
+                    "v_bit_rate": 2000000,
+                    "additional_content": "",
+                    "fps": 30,
+                    "disable": 0
+                  },
+                  {
+                    "name": "超清",
+                    "sdk_key": "origin",
+                    "v_codec": "264",
+                    "resolution": "",
+                    "level": 3,
+                    "v_bit_rate": 2402000,
+                    "additional_content": "",
+                    "fps": 30,
+                    "disable": 0
+                  }
+                ]
+              },
+              "stream_data": "{\"common\":{\"ts\":\"1786887561\",\"session_id\":\"037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"stream\":\"408146217065251646\",\"version\":0,\"rule_ids\":\"{\\\"ab_version_trace\\\":null,\\\"sched\\\":\\\"{\\\\\\\"result\\\\\\\":{\\\\\\\"hit\\\\\\\":\\\\\\\"determined\\\\\\\",\\\\\\\"cdn\\\\\\\":1392}}\\\"}\",\"common_trace\":\"{\\\"StrategyTrace\\\":{\\\"Neptune\\\":{\\\"PlayStream\\\":{\\\"ids\\\":null}}},\\\"VpaasFunctionIDS\\\":\\\"\\\",\\\"VpaasABOptionIDS\\\":\\\"\\\",\\\"BusinessType\\\":\\\"GameHigh\\\",\\\"BigeventAnchorLevel\\\":\\\"\\\",\\\"BizType\\\":\\\"show_room\\\"}\",\"app_id\":\"100034\",\"major_anchor_level\":\"common\",\"mode\":\"HotForward\",\"lines\":{\"main\":\"line_1392\"},\"p2p_params\":{\"PcdnIsolationConfig\":{\"StunV6Domain\":\"vc-mirror-v6.ndcpp.com\",\"HoleV4Domain\":\"signal-t3-v4-az2.rtcxyz.com\",\"FsHttpsDomain\":\"vcl-brain-http.ndcppx.com\",\"FsV4Domain\":\"signal-t1-v4-az2.rtcxyz.com\",\"FsV6Domain\":\"signal-t1-v6-az2.rtcxyz.com\",\"StunV4Domain\":\"vc-mirror.ndcpp.com\",\"HoleV6Domain\":\"signal-t3-v6-az2.rtcxyz.com\",\"IsolationName\":\"isolation2\"}},\"label\":{\"peer_labels\":{},\"labels\":{}},\"stream_data_content_encoding\":\"default\",\"common_sdk_params\":{\"main\":\"{}\"},\"stream_name\":\"stream-408146217065251646\",\"main_push_id\":830,\"backup_push_id\":0},\"data\":{\"ao\":{\"main\":{\"flv\":\"http://pull-flv-q13.douyincdn.com/thirdgame/stream-408146217065251646.flv?expire=1787492361&sign=6c15439715731774b9c2ac13614d8a7b&major_anchor_level=common&arch_hrchy=h1&exp_hrchy=h1&only_audio=1&eupf_relay_mode=err&unique_id=stream-408146217065251646_830_flv&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"hls\":\"\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"\",\"tsl\":\"\",\"tile\":\"\",\"http_ts\":\"\",\"ll_hls\":\"\",\"sdk_params\":\"{\\\"VCodec\\\":\\\"h264\\\",\\\"vbitrate\\\":0,\\\"resolution\\\":\\\"\\\",\\\"gop\\\":2,\\\"drType\\\":\\\"sdr\\\",\\\"fps\\\":0}\",\"enableEncryption\":false}},\"origin\":{\"main\":{\"flv\":\"http://pull-flv-q13.douyincdn.com/thirdgame/stream-408146217065251646_or4.flv?expire=1787492361&sign=ea6a50d2d110f2673192d6361bab1317&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_flv_or4&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"hls\":\"http://pull-hls-q13.douyincdn.com/thirdgame/stream-408146217065251646_or4.m3u8?expire=1787492361&sign=4704fd7045ddcde590c69f25034e7cb8&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"http://pull-lls-q13.douyincdn.com/thirdgame/stream-408146217065251646_or4.sdp?expire=1787492361&sign=9288c7c3b514aee83bac88a34def3960&arch_hrchy=h1&major_anchor_level=common&exp_hrchy=h1&unique_id=stream-408146217065251646_830_lls_or4&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"tsl\":\"\",\"tile\":\"\",\"http_ts\":\"\",\"ll_hls\":\"\",\"sdk_params\":\"{\\\"VCodec\\\":\\\"h264\\\",\\\"vbitrate\\\":2402000,\\\"resolution\\\":\\\"\\\",\\\"gop\\\":4,\\\"drType\\\":\\\"sdr\\\",\\\"fps\\\":30}\",\"enableEncryption\":false,\"templateRealTimeInfo\":{\"name\":\"or4\",\"bitrateKbps\":2346,\"updatedTime\":1786887559034}}},\"ld\":{\"main\":{\"flv\":\"http://pull-flv-q13.douyincdn.com/thirdgame/stream-408146217065251646_ld.flv?expire=1787492361&sign=42405b80a315983ea9fe24ca301bf12f&arch_hrchy=h1&exp_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_flv_ld&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"hls\":\"http://pull-hls-q13.douyincdn.com/thirdgame/stream-408146217065251646_ld.m3u8?expire=1787492361&sign=5b143ae7e27b5e97e3578629c7c0e4a6&major_anchor_level=common&arch_hrchy=h1&exp_hrchy=h1&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"http://pull-lls-q13.douyincdn.com/thirdgame/stream-408146217065251646_ld.sdp?expire=1787492361&sign=43620da4166baae2be22f63ed1c53bb5&arch_hrchy=h1&exp_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_lls_ld&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"tsl\":\"\",\"tile\":\"\",\"http_ts\":\"\",\"ll_hls\":\"\",\"sdk_params\":\"{\\\"VCodec\\\":\\\"h264\\\",\\\"vbitrate\\\":1000000,\\\"resolution\\\":\\\"960x540\\\",\\\"gop\\\":4,\\\"drType\\\":\\\"sdr\\\",\\\"fps\\\":25}\",\"enableEncryption\":false,\"templateRealTimeInfo\":{\"name\":\"ld\",\"bitrateKbps\":1002,\"updatedTime\":1786887554001}}},\"sd\":{\"main\":{\"flv\":\"http://pull-flv-q13.douyincdn.com/thirdgame/stream-408146217065251646_sd.flv?expire=1787492361&sign=2e9fa232709fdb4941ed317ea67f5450&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_flv_sd&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"hls\":\"http://pull-hls-q13.douyincdn.com/thirdgame/stream-408146217065251646_sd.m3u8?expire=1787492361&sign=eeb3552aa9af8a66ccb19a738bb00ec0&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"http://pull-lls-q13.douyincdn.com/thirdgame/stream-408146217065251646_sd.sdp?expire=1787492361&sign=569c1a126ac9d2c85c39270657c63951&exp_hrchy=h1&arch_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_lls_sd&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"tsl\":\"\",\"tile\":\"\",\"http_ts\":\"\",\"ll_hls\":\"\",\"sdk_params\":\"{\\\"VCodec\\\":\\\"h264\\\",\\\"vbitrate\\\":2000000,\\\"resolution\\\":\\\"1280x720\\\",\\\"gop\\\":4,\\\"drType\\\":\\\"sdr\\\",\\\"fps\\\":30}\",\"enableEncryption\":false,\"templateRealTimeInfo\":{\"name\":\"sd\",\"bitrateKbps\":1974,\"updatedTime\":1786887560061}}},\"md\":{\"main\":{\"flv\":\"https://pull-flv-q13-admin.douyincdn.com/thirdgame/stream-408146217065251646_md.flv?expire=1787492361&sign=1e21469b36c81948b6fefa06e752cd01&arch_hrchy=h1&exp_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_flv_md&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"hls\":\"http://pull-hls-q13.douyincdn.com/thirdgame/stream-408146217065251646_md.m3u8?expire=1787492361&sign=9334bd630cf60b7b362a49009558c396&arch_hrchy=h1&exp_hrchy=h1&major_anchor_level=common&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"cmaf\":\"\",\"dash\":\"\",\"lls\":\"http://pull-lls-q13.douyincdn.com/thirdgame/stream-408146217065251646_md.sdp?expire=1787492361&sign=604b4cd58d0a80fa6029628ed4198cc7&arch_hrchy=h1&exp_hrchy=h1&major_anchor_level=common&unique_id=stream-408146217065251646_830_lls_md&t_id=037-20260816213921865DB0E07458AFF40A9A-R8BYfq\",\"tsl\":\"\",\"tile\":\"\",\"http_ts\":\"\",\"ll_hls\":\"\",\"sdk_params\":\"{\\\"VCodec\\\":\\\"h264\\\",\\\"vbitrate\\\":800000,\\\"resolution\\\":\\\"640x360\\\",\\\"gop\\\":4,\\\"drType\\\":\\\"sdr\\\",\\\"fps\\\":15}\",\"enableEncryption\":false,\"templateRealTimeInfo\":{\"name\":\"md\",\"bitrateKbps\":789,\"updatedTime\":1786887317002}}}}}"
+            }
+          },
+          "extra": {
+            "height": 720,
+            "width": 1280,
+            "fps": 0,
+            "max_bitrate": 0,
+            "min_bitrate": 0,
+            "default_bitrate": 0,
+            "bitrate_adapt_strategy": 0,
+            "anchor_interact_profile": 0,
+            "audience_interact_profile": 0,
+            "hardware_encode": false,
+            "video_profile": 0,
+            "h265_enable": false,
+            "gop_sec": 0,
+            "bframe_enable": false,
+            "roi": false,
+            "sw_roi": false,
+            "bytevc1_enable": false
+          },
+          "pull_datas": {}
+        },
+        "mosaic_status": 0,
+        "mosaic_status_str": "0",
+        "admin_user_ids": [
+          685696841434989, 3755547733800621, 2093060355525399, 1816033555648139,
+          641709460692739, 171166911961987, 78651093847, 95809147097,
+          1645324522502333, 281891201358215, 104766641219, 82068236972,
+          98310052126, 73128039756
+        ],
+        "admin_user_ids_str": [
+          "685696841434989",
+          "3755547733800621",
+          "2093060355525399",
+          "1816033555648139",
+          "641709460692739",
+          "171166911961987",
+          "78651093847",
+          "95809147097",
+          "1645324522502333",
+          "281891201358215",
+          "104766641219",
+          "82068236972",
+          "98310052126",
+          "73128039756"
+        ],
+        "owner": {
+          "id_str": "3509242384890029",
+          "sec_uid": "MS4wLjABAAAAM8eQlc4J3TxyVmjI7U7BhuYJNK7TG0sS77_EhGzzVcWusD1HmZhZ-HA1XMUj36W2",
+          "nickname": "╪血煞メ聖殿/≯",
+          "avatar_thumb": {
+            "url_list": [
+              "https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oADEsEDHIWmBaCeEiwaDfBU7g7AFAAAAAafQQ2.jpeg?from=3067671334",
+              "https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oADEsEDHIWmBaCeEiwaDfBU7g7AFAAAAAafQQ2.jpeg?from=3067671334",
+              "https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oADEsEDHIWmBaCeEiwaDfBU7g7AFAAAAAafQQ2.jpeg?from=3067671334"
+            ]
+          },
+          "follow_info": {
+            "follow_status": 0,
+            "follow_status_str": "0"
+          },
+          "subscribe": {
+            "is_member": false,
+            "level": 0,
+            "identity_type": 0,
+            "buy_type": 0,
+            "open": 1
+          },
+          "foreign_user": 0,
+          "open_id_str": ""
+        },
+        "room_auth": {
+          "Chat": true,
+          "Danmaku": false,
+          "Gift": true,
+          "LuckMoney": true,
+          "Digg": true,
+          "RoomContributor": true,
+          "Props": true,
+          "UserCard": true,
+          "POI": true,
+          "MoreAnchor": 1,
+          "Banner": 1,
+          "Share": 1,
+          "UserCorner": 0,
+          "Landscape": 1,
+          "LandscapeChat": 1,
+          "PublicScreen": 1,
+          "GiftAnchorMt": 0,
+          "RecordScreen": 2,
+          "DonationSticker": 0,
+          "HourRank": 0,
+          "CommerceCard": 1,
+          "AudioChat": 1,
+          "DanmakuDefault": 0,
+          "KtvOrderSong": 2,
+          "SelectionAlbum": 2,
+          "Like": 0,
+          "MultiplierPlayback": 0,
+          "DownloadVideo": 0,
+          "Collect": 2,
+          "TimedShutdown": 0,
+          "Seek": 0,
+          "Denounce": 0,
+          "Dislike": 0,
+          "OnlyTa": 0,
+          "CastScreen": 1,
+          "CommentWall": 1,
+          "BulletStyle": 0,
+          "ShowGamePlugin": 2,
+          "VSGift": 0,
+          "VSTopic": 0,
+          "VSRank": 0,
+          "AdminCommentWall": 0,
+          "CommerceComponent": 1,
+          "DouPlus": 1,
+          "GamePointsPlaying": 2,
+          "Poster": 2,
+          "Highlights": 2,
+          "TypingCommentState": 1,
+          "StrokeUpDownGuide": 1,
+          "UpRightStatsFloatingLayer": 1,
+          "CastScreenExplicit": 1,
+          "Selection": 2,
+          "IndustryService": 0,
+          "VerticalRank": 1,
+          "EnterEffects": 0,
+          "FansClub": 1,
+          "EmojiOutside": 0,
+          "CanSellTicket": 0,
+          "DouPlusPopularityGem": 0,
+          "MissionCenter": 0,
+          "ExpandScreen": 2,
+          "FansGroup": 2,
+          "Topic": 2,
+          "AnchorMission": 0,
+          "Teleprompter": 0,
+          "LongTouch": 2,
+          "FirstFeedHistChat": 1,
+          "MoreHistChat": 1,
+          "TaskBanner": 0,
+          "SpecialStyle": {
+            "Chat": {
+              "UnableStyle": 0,
+              "Content": "主播已设置所有人可评论",
+              "OffType": 0,
+              "AnchorSwitchForPaidLive": 0,
+              "ContentForPaidLive": ""
+            },
+            "Like": {
+              "UnableStyle": 0,
+              "Content": "",
+              "OffType": 0,
+              "AnchorSwitchForPaidLive": 0,
+              "ContentForPaidLive": ""
+            }
+          },
+          "FixedChat": 2,
+          "QuizGamePointsPlaying": 2
+        },
+        "live_room_mode": 1,
+        "stats": {
+          "total_user_desp": "",
+          "like_count": 0,
+          "total_user_str": "2415",
+          "user_count_str": "138"
+        },
+        "has_commerce_goods": false,
+        "linker_map": {},
+        "linker_detail": {
+          "linker_play_modes": [],
+          "big_party_layout_config_version": 0,
+          "accept_audience_pre_apply": true,
+          "linker_ui_layout": 0,
+          "enable_audience_linkmic": 0,
+          "function_type": "",
+          "linker_map_str": {},
+          "ktv_lyric_mode": "",
+          "init_source": "",
+          "forbid_apply_from_other": false,
+          "ktv_exhibit_mode": 0,
+          "enlarge_guest_turn_on_source": 0,
+          "playmode_detail": {},
+          "client_ui_info": "",
+          "manual_open_ui": 0,
+          "feature_list": []
+        },
+        "room_view_stats": {
+          "is_hidden": false,
+          "display_short": "138",
+          "display_middle": "138",
+          "display_long": "138在线观众",
+          "display_value": 138,
+          "display_version": 1663849727,
+          "incremental": false,
+          "display_type": 1,
+          "display_short_anchor": "138",
+          "display_middle_anchor": "138",
+          "display_long_anchor": "138在线观众"
+        },
+        "scene_type_info": {
+          "is_union_live_room": false,
+          "is_life": false,
+          "is_protected_room": 0,
+          "is_lasted_goods_room": 2,
+          "is_desire_room": 2,
+          "commentary_type": false,
+          "is_sub_orientation_vertical_room": 2
+        },
+        "toolbar_data": {
+          "entrance_list": [
+            {
+              "group_id": 5,
+              "component_type": 24,
+              "op_type": 0,
+              "text": "更多",
+              "schema_url": "",
+              "show_type": 1,
+              "data_status": 1,
+              "extra": ""
+            },
+            {
+              "group_id": 6,
+              "component_type": 29,
+              "op_type": 0,
+              "text": "快捷送礼",
+              "schema_url": "",
+              "icon": {
+                "url_list": [
+                  "https://p3-webcast.douyinpic.com/img/webcast/7ef47758a435313180e6b78b056dda4e.png~tplv-resize:0:0.image",
+                  "https://p11-webcast.douyinpic.com/img/webcast/7ef47758a435313180e6b78b056dda4e.png~tplv-resize:0:0.image"
+                ],
+                "uri": "webcast/7ef47758a435313180e6b78b056dda4e.png",
+                "height": 0,
+                "width": 0,
+                "avg_color": "#A37C96",
+                "image_type": 0,
+                "open_web_url": "",
+                "is_animated": false,
+                "flex_setting_list": [],
+                "text_setting_list": []
+              },
+              "show_type": 3,
+              "data_status": 1,
+              "extra": "{\"id\":463,\"name\":\"小心心\",\"type\":1,\"diamond_count\":1,\"combo\":true,\"image\":{\"url_list\":[\"https://p11-webcast.douyinpic.com/img/webcast/7ef47758a435313180e6b78b056dda4e.png~tplv-obj.image\",\"https://p3-webcast.douyinpic.com/img/webcast/7ef47758a435313180e6b78b056dda4e.png~tplv-obj.image\"],\"uri\":\"webcast/7ef47758a435313180e6b78b056dda4e.png\",\"avg_color\":\"#C8E0BC\"},\"webp_image\":{\"url_list\":[\"https://p3-webcast.douyinpic.com/img/webcast/7ef47758a435313180e6b78b056dda4e.png~tplv-obj.webp\",\"https://p11-webcast.douyinpic.com/img/webcast/7ef47758a435313180e6b78b056dda4e.png~tplv-obj.webp\"],\"uri\":\"webcast/7ef47758a435313180e6b78b056dda4e.png\",\"avg_color\":\"#EBFBFF\"}}"
+            },
+            {
+              "group_id": 7,
+              "component_type": 26,
+              "op_type": 0,
+              "text": "连线",
+              "schema_url": "",
+              "show_type": 3,
+              "data_status": 1,
+              "extra": ""
+            },
+            {
+              "group_id": 8,
+              "component_type": 28,
+              "op_type": 0,
+              "text": "礼物",
+              "schema_url": "",
+              "icon": {
+                "url_list": [
+                  "https://p3-webcast.douyinpic.com/img/webcast/profit_gift_entrance_ab_v2.webp~tplv-resize:0:0.image",
+                  "https://p11-webcast.douyinpic.com/img/webcast/profit_gift_entrance_ab_v2.webp~tplv-resize:0:0.image"
+                ],
+                "uri": "webcast/profit_gift_entrance_ab_v2.webp",
+                "height": 0,
+                "width": 0,
+                "avg_color": "#7A6053",
+                "image_type": 0,
+                "open_web_url": "",
+                "is_animated": false,
+                "flex_setting_list": [],
+                "text_setting_list": []
+              },
+              "show_type": 3,
+              "data_status": 1,
+              "extra": ""
+            },
+            {
+              "group_id": 12,
+              "component_type": 35,
+              "op_type": 0,
+              "text": "清晰度",
+              "schema_url": "",
+              "show_type": 2,
+              "data_status": 1,
+              "extra": ""
+            }
+          ],
+          "more_panel": [
+            {
+              "group_id": 1,
+              "component_type": 20,
+              "op_type": 0,
+              "text": "分享",
+              "schema_url": "",
+              "show_type": 1,
+              "data_status": 1,
+              "extra": "{\"ShareStory\":1}"
+            },
+            {
+              "group_id": 10,
+              "component_type": 31,
+              "op_type": 0,
+              "text": "聊天频道",
+              "schema_url": "",
+              "show_type": 1,
+              "data_status": 1,
+              "extra": ""
+            }
+          ],
+          "max_entrance_cnt": 4,
+          "landscape_up_right": [],
+          "skin_resource": {},
+          "max_entrance_cnt_landscape": 4,
+          "permutation": {
+            "general": {
+              "GroupPriority": [
+                18, 17, 12, 14, 16, 5, 1, 8, 4, 15, 10, 13, 0, 22, 23, 19, 9, 3,
+                2, 7, 6
+              ],
+              "ComponentSequence": [
+                31, 33, 34, 37, 35, 38, 36, 26, 42, 23, 27, 32, 21, 2, 3, 43,
+                44, 1, 4, 5, 6, 7, 8, 9, 22, 30, 25, 41, 29, 28, 20, 24
+              ]
+            },
+            "on_demand_component_list": [],
+            "block_component_list": []
+          },
+          "extra_info": {
+            "game_promotion_coexist": 0
+          }
+        },
+        "ecom_data": {
+          "reds_show_infos": [],
+          "instant_type": 0,
+          "route_rule": "",
+          "shop_author_header": "",
+          "intro_type": 0
+        },
+        "room_cart": {
+          "contain_cart": false,
+          "total": 0,
+          "flash_total": 0,
+          "cart_icon": "",
+          "show_cart": 0
+        },
+        "AnchorABMap": {
+          "ab_admin_comment_on_wall": "0",
+          "ab_friend_chat": "4",
+          "admin_optimize_third": "0",
+          "admin_privilege_refine": "2",
+          "allow_shared_to_fans": "false",
+          "anchor_battle_enable_remote_pk": "1",
+          "anchor_battle_frame_bar_anime": "1",
+          "anchor_battle_frame_doublepk_bar": "1",
+          "anchor_battle_frame_notice_bar_layout": "1",
+          "audience_linkmic_continue": "0",
+          "audio_1v8_stage_enlarge": "1",
+          "audio_double_enlarge_enable": "1",
+          "audio_goal_challenge": "1",
+          "audio_honor_rank": "1",
+          "audio_radio_v2": "1",
+          "audio_room_subtitle_opt": "3",
+          "battle_match_rebuild_anchor": "2",
+          "big_party_enable_open_camera": "2",
+          "chat_intercommunicate_multi_anchor": "2",
+          "chat_intercommunicate_pk": "2",
+          "cross_default_enlarge": "1",
+          "cross_link_support_enlarge_guest": "1",
+          "cross_room_battle_pop_mode": "1",
+          "double_enlarge_enable": "1",
+          "ecom_room_disable_gift": "0",
+          "enable_enter_by_sharing": "0",
+          "enable_link_guest_enter": "0",
+          "enable_multi_pk_change_sofa_position": "1",
+          "enter_message_tip_relation": "0",
+          "enter_source_mark": "0",
+          "faction_clash": "1",
+          "frequently_chat_ab_value": "2",
+          "friend_room_audio_tuning": "1",
+          "friend_room_support_ns_mode": "0",
+          "friend_share_video_feature_type": "3",
+          "game_link_entrance": "0",
+          "gift_comment": "1",
+          "gift_comment_v2": "2",
+          "gift_hide_tip": "2",
+          "guest_battle_crown_upgrade": "0",
+          "guest_battle_expand": "0",
+          "guest_battle_score_expand": "2",
+          "guest_battle_upgrade": "2",
+          "interact_acting_ab": "1",
+          "interact_anchor_guide": "0",
+          "ktv_anchor_enable_add_all": "1",
+          "ktv_auto_mute_self": "0",
+          "ktv_challenge_minus_gift": "0",
+          "ktv_component_new_midi": "3",
+          "ktv_enable_avatar": "0",
+          "ktv_enable_open_camera": "0",
+          "ktv_fragment_song": "0",
+          "ktv_grab_guide_song": "0",
+          "ktv_guide_song_switch": "0",
+          "ktv_kick_when_linker_full": "0",
+          "ktv_mc_host_show_tag": "0",
+          "ktv_new_challenge": "1",
+          "ktv_room_atmosphere": "0",
+          "ktv_singing_hot_rank": "0",
+          "ktv_video_stream_optimize": "0",
+          "ktv_want_listen_enable": "2",
+          "linkmic_audience_anchor_hide": "1",
+          "linkmic_chorus": "true",
+          "linkmic_multi_chorus": "2",
+          "linkmic_order_sing_search_fingerprint": "1",
+          "linkmic_order_sing_upgrade": "1",
+          "linkmic_position_name_hide": "1",
+          "linkmic_starwish": "1",
+          "linkmic_video_equal_layout_frame_opt": "1",
+          "live_anchor_enable_chorus": "false",
+          "live_anchor_enable_custom_position": "1",
+          "live_anchor_hit_new_audience_linkmic": "0",
+          "live_anchor_hit_position_opt": "2",
+          "live_anchor_hit_video_bid_paid": "0",
+          "live_anchor_hit_video_teamfight": "0",
+          "live_answer_on_wall": "0",
+          "live_audience_linkmic_pre_apply_v2": "1",
+          "live_audio_announce_menu_opt": "1",
+          "live_audio_enable_c_position": "2",
+          "live_backup_sei_enable": "true",
+          "live_dou_plus_enter": "0",
+          "live_ktv_enable_beat": "0",
+          "live_ktv_group": "0",
+          "live_ktv_show_singer_icon": "1",
+          "live_ktv_singing_challenge": "0",
+          "live_linkmic_battle_optimize": "1",
+          "live_linkmic_ktv_anchor_lyric_mode": "0",
+          "live_linkmic_order_sing_micro_opt": "3",
+          "live_linkmic_order_sing_v3": "2",
+          "live_pc_helper_new_layout": "1",
+          "live_room_manage_style": "0",
+          "live_team_fight_flexible": "1",
+          "live_video_enable_c_position": "2",
+          "live_video_enable_self_discipline": "2",
+          "live_video_host_identity_enable": "0",
+          "live_video_share": "0",
+          "lonely_room_enter_msg_unfold": "0",
+          "mark_user": "0",
+          "merge_ktv_mode_enable": "1",
+          "merge_ktv_optimize_enable": "2",
+          "mic_avatar_tool": "1",
+          "multi_link_biz_access_backup_sei_config": "14",
+          "opt_audience_linkmic": "3",
+          "opt_paid_link_feature_switch": "0",
+          "optran_paid_linkmic": "2",
+          "order_sing_enable_gift_chorus": "1",
+          "order_sing_gold_mic_offline": "1",
+          "order_sing_mv": "1",
+          "play_mode_opt_24": "1",
+          "ps_use_new_panel": "0",
+          "radio_prepare_apply": "0",
+          "room_battle_mode_switch": "2",
+          "room_battle_mode_switch_audio": "3",
+          "room_battle_video_audio_interconnection": "1",
+          "room_double_like": "0",
+          "room_secret_chat": "1",
+          "self_discipline_v2": "1",
+          "self_discipline_v3": "1",
+          "social_share_video_adjust_volume": "0",
+          "support_multiple_add_price": "0",
+          "themed_competition_v2": "1",
+          "traffic_strategy": "0",
+          "video_equal_1v8fix_switch": "1",
+          "video_ktv_challenge": "0",
+          "video_talk_enable_avatar": "2"
+        },
+        "like_count": 3233,
+        "owner_user_id_str": "",
+        "paid_live_data": {
+          "paid_type": 0,
+          "view_right": 0,
+          "duration": 0,
+          "delivery": 0,
+          "need_delivery_notice": false,
+          "anchor_right": 0,
+          "pay_ab_type": 0,
+          "privilege_info": {},
+          "privilege_info_map": {},
+          "max_preview_duration": 0
+        },
+        "basis": {
+          "next_ping": 300,
+          "is_customize_audio_room": false,
+          "need_request_luckybox": 0,
+          "secret_room": 0,
+          "foreign_user_room": 0
+        },
+        "game_data": {
+          "game_tag_info": {
+            "is_game": 2,
+            "game_tag_id": 0,
+            "game_tag_name": ""
+          }
+        },
+        "pico_info": {
+          "pico_live_type": 0,
+          "pico_virtual_live_bg_image_uri": "",
+          "pico_create_scene": "",
+          "custom_info": "",
+          "pico_virtual_live_bg_image_digest": "",
+          "virtual_live_bg_images": {
+            "original_digest": "",
+            "is_upright": false,
+            "converted_images": [],
+            "converted_list": []
+          },
+          "pitch": 0,
+          "client_live_type": 0,
+          "pico_vr_transfer": 0,
+          "pico_live_mode": 0,
+          "stream_mapping": {}
+        },
+        "gift_msg_style": 2,
+        "fansclub_msg_style": 2,
+        "follow_msg_style": 2,
+        "share_msg_style": 2,
+        "short_touch_area_config": {
+          "elements": {
+            "1": {
+              "type": 1,
+              "priority": 1
+            },
+            "2": {
+              "type": 2,
+              "priority": 1
+            },
+            "3": {
+              "type": 3,
+              "priority": 1
+            },
+            "4": {
+              "type": 4,
+              "priority": 3
+            },
+            "5": {
+              "type": 5,
+              "priority": 4
+            },
+            "6": {
+              "type": 6,
+              "priority": 3
+            },
+            "7": {
+              "type": 7,
+              "priority": 3
+            },
+            "8": {
+              "type": 8,
+              "priority": 3
+            },
+            "9": {
+              "type": 9,
+              "priority": 3
+            },
+            "10": {
+              "type": 10,
+              "priority": 3
+            },
+            "12": {
+              "type": 12,
+              "priority": 3
+            },
+            "22": {
+              "type": 22,
+              "priority": 1
+            },
+            "27": {
+              "type": 27,
+              "priority": 3
+            },
+            "30": {
+              "type": 30,
+              "priority": 2
+            }
+          },
+          "forbidden_types_map": {},
+          "temp_state_condition_map": {
+            "1": {
+              "type": {
+                "strategy_type": 1,
+                "priority": 30
+              },
+              "minimum_gap": 900
+            },
+            "2": {
+              "type": {
+                "strategy_type": 2,
+                "priority": 20
+              },
+              "minimum_gap": 900
+            },
+            "3": {
+              "type": {
+                "strategy_type": 3,
+                "priority": 10
+              },
+              "minimum_gap": 900
+            },
+            "4": {
+              "type": {
+                "strategy_type": 4,
+                "priority": 1
+              },
+              "minimum_gap": 0
+            },
+            "5": {
+              "type": {
+                "strategy_type": 5,
+                "priority": 5
+              },
+              "minimum_gap": 0
+            },
+            "6": {
+              "type": {
+                "strategy_type": 6,
+                "priority": 7
+              },
+              "minimum_gap": 0
+            },
+            "7": {
+              "type": {
+                "strategy_type": 7,
+                "priority": 6
+              },
+              "minimum_gap": 0
+            }
+          },
+          "temp_state_strategy": {
+            "4": {
+              "short_touch_type": 4,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "3": {
+                  "type": {
+                    "strategy_type": 3,
+                    "priority": 10
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "6": {
+                  "type": {
+                    "strategy_type": 6,
+                    "priority": 7
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "7": {
+                  "type": {
+                    "strategy_type": 7,
+                    "priority": 6
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "7": {
+              "short_touch_type": 7,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "3": {
+                  "type": {
+                    "strategy_type": 3,
+                    "priority": 10
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "4": {
+                  "type": {
+                    "strategy_type": 4,
+                    "priority": 1
+                  },
+                  "duration": 0,
+                  "strategy_method": ""
+                },
+                "5": {
+                  "type": {
+                    "strategy_type": 5,
+                    "priority": 5
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "6": {
+                  "type": {
+                    "strategy_type": 6,
+                    "priority": 7
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "8": {
+              "short_touch_type": 8,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "86": {
+              "short_touch_type": 86,
+              "strategy_map": {
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "3": {
+                  "type": {
+                    "strategy_type": 3,
+                    "priority": 10
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "97": {
+              "short_touch_type": 97,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "3": {
+                  "type": {
+                    "strategy_type": 3,
+                    "priority": 10
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "5": {
+                  "type": {
+                    "strategy_type": 5,
+                    "priority": 5
+                  },
+                  "duration": 10,
+                  "strategy_method": "short_touch_tempstate_redpack_entry_type"
+                },
+                "6": {
+                  "type": {
+                    "strategy_type": 6,
+                    "priority": 7
+                  },
+                  "duration": 10,
+                  "strategy_method": "short_touch_tempstate_redpack_match_amunt"
+                },
+                "7": {
+                  "type": {
+                    "strategy_type": 7,
+                    "priority": 6
+                  },
+                  "duration": 10,
+                  "strategy_method": "short_touch_tempstate_redpack_user_wish_tobuy"
+                }
+              }
+            },
+            "136": {
+              "short_touch_type": 136,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "141": {
+              "short_touch_type": 141,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "3": {
+                  "type": {
+                    "strategy_type": 3,
+                    "priority": 10
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "149": {
+              "short_touch_type": 149,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "152": {
+              "short_touch_type": 152,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "153": {
+              "short_touch_type": 153,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                },
+                "4": {
+                  "type": {
+                    "strategy_type": 4,
+                    "priority": 1
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "159": {
+              "short_touch_type": 159,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "161": {
+              "short_touch_type": 161,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "210": {
+              "short_touch_type": 210,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "217": {
+              "short_touch_type": 217,
+              "strategy_map": {
+                "3": {
+                  "type": {
+                    "strategy_type": 3,
+                    "priority": 10
+                  },
+                  "duration": 15,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "222": {
+              "short_touch_type": 222,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 5,
+                  "strategy_method": "结束态"
+                }
+              }
+            },
+            "228": {
+              "short_touch_type": 228,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "229": {
+              "short_touch_type": 229,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "230": {
+              "short_touch_type": 230,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                },
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 10,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "306": {
+              "short_touch_type": 306,
+              "strategy_map": {
+                "3": {
+                  "type": {
+                    "strategy_type": 3,
+                    "priority": 10
+                  },
+                  "duration": 30,
+                  "strategy_method": "test_temp_30"
+                }
+              }
+            },
+            "307": {
+              "short_touch_type": 307,
+              "strategy_map": {
+                "4": {
+                  "type": {
+                    "strategy_type": 4,
+                    "priority": 1
+                  },
+                  "duration": 15,
+                  "strategy_method": "test_strategy_5"
+                }
+              }
+            },
+            "308": {
+              "short_touch_type": 308,
+              "strategy_map": {
+                "5": {
+                  "type": {
+                    "strategy_type": 5,
+                    "priority": 5
+                  },
+                  "duration": 10,
+                  "strategy_method": "test_strategy_5"
+                }
+              }
+            },
+            "311": {
+              "short_touch_type": 311,
+              "strategy_map": {
+                "3": {
+                  "type": {
+                    "strategy_type": 3,
+                    "priority": 10
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "312": {
+              "short_touch_type": 312,
+              "strategy_map": {
+                "1": {
+                  "type": {
+                    "strategy_type": 1,
+                    "priority": 30
+                  },
+                  "duration": 30,
+                  "strategy_method": ""
+                }
+              }
+            },
+            "313": {
+              "short_touch_type": 313,
+              "strategy_map": {
+                "2": {
+                  "type": {
+                    "strategy_type": 2,
+                    "priority": 20
+                  },
+                  "duration": 30,
+                  "strategy_method": "test_strategy_2"
+                }
+              }
+            }
+          },
+          "strategy_feat_whitelist": [
+            "feat_coin_lottery_amount",
+            "feat_redpack_amount",
+            "live_short_touch_ecom_redpack_type",
+            "live_short_touch_ecom_redpack_sub_type",
+            "live_short_touch_ecom_redpack_total_amount",
+            "live_short_touch_ecom_redpack_total_stock",
+            "live_ecom_cart_click_twice",
+            "live_ecom_cart_stop_buy",
+            "live_watch_6_min"
+          ],
+          "temp_state_global_condition": {
+            "duration_gap": 300,
+            "allow_count": 1,
+            "ignore_strategy_types": [4]
+          },
+          "big_card_display_strategy": {}
+        },
+        "preview_expose": {
+          "style": 0,
+          "metas": [],
+          "chat_msgs": [],
+          "force_insertion": [],
+          "scroll_after_ms": 0,
+          "need_realtime": false,
+          "message_scroll_after_ms": 0,
+          "message_scroll_interval_ms": 0,
+          "preview_intro": "",
+          "show_uv_pv": 0,
+          "show_name_abbreviation": 0,
+          "is_preview_use_websocket": 0,
+          "is_aweme_video_feed": false,
+          "show_preview_cards": false,
+          "et_data": [],
+          "alive_checker": 0,
+          "preview_exit_guide_list": [],
+          "chat_group_extend_data": [],
+          "show_similar_feed_button": false,
+          "feed_extra": "",
+          "feed_enter_extra": "",
+          "preview_enter_extra": ""
+        },
+        "req_user": {
+          "user_share_room_score": 0,
+          "enter_user_device_type": 0
+        },
+        "others": {
+          "deco_detail": {},
+          "more_panel_info": {
+            "load_strategy": 3
+          },
+          "appointment_info": {
+            "appointment_id": 0,
+            "is_subscribe": false
+          },
+          "web_skin": {
+            "enable_skin": false
+          },
+          "programme": {
+            "enable_programme": false
+          },
+          "web_live_port_optimization": {
+            "strategy_config": {
+              "background": {
+                "strategy_type": 1,
+                "use_config_duration": false,
+                "pause_monitor_duration": "1800"
+              },
+              "detail": {
+                "strategy_type": 1,
+                "use_config_duration": false,
+                "pause_monitor_duration": "1800"
+              },
+              "tab": {
+                "strategy_type": 1,
+                "use_config_duration": false,
+                "pause_monitor_duration": "1800"
+              }
+            },
+            "strategy_extra": ""
+          },
+          "lvideo_item_id": 0,
+          "recognition_containers": {
+            "recognition_candidates": []
+          },
+          "anchor_together_live": {
+            "is_together_live": 0,
+            "user_list": [],
+            "title": "",
+            "schema_url": "",
+            "scene": 1,
+            "is_show": true
+          },
+          "mosaic_version": 0,
+          "metric_tracker_data_list": [],
+          "cloud_collaborate_data": {
+            "collaborate_room_id": 0,
+            "collaborate_room_id_str": "",
+            "rejoin_time": 0
+          },
+          "room_chat_guide_locale_city": "商丘",
+          "redirect_from": 0,
+          "panel_guidance": "",
+          "participant_activity": "",
+          "labels": {}
+        },
+        "admin_user_open_ids": [],
+        "admin_user_open_ids_str": [],
+        "owner_open_id_str": ""
+      }
+    ],
+    "enter_room_id": "7674613819385613097",
+    "extra": {
+      "digg_color": "0",
+      "pay_scores": "0",
+      "is_official_channel": false,
+      "signature": "",
+      "vr_type": 0
+    },
+    "user": {
+      "id_str": "3509242384890029",
+      "sec_uid": "MS4wLjABAAAAM8eQlc4J3TxyVmjI7U7BhuYJNK7TG0sS77_EhGzzVcWusD1HmZhZ-HA1XMUj36W2",
+      "nickname": "╪血煞メ聖殿/≯",
+      "avatar_thumb": {
+        "url_list": [
+          "https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oADEsEDHIWmBaCeEiwaDfBU7g7AFAAAAAafQQ2.jpeg?from=3067671334",
+          "https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oADEsEDHIWmBaCeEiwaDfBU7g7AFAAAAAafQQ2.jpeg?from=3067671334",
+          "https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oADEsEDHIWmBaCeEiwaDfBU7g7AFAAAAAafQQ2.jpeg?from=3067671334"
+        ]
+      },
+      "follow_info": {
+        "follow_status": 0,
+        "follow_status_str": "0"
+      },
+      "foreign_user": 0,
+      "open_id_str": ""
+    },
+    "qrcode_url": "https://p3-pc.douyinpic.com/img/aweme-qrcode/KTnneA7674614075921401663~c5_720x720.webp?from=746027608",
+    "enter_mode": 0,
+    "room_status": 0,
+    "partition_road_map": {},
+    "similar_rooms": [],
+    "shark_decision_conf": "",
+    "web_stream_url": {
+      "flv_pull_url": {},
+      "default_resolution": "",
+      "hls_pull_url_map": {},
+      "hls_pull_url": "",
+      "stream_orientation": 0,
+      "pull_datas": {}
+    },
+    "login_lead": {
+      "is_login": false,
+      "level": 0,
+      "items": {}
+    },
+    "auth_cert_info": "{\"CertDataMap\":{\"3509242384890029\":{\"CertLabelList\":[],\"DataMap\":{}}},\"BaseResp\":{\"StatusMessage\":\"\",\"StatusCode\":0}}"
+  },
+  "extra": {
+    "now": 1786887561585
+  },
+  "status_code": 0
+}

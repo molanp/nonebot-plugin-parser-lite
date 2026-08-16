@@ -1,3 +1,4 @@
+import re
 from typing import ClassVar
 
 from msgspec import convert
@@ -16,6 +17,9 @@ from ..base import (
 )
 from .aweme import Response
 from .comment import decoder as commentDecoder
+from .live import Room
+
+WEB_RID_RE = re.compile(r'\\"webRid\\":\\"(\d+)\\"')
 
 
 class DouyinParser(BaseParser):
@@ -60,29 +64,80 @@ class DouyinParser(BaseParser):
         url = f"https://{searched.url}"
         return await self.parse_with_redirect(url)
 
+    @handle("webcast.amemv.com", r"douyin/webcast/reflow/(?P<room_id>\d+)")
+    async def parse_live_by_room_id(self, searched: MatchWithParams):
+        await self.ensure_ttwid()
+        room_id = searched["room_id"]
+        html = (
+            await self.httpx.get(
+                f"https://webcast.amemv.com/douyin/webcast/reflow/{room_id}",
+                cookies={"ttwid": self.ttwid},
+            )
+        ).text
+        if rid := WEB_RID_RE.search(html):
+            return await self.parse_web_rid(rid[1])
+        raise ParseException("提取 web_rid 失败")
+
+    @handle("live.douyin.com", r"live\.douyin\.com/(?P<rid>\d+)")
+    async def parse_live(self, searched: MatchWithParams):
+        await self.ensure_ttwid()
+        return await self.parse_web_rid(searched["rid"])
+
+    async def parse_web_rid(self, web_rid: str):
+        resp = await self.httpx.get(
+            "https://live.douyin.com/webcast/room/web/enter/",
+            params={
+                "aid": 6383,
+                "device_platform": "web",
+                "browser_language": "zh-CN",
+                "browser_platform": "Win32",
+                "browser_name": "Chrome",
+                "browser_version": "95.0.4638.69",
+                "web_rid": web_rid,
+            },
+            cookies={"ttwid": self.ttwid},
+        )
+        if not resp.is_success:
+            raise ParseException(f"解析抖音直播失败, 可能是直播不存在: {resp.text}")
+        data = resp.json()
+        if rooms := data.get("data", {}).get("data"):
+            room = convert(rooms[0], Room)
+            return self.result(
+                author=self.create_author(
+                    name=room.owner.nickname,
+                    avatar_url=room.owner.avatar_thumb.url_list[-1],
+                    id=room.owner.id_str,
+                ),
+                content=[self.create_image(url=room.cover.url_list[-1])],
+                url=f"https://live.douyin.com/{room.id_str}",
+                title=room.title,
+                stats=self.create_stats(
+                    view_count=format_num(room.room_view_stats.display_value),
+                    like_count=format_num(room.like_count),
+                ),
+            )
+        raise ParseException(f"获取直播间信息失败: {data}")
+
     # https://www.douyin.com/video/7521023890996514083
     # https://www.douyin.com/note/7469411074119322899
     # https://m.douyin.com/share/note/7591875747808560613
-    @handle("douyin", r"douyin\.com/[a-z]+/(?P<vid>\d+)")
+    @handle("douyin.com", r"douyin\.com/[a-z]+/(?P<aweme_id>\d+)")
     @handle(
-        "iesdouyin",
-        r"iesdouyin\.com/share/[a-z]+/(?P<vid>\d+)",
+        "iesdouyin.com",
+        r"iesdouyin\.com/share/[a-z]+/(?P<aweme_id>\d+)",
     )
     @handle(
-        "m.douyin",
-        r"m\.douyin\.com/share/[a-z]+/(?P<vid>\d+)",
+        "m.douyin.com",
+        r"m\.douyin\.com/share/[a-z]+/(?P<aweme_id>\d+)",
     )
     # https://jingxuan.douyin.com/m/video/7574300896016862490?app=yumme&utm_source=copy_link
     @handle(
-        "jingxuan.douyin",
-        r"jingxuan\.douyin.com/m/[a-z]+/(?P<vid>\d+)",
+        "jingxuan.douyin.com",
+        r"jingxuan\.douyin.com/m/[a-z]+/(?P<aweme_id>\d+)",
     )
-    async def _parse_douyin(self, searched: MatchWithParams):
+    async def parse_work(self, searched: MatchWithParams):
         await self.ensure_ttwid()
-        vid = searched["vid"]
-        return await self.parse_aweme(vid)
-
-    async def parse_aweme(self, aweme_id: str):
+        aweme_id = searched["aweme_id"]
         note = await self.httpx.get(
             "https://www.douyin.com/aweme/v1/web/aweme/detail/",
             params={
