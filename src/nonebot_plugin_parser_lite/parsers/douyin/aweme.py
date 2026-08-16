@@ -64,6 +64,7 @@ class Music(Struct):
     mid: str
     play_url: MusicPlayUrl
     extra: str
+    is_original_sound: bool
 
 
 class ShareInfo(Struct):
@@ -94,20 +95,21 @@ class Aweme(Struct):
         aweme_cache_key = f"douyin:{self.aweme_id}"
         music_url: str | None = None
         if music := self.music:
-            if music.play_url.uri == "":
-                extra = ujson.loads(music.extra)
-                music_url = extra.get("original_song_url")
-            else:
-                music_url = music.play_url.uri
-            if music_url:
-                content.append(
-                    Creator.audio(
-                        url_or_task=music_url,
-                        duration=music.duration,
-                        cache_key=f"douyin:{music.mid}",
-                        ext_headers={"Referer": "https://www.douyin.com/"},
+            if not music.is_original_sound:
+                if music.play_url.uri == "":
+                    extra = ujson.loads(music.extra)
+                    music_url = extra.get("original_song_url")
+                else:
+                    music_url = music.play_url.uri
+                if music_url:
+                    content.append(
+                        Creator.audio(
+                            url_or_task=music_url,
+                            duration=music.duration,
+                            cache_key=f"douyin:{music.mid}",
+                            ext_headers={"Referer": "https://www.douyin.com/"},
+                        )
                     )
-                )
         if self.images:
             for image in self.images:
                 image_cache_key = (
