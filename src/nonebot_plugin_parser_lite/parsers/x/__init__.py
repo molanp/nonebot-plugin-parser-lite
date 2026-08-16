@@ -128,7 +128,7 @@ class XParser(BaseParser):
         self,
         root_id: str,
         tweet_map: dict[str, dict],
-    ) -> list:
+    ) -> list[Comment]:
         comments: dict[str, Comment] = {}
         parents: dict[str, str] = {}
         for rest_id, tweet_results in tweet_map.items():
@@ -143,7 +143,7 @@ class XParser(BaseParser):
             comments[rest_id] = self._build_comment(convert(tweet_results, TweetEntry))
             parents[rest_id] = parent_id
 
-        roots = []
+        roots: list[Comment] = []
         for rest_id, comment in comments.items():
             parent_id = parents[rest_id]
             parent = comments.get(parent_id)
