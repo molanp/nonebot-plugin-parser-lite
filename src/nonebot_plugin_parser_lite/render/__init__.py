@@ -120,22 +120,26 @@ class _ForwardText:
 
     author_name: str
     parts: list[_ForwardTextPart]
+    include_author: bool = True
     text_length: int = field(init=False)
 
     def __post_init__(self) -> None:
-        self.text_length = (
-            len(self.author_name) + 1 + sum(len(part.text) for part in self.parts)
-        )
+        prefix_length = len(self.author_name) + 1 if self.include_author else 0
+        self.text_length = prefix_length + sum(len(part.text) for part in self.parts)
+
+    @property
+    def prefix(self) -> str:
+        return f"{self.author_name}：" if self.include_author else ""
 
     @property
     def text(self) -> str:
-        return f"{self.author_name}：{''.join(part.text for part in self.parts)}"
+        return f"{self.prefix}{''.join(part.text for part in self.parts)}"
 
     def split(self, max_len: int) -> list[str]:
         if max_len <= 0 or self.text_length <= max_len:
             return [self.text]
 
-        prefix = f"{self.author_name}："
+        prefix = self.prefix
         chunks: list[str] = []
         current = prefix
 
@@ -404,11 +408,19 @@ class Renderer:
             author_name = pr.author.name
             nodes: list[ForwardNodeInner | _ForwardText] = []
             text_buffer: list[_ForwardTextPart] = []
+            author_prefix_pending = True
 
             async def flush_text() -> None:
-                nonlocal text_buffer
+                nonlocal author_prefix_pending, text_buffer
                 if text_buffer:
-                    nodes.append(_ForwardText(author_name, text_buffer))
+                    nodes.append(
+                        _ForwardText(
+                            author_name,
+                            text_buffer,
+                            include_author=author_prefix_pending,
+                        )
+                    )
+                    author_prefix_pending = False
                     text_buffer = []
 
             def append_text(text: str) -> None:
@@ -484,6 +496,9 @@ class Renderer:
                     await flush_text()
                     await append_media(item)
                 elif isinstance(item, LinkContent):
+                    await flush_text()
+                    if preview := await item.get_preview_path():
+                        nodes.append(await UniHelper.img_seg(file=preview))
                     append_text(item.url)
                 elif isinstance(item, QuoteContent):
                     quote_parts = [part for part in (item.title, item.text) if part]
