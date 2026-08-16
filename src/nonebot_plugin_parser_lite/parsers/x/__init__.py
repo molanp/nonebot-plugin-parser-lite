@@ -1,7 +1,8 @@
-from typing import ClassVar
+from typing import Any, ClassVar
 
 from msgspec import convert
 
+from ...data import Comment
 from ...utils.format import format_num
 from ..base import (
     DOWNLOADER,
@@ -14,31 +15,41 @@ from ..base import (
     PlatformEnum,
     handle,
 )
-from .model import TweetCard, TweetEntry
+from .model import Tweet, TweetCard, TweetEntry
 from .util import parse_link_card
 
 
-def _get_timeline_tweet_result(entry: dict) -> dict | None:
-    """
-    从单个 entry 中提取 tweet_results.result
-    (Tweet 或 TweetWithVisibilityResults)
-    """
-    content = entry.get("content")
-    if not isinstance(content, dict):
+def _get_tweet_result(item: dict) -> dict | None:
+    item_content = item.get("itemContent")
+    if not isinstance(item_content, dict):
+        return None
+    if item_content.get("__typename") != "TimelineTweet":
         return None
 
-    if (
-        content.get("__typename") != "TimelineTimelineItem"
-        or content.get("itemContent", {}).get("__typename") != "TimelineTweet"
-    ):
-        return None
-
-    tweet_results = content["itemContent"].get("tweet_results") or {}
+    tweet_results = item_content.get("tweet_results") or {}
     result = tweet_results.get("result") or {}
-    typename = result.get("__typename")
-    if typename not in {"Tweet", "TweetWithVisibilityResults"}:
+    if result.get("__typename") not in {"Tweet", "TweetWithVisibilityResults"}:
         return None
     return tweet_results
+
+
+def _iter_timeline_tweet_results(node: dict):
+    """提取 TimelineItem 和 TimelineModule.items 中的 Tweet。"""
+    if tweet_result := _get_tweet_result(node):
+        yield tweet_result
+        return
+
+    content = node.get("content")
+    if isinstance(content, dict):
+        yield from _iter_timeline_tweet_results(content)
+
+    for item in node.get("items", []):
+        if isinstance(item, dict):
+            yield from _iter_timeline_tweet_results(item)
+
+    item = node.get("item")
+    if isinstance(item, dict):
+        yield from _iter_timeline_tweet_results(item)
 
 
 def _get_rest_id(result: dict) -> str | None:
@@ -50,6 +61,12 @@ def _get_rest_id(result: dict) -> str | None:
         inner = result.get("tweet") or {}
         return inner.get("rest_id")
     return None
+
+
+def _get_tweet_legacy(result: dict) -> dict[str, Any]:
+    if result.get("__typename") == "TweetWithVisibilityResults":
+        result = result.get("tweet") or {}
+    return result.get("legacy") or {}
 
 
 class XParser(BaseParser):
@@ -74,12 +91,9 @@ class XParser(BaseParser):
             )
         return None
 
-    def collect_data(self, raw: TweetEntry, is_repost: bool = False) -> ParseResult:
-        tweet = raw.result.as_tweet
-        legacy = tweet.legacy
-
+    def _build_content(self, tweet: Tweet) -> list[ContentItem]:
         content: list[ContentItem] = [tweet.text]
-        content.extend(legacy.medias)
+        content.extend(tweet.legacy.medias)
         if article_cover := tweet.article_cover_url:
             content.append(
                 self.create_image(
@@ -89,6 +103,61 @@ class XParser(BaseParser):
             )
         if link_card := self._get_link_card(tweet.card):
             content.append(link_card)
+        return content
+
+    def _build_comment(self, raw: TweetEntry):
+        tweet = raw.result.as_tweet
+        user = tweet.core.user_results.result
+        legacy = tweet.legacy
+        return self.create_comment(
+            author=self.create_author(
+                name=user.core.name,
+                avatar_url=user.avatar_url,
+                description=user.legacy.description,
+                id=user.core.screen_name,
+            ),
+            content=self._build_content(tweet),
+            timestamp=legacy.time_local,
+            stats=self.create_stats(
+                like_count=format_num(legacy.favorite_count),
+                comment_count=format_num(legacy.reply_count),
+            ),
+        )
+
+    def _build_comments(
+        self,
+        root_id: str,
+        tweet_map: dict[str, dict],
+    ) -> list:
+        comments: dict[str, Comment] = {}
+        parents: dict[str, str] = {}
+        for rest_id, tweet_results in tweet_map.items():
+            if rest_id == root_id:
+                continue
+            result = tweet_results.get("result") or {}
+            parent_id: str | None = _get_tweet_legacy(result).get(
+                "in_reply_to_status_id_str"
+            )
+            if not parent_id:
+                continue
+            comments[rest_id] = self._build_comment(convert(tweet_results, TweetEntry))
+            parents[rest_id] = parent_id
+
+        roots = []
+        for rest_id, comment in comments.items():
+            parent_id = parents[rest_id]
+            parent = comments.get(parent_id)
+            if parent is not None:
+                parent.replies.append(comment)
+            elif parent_id == root_id:
+                roots.append(comment)
+        return roots
+
+    def collect_data(self, raw: TweetEntry, is_repost: bool = False) -> ParseResult:
+        tweet = raw.result.as_tweet
+        legacy = tweet.legacy
+
+        content = self._build_content(tweet)
 
         user = tweet.core.user_results.result
 
@@ -156,18 +225,15 @@ class XParser(BaseParser):
         root_entry: dict | None = None
 
         for entry in entries:
-            tweet_results = _get_timeline_tweet_result(entry)
-            if not tweet_results:
-                continue
+            for tweet_results in _iter_timeline_tweet_results(entry):
+                result = tweet_results.get("result") or {}
+                rest_id = _get_rest_id(result)
+                if not rest_id:
+                    continue
 
-            result = tweet_results.get("result") or {}
-            rest_id = _get_rest_id(result)
-            if not rest_id:
-                continue
-
-            tweet_map[rest_id] = tweet_results
-            if rest_id == tweet_id:
-                root_entry = tweet_results
+                tweet_map[rest_id] = tweet_results
+                if rest_id == tweet_id:
+                    root_entry = tweet_results
 
         if root_entry is None:
             raise ParseException(f"Tweet {tweet_id} not found")
@@ -186,4 +252,6 @@ class XParser(BaseParser):
                     root_result["quoted_status_result"] = parent_entry
 
         tweet = convert(root_entry, TweetEntry)
-        return self.collect_data(tweet)
+        result = self.collect_data(tweet)
+        result.comments = self._build_comments(tweet_id, tweet_map)
+        return result
