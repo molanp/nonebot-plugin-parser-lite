@@ -14,8 +14,9 @@
                      class="absolute top-6 right-6 h-20 w-20 max-[600px]:h-[60px] max-[600px]:w-[60px]" />
             {% endif %}
             <div class="mb-6 flex items-start gap-5 pr-[100px] max-[600px]:pr-20">
-                {% if result.cover_path %}
-                    <img src="{{ result | safe_src('get_cover_path') }}"
+                {% set cover_src = result | safe_src('get_cover_path', return_none_on_fail=True) %}
+                {% if cover_src %}
+                    <img src="{{ cover_src }}"
                          alt="专辑封面"
                          class="h-[150px] w-[150px] shrink-0 rounded-lg object-cover max-[600px]:h-[120px] max-[600px]:w-[120px]" />
                 {% endif %}
