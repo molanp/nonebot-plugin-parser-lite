@@ -46,6 +46,8 @@ class UnifiedComponentData(Struct):
     destination: str | None = None
     title: UnifiedText | None = None
     subtitle: UnifiedText | None = None
+    description: str | UnifiedText | None = None
+    summary: str | UnifiedText | None = None
 
 
 class UnifiedComponent(Struct):
@@ -72,6 +74,7 @@ class UnifiedMediaEntity(Struct):
 
 
 class UnifiedCard(Struct):
+    # X unified_card JSON uses string component IDs (for example, "media_1").
     components: list[str] = field(default_factory=list)
     component_objects: dict[str, UnifiedComponent] = field(default_factory=dict)
     destination_objects: dict[str, UnifiedDestination] = field(default_factory=dict)

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from msgspec import DecodeError
 from msgspec.json import decode
 
-from .model import CardValue, TweetCard, UnifiedCard
+from .model import CardValue, TweetCard, UnifiedCard, UnifiedText
 
 
 @dataclass(frozen=True, slots=True)
@@ -22,16 +22,18 @@ def _binding_values(card: TweetCard) -> dict[str, CardValue]:
 
 
 def _decode_unified(card: TweetCard) -> UnifiedCard | None:
-    for key, value in _binding_values(card).items():
-        if key != "unified_card" or value.string_value is None:
+    if card.legacy is None:
+        return None
+    for binding in card.legacy.binding_values:
+        if binding.key != "unified_card" or binding.value.string_value is None:
             continue
-        raw = value.string_value
+        raw = binding.value.string_value
         if not raw:
-            return None
+            continue
         try:
             return decode(raw, type=UnifiedCard)
         except (DecodeError, TypeError):
-            return None
+            continue
     return None
 
 
@@ -47,18 +49,25 @@ def _unified_data(card: UnifiedCard) -> LinkCardData | None:
     if not url_data or not url_data.url:
         return None
 
-    title = site_name = preview_url = None
+    title = site_name = description = preview_url = None
+
+    def text_content(value: str | UnifiedText | None) -> str | None:
+        if isinstance(value, UnifiedText):
+            return value.content or None
+        return value or None
+
     for component_name in card.components:
         component = card.component_objects.get(component_name)
         if component is None:
             continue
         data = component.data
         if component.type == "details":
-            title = data.title.content if data.title and data.title.content else title
-            site_name = (
-                data.subtitle.content
-                if data.subtitle and data.subtitle.content
-                else site_name
+            title = text_content(data.title) or title
+            site_name = text_content(data.subtitle) or site_name
+            description = (
+                text_content(data.description)
+                or text_content(data.summary)
+                or description
             )
         elif component.type == "media" and data.id:
             media = card.media_entities.get(data.id)
@@ -69,6 +78,7 @@ def _unified_data(card: UnifiedCard) -> LinkCardData | None:
         url=url_data.url,
         title=title or site_name or url_data.url,
         site_name=site_name or url_data.vanity,
+        description=description,
         preview_url=preview_url,
     )
 
