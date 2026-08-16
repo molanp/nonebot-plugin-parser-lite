@@ -124,8 +124,7 @@ class _ForwardText:
     text_length: int = field(init=False)
 
     def __post_init__(self) -> None:
-        prefix_length = len(self.author_name) + 1 if self.include_author else 0
-        self.text_length = prefix_length + sum(len(part.text) for part in self.parts)
+        self.text_length = len(self.prefix) + sum(len(part.text) for part in self.parts)
 
     @property
     def prefix(self) -> str:
