@@ -603,7 +603,6 @@ class Renderer:
             "extra": result.extra,
             "platform": result.platform,
             "content": result.content,
-            "cover_path": await safe_src(result, "get_cover_path"),
             "stats": result.stats,
             "comments": result.comments[: pconfig.max_comments],
             "author": result.author,
