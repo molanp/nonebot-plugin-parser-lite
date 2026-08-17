@@ -53,6 +53,15 @@ def _with_identity_encoding(headers: dict[str, str]) -> dict[str, str]:
     return result
 
 
+def _parse_content_encodings(value: str | None) -> tuple[str, ...]:
+    """解析 Content-Encoding 编码链，忽略空标记并统一大小写。"""
+    return tuple(
+        encoding
+        for token in (value or "").split(",")
+        if (encoding := token.strip().lower())
+    )
+
+
 def _resolve_suffix(
     url: str,
     content_type: str | None,
@@ -301,14 +310,16 @@ class StreamDownloader:
             use_curl_cffi=use_curl_cffi,
         ) as response:
             self.__validate_response(response, downloaded)
-            content_encoding = (
-                response.headers.get("content-encoding") or ""
-            ).strip().lower()
-            transfer_encoded = content_encoding not in ("", "identity")
+            content_encodings = _parse_content_encodings(
+                response.headers.get("content-encoding")
+            )
+            transfer_encoded = any(
+                encoding != "identity" for encoding in content_encodings
+            )
 
             if downloaded > 0 and transfer_encoded:
                 raise RetryableDownloadError(
-                    f"压缩响应 {content_encoding!r} 无法安全断点续传",
+                    f"压缩响应 {', '.join(content_encodings)!r} 无法安全断点续传",
                     keep_part=False,
                 )
 
