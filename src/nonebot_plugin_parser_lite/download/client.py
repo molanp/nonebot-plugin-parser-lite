@@ -136,7 +136,7 @@ class UniResponse:
         except DecodingError as e:
             # Content-Encoding 解码失败后，本地文件与远端 Range 的字节坐标
             # 不再具备可比性，不能保留断点继续追加。
-            raise RetryableDownloadError(e.__repr__(), keep_part=False) from e
+            raise RetryableDownloadError(str(e), keep_part=False) from e
         except (TransportError, RequestException) as e:
             raise RetryableDownloadError(e.__repr__()) from e
 

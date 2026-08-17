@@ -280,6 +280,53 @@ async def test_legacy_part_416_is_removed_and_restarted(
     assert not (media_dir / "image.part").exists()
 
 
+@pytest.mark.parametrize(
+    "content_range",
+    [
+        None,
+        "not-a-content-range",
+        "bytes 2-7/10",
+    ],
+    ids=["missing", "malformed", "mismatched-start"],
+)
+@pytest.mark.asyncio
+async def test_invalid_content_range_removes_part_and_restarts_cleanly(
+    downloader_modules, tmp_path, content_range
+):
+    download, _, cache_manager = downloader_modules
+    media_dir = tmp_path / cache_manager.MEDIA
+    media_dir.mkdir()
+    part_path = media_dir / "image.part"
+    part_path.write_bytes(b"partial-data")
+
+    resume_headers = {
+        "Content-Length": "20",
+        "Content-Encoding": "identity",
+    }
+    if content_range is not None:
+        resume_headers["Content-Range"] = content_range
+
+    client = FakeClient(
+        [
+            FakeResponse(
+                206,
+                headers=resume_headers,
+                chunks=[b"must-not-be-appended"],
+            ),
+            FakeResponse(200, headers={"Content-Length": "5"}, chunks=[b"fresh"]),
+        ]
+    )
+    downloader = _new_downloader(download, client)
+
+    path = await _download_image(downloader, cache_manager)
+
+    assert await path.read_bytes() == b"fresh"
+    assert client.requests[0]["headers"]["Range"] == "bytes=12-"
+    assert "Range" not in client.requests[1]["headers"]
+    assert len(client.requests) == 2
+    assert not part_path.exists()
+
+
 @pytest.mark.asyncio
 async def test_short_identity_response_resumes_with_matching_range(
     downloader_modules,
@@ -322,7 +369,7 @@ async def test_unexpected_encoded_response_does_not_compare_decoded_length(
             FakeResponse(
                 200,
                 headers={
-                    "Content-Encoding": "gzip",
+                    "Content-Encoding": "gzip, br",
                     "Content-Length": "124406",
                 },
                 chunks=[b"decoded-webp"],
