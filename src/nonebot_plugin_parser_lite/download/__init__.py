@@ -42,6 +42,17 @@ _CONTENT_TYPE_SUFFIX_OVERRIDES = {
 }
 
 
+def _with_identity_encoding(headers: dict[str, str]) -> dict[str, str]:
+    """让文件长度、Content-Length 与 Range 使用同一字节坐标系。"""
+    result = {
+        key: value
+        for key, value in headers.items()
+        if key.lower() != "accept-encoding"
+    }
+    result["Accept-Encoding"] = "identity"
+    return result
+
+
 def _resolve_suffix(
     url: str,
     content_type: str | None,
@@ -92,7 +103,7 @@ class StreamDownloader:
         :return: UniResponse 对象
         :raise HTTPStatusError: HEAD 与 GET 均非 2xx 时抛出
         """
-        headers = {**self.headers, **(ext_headers or {})}
+        headers = _with_identity_encoding({**self.headers, **(ext_headers or {})})
         resp = await self.client.head(
             url=url,
             headers=headers,
@@ -161,7 +172,7 @@ class StreamDownloader:
         base_path = cache_dir / cache_name
         partial_path = cache_dir / f"{cache_name}.part"
 
-        headers = {**self.headers, **(ext_headers or {})}
+        headers = _with_identity_encoding({**self.headers, **(ext_headers or {})})
         download_key = str(base_path)
         active_download = self._active_downloads.get(download_key)
         if active_download is not None:
@@ -244,19 +255,27 @@ class StreamDownloader:
         ) from last_error
 
     def __validate_response(self, response: UniResponse, downloaded: int):
+        if downloaded > 0 and response.status_code == 416:
+            raise RetryableDownloadError(
+                "断点位置无效，重新完整下载", keep_part=False
+            )
         response.raise_for_status()
         if downloaded > 0:
             if response.status_code != 206:
                 raise RetryableDownloadError("服务器不支持断点续传", keep_part=False)
-            if content_range := response.headers.get("content-range"):
-                if match := _RE_RANGE_PATTERN.match(content_range):
-                    server_start = int(match[1])
+            content_range = response.headers.get("content-range")
+            match = _RE_RANGE_PATTERN.fullmatch(content_range or "")
+            if match is None:
+                raise RetryableDownloadError(
+                    "服务器未返回有效的 Content-Range", keep_part=False
+                )
 
-                    if server_start != downloaded:
-                        raise DownloadException(
-                            f"Content-Range 错误: 请求 {downloaded}, "
-                            f"返回 {server_start}"
-                        )
+            server_start = int(match[1])
+            if server_start != downloaded:
+                raise RetryableDownloadError(
+                    f"Content-Range 错误: 请求 {downloaded}, 返回 {server_start}",
+                    keep_part=False,
+                )
 
     def __make_range_headers(
         self, headers: dict[str, str], downloaded: int
@@ -282,7 +301,23 @@ class StreamDownloader:
             use_curl_cffi=use_curl_cffi,
         ) as response:
             self.__validate_response(response, downloaded)
-            content_length = response.headers.get("content-length")
+            content_encoding = (
+                response.headers.get("content-encoding") or ""
+            ).strip().lower()
+            transfer_encoded = content_encoding not in ("", "identity")
+
+            if downloaded > 0 and transfer_encoded:
+                raise RetryableDownloadError(
+                    f"压缩响应 {content_encoding!r} 无法安全断点续传",
+                    keep_part=False,
+                )
+
+            # 编码响应的 Content-Length 是压缩传输体大小，而 aiter_bytes()
+            # 返回解码后的文件内容，不能用前者校验后者。正常情况下
+            # Accept-Encoding: identity 会避免进入此兼容分支。
+            content_length = (
+                None if transfer_encoded else response.headers.get("content-length")
+            )
             content_type = response.headers.get("content-type")
 
             total_size = (
@@ -347,10 +382,11 @@ class StreamDownloader:
             if total_size is not None and final_size != total_size:
                 size_diff = abs(final_size - total_size)
                 if size_diff > self._SIZE_MISMATCH_TOLERANCE_BYTES:
-                    raise DownloadException(
+                    raise RetryableDownloadError(
                         f"文件大小不匹配: {final_size}/{total_size} "
                         f"(差值: {size_diff} bytes, 超过允许的 "
-                        f"{self._SIZE_MISMATCH_TOLERANCE_BYTES} bytes)"
+                        f"{self._SIZE_MISMATCH_TOLERANCE_BYTES} bytes)",
+                        keep_part=final_size < total_size,
                     )
             return content_type
 

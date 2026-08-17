@@ -8,7 +8,7 @@ from typing import Any, Literal
 from curl_cffi import AsyncSession
 from curl_cffi import Response as CurlResponse
 from curl_cffi.requests.exceptions import RequestException
-from httpx import AsyncClient, Timeout, TransportError, codes
+from httpx import AsyncClient, DecodingError, Timeout, TransportError, codes
 from httpx import Response as HttpxResponse
 
 from ..exception import ParseException
@@ -133,6 +133,10 @@ class UniResponse:
             else:
                 async for chunk in self._raw.aiter_content():
                     yield chunk
+        except DecodingError as e:
+            # Content-Encoding 解码失败后，本地文件与远端 Range 的字节坐标
+            # 不再具备可比性，不能保留断点继续追加。
+            raise RetryableDownloadError(e.__repr__(), keep_part=False) from e
         except (TransportError, RequestException) as e:
             raise RetryableDownloadError(e.__repr__()) from e
 
