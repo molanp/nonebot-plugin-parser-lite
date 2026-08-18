@@ -40,6 +40,7 @@ class Video(Struct):
     duration: int
     """视频时长(/1000)"""
     play_addr: Addr
+    cover_original_scale: UrlList | None = None
 
     @property
     def url(self) -> str:
@@ -138,7 +139,9 @@ class Aweme(Struct):
             content.append(
                 Creator.video(
                     url_or_task=video.play_addr.url,
-                    cover_url=video.cover.url_list[-1],
+                    cover_url=video.cover_original_scale.url_list[-1]
+                    if video.cover_original_scale
+                    else video.cover.url_list[-1],
                     duration=video.duration // 1000,
                     cache_key=aweme_cache_key,
                     ext_headers={"Referer": "https://www.douyin.com/"},
