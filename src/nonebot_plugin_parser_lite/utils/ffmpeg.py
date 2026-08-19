@@ -26,7 +26,7 @@ class FFmpeg:
         return hashlib.md5(raw.encode("utf-8")).hexdigest()
 
     @classmethod
-    async def exec_ffmpeg(cls, cmd: list[str]) -> None:
+    async def exec_ffmpeg(cls, cmd: list[str], input: bytes | None = None) -> bytes:
         """执行 ffmpeg 命令
 
         :param cmd: 不包含 'ffmpeg' 本身的命令参数列表
@@ -38,13 +38,14 @@ class FFmpeg:
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
             )
-            _, stderr = await process.communicate()
+            stdout, stderr = await process.communicate(input)
         except FileNotFoundError as e:
             raise RuntimeError("ffmpeg 未安装或无法找到可执行文件") from e
 
         if process.returncode != 0:
             error_msg = stderr.decode(errors="ignore").strip()
             raise RuntimeError(f"ffmpeg 执行失败: {error_msg}")
+        return stdout
 
     @classmethod
     async def exec_probe(cls, cmd: list[str]) -> bytes:
@@ -358,6 +359,24 @@ class FFmpeg:
         else:
             cls._available = True
         return cls._available
+
+    @classmethod
+    async def png_to_jpeg(cls, png_data: bytes, quality: int = 85) -> bytes:
+        cmd = [
+            "-hide_banner",
+            "-loglevel",
+            "error",
+            "-i",
+            "pipe:0",
+            "-f",
+            "image2",
+            "-c:v",
+            "mjpeg",
+            "-q:v",
+            str(round((100 - quality) * 31 / 100)),
+            "pipe:1",
+        ]
+        return await cls.exec_ffmpeg(cmd, png_data)
 
     @classmethod
     async def remux_to_mp4(cls, input_path: Path, output_path: Path) -> Path:

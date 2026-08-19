@@ -33,6 +33,7 @@ from ..exception import (
 )
 from ..helper import ForwardNodeInner, UniHelper, UniMessage
 from ..utils.cache import CacheManager
+from ..utils.ffmpeg import FFmpeg
 
 PLACEHOLDER_IMAGE = (
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -590,8 +591,6 @@ class Renderer:
                 "base_url": f"file://{self.templates_dir}",
             },
             filters={"safe_src": safe_src},
-            type="jpeg",
-            quality=85,
         )
 
     async def resolve_parse_result(self, result: ParseResult) -> dict[str, Any]:
@@ -644,14 +643,12 @@ class Renderer:
         file_name = f"{uuid.uuid5(uuid.NAMESPACE_URL, cache_key)}.jpeg"
         cache_dir = await CacheManager.ensure_dir(CacheManager.RENDER)
         image_path = cache_dir / file_name
-        if await image_path.exists():
-            result.render_image = image_path
-        else:
-            image_raw = await self.render_image(result, theme=theme)
+        if not await image_path.exists():
+            image_raw = await FFmpeg.png_to_jpeg(
+                await self.render_image(result, theme=theme)
+            )
             await image_path.write_bytes(image_raw)
-            result.render_image = image_path
-            if pconfig.use_base64:
-                return await UniHelper.img_seg(image_raw)
+        result.render_image = image_path
         if (await image_path.stat()).st_size >= 5 * 1024 * 1024:
             return await UniHelper.file_seg(image_path)
 
