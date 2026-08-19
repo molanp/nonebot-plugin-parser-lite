@@ -30,6 +30,9 @@ class FFmpeg:
         """执行 ffmpeg 命令
 
         :param cmd: 不包含 'ffmpeg' 本身的命令参数列表
+        :param input: _description_, defaults to None
+
+        :return: bytes, if exists
         """
         full_cmd = ["ffmpeg", *cmd]
         try:
