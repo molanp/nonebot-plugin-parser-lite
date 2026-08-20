@@ -16,7 +16,6 @@ from .types import (
     FragLink,
     FragText,
     FragVideo,
-    FragVoice,
     Post,
     Posts,
 )
