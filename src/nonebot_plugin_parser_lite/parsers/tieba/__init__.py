@@ -35,7 +35,7 @@ class TiebaParser(BaseParser):
 
         # 主楼正文内容
         contents = build_content(posts)
-        comments = build_comments(posts.objs[1:], thread.user.user_id)
+        comments = build_comments(posts.objs[1:])
         extra = {
             "forum": {
                 "name": forum.fname,

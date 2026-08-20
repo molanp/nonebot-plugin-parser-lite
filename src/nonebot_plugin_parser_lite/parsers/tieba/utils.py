@@ -8,7 +8,7 @@ from ...constants import STICKER_CDN
 from ...creator import Creator
 from ...data import Comment, ContentItem, PollOption
 from ...download import DOWNLOADER
-from .models import (
+from .types import (
     Contents,
     FragAt,
     FragEmoji,
@@ -16,6 +16,7 @@ from .models import (
     FragLink,
     FragText,
     FragVideo,
+    FragVoice,
     Post,
     Posts,
 )
@@ -91,7 +92,7 @@ def parse_res(data: bytes) -> Posts:
         raise ValueError(res.error.errmsg)  # pyright: ignore[reportAttributeAccessIssue]
 
     data_proto = res.data  # pyright: ignore[reportAttributeAccessIssue]
-    return Posts.from_tbdata(data_proto)
+    return Posts.from_proto(data_proto)
 
 
 async def get_post(tid: int) -> Posts:
@@ -154,8 +155,13 @@ def build_content(posts: Posts) -> list[ContentItem]:
         # 现在好像也发不了这玩意了
         # 最近的语音消息在2018年
         # elif isinstance(part, FragVoice):
-        #     audio_task = DOWNLOADER.download_audio(part.md5, ext_headers=headers)
-        #     contents.append(post.create_audio_content(audio_task, part.duration))
+        #     contents.append(
+        #         Creator.audio(
+        #             url_or_task=part.md5,
+        #             duration=part.duration,
+        #             ext_headers={"Referer": "https://tieba.baidu.com/"},
+        #         )
+        #     )
 
     if vote := posts.thread.vote_info:
         contents.append(
@@ -197,32 +203,19 @@ def build_comment(contents: Contents) -> list[ContentItem]:
         elif isinstance(part, FragAt):
             content.append(f"@{part.text} ")
         elif isinstance(part, FragLink):
-            content.append(str(part.url))
+            content.append(Creator.link(url=str(part.url), title=part.title))
     return content
 
 
-def build_comments(posts: list[Post], poster_id: int) -> list[Comment]:
+def build_comments(posts: list[Post]) -> list[Comment]:
     """
     构建帖子评论
 
     :param posts: 评论列表
-    :param poster_id: 帖子作者id
     """
     comments = []
-    # 获取前10条评论（优先显示楼主的评论）
-    main_comments = []
-    other_comments = []
 
-    for post in posts:  # 跳过主楼
-        if post.user.user_id == poster_id:
-            main_comments.append(post)
-        else:
-            other_comments.append(post)
-
-    # 合并评论，优先显示楼主的评论
-    combined_comments: list[Post] = main_comments[:5] + other_comments[:5]
-
-    for post in combined_comments:
+    for post in posts:
         comment_author = Creator.author(
             name=post.user.show_name,
             avatar_url=f"http://tb.himg.baidu.com/sys/portraith/item/{post.user.portrait}",
