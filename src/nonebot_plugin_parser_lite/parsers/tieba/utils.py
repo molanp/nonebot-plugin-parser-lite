@@ -117,7 +117,7 @@ def build_content(posts: Posts) -> list[ContentItem]:
         elif isinstance(part, FragEmoji):
             contents.append(
                 Creator.sticker(
-                    url=STICKER_CDN.format(platform="tieba", name=part.id),
+                    url=f"https://gsp0.baidu.com/5aAHeD3nKhI2p27j8IqW0jdnxx1xbK/tb/editor/images/client/{part.id}.png",
                     size="small",
                     desc=part.desc,
                 )
