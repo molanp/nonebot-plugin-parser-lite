@@ -5,6 +5,7 @@ from nonebot.log import logger
 from ..base import BaseParser, MatchWithParams, Platform, PlatformEnum, handle, pconfig
 from .comment import decoder as commentDecoder
 from .post import decoder as postDecoder
+from .ugc import decoder as ugcDecoder
 
 
 class MiyousheParser(BaseParser):
@@ -59,4 +60,34 @@ class MiyousheParser(BaseParser):
             stats=post.stats,
             timestamp=post.post.created_at,
             comments=comments,
+        )
+
+    @handle(
+        "act.miyoushe.com/ys/ugc_community/mx",
+        params={"id": {"as_int": True}, "region": {}},
+    )
+    async def parse_ugc(self, searched: MatchWithParams):
+        ugc_id = searched["id"]
+        region = searched["region"]
+        res = await self.httpx.post(
+            "https://bbs-api.miyoushe.com/community/ugc_community/web/api/level/full/info",
+            json={
+                "level_id": ugc_id,
+                "region": region,
+                "agg_req_list": [
+                    {"api_name": "level_detail"},
+                    {"api_name": "reply_card"},
+                    {"api_name": "developer_info"},
+                ],
+            },
+        )
+        res.raise_for_status()
+        ugc = ugcDecoder.decode(res.content).data.resp_map
+        return self.result(
+            author=ugc.author,
+            content=ugc.content,
+            title=ugc.title,
+            stats=ugc.stats,
+            comments=ugc.comments,
+            url=f"https://act.miyoushe.com/ys/ugc_community/mx/#/pages/level-detail/index?id={ugc_id}&region={region}",
         )

@@ -1,0 +1,370 @@
+{
+  "retcode": 0,
+  "message": "OK",
+  "data": {
+    "resp_map": {
+      "reply_card": {
+        "api_url": "",
+        "data": {
+          "reply_card_response": {
+            "can_reply": false,
+            "reply_count": 2863,
+            "my_reply": null,
+            "reply_list": [
+              {
+                "user_info": {
+                  "uid": "101773594",
+                  "avatar": "https://cngf01-picture-download.yuanshen.com/4a3fc40ad7baaa3ef7613312d49528ccef68495daedf37948f39eb7135f62f8e_i101773594_2",
+                  "nickname": "铭刻时间"
+                },
+                "level_id": "28498621183",
+                "reply_id": "2089343481704288256",
+                "is_recommend": true,
+                "content": "这还是原神吗？完全是一个完整独立游戏内容。虽然现在热度（54）还没上去，但接下来一定会火我说的",
+                "is_owner": false,
+                "created_at": 1786973279,
+                "client_ip": "山东",
+                "floor_id": 66,
+                "f_reply_id": "0",
+                "r_user": null,
+                "sub_replies": [
+                  {
+                    "user_info": {
+                      "uid": "224730447",
+                      "avatar": "",
+                      "nickname": "水仙十字的泡芙"
+                    },
+                    "level_id": "28498621183",
+                    "reply_id": "2089733855459418112",
+                    "is_recommend": false,
+                    "content": "我是这么觉得",
+                    "is_owner": false,
+                    "created_at": 1787066351,
+                    "client_ip": "江苏",
+                    "floor_id": 1,
+                    "f_reply_id": "0",
+                    "r_user": null,
+                    "sub_replies": [],
+                    "self_operation": {
+                      "attitude": 0
+                    },
+                    "reply_stat": {
+                      "like_count": "0",
+                      "reply_count": "0"
+                    }
+                  },
+                  {
+                    "user_info": {
+                      "uid": "212858283",
+                      "avatar": "",
+                      "nickname": "不知鸫"
+                    },
+                    "level_id": "28498621183",
+                    "reply_id": "2090087184580497408",
+                    "is_recommend": false,
+                    "content": "那包的",
+                    "is_owner": false,
+                    "created_at": 1787150591,
+                    "client_ip": "福建",
+                    "floor_id": 2,
+                    "f_reply_id": "0",
+                    "r_user": null,
+                    "sub_replies": [],
+                    "self_operation": {
+                      "attitude": 0
+                    },
+                    "reply_stat": {
+                      "like_count": "0",
+                      "reply_count": "0"
+                    }
+                  }
+                ],
+                "self_operation": {
+                  "attitude": 0
+                },
+                "reply_stat": {
+                  "like_count": "491",
+                  "reply_count": "4"
+                }
+              },
+              {
+                "user_info": {
+                  "uid": "206121413",
+                  "avatar": "https://cngf01-picture-download.yuanshen.com/3a1560693d148f765bb7e3fde4f405e0771363995a954307791090a6d772c392_i_33",
+                  "nickname": "惜惜"
+                },
+                "level_id": "28498621183",
+                "reply_id": "2088888223450476544",
+                "is_recommend": true,
+                "content": "做的蛮好的，用心跳来衬托氛围的设计好巧妙，游玩时心率飙升时带动我的心也跟着紧张，还有特别是心跳死寂时归零，我心也空了。剧情里藏着蛮多温柔瞬间的，一路逃亡有很多小互动，还挺不错的。虽然一路上的细枝末节中有许多刀子，比如麦芽糖和毛豆，惠惠，还有晓月的曾经，不过最后结局甜甜的就好。可惜的是直到最后还是没能相见，算是完美的小遗憾？（我还蛮喜欢被感染之后的剧情，那种病态那种癫狂，又害怕又想看",
+                "is_owner": false,
+                "created_at": 1786864737,
+                "client_ip": "浙江",
+                "floor_id": 3,
+                "f_reply_id": "0",
+                "r_user": null,
+                "sub_replies": [
+                  {
+                    "user_info": {
+                      "uid": "247581254",
+                      "avatar": "",
+                      "nickname": "正常人"
+                    },
+                    "level_id": "28498621183",
+                    "reply_id": "2090818353143828480",
+                    "is_recommend": false,
+                    "content": "但是鉴赏里面点完病历之后那个全是问号的内容会打开，里面是晓月写给牧羊人的信，如果单纯那封信来看的话，他们其实最后并没有相见，甚至医院里面的人都否认有牧羊人这个人，只认为这是晓月的幻觉",
+                    "is_owner": false,
+                    "created_at": 1787324916,
+                    "client_ip": "山东",
+                    "floor_id": 2,
+                    "f_reply_id": "0",
+                    "r_user": {
+                      "uid": "333051827",
+                      "avatar": "",
+                      "nickname": "么"
+                    },
+                    "sub_replies": [],
+                    "self_operation": {
+                      "attitude": 0
+                    },
+                    "reply_stat": {
+                      "like_count": "0",
+                      "reply_count": "0"
+                    }
+                  },
+                  {
+                    "user_info": {
+                      "uid": "217140099",
+                      "avatar": "",
+                      "nickname": "空空小郎君"
+                    },
+                    "level_id": "28498621183",
+                    "reply_id": "2090841765732020224",
+                    "is_recommend": false,
+                    "content": "你这个变态！",
+                    "is_owner": false,
+                    "created_at": 1787330498,
+                    "client_ip": "四川",
+                    "floor_id": 3,
+                    "f_reply_id": "0",
+                    "r_user": null,
+                    "sub_replies": [],
+                    "self_operation": {
+                      "attitude": 0
+                    },
+                    "reply_stat": {
+                      "like_count": "0",
+                      "reply_count": "0"
+                    }
+                  }
+                ],
+                "self_operation": {
+                  "attitude": 0
+                },
+                "reply_stat": {
+                  "like_count": "315",
+                  "reply_count": "3"
+                }
+              },
+              {
+                "user_info": {
+                  "uid": "110382369",
+                  "avatar": "https://cngf01-picture-download.yuanshen.com/03a087577d0f1a78cd26376c761bf0ab3c5266bb8a3dcf89bf34982c5caf9a23_i_20",
+                  "nickname": "姬渐离"
+                },
+                "level_id": "28498621183",
+                "reply_id": "2089349117037006848",
+                "is_recommend": true,
+                "content": "绝对会火!!虽然有点看不懂结局,不过主角和晓月之前应该是情侣,质量也不错,手柄可能有点难玩.我只想说:纯爱NB!我感觉结局出现的那张纸条写的是“我喜欢你”",
+                "is_owner": false,
+                "created_at": 1786974622,
+                "client_ip": "广东",
+                "floor_id": 85,
+                "f_reply_id": "0",
+                "r_user": null,
+                "sub_replies": [
+                  {
+                    "user_info": {
+                      "uid": "244254500",
+                      "avatar": "",
+                      "nickname": "like西梅不酸"
+                    },
+                    "level_id": "28498621183",
+                    "reply_id": "2089870926148816896",
+                    "is_recommend": false,
+                    "content": "四个字：你好，晓月",
+                    "is_owner": false,
+                    "created_at": 1787099031,
+                    "client_ip": "山东",
+                    "floor_id": 1,
+                    "f_reply_id": "0",
+                    "r_user": null,
+                    "sub_replies": [],
+                    "self_operation": {
+                      "attitude": 0
+                    },
+                    "reply_stat": {
+                      "like_count": "0",
+                      "reply_count": "0"
+                    }
+                  },
+                  {
+                    "user_info": {
+                      "uid": "215316919",
+                      "avatar": "",
+                      "nickname": "晚星"
+                    },
+                    "level_id": "28498621183",
+                    "reply_id": "2090095802008752128",
+                    "is_recommend": false,
+                    "content": "最后给了“早安，晓月”也算是前后呼应了",
+                    "is_owner": false,
+                    "created_at": 1787152646,
+                    "client_ip": "陕西",
+                    "floor_id": 2,
+                    "f_reply_id": "0",
+                    "r_user": null,
+                    "sub_replies": [],
+                    "self_operation": {
+                      "attitude": 0
+                    },
+                    "reply_stat": {
+                      "like_count": "0",
+                      "reply_count": "0"
+                    }
+                  }
+                ],
+                "self_operation": {
+                  "attitude": 0
+                },
+                "reply_stat": {
+                  "like_count": "196",
+                  "reply_count": "6"
+                }
+              }
+            ]
+          }
+        },
+        "retcode": 0,
+        "message": ""
+      },
+      "developer_info": {
+        "api_url": "",
+        "data": {
+          "developer_news_response": {
+            "developer": {
+              "aid": "11692678",
+              "uid": "0",
+              "mys_user_info": {
+                "aid": "11692678",
+                "avatar_url": "https://upload-bbs.miyoushe.com/upload/2026/01/20/11692678/c405bfe9cb5101c563631f1865600828_1288317072284329796.png",
+                "nickname": "饭团Fine",
+                "certification": {
+                  "type": 0,
+                  "label": ""
+                },
+                "certifications": [],
+                "avatar_ext": {
+                  "avatar_type": 0,
+                  "avatar_assets_id": "",
+                  "resources": [],
+                  "hd_resources": []
+                },
+                "is_following": false
+              },
+              "game_avatar": "https://bbs-static.miyoushe.com/upload/op_manual_upload/ugc_community/1769653604473developer_default_avatar.png",
+              "game_nickname": "饭团Fine"
+            },
+            "latest_update": {
+              "version": "0.16",
+              "content": "1. 新增触屏端首次进入游戏时自动调整立绘宽度为110%的逻辑。\n2. 消除了部分设备上立绘可能存在横纹的问题。\n3. 修复了连续关闭多个弹窗后界面错乱的问题。\n4. 修复了触发 Bad End 后反复多次点击屏幕导致音效异常的问题。\n5. 增大了点击推进剧情的按钮触发范围。"
+            },
+            "update_list": [
+              {
+                "version": "0.16",
+                "content": "1. 新增触屏端首次进入游戏时自动调整立绘宽度为110%的逻辑。\n2. 消除了部分设备上立绘可能存在横纹的问题。\n3. 修复了连续关闭多个弹窗后界面错乱的问题。\n4. 修复了触发 Bad End 后反复多次点击屏幕导致音效异常的问题。\n5. 增大了点击推进剧情的按钮触发范围。"
+              },
+              {
+                "version": "0.15",
+                "content": "1. 存档位总数从10个增加至16个。\n2. 修复了在标题界面同时按下多个按钮导致的界面重叠/错乱/消失的问题。\n3. 延后了 Bad End 的黑屏提示出现时间。\n4. 优化了触屏端的设置页、鉴赏页导航栏文本位置。"
+              },
+              {
+                "version": "0.14",
+                "content": "1. 修复了调整立绘宽度缩放后立绘异常持续存在的问题。\n2. 降低了剧情中期的雨声音效音量。\n3. 默认自动模式速度调整为4秒。\n4. 降低了部分夜晚环境的背景亮度。"
+              },
+              {
+                "version": "0.13",
+                "content": ""
+              },
+              {
+                "version": "0.12",
+                "content": "1. 针对部分设备立绘比例异常的问题，添加了「立绘宽度缩放」设置项，可在「设置-其他」中按需调整为110%或120%。\n2. 修复了报幕后异常弹出空选项的问题。\n3. 修复了在大字号下文本显示不全的问题，字号大小上限从32调整至24。\n4. 消除了部分按钮的闪烁现象。\n5. 优化了手柄端适配。"
+              }
+            ]
+          }
+        },
+        "retcode": 0,
+        "message": ""
+      },
+      "level_detail": {
+        "api_url": "",
+        "data": {
+          "level_detail_response": {
+            "level_info": {
+              "level_id": "28498621183",
+              "region": "cn_gf01",
+              "level_name": "心跳通讯录",
+              "video_info": {
+                "video_id": "",
+                "video_url": "",
+                "video_cover": ""
+              },
+              "cover_img": {
+                "url": "https://ugc-upload.mihoyo.com/ugcprodgf/image/cn_gf01/54030797260448/20260816/f52f302b-0a39-406e-9cea-d6b299fac954.jpg?auth_key=1785414480-67ff214e87e26526-0-b887a00064207060157d1b47eaa7db55"
+              },
+              "images": [
+                {
+                  "url": "https://ugc-upload.mihoyo.com/ugcprodgf/image/cn_gf01/54030797260448/20260820/e9e6ea6a-0bcc-488e-9c45-10c7ec390a20.png?auth_key=1785414480-17503508fba22816-0-bc9edf315e6c3c92b2088e1ad3e695d9"
+                },
+                {
+                  "url": "https://ugc-upload.mihoyo.com/ugcprodgf/image/cn_gf01/54030797260448/20260820/cfcf29c9-a8bf-44d9-b04d-2fcedf158f03.png?auth_key=1785414480-f7f6e4f89819e3f8-0-b237cd6c1940770978207d32075fb291"
+                },
+                {
+                  "url": "https://ugc-upload.mihoyo.com/ugcprodgf/image/cn_gf01/54030797260448/20260820/1f2cbb09-a4a6-4c0b-bd42-2de3f804c12c.png?auth_key=1785414480-5a3abab9305ddc7d-0-bf96277d880e5f1add0ee4487b1d15aa"
+                },
+                {
+                  "url": "https://ugc-upload.mihoyo.com/ugcprodgf/image/cn_gf01/54030797260448/20260820/88231afc-53ea-4acc-9008-fdfc9f72051e.png?auth_key=1785414480-4bc8cb6bb7c8dff7-0-4d1e6838d49148d3fff6f539307454c6"
+                }
+              ],
+              "device_type": [],
+              "limit_play_num_min": 1,
+              "limit_play_num_max": 1,
+              "hot_score": "3.2万",
+              "hot_score_icon": "https://bbs-static.miyoushe.com/upload/op_manual_upload/ugc_community/1761036754870hot_score_icon.png",
+              "good_rate": "99.7%",
+              "good_rate_icon": "https://bbs-static.miyoushe.com/upload/op_manual_upload/ugc_community/1761036693530good_rate_icon.png",
+              "play_type": "角色扮演",
+              "play_cate": "LEVEL_CATE_QUICK_EXPERIENCE",
+              "play_tags": [],
+              "desc": "这是一个 「科幻 × 惊悚 × 情感」 彼此交织的故事。\n\n当技术可以连接意识，人类究竟会走向何方？\n当危机迫在眉睫，身处险境的少女该如何应对？\n\n在紧张压抑的逃生氛围中，你将与少女建立起一段超越距离的羁绊。\n在揭开层层真相的过程中，你会逐渐意识到——这个世界远比表面看起来更加黑暗，也更加温柔。\n\n——主要亮点——\n●丰富的立绘差分：共6套头饰搭配、4套服装、150种表情差分，随着剧情推进与好感变化将逐步解锁。\n●存档系统：可随时保存退出，关键节点也会自动保存，方便回看不同的分支走向。\n●设置系统：可自由调整自动模式速度、字号大小等设置，适配不同玩家习惯。\n●鉴赏系统：可随时回看剧情中解锁的文本收集物，可局内查看成就完成情况。\n\n作者的话：《心跳通讯录》是我个人制作的第一部奇域，打磨了半年多，除了UI设计外，其他方面（剧本、立绘、程序等）都是0经验，如有体验不佳的地方还望各位牧羊人批评指正。",
+              "is_fav": false,
+              "user_played_time": "0",
+              "play_link": [],
+              "level_source_type": "LEVEL_SOURCE_TYPE_DEFAULT",
+              "show_limit_play_num_str": "1",
+              "level_intro": "《心跳通讯录》是一款以美少女为主角的文字冒险游戏，含惊悚、催泪、meta等要素，全剧情流程1小时，可随时保存退出，下次游玩将继承进度。\n\n你将扮演「牧羊人」，在2050年的近未来世界，通过脑机接口设备与被困在医院中的少女通讯，并通过对话引导她在黑暗中求生、一步步揭开这家医院不可告人的秘密。你的每一个选择都可能影响她的理智、好感与心率，并最终决定故事的走向——是引导她逃出生天，还是让一切滑向无可挽回的终局。"
+            },
+            "can_post_reply": false,
+            "has_played": false,
+            "has_reply": false,
+            "has_enough_post": false,
+            "uid": "0"
+          }
+        },
+        "retcode": 0,
+        "message": ""
+      }
+    }
+  }
+}
