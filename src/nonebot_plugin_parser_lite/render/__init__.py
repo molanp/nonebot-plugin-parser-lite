@@ -199,6 +199,8 @@ async def safe_src(
     ```
     """
     try:
+        if obj is None:
+            return None if return_none_on_fail else PLACEHOLDER_IMAGE
         if not hasattr(obj, method):
             logger.warning(f"对象 {type(obj).__name__} 不存在方法 '{method}'")
             return None if return_none_on_fail else PLACEHOLDER_IMAGE
