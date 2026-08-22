@@ -44,6 +44,8 @@ async def safe_src(
     return_none_on_fail: bool = False,
 ) -> str | None:
     fallback = None if return_none_on_fail else PLACEHOLDER_IMAGE
+    if obj is None:
+        return fallback
     try:
         attr = getattr(obj, method)
         callable_attr = cast(Callable[[], Path | Awaitable[Path | None]], attr)
