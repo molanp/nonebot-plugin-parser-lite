@@ -240,11 +240,65 @@ class NoteTweet(Struct):
     note_tweet_results: NoteTweetResults | None = None
 
 
-class ArticleMediaInfo(Struct):
+class ArticleMediaPreview(Struct):
     original_img_url: str = ""
 
 
+class ArticleMediaVariant(Struct):
+    content_type: str = ""
+    url: str = ""
+    bit_rate: int | None = None
+
+
+class ArticleMediaInfo(Struct):
+    original_img_url: str = ""
+    preview_image: ArticleMediaPreview | None = None
+    variants: list[ArticleMediaVariant] = field(default_factory=list)
+    duration_millis: int = 0
+
+
 class ArticleCoverMedia(Struct):
+    media_info: ArticleMediaInfo | None = None
+
+
+class TextEntityRange(Struct):
+    key: int | str = 0
+    length: int = 0
+    offset: int = 0
+
+
+class TextEntityMediaItem(Struct):
+    mediaId: str | int = ""
+
+
+class TextEntityData(Struct):
+    mediaItems: list[TextEntityMediaItem] = field(default_factory=list)
+
+
+class TextEntityValue(Struct):
+    type: str = ""
+    data: TextEntityData = field(default_factory=TextEntityData)
+
+
+class TextEntityMap(Struct):
+    key: str | int = ""
+    value: TextEntityValue = field(default_factory=TextEntityValue)
+
+
+class TextBlock(Struct):
+    text: str = ""
+    entityRanges: list[TextEntityRange] = field(default_factory=list)
+
+
+class TextContentState(Struct):
+    blocks: list[TextBlock] = field(default_factory=list)
+    entityMap: list[TextEntityMap] | dict[str, TextEntityValue] = field(
+        default_factory=list
+    )
+
+
+class ArticleMediaEntity(Struct):
+    media_id: str | int = ""
     media_info: ArticleMediaInfo | None = None
 
 
@@ -253,6 +307,129 @@ class ArticleResult(Struct):
     preview_text: str = ""
     rest_id: str = ""
     cover_media: ArticleCoverMedia | None = None
+    content_state: TextContentState | None = None
+    media_entities: list[ArticleMediaEntity] = field(default_factory=list)
+
+
+
+def _article_text(article: ArticleResult) -> str:
+    content_state = article.content_state
+    if content_state is None:
+        return ""
+    return "\n".join(block.text for block in content_state.blocks).strip()
+
+
+def _article_entities(
+    content_state: TextContentState,
+) -> dict[str, TextEntityValue]:
+    if isinstance(content_state.entityMap, dict):
+        return {str(key): value for key, value in content_state.entityMap.items()}
+    return {
+        str(entity.key): entity.value
+        for entity in content_state.entityMap
+    }
+
+
+def _article_media_entities_for_range(
+    entity_range: TextEntityRange,
+    entities: dict[str, TextEntityValue],
+    media_by_id: dict[str, ArticleMediaEntity],
+) -> list[ArticleMediaEntity]:
+    entity = entities.get(str(entity_range.key))
+    if entity is None or entity.type != "MEDIA":
+        return []
+    return [
+        media_by_id[media_id]
+        for item in entity.data.mediaItems
+        if (media_id := str(item.mediaId)) in media_by_id
+    ]
+
+
+def _article_preview_url(media_info: ArticleMediaInfo) -> str | None:
+    if media_info.preview_image and media_info.preview_image.original_img_url:
+        return media_info.preview_image.original_img_url
+    return media_info.original_img_url or None
+
+
+def _article_media_content(
+    article: ArticleResult, media: ArticleMediaEntity
+) -> ContentItem | None:
+    media_info = media.media_info
+    if media_info is None:
+        return None
+
+    variants = [
+        variant
+        for variant in media_info.variants
+        if variant.content_type == "video/mp4" and variant.url
+    ]
+    cache_key = f"x:article-media:{article.rest_id}:{media.media_id}"
+    if variants:
+        video = max(variants, key=lambda variant: variant.bit_rate or 0)
+        return Creator.video(
+            url_or_task=video.url,
+            cover_url=_article_preview_url(media_info),
+            duration=media_info.duration_millis / 1000,
+            cache_key=cache_key,
+        )
+    if image_url := media_info.original_img_url or _article_preview_url(media_info):
+        return Creator.graphic(url=image_url, cache_key=cache_key)
+    return None
+
+
+def _article_content(article: ArticleResult) -> list[ContentItem]:
+    content_state = article.content_state
+    if content_state is None:
+        return [article.preview_text] if article.preview_text else []
+
+    entities = _article_entities(content_state)
+    media_by_id = {
+        str(media.media_id): media
+        for media in article.media_entities
+        if media.media_id != ""
+    }
+    content: list[ContentItem] = []
+    text = ""
+
+    def flush_text() -> None:
+        nonlocal text
+        text = text.strip()
+        if text:
+            content.append(text)
+        text = ""
+
+    for index, block in enumerate(content_state.blocks):
+        if index and text:
+            text += "\n"
+
+        cursor = 0
+        for entity_range in sorted(
+            block.entityRanges, key=lambda entity_range: entity_range.offset
+        ):
+            media_content = [
+                content_item
+                for media in _article_media_entities_for_range(
+                    entity_range, entities, media_by_id
+                )
+                if (content_item := _article_media_content(article, media)) is not None
+            ]
+            if not media_content:
+                continue
+
+            start = min(max(entity_range.offset, cursor), len(block.text))
+            end = min(
+                max(entity_range.offset + entity_range.length, start),
+                len(block.text),
+            )
+            text += block.text[cursor:start]
+            flush_text()
+            content.extend(media_content)
+            cursor = end
+
+        text += block.text[cursor:]
+
+    flush_text()
+    return content or ([article.preview_text] if article.preview_text else [])
 
 
 class ArticleResults(Struct):
@@ -281,24 +458,16 @@ class Tweet(Struct):
     retweeted_status_result: TweetEntry | None = None
     """被转发推文(直接转发啥都没说,正文RT @开头)"""
 
-    @property
-    def text(self) -> str:
+    def _text(self) -> str:
         """完整正文，优先使用 note_tweet / Article 内容"""
         note_results = self.note_tweet.note_tweet_results if self.note_tweet else None
         note_result = note_results.result if note_results else None
         if note_result and note_result.text:
             return note_result.text
 
-        if article_result := self._article_result:
-            if parts := [
-                value
-                for value in (
-                    article_result.title,
-                    article_result.preview_text,
-                )
-                if value
-            ]:
-                article_text = "\n\n".join(parts)
+        if article_result := self._get_article_result():
+            article_text = _article_text(article_result) or article_result.preview_text
+            if article_text:
                 return (
                     f"{self.legacy.text}\n\n{article_text}"
                     if self.legacy.text
@@ -308,14 +477,40 @@ class Tweet(Struct):
         return self.legacy.text
 
     @property
-    def _article_result(self) -> ArticleResult | None:
+    def content(self) -> list[ContentItem]:
+        content: list[ContentItem] = []
+        if article_cover := self._get_article_cover_url():
+            content.append(
+                Creator.graphic(
+                    url=article_cover,
+                    cache_key=f"x:article-cover:{self.rest_id}",
+                )
+            )
+
+        article_result = self._get_article_result()
+        article_content = _article_content(article_result) if article_result else []
+        if article_content:
+            if legacy_text := self.legacy.text:
+                content.append(legacy_text)
+            content.extend(article_content)
+        elif text := self._text():
+            content.append(text)
+
+        content.extend(self.legacy.medias)
+        return content
+
+    @property
+    def title(self) -> str | None:
+        article_result = self._get_article_result()
+        return article_result.title if article_result and article_result.title else None
+
+    def _get_article_result(self) -> ArticleResult | None:
         article_results = self.article.article_results if self.article else None
         return article_results.result if article_results else None
 
-    @property
-    def article_cover_url(self) -> str | None:
+    def _get_article_cover_url(self) -> str | None:
         """Article 封面"""
-        result = self._article_result
+        result = self._get_article_result()
         cover_media = result.cover_media if result else None
         media_info = cover_media.media_info if cover_media else None
         if media_info and media_info.original_img_url:

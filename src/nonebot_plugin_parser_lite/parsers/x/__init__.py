@@ -92,15 +92,7 @@ class XParser(BaseParser):
         return None
 
     def _build_content(self, tweet: Tweet) -> list[ContentItem]:
-        content: list[ContentItem] = [tweet.text]
-        content.extend(tweet.legacy.medias)
-        if article_cover := tweet.article_cover_url:
-            content.append(
-                self.create_image(
-                    url=article_cover,
-                    cache_key=f"x:article-cover:{tweet.rest_id}",
-                )
-            )
+        content = tweet.content
         if link_card := self._get_link_card(tweet.card):
             content.append(link_card)
         return content
@@ -168,6 +160,7 @@ class XParser(BaseParser):
 
         return self.result(
             content=content,
+            title=tweet.title,
             timestamp=legacy.time_local,
             author=self.create_author(
                 name=user.core.name,
