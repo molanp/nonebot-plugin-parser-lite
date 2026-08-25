@@ -404,7 +404,6 @@ def _article_content(article: ArticleResult) -> list[ContentItem]:
 
     def flush_text() -> None:
         nonlocal text
-        text = text.strip()
         if text:
             content.append(text)
         text = ""
