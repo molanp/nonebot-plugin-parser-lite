@@ -311,7 +311,6 @@ class ArticleResult(Struct):
     media_entities: list[ArticleMediaEntity] = field(default_factory=list)
 
 
-
 def _article_text(article: ArticleResult) -> str:
     content_state = article.content_state
     if content_state is None:
@@ -324,10 +323,7 @@ def _article_entities(
 ) -> dict[str, TextEntityValue]:
     if isinstance(content_state.entityMap, dict):
         return {str(key): value for key, value in content_state.entityMap.items()}
-    return {
-        str(entity.key): entity.value
-        for entity in content_state.entityMap
-    }
+    return {str(entity.key): entity.value for entity in content_state.entityMap}
 
 
 def _article_media_entities_for_range(
@@ -349,6 +345,21 @@ def _article_preview_url(media_info: ArticleMediaInfo) -> str | None:
     if media_info.preview_image and media_info.preview_image.original_img_url:
         return media_info.preview_image.original_img_url
     return media_info.original_img_url or None
+
+
+def _utf16_length(text: str) -> int:
+    return len(text.encode("utf-16-le")) // 2
+
+
+def _utf16_offset_to_index(text: str, offset: int) -> int:
+    """将 Draft.js 的 UTF-16 偏移量映射为 Python 字符串索引。"""
+    offset = max(offset, 0)
+    code_units = 0
+    for index, char in enumerate(text):
+        if offset <= code_units:
+            return index
+        code_units += 2 if ord(char) > 0xFFFF else 1
+    return len(text)
 
 
 def _article_media_content(
@@ -403,6 +414,7 @@ def _article_content(article: ArticleResult) -> list[ContentItem]:
             text += "\n"
 
         cursor = 0
+        utf16_length = _utf16_length(block.text)
         for entity_range in sorted(
             block.entityRanges, key=lambda entity_range: entity_range.offset
         ):
@@ -416,17 +428,21 @@ def _article_content(article: ArticleResult) -> list[ContentItem]:
             if not media_content:
                 continue
 
-            start = min(max(entity_range.offset, cursor), len(block.text))
+            start = min(max(entity_range.offset, cursor), utf16_length)
             end = min(
                 max(entity_range.offset + entity_range.length, start),
-                len(block.text),
+                utf16_length,
             )
-            text += block.text[cursor:start]
+            text += block.text[
+                _utf16_offset_to_index(block.text, cursor) : _utf16_offset_to_index(
+                    block.text, start
+                )
+            ]
             flush_text()
             content.extend(media_content)
             cursor = end
 
-        text += block.text[cursor:]
+        text += block.text[_utf16_offset_to_index(block.text, cursor) :]
 
     flush_text()
     return content or ([article.preview_text] if article.preview_text else [])
