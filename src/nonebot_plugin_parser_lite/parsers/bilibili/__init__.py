@@ -59,12 +59,14 @@ from .live import RoomData
 from .opus import ImageNode, OpusItem, TextNode
 from .video import AIConclusion, VideoInfo
 
-_BILI_RETRYABLE_HTTP_STATUSES = frozenset({403, 404, 408, 425, 429, *range(500, 600)})
-
 
 class BilibiliParser(BaseParser):
     platform: ClassVar[Platform] = Platform(
         name=PlatformEnum.BILIBILI, display_name="哔哩哔哩"
+    )
+
+    BILI_RETRYABLE_HTTP_STATUSES = frozenset(
+        {403, 404, 408, 425, 429, *range(500, 600)}
     )
 
     def __init__(self):
@@ -306,6 +308,7 @@ class BilibiliParser(BaseParser):
             (audio_stream.url, *audio_stream.backup_url) if audio_stream else None
         )
         cache_key = f"bilibili:{video_info.bvid}:{page_info.index + 1}"
+        retryable_http_statuses = self.BILI_RETRYABLE_HTTP_STATUSES
 
         class BiliVideoDownloader:
             def __init__(
@@ -327,7 +330,7 @@ class BilibiliParser(BaseParser):
                         audio_url=self.audio_urls[0],
                         video_fallback_urls=self.video_urls[1:],
                         audio_fallback_urls=self.audio_urls[1:],
-                        retry_http_statuses=_BILI_RETRYABLE_HTTP_STATUSES,
+                        retry_http_statuses=retryable_http_statuses,
                         cache_key=cache_key,
                         ext_headers=self.ext_headers,
                     )
@@ -335,7 +338,7 @@ class BilibiliParser(BaseParser):
                 return await DOWNLOADER.download_video(
                     url=self.url,
                     fallback_urls=self.video_urls[1:],
-                    retry_http_statuses=_BILI_RETRYABLE_HTTP_STATUSES,
+                    retry_http_statuses=retryable_http_statuses,
                     cache_key=cache_key,
                     cache_variant="source",
                     ext_headers=self.ext_headers,
