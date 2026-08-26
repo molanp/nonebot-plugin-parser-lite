@@ -2,13 +2,13 @@ import asyncio
 from collections.abc import Callable, Collection, Generator, Sequence
 import contextlib
 from functools import partial
-import mimetypes
 import re
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin
 
 import aiofiles
 from anyio import Path
 from nonebot import logger
+import puremagic
 from rich.progress import (
     BarColumn,
     DownloadColumn,
@@ -32,14 +32,6 @@ from .client import RetryableDownloadError, UniHttpClient, UniResponse
 from .task import auto_task
 
 _RE_RANGE_PATTERN = re.compile(r"bytes\s+(\d+)-\d+/(\d+|\*)")
-_CONTENT_TYPE_SUFFIX_OVERRIDES = {
-    "audio/m4a": ".m4a",
-    "audio/mp4": ".m4a",
-    "audio/ogg": ".ogg",
-    "audio/webm": ".weba",
-    "audio/x-m4a": ".m4a",
-    "video/x-matroska": ".mkv",
-}
 
 
 def _with_identity_encoding(headers: dict[str, str]) -> dict[str, str]:
@@ -60,24 +52,14 @@ def _parse_content_encodings(value: str | None) -> tuple[str, ...]:
     )
 
 
-def _resolve_suffix(
-    url: str,
-    content_type: str | None,
-    default_suffix: str,
-) -> str:
-    if content_type:
-        media_type = content_type.partition(";")[0].strip().lower()
-        suffix = _CONTENT_TYPE_SUFFIX_OVERRIDES.get(
-            media_type
-        ) or mimetypes.guess_extension(media_type, strict=False)
-        if suffix:
-            suffix = suffix.lower()
-        if suffix:
-            return suffix
-
-    if url_suffix := Path(urlparse(url).path).suffix.lower():
-        return url_suffix
-    return default_suffix if default_suffix.startswith(".") else f".{default_suffix}"
+async def _detect_file_suffix(file_path: Path, default_suffix: str) -> str:
+    try:
+        return await asyncio.to_thread(
+            puremagic.from_file,
+            str(file_path),
+        )
+    except (OSError, puremagic.PureError):
+        return default_suffix
 
 
 class StreamDownloader:
@@ -157,7 +139,7 @@ class StreamDownloader:
         fallback_urls: Sequence[str] | None = None,
         retry_http_statuses: Collection[int] = (),
         cache_key: str | None = None,
-        default_suffix: str = ".bin",
+        default_suffix: str = ".dat",
         ext_headers: dict[str, str] | None = None,
         cache_type: str = CacheManager.MEDIA,
         use_curl_cffi: bool = False,
@@ -167,7 +149,7 @@ class StreamDownloader:
         :param fallback_urls: 主链接失败时轮换使用的同资源备用链接
         :param retry_http_statuses: 可通过重试或切换线路恢复的 HTTP 状态码
         :param cache_key: 稳定缓存标识，为空时根据 URL 生成
-        :param default_suffix: 响应和 URL 均无法确定后缀时使用的后缀名
+        :param default_suffix: puremagic 无法识别文件类型时使用的后缀名
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param cache_type: 缓存类型
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -178,15 +160,12 @@ class StreamDownloader:
         :raise DownloadException: 重试多次仍失败时抛出
         """
         cache_name = generate_file_name(url, cache_key)
-        fallback_suffix = _resolve_suffix(url, None, default_suffix)
         cache_dir = await CacheManager.ensure_dir(cache_type)
         base_path = cache_dir / cache_name
         partial_path = cache_dir / f"{cache_name}.part"
         download_urls = tuple(
             dict.fromkeys(
-                candidate
-                for candidate in (url, *(fallback_urls or ()))
-                if candidate
+                candidate for candidate in (url, *(fallback_urls or ())) if candidate
             )
         )
 
@@ -203,9 +182,9 @@ class StreamDownloader:
                 download_urls=download_urls,
                 base_path=base_path,
                 partial_path=partial_path,
-                fallback_suffix=fallback_suffix,
+                default_suffix=default_suffix,
                 headers=headers,
-                desc=f"{cache_name}{fallback_suffix}",
+                desc=f"{cache_name}{default_suffix}",
                 retry_http_statuses=frozenset(retry_http_statuses),
                 use_curl_cffi=use_curl_cffi,
             )
@@ -229,7 +208,7 @@ class StreamDownloader:
         download_urls: tuple[str, ...],
         base_path: Path,
         partial_path: Path,
-        fallback_suffix: str,
+        default_suffix: str,
         headers: dict[str, str],
         desc: str,
         retry_http_statuses: frozenset[int],
@@ -240,7 +219,7 @@ class StreamDownloader:
         for retry in range(self.MAX_RETRIES + 1):
             current_url = download_urls[retry % len(download_urls)]
             try:
-                content_type = await self.__download_once(
+                await self.__download_once(
                     url=current_url,
                     file_path=partial_path,
                     headers=headers,
@@ -248,7 +227,7 @@ class StreamDownloader:
                     retry_http_statuses=retry_http_statuses,
                     use_curl_cffi=use_curl_cffi,
                 )
-                suffix = _resolve_suffix(current_url, content_type, fallback_suffix)
+                suffix = await _detect_file_suffix(partial_path, default_suffix)
                 file_path = base_path.with_suffix(suffix)
                 if await file_path.exists():
                     await safe_unlink(partial_path)
@@ -325,7 +304,7 @@ class StreamDownloader:
         desc: str,
         retry_http_statuses: Collection[int],
         use_curl_cffi: bool,
-    ) -> str | None:
+    ):
         downloaded = (await file_path.stat()).st_size if await file_path.exists() else 0
         async with self.client.stream(
             "GET",
@@ -353,8 +332,6 @@ class StreamDownloader:
             content_length = (
                 None if zipped_content else response.headers.get("content-length")
             )
-            content_type = response.headers.get("content-type")
-
             total_size = (
                 downloaded + int(content_length)
                 if content_length and downloaded > 0
@@ -423,7 +400,6 @@ class StreamDownloader:
                         f"{self._SIZE_MISMATCH_TOLERANCE_BYTES} bytes)",
                         keep_part=final_size < total_size,
                     )
-            return content_type
 
     @auto_task
     async def download_video(
