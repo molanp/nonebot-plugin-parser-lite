@@ -59,9 +59,7 @@ from .live import RoomData
 from .opus import ImageNode, OpusItem, TextNode
 from .video import AIConclusion, VideoInfo
 
-_BILI_RETRYABLE_HTTP_STATUSES = frozenset(
-    {403, 404, 408, 425, 429, *range(500, 600)}
-)
+_BILI_RETRYABLE_HTTP_STATUSES = frozenset({403, 404, 408, 425, 429, *range(500, 600)})
 
 
 class BilibiliParser(BaseParser):
@@ -300,7 +298,7 @@ class BilibiliParser(BaseParser):
         url = f"https://bilibili.com/{video_info.bvid}"
         url += f"?p={page_info.index + 1}" if page_info.index > 0 else ""
 
-        video_stream, audio_stream = await self._extract_download_streams(
+        video_stream, audio_stream = await self.get_download_streams(
             video=video, page_index=page_info.index
         )
         video_urls = (video_stream.url, *video_stream.backup_url)
@@ -946,15 +944,18 @@ class BilibiliParser(BaseParser):
         else:
             raise ParseException("avid 和 bvid 至少指定一项")
 
-    async def extract_download_urls(
+    async def get_download_streams(
         self,
         video: Video | None = None,
         *,
         bvid: str | None = None,
         avid: int | None = None,
         page_index: int = 0,
-    ) -> tuple[str, str | None]:
-        """解析视频下载链接
+    ) -> tuple[
+        VideoStreamDownloadURL | FLVStreamDownloadURL | MP4StreamDownloadURL,
+        AudioStreamDownloadURL | None,
+    ]:
+        """获取最佳视频和音频下载流，并保留备用 CDN 地址。
 
         :param bvid: bvid
         :param avid: avid
@@ -964,22 +965,6 @@ class BilibiliParser(BaseParser):
         if video is None:
             video = await self._get_video(bvid=bvid, avid=avid)
 
-        video_stream, audio_stream = await self._extract_download_streams(
-            video=video, page_index=page_index
-        )
-        if audio_stream is None:
-            return video_stream.url, None
-        return video_stream.url, audio_stream.url
-
-    async def _extract_download_streams(
-        self,
-        video: Video,
-        page_index: int = 0,
-    ) -> tuple[
-        VideoStreamDownloadURL | FLVStreamDownloadURL | MP4StreamDownloadURL,
-        AudioStreamDownloadURL | None,
-    ]:
-        """选择下载流，并保留同一媒体的备用 CDN 地址"""
         download_url_data = await video.get_download_url(page_index=page_index)
         detecter = VideoDownloadURLDataDetecter(download_url_data)
         streams = detecter.detect_best_streams(
