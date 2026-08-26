@@ -180,14 +180,16 @@ async def register_bili_matcher():
             bvid = bv.result
 
             page_idx = page.result - 1 if page.result > 0 else 0
-            _, audio_url = await bilip.extract_download_urls(
+            _, audio_stream = await bilip.get_download_streams(
                 bvid=bvid, page_index=page_idx
             )
-            if not audio_url:
+            if audio_stream is None:
                 await UniMessage("未找到可下载的音频").finish()
 
             audio_path = await DOWNLOADER.download_audio(
-                url=audio_url,
+                url=audio_stream.url,
+                fallback_urls=audio_stream.backup_url,
+                retry_http_statuses=bilip.BILI_RETRYABLE_HTTP_STATUSES,
                 cache_key=f"bilibili:{bvid}:{page_idx + 1}",
                 cache_variant="source",
                 ext_headers=bilip.headers,
