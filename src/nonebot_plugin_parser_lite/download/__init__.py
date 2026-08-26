@@ -227,7 +227,12 @@ class StreamDownloader:
                     retry_http_statuses=retry_http_statuses,
                     use_curl_cffi=use_curl_cffi,
                 )
-                suffix = await _detect_file_suffix(partial_path, default_suffix)
+                suffix = await _detect_file_suffix(
+                    partial_path,
+                    default_suffix
+                    if default_suffix.startswith(".")
+                    else f".{default_suffix}",
+                )
                 file_path = base_path.with_suffix(suffix)
                 if await file_path.exists():
                     await safe_unlink(partial_path)
