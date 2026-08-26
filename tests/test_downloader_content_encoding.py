@@ -241,6 +241,10 @@ async def _download_image(downloader, cache_manager):
     )
 
 
+async def _no_sleep(_delay):
+    return None
+
+
 @pytest.mark.asyncio
 async def test_file_download_forces_identity_encoding(downloader_modules):
     download, _, cache_manager = downloader_modules
@@ -254,6 +258,83 @@ async def test_file_download_forces_identity_encoding(downloader_modules):
     assert await path.read_bytes() == b"webp"
     assert client.requests[0]["headers"]["Accept-Encoding"] == "identity"
     assert "accept-encoding" not in client.requests[0]["headers"]
+
+
+@pytest.mark.asyncio
+async def test_retryable_http_status_rotates_to_fallback_url(
+    downloader_modules, monkeypatch
+):
+    download, _, cache_manager = downloader_modules
+    client = FakeClient(
+        [
+            FakeResponse(404),
+            FakeResponse(200, headers={"Content-Length": "5"}, chunks=[b"fresh"]),
+        ]
+    )
+    downloader = _new_downloader(download, client)
+    monkeypatch.setattr(download.asyncio, "sleep", _no_sleep)
+
+    path = await downloader.streamd(
+        url="https://primary.example/video.m4s",
+        fallback_urls=("https://backup.example/video.m4s",),
+        retry_http_statuses={404},
+        cache_key="video",
+        default_suffix=".m4s",
+        cache_type=cache_manager.MEDIA,
+    )
+
+    assert await path.read_bytes() == b"fresh"
+    assert [request["url"] for request in client.requests] == [
+        "https://primary.example/video.m4s",
+        "https://backup.example/video.m4s",
+    ]
+
+
+@pytest.mark.asyncio
+async def test_retryable_http_status_retries_primary_without_fallback(
+    downloader_modules, monkeypatch
+):
+    download, _, cache_manager = downloader_modules
+    client = FakeClient(
+        [
+            FakeResponse(404),
+            FakeResponse(200, headers={"Content-Length": "5"}, chunks=[b"fresh"]),
+        ]
+    )
+    downloader = _new_downloader(download, client)
+    monkeypatch.setattr(download.asyncio, "sleep", _no_sleep)
+
+    path = await downloader.streamd(
+        url="https://primary.example/video.m4s",
+        retry_http_statuses={404},
+        cache_key="video",
+        default_suffix=".m4s",
+        cache_type=cache_manager.MEDIA,
+    )
+
+    assert await path.read_bytes() == b"fresh"
+    assert [request["url"] for request in client.requests] == [
+        "https://primary.example/video.m4s",
+        "https://primary.example/video.m4s",
+    ]
+
+
+@pytest.mark.asyncio
+async def test_unlisted_http_status_is_not_retried(downloader_modules):
+    download, _, cache_manager = downloader_modules
+    client = FakeClient([FakeResponse(404)])
+    downloader = _new_downloader(download, client)
+
+    with pytest.raises(RuntimeError, match="HTTP 404"):
+        await downloader.streamd(
+            url="https://cdn.example/missing.webp",
+            retry_http_statuses={503},
+            cache_key="missing",
+            default_suffix=".webp",
+            cache_type=cache_manager.MEDIA,
+        )
+
+    assert len(client.requests) == 1
 
 
 @pytest.mark.asyncio

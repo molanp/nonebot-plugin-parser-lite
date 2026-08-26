@@ -1,5 +1,5 @@
 import asyncio
-from collections.abc import Callable, Generator
+from collections.abc import Callable, Collection, Generator, Sequence
 import contextlib
 from functools import partial
 import mimetypes
@@ -154,6 +154,8 @@ class StreamDownloader:
         self,
         *,
         url: str,
+        fallback_urls: Sequence[str] | None = None,
+        retry_http_statuses: Collection[int] = (),
         cache_key: str | None = None,
         default_suffix: str = ".bin",
         ext_headers: dict[str, str] | None = None,
@@ -162,6 +164,8 @@ class StreamDownloader:
     ) -> Path:
         """
         :param url: 下载文件的链接地址
+        :param fallback_urls: 主链接失败时轮换使用的同资源备用链接
+        :param retry_http_statuses: 可通过重试或切换线路恢复的 HTTP 状态码
         :param cache_key: 稳定缓存标识，为空时根据 URL 生成
         :param default_suffix: 响应和 URL 均无法确定后缀时使用的后缀名
         :param ext_headers: 额外的请求头，会与默认请求头合并
@@ -178,6 +182,13 @@ class StreamDownloader:
         cache_dir = await CacheManager.ensure_dir(cache_type)
         base_path = cache_dir / cache_name
         partial_path = cache_dir / f"{cache_name}.part"
+        download_urls = tuple(
+            dict.fromkeys(
+                candidate
+                for candidate in (url, *(fallback_urls or ()))
+                if candidate
+            )
+        )
 
         headers = _with_identity_encoding(self.headers | (ext_headers or {}))
         download_key = str(base_path)
@@ -189,12 +200,13 @@ class StreamDownloader:
             if cached_path := await CacheManager.get_cached_file(base_path):
                 return cached_path
             result = await self.__download_with_retry(
-                url=url,
+                download_urls=download_urls,
                 base_path=base_path,
                 partial_path=partial_path,
                 fallback_suffix=fallback_suffix,
                 headers=headers,
                 desc=f"{cache_name}{fallback_suffix}",
+                retry_http_statuses=frozenset(retry_http_statuses),
                 use_curl_cffi=use_curl_cffi,
             )
             await CacheManager.set_cached_file(base_path, result)
@@ -214,26 +226,29 @@ class StreamDownloader:
 
     async def __download_with_retry(
         self,
-        url: str,
+        download_urls: tuple[str, ...],
         base_path: Path,
         partial_path: Path,
         fallback_suffix: str,
         headers: dict[str, str],
         desc: str,
+        retry_http_statuses: frozenset[int],
         use_curl_cffi: bool = False,
     ) -> Path:
         last_error: Exception | None = None
 
         for retry in range(self.MAX_RETRIES + 1):
+            current_url = download_urls[retry % len(download_urls)]
             try:
                 content_type = await self.__download_once(
-                    url=url,
+                    url=current_url,
                     file_path=partial_path,
                     headers=headers,
                     desc=desc,
+                    retry_http_statuses=retry_http_statuses,
                     use_curl_cffi=use_curl_cffi,
                 )
-                suffix = _resolve_suffix(url, content_type, fallback_suffix)
+                suffix = _resolve_suffix(current_url, content_type, fallback_suffix)
                 file_path = base_path.with_suffix(suffix)
                 if await file_path.exists():
                     await safe_unlink(partial_path)
@@ -253,7 +268,7 @@ class StreamDownloader:
                 delay = min(2**retry, 8)
                 logger.warning(
                     f"下载失败，{delay} 秒后重试 ({retry + 1}/"
-                    f"{self.MAX_RETRIES}) | {url}: {last_error!r}"
+                    f"{self.MAX_RETRIES}) | {current_url}: {last_error!r}"
                 )
                 await asyncio.sleep(delay)
 
@@ -261,9 +276,19 @@ class StreamDownloader:
             f"在 {self.MAX_RETRIES} 次重试后下载失败"
         ) from last_error
 
-    def __validate_response(self, response: UniResponse, downloaded: int):
+    def __validate_response(
+        self,
+        response: UniResponse,
+        downloaded: int,
+        retry_http_statuses: Collection[int],
+    ):
         if downloaded > 0 and response.status_code == 416:
             raise RetryableDownloadError("断点位置无效，重新完整下载", keep_part=False)
+        if response.status_code in retry_http_statuses:
+            raise RetryableDownloadError(
+                f"HTTP {response.status_code}，切换下载线路后重试",
+                keep_part=False,
+            )
         response.raise_for_status()
         if downloaded > 0:
             self.__validate_header(response, downloaded)
@@ -298,6 +323,7 @@ class StreamDownloader:
         file_path: Path,
         headers: dict[str, str],
         desc: str,
+        retry_http_statuses: Collection[int],
         use_curl_cffi: bool,
     ) -> str | None:
         downloaded = (await file_path.stat()).st_size if await file_path.exists() else 0
@@ -307,7 +333,7 @@ class StreamDownloader:
             headers=self.__make_range_headers(headers, downloaded),
             use_curl_cffi=use_curl_cffi,
         ) as response:
-            self.__validate_response(response, downloaded)
+            self.__validate_response(response, downloaded, retry_http_statuses)
             content_encodings = _parse_content_encodings(
                 response.headers.get("content-encoding")
             )
@@ -404,6 +430,8 @@ class StreamDownloader:
         self,
         *,
         url: str,
+        fallback_urls: Sequence[str] | None = None,
+        retry_http_statuses: Collection[int] = (),
         cache_key: str | None = None,
         cache_variant: str | None = None,
         ext_headers: dict[str, str] | None = None,
@@ -414,6 +442,8 @@ class StreamDownloader:
         下载普通视频
 
         :param url: 视频下载地址
+        :param fallback_urls: 主链接失败时轮换使用的同资源备用链接
+        :param retry_http_statuses: 可通过重试或切换线路恢复的 HTTP 状态码
         :param cache_key: 视频的稳定缓存标识，为空时根据 URL 生成
         :param cache_variant: 同一资源下的视频用途标识
         :param ext_headers: 额外的请求头，会与默认请求头合并
@@ -427,6 +457,8 @@ class StreamDownloader:
         """
         return await self.streamd(
             url=url,
+            fallback_urls=fallback_urls,
+            retry_http_statuses=retry_http_statuses,
             cache_key=compose_cache_key("video", cache_key, cache_variant),
             default_suffix=".mp4",
             ext_headers=ext_headers,
@@ -728,6 +760,8 @@ class StreamDownloader:
         self,
         *,
         url: str,
+        fallback_urls: Sequence[str] | None = None,
+        retry_http_statuses: Collection[int] = (),
         cache_key: str | None = None,
         cache_variant: str | None = None,
         ext_headers: dict[str, str] | None = None,
@@ -739,6 +773,8 @@ class StreamDownloader:
         下载音频
 
         :param url: 音频下载地址
+        :param fallback_urls: 主链接失败时轮换使用的同资源备用链接
+        :param retry_http_statuses: 可通过重试或切换线路恢复的 HTTP 状态码
         :param cache_key: 音频的稳定缓存标识，为空时根据 URL 生成
         :param cache_variant: 同一资源下的音频用途标识
         :param ext_headers: 额外的请求头，会与默认请求头合并
@@ -751,6 +787,8 @@ class StreamDownloader:
         """
         audio_path = await self.streamd(
             url=url,
+            fallback_urls=fallback_urls,
+            retry_http_statuses=retry_http_statuses,
             cache_key=compose_cache_key("audio", cache_key, cache_variant),
             default_suffix=".mp3",
             ext_headers=ext_headers,
@@ -801,12 +839,18 @@ class StreamDownloader:
         cache_key: str | None = None,
         ext_headers: dict[str, str] | None = None,
         use_curl_cffi: bool = False,
+        video_fallback_urls: Sequence[str] | None = None,
+        audio_fallback_urls: Sequence[str] | None = None,
+        retry_http_statuses: Collection[int] = (),
     ) -> Path:
         """
         下载音频和视频文件并合并
 
         :param video_url: 视频流下载地址
         :param audio_url: 音频流下载地址
+        :param video_fallback_urls: 视频流备用下载地址
+        :param audio_fallback_urls: 音频流备用下载地址
+        :param retry_http_statuses: 可通过重试或切换线路恢复的 HTTP 状态码
         :param cache_key: 合并任务的稳定缓存标识，为空时根据两个 URL 生成
         :param ext_headers: 额外的请求头，会与默认请求头合并
         :param use_curl_cffi: 是否使用 curl_cffi 下载
@@ -824,6 +868,8 @@ class StreamDownloader:
         v_path, a_path = await asyncio.gather(
             self.download_video(
                 url=video_url,
+                fallback_urls=video_fallback_urls,
+                retry_http_statuses=retry_http_statuses,
                 cache_key=cache_key,
                 cache_variant="source" if cache_key is not None else None,
                 ext_headers=ext_headers,
@@ -831,6 +877,8 @@ class StreamDownloader:
             ),
             self.download_audio(
                 url=audio_url,
+                fallback_urls=audio_fallback_urls,
+                retry_http_statuses=retry_http_statuses,
                 cache_key=cache_key,
                 cache_variant="source" if cache_key is not None else None,
                 ext_headers=ext_headers,

@@ -28,7 +28,14 @@ from ...utils.bilibili.live import LiveRoom
 from ...utils.bilibili.login import QrCodeLogin, QrCodeLoginEvents
 from ...utils.bilibili.opus import Opus
 from ...utils.bilibili.user import get_black_list
-from ...utils.bilibili.video import Video, VideoDownloadURLDataDetecter
+from ...utils.bilibili.video import (
+    AudioStreamDownloadURL,
+    FLVStreamDownloadURL,
+    MP4StreamDownloadURL,
+    Video,
+    VideoDownloadURLDataDetecter,
+    VideoStreamDownloadURL,
+)
 from ...utils.cookie import ck2dict
 from ...utils.format import format_num
 from ..base import (
@@ -51,6 +58,10 @@ from .favlist import FavData
 from .live import RoomData
 from .opus import ImageNode, OpusItem, TextNode
 from .video import AIConclusion, VideoInfo
+
+_BILI_RETRYABLE_HTTP_STATUSES = frozenset(
+    {403, 404, 408, 425, 429, *range(500, 600)}
+)
 
 
 class BilibiliParser(BaseParser):
@@ -289,40 +300,50 @@ class BilibiliParser(BaseParser):
         url = f"https://bilibili.com/{video_info.bvid}"
         url += f"?p={page_info.index + 1}" if page_info.index > 0 else ""
 
-        v_url, a_url = await self.extract_download_urls(
+        video_stream, audio_stream = await self._extract_download_streams(
             video=video, page_index=page_info.index
+        )
+        video_urls = (video_stream.url, *video_stream.backup_url)
+        audio_urls = (
+            (audio_stream.url, *audio_stream.backup_url) if audio_stream else None
         )
         cache_key = f"bilibili:{video_info.bvid}:{page_info.index + 1}"
 
         class BiliVideoDownloader:
             def __init__(
                 self,
-                url: str,
-                audio_url: str | None,
+                video_urls: tuple[str, ...],
+                audio_urls: tuple[str, ...] | None,
                 ext_headers: dict[str, str] | None,
             ):
-                self.url = url
-                self.audio_url = audio_url
+                self.url = video_urls[0]
+                self.video_urls = video_urls
+                self.audio_urls = audio_urls
                 self.ext_headers = ext_headers
 
             async def __call__(self) -> Path:
                 # 有单独音频流时，走 av 合并
-                if self.audio_url:
+                if self.audio_urls:
                     return await DOWNLOADER.download_av_and_merge(
                         video_url=self.url,
-                        audio_url=self.audio_url,
+                        audio_url=self.audio_urls[0],
+                        video_fallback_urls=self.video_urls[1:],
+                        audio_fallback_urls=self.audio_urls[1:],
+                        retry_http_statuses=_BILI_RETRYABLE_HTTP_STATUSES,
                         cache_key=cache_key,
                         ext_headers=self.ext_headers,
                     )
                 # 否则直接用流式下载
                 return await DOWNLOADER.download_video(
                     url=self.url,
+                    fallback_urls=self.video_urls[1:],
+                    retry_http_statuses=_BILI_RETRYABLE_HTTP_STATUSES,
                     cache_key=cache_key,
                     cache_variant="source",
                     ext_headers=self.ext_headers,
                 )
 
-        downloader = BiliVideoDownloader(v_url, a_url, self.headers)
+        downloader = BiliVideoDownloader(video_urls, audio_urls, self.headers)
 
         video_content = self.create_video(
             url_or_task=downloader,
@@ -943,6 +964,22 @@ class BilibiliParser(BaseParser):
         if video is None:
             video = await self._get_video(bvid=bvid, avid=avid)
 
+        video_stream, audio_stream = await self._extract_download_streams(
+            video=video, page_index=page_index
+        )
+        if audio_stream is None:
+            return video_stream.url, None
+        return video_stream.url, audio_stream.url
+
+    async def _extract_download_streams(
+        self,
+        video: Video,
+        page_index: int = 0,
+    ) -> tuple[
+        VideoStreamDownloadURL | FLVStreamDownloadURL | MP4StreamDownloadURL,
+        AudioStreamDownloadURL | None,
+    ]:
+        """选择下载流，并保留同一媒体的备用 CDN 地址"""
         download_url_data = await video.get_download_url(page_index=page_index)
         detecter = VideoDownloadURLDataDetecter(download_url_data)
         streams = detecter.detect_best_streams(
@@ -970,10 +1007,9 @@ class BilibiliParser(BaseParser):
             f" 编码: {getattr(video_stream, 'video_codecs', None)}"
         )
         audio_stream = streams[1]
-        if audio_stream is None:
-            return video_stream.url, None
-        logger.debug(f"音频流质量: {audio_stream.audio_quality.name}")
-        return video_stream.url, audio_stream.url
+        if audio_stream is not None:
+            logger.debug(f"音频流质量: {audio_stream.audio_quality.name}")
+        return video_stream, audio_stream
 
     async def _save_credential(self):
         """存储哔哩哔哩登录凭证"""

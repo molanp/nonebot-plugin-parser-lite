@@ -381,9 +381,9 @@ def sanitize_stream_urls(
 
     逻辑：
 
-    1. 若 base_url 为 PCDN，则优先使用 backup_url 中第一个非 PCDN 链接；
-    2. 若 backup_url 里也没有非 PCDN，则保留原 base_url (真倒霉)
-    3. PCDN 清洗完成后，统一替换主链接与备用链接的 CDN
+    1. 过滤 PCDN 链接，优先使用 B 站返回的非 PCDN 地址；
+    2. 将地区或自定义 CDN 放在首位；
+    3. 保留 B 站返回的非 PCDN 原始地址作为故障切换线路
 
     :param video: 视频流 URL 信息
     :param audio: 音频流 URL 信息
@@ -391,16 +391,6 @@ def sanitize_stream_urls(
     :param cdn_domain: 自定义 CDN 域名，设置后优先于地区配置
     :return: (清洗后的 video, audio)
     """
-    for stream in (video, audio):
-        if stream is None:
-            continue
-
-        if is_pcdn_url(stream.url):
-            clean_backups = [url for url in stream.backup_url if not is_pcdn_url(url)]
-            if clean_backups:
-                stream.url = clean_backups[0]
-                stream.backup_url = clean_backups[1:]
-
     replacement_domain = (
         normalize_cdn_domain(cdn_domain) if cdn_domain and cdn_domain.strip() else None
     ) or choose_cdn_domain(cdn_region)
@@ -411,8 +401,16 @@ def sanitize_stream_urls(
     for stream in (video, audio):
         if stream is None:
             continue
-        stream.url = _replace_host(stream.url)
-        stream.backup_url = [_replace_host(url) for url in stream.backup_url]
+
+        source_urls = [stream.url, *stream.backup_url]
+        clean_urls = [url for url in source_urls if url and not is_pcdn_url(url)]
+        if not clean_urls:
+            clean_urls = [stream.url]
+
+        preferred_url = _replace_host(clean_urls[0])
+        download_urls = list(dict.fromkeys([preferred_url, *clean_urls]))
+        stream.url = download_urls[0]
+        stream.backup_url = download_urls[1:]
 
     return video, audio
 
