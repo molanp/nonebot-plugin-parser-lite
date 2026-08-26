@@ -403,10 +403,14 @@ def sanitize_stream_urls(
             continue
 
         source_urls = [stream.url, *stream.backup_url]
-        clean_urls = [url for url in source_urls if not is_pcdn_url(url)]
-        stream.url = _replace_host(clean_urls[0])
-        stream.backup_url = clean_urls[1:]
-
+        clean_urls = [url for url in source_urls if not is_pcdn_url(url)] or [
+            stream.url
+        ]
+        download_urls = list(
+            dict.fromkeys([_replace_host(clean_urls[0]), *clean_urls[1:]])
+        )
+        stream.url = download_urls[0]
+        stream.backup_url = download_urls[1:]
     return video, audio
 
 
