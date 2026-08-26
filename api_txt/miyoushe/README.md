@@ -31,7 +31,7 @@ GET `https://bbs-api-static.miyoushe.com/misc/api/emoticon_set`
 
 不需要请求头
 
-这个文件非常大，使用优化脚本优化后粘贴到 `sticker.py` 即可
+这个文件非常大，使用优化脚本处理即可
 
 # 评论
 

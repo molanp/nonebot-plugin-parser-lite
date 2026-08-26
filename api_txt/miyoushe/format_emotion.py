@@ -10,4 +10,4 @@ for li in DATA["data"]["list"]:
         print("Success", item["id"], item["name"])  # noqa: T201
 
 with open("./f_e.json", "w", encoding="utf8") as e:
-    e.write(str(NEW))
+    e.write(json.dumps(NEW, ensure_ascii=False))
