@@ -3,6 +3,7 @@ from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 import sys
 from types import ModuleType, SimpleNamespace
+from typing import ClassVar
 
 from httpx import DecodingError, Request, Timeout
 import pytest
@@ -137,6 +138,7 @@ def downloader_modules(tmp_path):
 
     class CacheManager:
         MEDIA = "media"
+        cached_files: ClassVar[list[tuple[object, object]]] = []
 
         @classmethod
         async def ensure_dir(cls, cache_type):
@@ -149,8 +151,8 @@ def downloader_modules(tmp_path):
             return None
 
         @classmethod
-        async def set_cached_file(cls, _base_path, _file_path):
-            return None
+        async def set_cached_file(cls, base_path, file_path):
+            cls.cached_files.append((base_path, file_path))
 
     async def safe_unlink(path):
         await path.unlink(missing_ok=True)
@@ -179,7 +181,7 @@ def downloader_modules(tmp_path):
     client = _load_module(f"{download_name}.client", download_path / "client.py")
     _load_module(f"{download_name}.task", download_path / "task.py")
     download_spec.loader.exec_module(download)
-    download.aiofiles = SimpleNamespace(open=AsyncFileStub)
+    download.aiofiles = SimpleNamespace(open=AsyncFileStub)  # type: ignore
 
     yield download, client, CacheManager
 
@@ -261,6 +263,63 @@ async def test_file_download_forces_identity_encoding(downloader_modules):
 
 
 @pytest.mark.asyncio
+async def test_generic_binary_content_type_uses_puremagic_and_updates_cache_meta(
+    downloader_modules,
+):
+    download, _, cache_manager = downloader_modules
+    client = FakeClient(
+        [
+            FakeResponse(
+                200,
+                headers={
+                    "Content-Length": "12",
+                    "Content-Type": "application/octet-stream",
+                },
+                chunks=[b"\x00\x00\x00\x18ftypisom"],
+            )
+        ]
+    )
+    downloader = _new_downloader(download, client)
+    path = await downloader.streamd(
+        url="https://cdn.example/media",
+        cache_key="video",
+        default_suffix=".dat",
+        cache_type=cache_manager.MEDIA,
+    )
+
+    assert path.name == "video.mp4"
+    assert cache_manager.cached_files[-1][1] is path
+
+
+@pytest.mark.asyncio
+async def test_unidentified_binary_uses_default_suffix(downloader_modules):
+    download, _, cache_manager = downloader_modules
+    client = FakeClient(
+        [
+            FakeResponse(
+                200,
+                headers={
+                    "Content-Length": "3",
+                    "Content-Type": "application/octet-stream",
+                },
+                chunks=[b"\x00\x01\x02"],
+            )
+        ]
+    )
+    downloader = _new_downloader(download, client)
+
+    path = await downloader.streamd(
+        url="https://cdn.example/media",
+        cache_key="unknown",
+        default_suffix=".dat",
+        cache_type=cache_manager.MEDIA,
+    )
+
+    assert path.name == "unknown.dat"
+    assert cache_manager.cached_files[-1][1] is path
+
+
+@pytest.mark.asyncio
 async def test_retryable_http_status_rotates_to_fallback_url(
     downloader_modules, monkeypatch
 ):
@@ -338,9 +397,7 @@ async def test_unlisted_http_status_is_not_retried(downloader_modules):
 
 
 @pytest.mark.asyncio
-async def test_legacy_part_416_is_removed_and_restarted(
-    downloader_modules, tmp_path
-):
+async def test_legacy_part_416_is_removed_and_restarted(downloader_modules, tmp_path):
     download, _, cache_manager = downloader_modules
     media_dir = tmp_path / cache_manager.MEDIA
     media_dir.mkdir()
@@ -474,7 +531,6 @@ async def test_decoding_error_discards_partial_file(downloader_modules, monkeypa
                 "invalid gzip stream",
                 request=Request("GET", "https://cdn.example/image.webp"),
             )
-            yield b""  # pragma: no cover
 
     monkeypatch.setattr(client_module, "HttpxResponse", BrokenHttpxResponse)
     response = client_module.UniResponse(BrokenHttpxResponse())
