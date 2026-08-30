@@ -411,6 +411,10 @@ class Renderer:
             nodes: list[ForwardNodeInner | _ForwardText] = []
             text_buffer: list[_ForwardTextPart] = []
             author_prefix_pending = True
+            if title := pr.title:
+                nodes.append(
+                    _ForwardText(author_name, [_ForwardTextPart(title)], False)
+                )
 
             async def flush_text() -> None:
                 nonlocal author_prefix_pending, text_buffer
