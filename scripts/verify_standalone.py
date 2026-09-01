@@ -32,11 +32,13 @@ def static_checks(root: Path) -> None:
     errors: list[str] = []
     package = root / "src/nonebot_plugin_parser_lite"
     for path in (package / "render", package / "utils/browser.py"):
-        if path.exists():
+        if path.exists() or path.is_symlink():
             errors.append(
                 f"{path.relative_to(root)} is still present in the standalone tree"
             )
     for path in package.rglob("*.py"):
+        if path.is_symlink() and not path.exists():
+            continue
         try:
             source = path.read_text(encoding="utf-8")
             tree = ast.parse(source, filename=str(path))

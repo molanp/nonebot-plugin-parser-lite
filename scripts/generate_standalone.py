@@ -140,7 +140,7 @@ def remove_rendering_runtime(root: Path) -> None:
         root / PACKAGE / "utils/browser.py",
     )
     for target in targets:
-        if not target.exists():
+        if not target.exists() and not target.is_symlink():
             continue
         if target.is_dir() and not target.is_symlink():
             shutil.rmtree(target)
