@@ -31,6 +31,11 @@ def fail(messages: list[str]) -> None:
 def static_checks(root: Path) -> None:
     errors: list[str] = []
     package = root / "src/nonebot_plugin_parser_lite"
+    for path in (package / "render", package / "utils/browser.py"):
+        if path.exists():
+            errors.append(
+                f"{path.relative_to(root)} is still present in the standalone tree"
+            )
     for path in package.rglob("*.py"):
         try:
             source = path.read_text(encoding="utf-8")
@@ -59,6 +64,8 @@ def static_checks(root: Path) -> None:
             name = re.split(r"[<>=!~\[; ]", stripped, maxsplit=1)[0]
             if is_nonebot_distribution(name):
                 errors.append(f"{manifest.name}:{lineno} contains {line.strip()!r}")
+            if name in {"jinja2", "playwright"}:
+                errors.append(f"{manifest.name}:{lineno} contains rendering dependency")
     fail(errors)
 
 
@@ -69,7 +76,7 @@ class NoneBotBlocker(importlib.abc.MetaPathFinder):
         return None
 
 
-def import_checks(root: Path, *, render: bool = False) -> None:
+def import_checks(root: Path) -> None:
     temporary_project = tempfile.TemporaryDirectory(prefix="parser-lite-copy-test-")
     project_root = Path(temporary_project.name)
     shutil.copytree(
@@ -105,6 +112,8 @@ def import_checks(root: Path, *, render: bool = False) -> None:
 
     if ParseStep.MATCH.value != "match":
         fail(["ParseStep export is invalid"])
+    if any(step.value in {"resolve", "render"} for step in ParseStep):
+        fail(["standalone parser still exposes rendering steps"])
     parser = Parser([BilibiliParser])
     matched = parser.match("分享 https://www.bilibili.com/video/BV1xx411c7mD 给你")
     if matched.parser_type is not BilibiliParser or "bilibili.com" not in matched.url:
@@ -159,52 +168,6 @@ def import_checks(root: Path, *, render: bool = False) -> None:
             if parse_calls != 2:
                 fail(["clearing the parse result cache had no effect"])
 
-        if render:
-            browser_module = importlib.import_module(
-                "nonebot_plugin_parser_lite.utils.browser"
-            )
-            template_dir = project_root / "render-smoke"
-            template_dir.mkdir()
-            template_file = template_dir / "smoke.html"
-            template_file.write_text(
-                "<html><body>render base</body></html>",
-                encoding="utf-8",
-            )
-            html = (
-                "<html><head><style>html,body{margin:0;width:360px}"
-                "main{width:360px;height:40px}</style></head>"
-                "<body><main id='result'>standalone-render-ok</main></body></html>"
-            )
-            image = await browser_module.BrowserManager.screenshot(
-                html=html,
-                template_path=template_file.as_uri(),
-                viewport={"width": 10, "height": 10},
-                type="png",
-            )
-            if not image.startswith(b"\x89PNG\r\n\x1a\n"):
-                fail(["BrowserManager.screenshot did not return a PNG image"])
-            image_width = int.from_bytes(image[16:20], "big")
-            if image_width != 720:
-                fail(
-                    [
-                        "BrowserManager did not scale the CSS content width: "
-                        f"expected 720px, got {image_width}px"
-                    ]
-                )
-            second_image = await browser_module.BrowserManager.screenshot(
-                html=html.replace("standalone-render-ok", "second-render"),
-                template_path=template_file.as_uri(),
-                viewport={"width": 10, "height": 10},
-                type="png",
-            )
-            if second_image == image:
-                fail(["BrowserManager.screenshot reused stale HTML"])
-
-            async with Parser([OfflineParser]) as rendering_parser:
-                rendered = await rendering_parser.parse(text, until=ParseStep.RENDER)
-            if not rendered.startswith(b"\xff\xd8\xff"):
-                fail(["ParseStep.RENDER did not return a JPEG image"])
-
         await package.shutdown_runtime()
 
     asyncio.run(verify_parse_stage())
@@ -215,7 +178,6 @@ def import_checks(root: Path, *, render: bool = False) -> None:
         "download",
         "helper",
         "matchers",
-        "render",
     ):
         importlib.import_module(f"nonebot_plugin_parser_lite.{module}")
 
@@ -237,12 +199,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--imports", action="store_true")
-    parser.add_argument("--render", action="store_true")
     args = parser.parse_args()
     root = args.root.resolve()
     static_checks(root)
     if args.imports:
-        import_checks(root, render=args.render)
+        import_checks(root)
     else:
         print("Standalone static checks passed")  # noqa: T201
 

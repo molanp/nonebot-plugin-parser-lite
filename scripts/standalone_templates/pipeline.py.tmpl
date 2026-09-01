@@ -45,10 +45,8 @@ def _ensure_runtime_started() -> None:
 
 async def shutdown_runtime() -> None:
     from .download import DOWNLOADER
-    from .utils.browser import BrowserManager
 
     await scheduler.shutdown()
-    await BrowserManager.quit()
     await DOWNLOADER.aclose()
     clear_result_cache()
 
@@ -56,8 +54,6 @@ async def shutdown_runtime() -> None:
 class ParseStep(str, Enum):
     MATCH = "match"
     PARSE = "parse"
-    RESOLVE = "resolve"
-    RENDER = "render"
 
 
 @dataclass(frozen=True, slots=True)
@@ -154,14 +150,7 @@ class Parser:
             _RESULT_CACHE[matched.cache_key] = result
         else:
             logger.debug("命中解析结果缓存: %s", matched.cache_key)
-        if step is ParseStep.PARSE:
-            return result
-
-        from .render import RENDERER
-
-        if step is ParseStep.RESOLVE:
-            return await RENDERER.resolve_parse_result(result)
-        return await RENDERER.render_image(result)
+        return result
 
     async def aclose(self) -> None:
         for parser in self._instances.values():

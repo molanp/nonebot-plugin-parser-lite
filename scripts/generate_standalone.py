@@ -134,6 +134,21 @@ def rewrite_bilibili_scheduler(root: Path) -> None:
     )
 
 
+def remove_rendering_runtime(root: Path) -> None:
+    targets = (
+        root / PACKAGE / "render",
+        root / PACKAGE / "utils/browser.py",
+    )
+    for target in targets:
+        if not target.exists():
+            continue
+        if target.is_dir() and not target.is_symlink():
+            shutil.rmtree(target)
+        else:
+            target.unlink()
+        migration_log(f"移除独立版渲染运行时: {target.relative_to(root).as_posix()}")
+
+
 def rewrite_requirements(root: Path) -> list[str]:
     path = root / "requirements.txt"
     lines: list[str] = []
@@ -153,8 +168,6 @@ def rewrite_requirements(root: Path) -> list[str]:
 
     direct = {
         "httpx": "httpx>=0.27.0,<1.0.0",
-        "jinja2": "jinja2>=3.1.0,<4.0.0",
-        "playwright": "playwright>=1.48.0,<2.0.0",
         "pydantic": "pydantic>=2.10.0,<3.0.0",
         "typing-extensions": "typing-extensions>=4.12.0",
         "yarl": "yarl>=1.9.0,<2.0.0",
@@ -216,6 +229,7 @@ def generate(root: Path) -> None:
     rewrite_config(root)
     rewrite_logging(root)
     rewrite_bilibili_scheduler(root)
+    remove_rendering_runtime(root)
 
     replacements = {
         "package_init.py.tmpl": PACKAGE / "__init__.py",
@@ -223,9 +237,7 @@ def generate(root: Path) -> None:
         "pipeline.py.tmpl": PACKAGE / "pipeline.py",
         "parsers_init.py.tmpl": PACKAGE / "parsers/__init__.py",
         "log.py.tmpl": PACKAGE / "utils/log.py",
-        "browser.py.tmpl": PACKAGE / "utils/browser.py",
         "scheduler.py.tmpl": PACKAGE / "utils/scheduler.py",
-        "render.py.tmpl": PACKAGE / "render/__init__.py",
         "helper.py.tmpl": PACKAGE / "helper.py",
         "matchers_init.py.tmpl": PACKAGE / "matchers/__init__.py",
         "matchers_rule.py.tmpl": PACKAGE / "matchers/rule.py",
