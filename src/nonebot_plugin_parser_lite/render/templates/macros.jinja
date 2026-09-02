@@ -234,11 +234,8 @@
             {% set ns.current_img_index = 0 %}
         {% endif %}
     {% endmacro %}
-    {% set state = namespace(first_text_seen=false) %}
     {% for cont in content %}
         {% set cls = cont.__class__.__name__ if cont is not string else 'str' %}
-        {% set prev_is_sticker = loop.previtem is defined and loop.previtem.__class__.__name__ == 'StickerContent' %}
-        {% set next_is_sticker = loop.nextitem is defined and loop.nextitem.__class__.__name__ == 'StickerContent' %}
         {# 1. 图片类：积累，最后统一 flush 成宫格 #}
         {% if cls == 'ImageContent' %}
             {% set src = cont | safe_src if ns.current_img_index < MAX_VISIBLE_IMAGES else "" %}
@@ -252,13 +249,8 @@
         {% elif cont is string %}
             {% set _ = flush_images() %}
             {% set text = cont | e %}
-            {# 第一段或紧邻贴纸时，直接作为内联 span；否则仍作为段落 span，但交给外层包 <p> #}
-            {% if not state.first_text_seen or prev_is_sticker or next_is_sticker %}
-                {% set _ = html_parts.append('<span class="whitespace-pre-wrap text-sm text-slate-800 dark:text-slate-200">' ~ text ~ '</span>') %}
-            {% else %}
-                {% set _ = html_parts.append('<span class="whitespace-pre-wrap text-sm text-slate-800 dark:text-slate-200 leading-relaxed mt-1">' ~ text ~ '</span><br />') %}
-            {% endif %}
-            {% set state.first_text_seen = true %}
+            {# 换行完全由文本中的 \n 控制 #}
+            {% set _ = html_parts.append('<span class="whitespace-pre-wrap text-sm text-slate-800 dark:text-slate-200">' ~ text ~ '</span>') %}
             {# 3. Graphic 图文 #}
         {% elif cls == 'GraphicContent' %}
             {% set _ = flush_images() %}
