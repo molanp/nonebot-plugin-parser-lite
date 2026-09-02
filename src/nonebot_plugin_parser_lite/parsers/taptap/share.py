@@ -45,14 +45,14 @@ class Contents(Struct):
                     else Creator.image(url=img.original_url)
                 )
             elif text := (desc or part.text):
-                content.append(text.strip())
+                content.append(text)
             return
 
         if part.text:
-            content.append(part.text.strip())
-        elif img:
+            content.append(part.text)
+        if img:
             content.append(Creator.image(url=img.original_url))
-        elif part.children:
+        if part.children:
             for child in part.children:
                 Contents._append_part(child, content)
 
