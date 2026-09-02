@@ -27,6 +27,7 @@ class TapTapParser(BaseParser):
         self.httpx.base_url = "https://www.taptap.cn"
 
     @handle("www.taptap.cn", r"moment/(?P<moment_id>\d+)")
+    @handle("www.taptap.cn", r"explore/(?P<moment_id>\d+)")
     async def parse_moment(self, searched: MatchWithParams):
         moment_id = searched["moment_id"]
         resp = await self.httpx.get(
