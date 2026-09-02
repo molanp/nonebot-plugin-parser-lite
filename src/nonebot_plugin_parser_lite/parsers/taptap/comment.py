@@ -15,6 +15,10 @@ class Author(Struct):
     avatar: str
 
 
+class Image(Struct):
+    original_url: str
+
+
 class TComment(Struct):
     id_str: str
     created_time: int
@@ -23,10 +27,15 @@ class TComment(Struct):
     ups: int | None = None
     comments: int | None = None
     child_posts: list[TComment] | None = None
+    images: list[Image] | None = None
 
     @property
     def content(self) -> list[ContentItem]:
-        return self.contents.content
+        content = self.contents.content
+        if images := self.images:
+            for image in images:
+                content.append(Creator.image(url=image.original_url))
+        return content
 
     @property
     def stats(self):
