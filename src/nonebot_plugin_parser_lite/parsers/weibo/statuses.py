@@ -51,15 +51,8 @@ class MediaInfo(Struct):
 class PageInfo(Struct):
     page_pic: str
     page_title: str
-    media_info: MediaInfo
-
-    def build_content(self, cache_key: str):
-        return Creator.video(
-            url_or_task=self.media_info.stream_url_hd,
-            cover_url=self.page_pic,
-            cache_key=cache_key,
-            ext_headers={"Referer": "https://weibo.com/"},
-        )
+    page_url: str
+    media_info: MediaInfo | None = None
 
 
 class User(Struct):
@@ -89,7 +82,7 @@ class WeiboData(Struct):
     region_name: str | None = None
     pic_infos: dict[str, Pic] | None = None
     page_info: PageInfo | None = None
-    """视频信息"""
+    """媒体信息"""
     retweeted_status: "WeiboData | None" = None
     """转发微博"""
 
@@ -106,10 +99,16 @@ class WeiboData(Struct):
         content = replace_placeholder_to_sticker(cleaned_text, WEIBO_PATTERN, "weibo")
         if self.pic_infos:
             content.extend(pic.content for pic in self.pic_infos.values())
-        if self.page_info:
+        if self.page_info and self.page_info.media_info:
             content.append(
-                self.page_info.build_content(cache_key=f"weibo:{self.idstr}")
+                Creator.video(
+                    url_or_task=self.page_info.media_info.stream_url_hd,
+                    cover_url=self.page_info.page_pic,
+                    cache_key=f"weibo:{self.idstr}",
+                    ext_headers={"Referer": "https://weibo.com/"},
+                )
             )
+
         return content
 
     @property
