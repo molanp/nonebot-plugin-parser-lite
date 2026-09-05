@@ -75,8 +75,8 @@ def format_num(num: int | None) -> str:
 
 def clean_clank(value: str) -> str | None:
     """清理文本中的空白符号(包括换行)"""
-    text = re.sub(r"\s+", "", value)
-    return text if text.strip() else None
+    text = re.sub(r"\s+", " ", value).strip()
+    return text if text else None
 
 
 def append_html_text(
