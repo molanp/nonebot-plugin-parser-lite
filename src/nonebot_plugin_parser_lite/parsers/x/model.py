@@ -481,8 +481,10 @@ class Tweet(Struct):
             return note_result.text
 
         if article_result := self._get_article_result():
-            article_text = _article_text(article_result) or article_result.preview_text
-            if article_text:
+            if (
+                article_text := _article_text(article_result)
+                or article_result.preview_text
+            ):
                 return (
                     f"{self.legacy.text}\n\n{article_text}"
                     if self.legacy.text
