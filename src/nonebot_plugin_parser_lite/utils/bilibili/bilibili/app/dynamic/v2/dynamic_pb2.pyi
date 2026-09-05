@@ -9094,8 +9094,6 @@ class LinkNode(_message.Message):
     TIMESTAMP_FIELD_NUMBER: _builtins.int
     GOODS_ITEM_FIELD_NUMBER: _builtins.int
     NOTE_VIDEO_TS_FIELD_NUMBER: _builtins.int
-    show_text: _builtins.str
-    """"""
     link: _builtins.str
     """"""
     icon: _builtins.str
@@ -9111,6 +9109,10 @@ class LinkNode(_message.Message):
     timestamp: _builtins.int
     """"""
     @_builtins.property
+    def show_text(self) -> Global___WordNode:
+        """"""
+
+    @_builtins.property
     def goods_item(self) -> Global___GoodsItem:
         """"""
 
@@ -9121,7 +9123,7 @@ class LinkNode(_message.Message):
     def __init__(
         self,
         *,
-        show_text: _builtins.str = ...,
+        show_text: Global___WordNode | None = ...,
         link: _builtins.str = ...,
         icon: _builtins.str = ...,
         icon_suffix: _builtins.str = ...,
@@ -9132,7 +9134,7 @@ class LinkNode(_message.Message):
         goods_item: Global___GoodsItem | None = ...,
         note_video_ts: Global___NoteVideoTS | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["goods_item", b"goods_item", "note_video_ts", b"note_video_ts"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["goods_item", b"goods_item", "note_video_ts", b"note_video_ts", "show_text", b"show_text"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["biz_id", b"biz_id", "goods_item", b"goods_item", "icon", b"icon", "icon_suffix", b"icon_suffix", "link", b"link", "link_type", b"link_type", "link_type_enum", b"link_type_enum", "note_video_ts", b"note_video_ts", "show_text", b"show_text", "timestamp", b"timestamp"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
@@ -16560,10 +16562,16 @@ class WordNode(_message.Message):
     FONT_SIZE_FIELD_NUMBER: _builtins.int
     COLOR_FIELD_NUMBER: _builtins.int
     STYLE_FIELD_NUMBER: _builtins.int
+    FONT_FACE_FIELD_NUMBER: _builtins.int
+    FONT_WEIGHT_FIELD_NUMBER: _builtins.int
     words: _builtins.str
     """"""
     font_size: _builtins.float
     """"""
+    font_face: _builtins.str
+    """字形"""
+    font_weight: _builtins.int
+    """字重"""
     @_builtins.property
     def color(self) -> Global___Colors:
         """"""
@@ -16579,10 +16587,12 @@ class WordNode(_message.Message):
         font_size: _builtins.float = ...,
         color: Global___Colors | None = ...,
         style: Global___WordNode.WordNodeStyle | None = ...,
+        font_face: _builtins.str = ...,
+        font_weight: _builtins.int = ...,
     ) -> None: ...
     _HasFieldArgType: _TypeAlias = _typing.Literal["color", b"color", "style", b"style"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["color", b"color", "font_size", b"font_size", "style", b"style", "words", b"words"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["color", b"color", "font_face", b"font_face", "font_size", b"font_size", "font_weight", b"font_weight", "style", b"style", "words", b"words"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 

@@ -102,11 +102,17 @@ def _text_node_items(
             if node.word.words:
                 text_buffer.append(node.word.words)
         elif kind == "link":
-            text_buffer.append(node.link.show_text or node.link.link)
+            text_buffer.append(_link_text(node))
         elif node.raw_text:
             text_buffer.append(node.raw_text)
     flush()
     return items
+
+
+def _link_text(node: dynamic_pb2.TextNode) -> str:
+    if node.link.show_text.words:
+        return node.link.show_text.words
+    return node.raw_text or node.link.link
 
 
 def _append_paragraph(
