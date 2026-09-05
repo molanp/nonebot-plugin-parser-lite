@@ -467,6 +467,7 @@ async def _active_buvid(buvid3: str, buvid4: str):
     buvid_fp = gen_buvid_fp(payload, 31)
     headers = HEADERS.copy()
     headers["Content-Type"] = "application/json"
+    headers["Referer"] = "https://www.bilibili.com/"
     resp = await HTTP_CLIENT.post(
         url="https://api.bilibili.com/x/internal/gaia-gateway/ExClimbWuzhi",
         data=payload,

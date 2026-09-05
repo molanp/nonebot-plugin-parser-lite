@@ -6,7 +6,6 @@ from .client import (
     API_LOCALE,
     API_STATISTICS,
     BUILD,
-    HEADERS,
     HTTP_CLIENT,
     MOBI_APP,
     PLATFORM,
@@ -50,9 +49,9 @@ class Bangumi:
         params = enc_sign(params)
         headers = get_bilibili_headers()
         headers = {
-            key: headers[key] for key in ("user-agent", "app-key", "env", "buvid")
+            key: headers[key]
+            for key in ("user-agent", "app-key", "env", "buvid")
         }
-        headers["referer"] = HEADERS["Referer"]
         result = (
             await HTTP_CLIENT.get(
                 url="https://api.bilibili.com/pgc/view/v2/app/season",
