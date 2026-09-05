@@ -8,7 +8,7 @@ from msgspec.json import Decoder
 from ...creator import Creator
 from ...data import Comment, PollContent
 from ...data import PollOption as ContentPollOption
-from ...utils.format import format_num
+from ...utils.format import format_num, html_to_text, replace_anchor_hrefs
 from .util import parse_date, parse_rich_content
 
 
@@ -36,10 +36,7 @@ class Event(Struct):
             if start_at.date() == end_at.date():
                 value = f"{start_at:%Y-%m-%d %H:%M} - {end_at:%H:%M}"
             else:
-                value = (
-                    f"{start_at:%Y-%m-%d %H:%M} - "
-                    f"{end_at:%Y-%m-%d %H:%M}"
-                )
+                value = f"{start_at:%Y-%m-%d %H:%M} - {end_at:%Y-%m-%d %H:%M}"
         else:
             value = start_at.strftime("%Y-%m-%d %H:%M")
         return f"{value} ({self.timezone})" if self.timezone else value
@@ -60,7 +57,9 @@ class PollOption(Struct):
 
     @property
     def text(self) -> str:
-        return BeautifulSoup(self.html, "html.parser").get_text(" ", strip=True)
+        soup = BeautifulSoup(self.html, "html.parser")
+        replace_anchor_hrefs(soup, "https://bb.zlb.ink/")
+        return html_to_text(soup)
 
 
 class Poll(Struct):

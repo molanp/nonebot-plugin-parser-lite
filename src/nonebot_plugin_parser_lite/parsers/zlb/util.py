@@ -6,6 +6,12 @@ from bs4.element import NavigableString, Tag
 
 from ...creator import Creator
 from ...data import ContentItem, LinkContent, PollContent
+from ...utils.format import (
+    HTML_NEWLINE_TAGS,
+    anchor_text,
+    append_html_text,
+    clean_clank,
+)
 
 
 def parse_rich_content(
@@ -28,18 +34,12 @@ def parse_rich_content(
             buffer.append(item)
         else:
             if buffer:
-                text_block = "".join(buffer)
-                lines = [line.rstrip() for line in text_block.splitlines()]
-                if normalized := "\n".join(lines).strip():
-                    result.append(normalized)
+                append_html_text(result, buffer)
                 buffer.clear()
             result.append(item)
 
     if buffer:
-        text_block = "".join(buffer)
-        lines = [line.rstrip() for line in text_block.splitlines()]
-        if normalized := "\n".join(lines).strip():
-            result.append(normalized)
+        append_html_text(result, buffer)
 
     return result
 
@@ -70,6 +70,12 @@ def _iter_media_and_text(
                 skip_parent = element
                 continue
 
+            if element.name == "a" and not element.find("img"):
+                if text := anchor_text(element, "https://bb.zlb.ink/"):
+                    yield text
+                    skip_parent = element
+                    continue
+
             if element.name == "div" and "discourse-post-event" in (
                 element.get("class") or []
             ):
@@ -92,7 +98,7 @@ def _iter_media_and_text(
                 skip_parent = element
                 continue
 
-            if element.name in {"p", "br"}:
+            if element.name in HTML_NEWLINE_TAGS:
                 yield "\n"
                 continue
 
@@ -110,7 +116,7 @@ def _iter_media_and_text(
                         yield Creator.image(url=src)
 
         elif isinstance(element, NavigableString):
-            if text := str(element).strip():
+            if text := clean_clank(str(element)):
                 yield text
 
 
@@ -127,6 +133,10 @@ def _parse_quote(aside: Tag):
         else None
     )
     text = ""
+    if not title:
+        display_name = aside.get("data-display-name")
+        if isinstance(display_name, str):
+            title = display_name.strip() or None
     if blockquote:
         text = "\n".join(
             line.strip()

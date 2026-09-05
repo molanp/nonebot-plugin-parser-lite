@@ -4,6 +4,12 @@ from bs4.element import NavigableString, Tag
 from ...creator import Creator
 from ...data import ContentItem
 from ...download import DOWNLOADER
+from ...utils.format import (
+    HTML_NEWLINE_TAGS,
+    anchor_text,
+    append_html_text,
+    clean_clank,
+)
 
 VIDEO_HEADER = {**DOWNLOADER.headers, "x-app-za": "OS=webplayer", "x-referer": ""}
 
@@ -64,18 +70,12 @@ async def parse_rich_content(html: str, content_type: str) -> list[ContentItem]:
             buffer.append(item)
         else:
             if buffer:
-                text_block = "".join(buffer)
-                lines = [line.rstrip() for line in text_block.splitlines()]
-                if normalized := "\n".join(lines).strip():
-                    result.append(normalized)
+                append_html_text(result, buffer)
                 buffer.clear()
             result.append(item)
 
     if buffer:
-        text_block = "".join(buffer)
-        lines = [line.rstrip() for line in text_block.splitlines()]
-        if normalized := "\n".join(lines).strip():
-            result.append(normalized)
+        append_html_text(result, buffer)
 
     return result
 
@@ -126,7 +126,7 @@ async def _iter_media_and_text(soup: BeautifulSoup, content_type: str):
             else:
                 skip_parent = None
         if isinstance(element, Tag):
-            if element.name in {"p", "br"}:
+            if element.name in HTML_NEWLINE_TAGS:
                 yield "\n"
                 continue
 
@@ -136,12 +136,18 @@ async def _iter_media_and_text(soup: BeautifulSoup, content_type: str):
                     yield item
                 continue
 
+            if element.name == "a" and not element.find("img"):
+                if text := anchor_text(element, "https://www.zhihu.com/"):
+                    yield text
+                    skip_parent = element
+                    continue
+
             if element.name == "img":
                 if graphic := _parse_img(element):
                     yield graphic
 
         elif isinstance(element, NavigableString):
-            if text := str(element).strip():
+            if text := clean_clank(str(element)):
                 yield text
 
 

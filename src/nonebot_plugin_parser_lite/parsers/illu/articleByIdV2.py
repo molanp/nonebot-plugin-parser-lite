@@ -6,6 +6,7 @@ from msgspec import Struct
 from msgspec.json import Decoder
 
 from ...download import DOWNLOADER
+from ...utils.format import html_to_text, replace_anchor_hrefs
 from .models import File, Time, User
 
 
@@ -31,7 +32,8 @@ async def fetch_html_text_from_file(file: File) -> list[str]:
                 raise RuntimeError("no html file found in content zip") from e
     html = html_bytes.decode("utf-8", errors="ignore")
     soup = BeautifulSoup(html, "html.parser")
-    full_text = soup.get_text("\n", strip=True)
+    replace_anchor_hrefs(soup, "https://illund.com/")
+    full_text = html_to_text(soup)
     if not full_text:
         return []
     lines = [line for line in full_text.splitlines() if line.strip()]

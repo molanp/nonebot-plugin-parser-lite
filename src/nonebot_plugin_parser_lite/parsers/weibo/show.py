@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 from msgspec import Struct
 from msgspec.json import Decoder
 
+from ...utils.format import html_to_text, replace_anchor_hrefs
+
 
 class PlayInfo(Struct):
     title: str
@@ -27,7 +29,8 @@ class PlayInfo(Struct):
     @property
     def description(self) -> str:
         soup = BeautifulSoup(self.text, "html.parser")
-        return soup.get_text(separator="\n", strip=True)
+        replace_anchor_hrefs(soup, "https://weibo.com/")
+        return html_to_text(soup)
 
     @property
     def cover_url(self) -> str:

@@ -6,6 +6,7 @@ from msgspec.json import Decoder
 
 from ...creator import Creator
 from ...data import ContentItem
+from ...utils.format import html_to_text, replace_anchor_hrefs
 
 
 class UserInfo(Struct):
@@ -36,7 +37,8 @@ class Data(Struct):
             if not isinstance(element, Tag):
                 continue
             if element.name == "p":
-                if text := element.get_text(separator="\n", strip=True):
+                replace_anchor_hrefs(element, "https://weibo.com/")
+                if text := html_to_text(element):
                     content.append(text)
             elif element.name == "img":
                 src = element.get("src")

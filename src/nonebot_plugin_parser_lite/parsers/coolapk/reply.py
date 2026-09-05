@@ -3,6 +3,7 @@ from msgspec import Struct, field
 from msgspec.json import Decoder
 
 from ...creator import Creator
+from ...utils.format import html_to_text, replace_anchor_hrefs
 from .util import format_sticker
 
 
@@ -17,8 +18,10 @@ class ReplyData(Struct):
 
     @property
     def content(self):
+        document = soup(self.message, "html.parser")
+        replace_anchor_hrefs(document, "https://coolapk.com/")
         return [
-            *format_sticker(soup(self.message, "html.parser").get_text()),
+            *format_sticker(html_to_text(document)),
             *([Creator.image(pic) for pic in self.picArr] if self.picArr else []),
         ]
 
@@ -37,8 +40,10 @@ class Comment(Struct):
 
     @property
     def content(self):
+        document = soup(self.message, "html.parser")
+        replace_anchor_hrefs(document, "https://coolapk.com/")
         return [
-            *format_sticker(soup(self.message, "html.parser").get_text()),
+            *format_sticker(html_to_text(document)),
             *([Creator.image(pic) for pic in self.picArr] if self.picArr else []),
         ]
 
