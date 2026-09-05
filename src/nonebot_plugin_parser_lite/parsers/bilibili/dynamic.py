@@ -1,4 +1,8 @@
 from collections.abc import Iterable
+from datetime import datetime
+
+from msgspec import DecodeError, Struct, ValidationError
+from msgspec.json import decode as decode_json
 
 from ...creator import Creator
 from ...data import ContentItem, ParseResult
@@ -8,6 +12,25 @@ from ...utils.bilibili.bilibili.app.dynamic.v2.dynamic_pb2 import (
     DynDetailReply,
 )
 from ...utils.format import format_num
+
+
+class LivePlayInfo(Struct):
+    room_id: int
+    title: str
+    cover: str
+    link: str
+
+
+class LiveRcmdContent(Struct):
+    live_play_info: LivePlayInfo
+
+
+def _parse_timestamp(label: str) -> int | None:
+    try:
+        date_label = label.split(" · ", 1)[0]
+        return int(datetime.strptime(date_label, "%Y年%m月%d日 %H:%M").timestamp())
+    except ValueError:
+        return None
 
 
 def _description_items(module_desc: dynamic_pb2.ModuleDesc) -> list[ContentItem]:
@@ -113,6 +136,91 @@ def _append_opus_summary(
             result.content.append(Creator.image(url=item.src))
 
 
+def _append_forward(
+    result: ParseResult, payload: dynamic_pb2.MdlDynForward, seen: set[int]
+) -> None:
+    if not payload.HasField("item"):
+        return
+    repost = ParseResult(
+        platform=result.platform,
+        author=Creator.author(name=""),
+        url="",
+        content=[],
+    )
+    _build_item(repost, payload.item, seen)
+    result.repost = repost
+    if result.title is None:
+        result.title = "转发动态"
+
+
+def _append_pgc(result: ParseResult, payload: dynamic_pb2.MdlDynPGC) -> None:
+    if payload.title and result.title is None:
+        result.title = payload.title
+    if payload.cover:
+        result.content.append(Creator.image(url=payload.cover))
+
+
+def _append_draw(result: ParseResult, payload: dynamic_pb2.MdlDynDraw) -> None:
+    for item in payload.items:
+        if item.src:
+            result.content.append(Creator.image(url=item.src))
+
+
+def _append_article(result: ParseResult, payload: dynamic_pb2.MdlDynArticle) -> None:
+    if payload.title and result.title is None:
+        result.title = payload.title
+    if payload.desc:
+        result.content.append(payload.desc)
+    for cover in payload.covers:
+        if cover:
+            result.content.append(Creator.image(url=cover))
+
+
+def _append_common(result: ParseResult, payload: dynamic_pb2.MdlDynCommon) -> None:
+    if payload.title and result.title is None:
+        result.title = payload.title
+    if payload.desc:
+        result.content.append(payload.desc)
+    if payload.cover:
+        result.content.append(Creator.image(url=payload.cover))
+
+
+def _append_live(result: ParseResult, payload: dynamic_pb2.MdlDynLive) -> None:
+    if payload.title and result.title is None:
+        result.title = payload.title
+    if payload.uri.startswith("http"):
+        result.url = payload.uri
+    elif payload.id:
+        result.url = f"https://live.bilibili.com/{payload.id}"
+    if payload.cover:
+        result.content.append(Creator.graphic(url=payload.cover))
+
+
+def _append_live_rcmd(result: ParseResult, payload: dynamic_pb2.MdlDynLiveRcmd) -> None:
+    if not payload.content:
+        return
+    try:
+        live = decode_json(payload.content, type=LiveRcmdContent)
+    except (DecodeError, ValidationError):
+        return
+    info = live.live_play_info
+    if info.title and result.title is None:
+        result.title = info.title
+    if info.link:
+        result.url = info.link.split("?")[0]
+    elif info.room_id:
+        result.url = f"https://live.bilibili.com/{info.room_id}"
+    if info.cover:
+        result.content.append(Creator.graphic(url=info.cover))
+
+
+def _append_music(result: ParseResult, payload: dynamic_pb2.MdlDynMusic) -> None:
+    if payload.title and result.title is None:
+        result.title = payload.title
+    if payload.cover:
+        result.content.append(Creator.image(url=payload.cover))
+
+
 def _append_dynamic_payload(
     result: ParseResult,
     module_dynamic: dynamic_pb2.ModuleDynamic,
@@ -123,67 +231,23 @@ def _append_dynamic_payload(
         return
 
     if dynamic_type == "dyn_forward":
-        payload = module_dynamic.dyn_forward
-        if not payload.HasField("item"):
-            return
-
-        repost = ParseResult(
-            platform=result.platform,
-            author=Creator.author(name=""),
-            url="",
-            content=[],
-        )
-        _build_item(repost, payload.item, seen)
-        result.repost = repost
-        if result.title is None:
-            result.title = "转发动态"
-        return
-
-    if dynamic_type == "dyn_archive":
+        _append_forward(result, module_dynamic.dyn_forward, seen)
+    elif dynamic_type == "dyn_archive":
         _append_archive(result, module_dynamic.dyn_archive)
     elif dynamic_type == "dyn_pgc":
-        payload = module_dynamic.dyn_pgc
-        if payload.title and result.title is None:
-            result.title = payload.title
-        if payload.cover:
-            result.content.append(Creator.image(url=payload.cover))
+        _append_pgc(result, module_dynamic.dyn_pgc)
     elif dynamic_type == "dyn_draw":
-        for item in module_dynamic.dyn_draw.items:
-            if item.src:
-                result.content.append(Creator.image(url=item.src))
+        _append_draw(result, module_dynamic.dyn_draw)
     elif dynamic_type == "dyn_article":
-        payload = module_dynamic.dyn_article
-        if payload.title and result.title is None:
-            result.title = payload.title
-        if payload.desc:
-            result.content.append(payload.desc)
-        for cover in payload.covers:
-            if cover:
-                result.content.append(Creator.image(url=cover))
+        _append_article(result, module_dynamic.dyn_article)
     elif dynamic_type == "dyn_common":
-        payload = module_dynamic.dyn_common
-        if payload.title and result.title is None:
-            result.title = payload.title
-        if payload.desc:
-            result.content.append(payload.desc)
-        if payload.cover:
-            result.content.append(Creator.image(url=payload.cover))
+        _append_common(result, module_dynamic.dyn_common)
     elif dynamic_type == "dyn_common_live":
-        payload = module_dynamic.dyn_common_live
-        if payload.title and result.title is None:
-            result.title = payload.title
-        if payload.uri.startswith("http"):
-            result.url = payload.uri
-        elif payload.id:
-            result.url = f"https://live.bilibili.com/{payload.id}"
-        if payload.cover:
-            result.content.append(Creator.graphic(url=payload.cover))
+        _append_live(result, module_dynamic.dyn_common_live)
+    elif dynamic_type == "dyn_live_rcmd":
+        _append_live_rcmd(result, module_dynamic.dyn_live_rcmd)
     elif dynamic_type == "dyn_music":
-        payload = module_dynamic.dyn_music
-        if payload.title and result.title is None:
-            result.title = payload.title
-        if payload.cover:
-            result.content.append(Creator.image(url=payload.cover))
+        _append_music(result, module_dynamic.dyn_music)
 
 
 def _build_item(
@@ -211,6 +275,8 @@ def _build_item(
                 id=str(author.mid),
                 avatar_cache_key=f"bilibili:{author.mid}",
             )
+            if result.timestamp is None:
+                result.timestamp = _parse_timestamp(author.ptime_label_text)
         elif module_item == "module_author_forward":
             author = module.module_author_forward
             name = "".join(title.text for title in author.title if title.text)
@@ -220,6 +286,8 @@ def _build_item(
                 id=str(author.uid),
                 avatar_cache_key=f"bilibili:{author.uid}",
             )
+            if result.timestamp is None:
+                result.timestamp = _parse_timestamp(author.ptime_label_text)
         elif module_item == "module_desc":
             result.content.extend(_description_items(module.module_desc))
         elif module_item == "module_dynamic":
