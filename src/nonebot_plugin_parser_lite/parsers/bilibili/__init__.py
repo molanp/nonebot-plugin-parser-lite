@@ -26,7 +26,7 @@ from ...utils.bilibili.favorite_list import get_video_favorite_list_content
 from ...utils.bilibili.live import LiveRoom
 from ...utils.bilibili.login import QrCodeLogin, QrCodeLoginEvents
 from ...utils.bilibili.opus import Opus
-from ...utils.bilibili.user import get_black_list
+from ...utils.bilibili.user import get_black_list, get_user_info
 from ...utils.bilibili.video import (
     AudioStreamDownloadURL,
     FLVStreamDownloadURL,
@@ -286,6 +286,7 @@ class BilibiliParser(BaseParser):
             name=arc.author.name,
             avatar_url=arc.author.face,
             id=str(arc.author.mid),
+            avatar_cache_key=f"bilibili:{arc.author.mid}",
         )
 
         page_index = page_num - 1
@@ -418,15 +419,6 @@ class BilibiliParser(BaseParser):
         comments = await self._fetch_comments(video_oid, CommentResourceType.VIDEO)
         processed_comments = comments
 
-        # 构造 extra_data
-        extra_data = {
-            "type": "video",
-            "type_tag": "视频",
-            "type_icon": "fa-circle-play",
-            "content_id": bvid,
-        }
-        logger.debug(f"Video extra data: {extra_data}")
-
         return self.result(
             url=url,
             title=title,
@@ -435,7 +427,6 @@ class BilibiliParser(BaseParser):
             content=[video_content, text],
             stats=stats,
             comments=processed_comments,
-            extra=extra_data,
             ai_summary=ai_summary,
             embed_url=f"https://player.bilibili.com/player.html?aid={video.aid}&autoplay=1&p={page_num}",
         )
@@ -526,6 +517,7 @@ class BilibiliParser(BaseParser):
                     name=author.author.name,
                     avatar_url=author.author.face or None,
                     id=str(author.mid),
+                    avatar_cache_key=f"bilibili:{author.mid}",
                 )
                 if result.timestamp is None:
                     result.timestamp = _parse_timestamp(author.ptime_label_text)
@@ -579,23 +571,33 @@ class BilibiliParser(BaseParser):
 
         await self.raise_if_in_black_list(room_data.uid)
 
-        contents: list[ContentItem] = []
+        content: list[ContentItem] = []
         # 下载封面
         if cover := room_data.cover:
-            contents.append(self.create_image(cover))
+            content.append(self.create_graphic(cover))
 
         # 下载关键帧
         if keyframe := room_data.keyframe:
-            contents.append(self.create_image(keyframe))
+            content.append(self.create_graphic(keyframe))
 
-        author = self.create_author(name=str(room_data.uid), id=str(room_data.uid))
+        try:
+            user_info = await get_user_info(room_data.uid)
+        except BiliHelperException as error:
+            logger.warning(f"获取直播主播资料失败: {error}")
+            user_info = None
+        author = self.create_author(
+            name=user_info.name if user_info else str(room_data.uid),
+            avatar_url=user_info.face if user_info else None,
+            id=user_info.mid if user_info else str(room_data.uid),
+            avatar_cache_key=f"bilibili:{room_data.uid}",
+        )
 
         url = f"https://www.bilibili.com/blackboard/live/live-activity-player.html?enterTheRoom=0&cid={room_id}"
 
         return self.result(
             url=url,
             title=room_data.title,
-            content=contents,
+            content=content,
             author=author,
         )
 
@@ -622,6 +624,7 @@ class BilibiliParser(BaseParser):
                 name=favdata.info.upper.name,
                 avatar_url=favdata.info.upper.face,
                 id=str(favdata.info.upper.mid),
+                avatar_cache_key=f"bilibili:{favdata.info.upper.mid}",
             ),
             content=[
                 self.create_graphic(fav.cover, fav.desc) for fav in favdata.medias
