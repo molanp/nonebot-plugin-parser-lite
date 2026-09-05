@@ -1,6 +1,13 @@
 from msgspec import Struct
 
-from .common import Upper
+
+class Upper(Struct):
+    mid: int
+    """用户 ID"""
+    name: str
+    """作者"""
+    face: str
+    """头像"""
 
 
 class FavItem(Struct):

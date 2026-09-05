@@ -1,8 +1,6 @@
-from typing import Any
-
-from .client import HTTP_CLIENT
+from .bilibili.app.dynamic.v2 import opus_pb2
+from .client import GRPC_CLIENT
 from .credential import Credential
-from .exceptions import BiliHelperException
 
 
 class Opus:
@@ -10,33 +8,32 @@ class Opus:
     图文类
     """
 
-    info: dict[str, Any] | None = None
+    def __init__(self, oid: int | str, credential: Credential | None = None) -> None:
+        self.oid = int(oid)
+        self.credential = credential
+        self.info: opus_pb2.OpusDetailResp | None = None
 
-    def __init__(self, opus_id: int, credential: Credential | None = None):
-        self.opus_id = opus_id
-        self.credential: Credential = credential or Credential()
-
-    async def get_info(self):
+    async def get_info(self) -> opus_pb2.OpusDetailResp:
         """
         获取图文基本信息
 
         :return: 调用 API 返回的结果
         """
-        if not self.info:
-            result = (
-                await HTTP_CLIENT.get(
-                    url="https://api.bilibili.com/x/polymer/web-dynamic/v1/opus/detail",
-                    params={
-                        "timezone_offset": -480,
-                        "id": self.opus_id,
-                        "features": "onlyfansVote,onlyfansAssetsV2,decorationCard,htmlNewStyle,ugcDelete,editable,opusPrivateVisible",  # noqa: E501
-                    },
-                )
-            ).json()
-            if result["code"] != 0:
-                raise BiliHelperException(result)
-            self.info = result["data"]
-            assert self.info
-            if self.info.get("fallback"):
-                raise BiliHelperException("传入的 opus_id 不正确")
+        if self.info is None:
+            req = opus_pb2.OpusDetailReq(
+                oid=self.oid,
+                share_id="dt.opus-detail.0.0.pv",
+                share_mode=3,
+                local_time=8,
+            )
+            access_token = self.credential.access_token if self.credential else ""
+            self.info = await GRPC_CLIENT.request(
+                "/bilibili.app.dynamic.v2.Opus/OpusDetail",
+                req,
+                opus_pb2.OpusDetailResp,
+                access_token=access_token,
+                user_mid=(
+                    self.credential.mid if self.credential and access_token else None
+                ),
+            )
         return self.info

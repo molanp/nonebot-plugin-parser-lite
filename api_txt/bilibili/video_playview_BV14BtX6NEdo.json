@@ -1,0 +1,316 @@
+{
+  "videoInfo": {
+    "quality": 32,
+    "format": "flv480",
+    "timelength": "46440",
+    "videoCodecid": 7,
+    "streamList": [
+      {
+        "streamInfo": {
+          "quality": 116,
+          "format": "flv_p60",
+          "description": "高清 1080P60",
+          "needVip": true,
+          "needLogin": true,
+          "newDescription": "1080P 60帧",
+          "displayDesc": "1080P",
+          "superscript": "60帧"
+        }
+      },
+      {
+        "streamInfo": {
+          "quality": 80,
+          "format": "flv",
+          "description": "高清 1080P",
+          "needLogin": true,
+          "newDescription": "1080P 高清",
+          "displayDesc": "1080P"
+        }
+      },
+      {
+        "streamInfo": {
+          "quality": 64,
+          "format": "flv720",
+          "description": "高清 720P",
+          "needLogin": true,
+          "newDescription": "720P 准高清",
+          "displayDesc": "720P"
+        }
+      },
+      {
+        "streamInfo": {
+          "quality": 32,
+          "format": "flv480",
+          "description": "清晰 480P",
+          "intact": true,
+          "newDescription": "480P 标清",
+          "displayDesc": "480P"
+        },
+        "dashVideo": {
+          "baseUrl": "https://xy113x0x124x176xy.mcdn.bilivideo.cn:8082/v1/resource/upgcxcode/91/79/41535147991/41535147991-1-30032.m4s?agrr=0&build=1450000&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&bvc=vod&bw=614441&cdnid=4281&deadline=1788550685&dl=0&e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&f=u_0_0&gen=playurlv3&lrs=5&mid=0&nbs=1&nettype=1&og=ali&oi=2067146228&orderid=0%2C3&os=bcache&platform=android&sign=4f1bb9&traceid=trgNPsFuXCdKjR_0_u_a&uipk=5&uparams=e%2Cmid%2Cog%2Cuipk%2Ctrid%2Cgen%2Cos%2Cnbs%2Coi%2Cdeadline%2Cplatform&upsig=e1e54e821dd39f5538a2a436082967d8",
+          "backupUrl": [
+            "https://cn-jsnt-ct-01-11.bilivideo.com/upgcxcode/91/79/41535147991/41535147991-1-30032.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&mid=0&og=ali&uipk=5&trid=00002ac9d395eaea40e58a9342522e6161fu&gen=playurlv3&os=bcache&nbs=1&oi=2067146228&deadline=1788550685&platform=android_hd&upsig=e1e54e821dd39f5538a2a436082967d8&uparams=e,mid,og,uipk,trid,gen,os,nbs,oi,deadline,platform&cdnid=4281&bvc=vod&nettype=1&bw=614441&lrs=5&agrr=0&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&build=1450000&dl=0&f=u_0_0&orderid=0,3",
+            "https://upos-sz-estgoss.bilivideo.com/upgcxcode/91/79/41535147991/41535147991-1-30032.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&nbs=1&oi=2067146228&gen=playurlv3&os=estgoss&og=ali&deadline=1788550685&uipk=5&platform=android_hd&trid=2ac9d395eaea40e58a9342522e6161fu&mid=0&upsig=66fb372867c7496f3656c32c51ce61c1&uparams=e,nbs,oi,gen,os,og,deadline,uipk,platform,trid,mid&bvc=vod&nettype=1&bw=614441&lrs=5&dl=0&f=u_0_0&agrr=0&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&build=1450000&orderid=1,3"
+          ],
+          "bandwidth": 608679,
+          "codecid": 7,
+          "md5": "e72dede09fa4ce4a7a7ffc61d6e527e8",
+          "size": "3533037",
+          "audioId": 30216,
+          "frameRate": "30.000",
+          "width": 480,
+          "height": 852
+        }
+      },
+      {
+        "streamInfo": {
+          "quality": 16,
+          "format": "mp4",
+          "description": "流畅 360P",
+          "intact": true,
+          "newDescription": "360P 流畅",
+          "displayDesc": "360P"
+        },
+        "dashVideo": {
+          "baseUrl": "https://cn-jsnt-ct-01-02.bilivideo.com/upgcxcode/91/79/41535147991/41535147991-1-30016.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&platform=android_hd&og=hw&mid=0&nbs=1&uipk=5&trid=00002ac9d395eaea40e58a9342522e6161fu&gen=playurlv3&os=bcache&oi=2067146228&deadline=1788550685&upsig=099b0796c363a4372ff03ad70c9be8f5&uparams=e,platform,og,mid,nbs,uipk,trid,gen,os,oi,deadline&cdnid=4274&bvc=vod&nettype=1&bw=431956&lrs=5&agrr=0&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&build=1450000&dl=0&f=u_0_0&orderid=0,3",
+          "backupUrl": [
+            "https://upos-sz-mirrorcos.bilivideo.com/upgcxcode/91/79/41535147991/41535147991-1-30016.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&uipk=5&platform=android_hd&trid=2ac9d395eaea40e58a9342522e6161fu&mid=0&gen=playurlv3&nbs=1&oi=2067146228&deadline=1788550685&os=cosbv&og=hw&upsig=e64fe4f5e33fbdbeb95a7847ff3a6377&uparams=e,uipk,platform,trid,mid,gen,nbs,oi,deadline,os,og&bvc=vod&nettype=1&bw=431956&lrs=5&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&build=1450000&dl=0&f=u_0_0&agrr=0&orderid=1,3",
+            "https://upos-sz-mirrorcos.bilivideo.com/upgcxcode/91/79/41535147991/41535147991-1-30016.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&uipk=5&platform=android_hd&trid=2ac9d395eaea40e58a9342522e6161fu&mid=0&os=cosbv&og=hw&nbs=1&oi=2067146228&gen=playurlv3&deadline=1788550685&upsig=fc194d7e2578fd5af645911caaefc6c8&uparams=e,uipk,platform,trid,mid,os,og,nbs,oi,gen,deadline&bvc=vod&nettype=1&bw=431956&lrs=5&agrr=0&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&build=1450000&dl=0&f=u_0_0&orderid=2,3"
+          ],
+          "bandwidth": 427897,
+          "codecid": 7,
+          "md5": "da2dc9b70551d04fd5127f9eaed9d79e",
+          "size": "2483750",
+          "audioId": 30216,
+          "frameRate": "30.000",
+          "width": 360,
+          "height": 640
+        }
+      }
+    ],
+    "dashAudio": [
+      {
+        "id": 30216,
+        "baseUrl": "https://xy106x117x209x90xy.mcdn.bilivideo.cn:8082/v1/resource/upgcxcode/91/79/41535147991/41535147991-1-30216.m4s?agrr=0&build=1450000&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&bvc=vod&bw=67097&cdnid=4309&deadline=1788550685&dl=0&e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&f=u_0_0&gen=playurlv3&lrs=5&mid=0&nbs=1&nettype=1&og=hw&oi=2067146228&orderid=0%2C3&os=bcache&platform=android&sign=7b0960&traceid=trQiQQmuUoJJSC_0_u_a&uipk=5&uparams=e%2Cos%2Cdeadline%2Cuipk%2Cmid%2Cnbs%2Cog%2Cplatform%2Ctrid%2Coi%2Cgen&upsig=4c44afd1b2e9b3ada2c844190d7b256b",
+        "backupUrl": [
+          "https://xy113x207x85x205xy.mcdn.bilivideo.cn:8082/v1/resource/upgcxcode/91/79/41535147991/41535147991-1-30216.m4s?agrr=0&build=1450000&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&bvc=vod&bw=67097&deadline=1788550685&dl=0&e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&f=u_0_0&gen=playurlv3&lrs=5&mid=0&nbs=1&nettype=1&og=hw&oi=2067146228&orderid=1%2C3&os=08hbv&platform=android&sign=7b0960&traceid=trDvApLOqHAvSe_0_u_a&uipk=5&uparams=e%2Cmid%2Cdeadline%2Cuipk%2Cplatform%2Ctrid%2Cgen%2Cos%2Cog%2Cnbs%2Coi&upsig=344662687254d1d8196c87840fc51b19",
+          "https://cn-jsnt-ct-01-01.bilivideo.com/upgcxcode/91/79/41535147991/41535147991-1-30216.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&os=bcache&deadline=1788550685&uipk=5&mid=0&nbs=1&og=hw&platform=android_hd&trid=00002ac9d395eaea40e58a9342522e6161fu&oi=2067146228&gen=playurlv3&upsig=4c44afd1b2e9b3ada2c844190d7b256b&uparams=e,os,deadline,uipk,mid,nbs,og,platform,trid,oi,gen&cdnid=4309&bvc=vod&nettype=1&bw=67097&lrs=5&agrr=0&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&build=1450000&dl=0&f=u_0_0&orderid=0,3"
+        ],
+        "bandwidth": 66434,
+        "md5": "c80a734d98ad9806a969c755b7fc6f13",
+        "size": "385813"
+      },
+      {
+        "id": 30280,
+        "baseUrl": "https://xy111x2x118x119xy.mcdn.bilivideo.cn:8082/v1/resource/upgcxcode/91/79/41535147991/41535147991-1-30280.m4s?agrr=0&build=1450000&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&bvc=vod&bw=188580&cdnid=4274&deadline=1788550685&dl=0&e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&f=u_0_0&gen=playurlv3&lrs=5&mid=0&nbs=1&nettype=1&og=cos&oi=2067146228&orderid=0%2C3&os=bcache&platform=android&sign=9023ea&traceid=trxWDhuhGaxAIo_0_u_a&uipk=5&uparams=e%2Cmid%2Cnbs%2Coi%2Cdeadline%2Cuipk%2Cos%2Cog%2Cplatform%2Ctrid%2Cgen&upsig=a053f2b62729b52e74db94f738db35aa",
+        "backupUrl": [
+          "https://cn-jsnt-ct-01-02.bilivideo.com/upgcxcode/91/79/41535147991/41535147991-1-30280.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&mid=0&nbs=1&oi=2067146228&deadline=1788550685&uipk=5&os=bcache&og=cos&platform=android_hd&trid=00002ac9d395eaea40e58a9342522e6161fu&gen=playurlv3&upsig=a053f2b62729b52e74db94f738db35aa&uparams=e,mid,nbs,oi,deadline,uipk,os,og,platform,trid,gen&cdnid=4274&bvc=vod&nettype=1&bw=188580&lrs=5&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&build=1450000&dl=0&f=u_0_0&agrr=0&orderid=0,3",
+          "https://upos-sz-mirrorcos.bilivideo.com/upgcxcode/91/79/41535147991/41535147991-1-30280.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&gen=playurlv3&trid=2ac9d395eaea40e58a9342522e6161fu&oi=2067146228&os=cosbv&og=cos&deadline=1788550685&uipk=5&platform=android_hd&mid=0&nbs=1&upsig=9de3881734b68c8299b42a0a3c74ca0b&uparams=e,gen,trid,oi,os,og,deadline,uipk,platform,mid,nbs&bvc=vod&nettype=1&bw=188580&lrs=5&build=1450000&dl=0&f=u_0_0&agrr=0&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&orderid=1,3"
+        ],
+        "bandwidth": 186766,
+        "md5": "879091338dc9432a777646464cd1ec25",
+        "size": "1084339"
+      },
+      {
+        "id": 30232,
+        "baseUrl": "https://xy111x6x227x19xy.mcdn.bilivideo.cn:8082/v1/resource/upgcxcode/91/79/41535147991/41535147991-1-30232.m4s?agrr=0&build=1450000&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&bvc=vod&bw=105711&deadline=1788550685&dl=0&e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&f=u_0_0&gen=playurlv3&lrs=5&mcdnid=50061264&mid=0&nbs=1&nettype=1&og=hw&oi=2067146228&orderid=0%2C3&os=mcdn&platform=android&prs=2&sign=08532c&traceid=trqmtkJKhtmXOp_0_u_a&uipk=5&uparams=e%2Cnbs%2Cplatform%2Ctrid%2Cgen%2Cog%2Cmid%2Coi%2Cdeadline%2Cuipk%2Cos&upsig=4859ddce50a0160f3931f4647d2e6f6b",
+        "backupUrl": [
+          "https://xy113x207x85x213xy.mcdn.bilivideo.cn:8082/v1/resource/upgcxcode/91/79/41535147991/41535147991-1-30232.m4s?agrr=0&build=1450000&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&bvc=vod&bw=105711&deadline=1788550685&dl=0&e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&f=u_0_0&gen=playurlv3&lrs=5&mid=0&nbs=1&nettype=1&og=cos&oi=2067146228&orderid=1%2C3&os=cosbv&platform=android&sign=08532c&traceid=trRAtdkbFkmNis_0_u_a&uipk=5&uparams=e%2Cog%2Cmid%2Cnbs%2Coi%2Cuipk%2Ctrid%2Cdeadline%2Cplatform%2Cgen%2Cos&upsig=e8d096097b6dbe27a66e95ed06e06269",
+          "https://b-baaa1g5e1630a13vbgs9iegna5j0c.edge.mountaintoys.cn:4483/upgcxcode/91/79/41535147991/41535147991-1-30232.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_&nbs=1&platform=android_hd&trid=00002ac9d395eaea40e58a9342522e6161fu&gen=playurlv3&og=hw&mid=0&oi=2067146228&deadline=1788550685&uipk=5&os=mcdn&upsig=4859ddce50a0160f3931f4647d2e6f6b&uparams=e,nbs,platform,trid,gen,og,mid,oi,deadline,uipk,os&mcdnid=50061264&bvc=vod&nettype=1&bw=105711&lrs=5&prs=2&agrr=0&buvid=XYD75163AE5AB44E0FBC22C9F60400B15A72B&build=1450000&dl=0&f=u_0_0&orderid=0,3"
+        ],
+        "bandwidth": 104682,
+        "md5": "d42e14d798108d6e9596170aee34a35f",
+        "size": "607843"
+      }
+    ]
+  },
+  "playConf": {
+    "backgroundPlayConf": {
+      "show": true,
+      "confType": "BACKGROUNDPLAY",
+      "fieldValue": { "switch": true }
+    },
+    "flipConf": {
+      "show": true,
+      "confType": "FLIPCONF",
+      "fieldValue": { "switch": true }
+    },
+    "castConf": {
+      "show": true,
+      "confType": "CASTCONF",
+      "fieldValue": { "switch": true }
+    },
+    "feedbackConf": {
+      "show": true,
+      "confType": "FEEDBACK",
+      "fieldValue": { "switch": true }
+    },
+    "subtitleConf": {
+      "show": true,
+      "confType": "SUBTITLE",
+      "fieldValue": { "switch": true }
+    },
+    "playbackRateConf": {
+      "show": true,
+      "confType": "PLAYBACKRATE",
+      "fieldValue": { "switch": true }
+    },
+    "timeUpConf": {
+      "show": true,
+      "confType": "TIMEUP",
+      "fieldValue": { "switch": true }
+    },
+    "playbackModeConf": {
+      "show": true,
+      "confType": "PLAYBACKMODE",
+      "fieldValue": { "switch": true }
+    },
+    "scaleModeConf": {
+      "show": true,
+      "confType": "SCALEMODE",
+      "fieldValue": { "switch": true }
+    },
+    "likeConf": {
+      "show": true,
+      "confType": "LIKE",
+      "fieldValue": { "switch": true }
+    },
+    "dislikeConf": {
+      "show": true,
+      "confType": "DISLIKE",
+      "fieldValue": { "switch": true }
+    },
+    "coinConf": {
+      "show": true,
+      "confType": "COIN",
+      "fieldValue": { "switch": true }
+    },
+    "elecConf": {
+      "show": true,
+      "confType": "ELEC",
+      "fieldValue": { "switch": true }
+    },
+    "shareConf": {
+      "show": true,
+      "confType": "SHARE",
+      "fieldValue": { "switch": true }
+    },
+    "screenShotConf": {
+      "show": true,
+      "confType": "SCREENSHOT",
+      "fieldValue": { "switch": true }
+    },
+    "lockScreenConf": {
+      "show": true,
+      "confType": "LOCKSCREEN",
+      "fieldValue": { "switch": true }
+    },
+    "recommendConf": {
+      "show": true,
+      "confType": "RECOMMEND",
+      "fieldValue": { "switch": true }
+    },
+    "playbackSpeedConf": {
+      "show": true,
+      "confType": "PLAYBACKSPEED",
+      "fieldValue": { "switch": true }
+    },
+    "definitionConf": {
+      "show": true,
+      "confType": "DEFINITION",
+      "fieldValue": { "switch": true }
+    },
+    "selectionsConf": {
+      "show": true,
+      "confType": "SELECTIONS",
+      "fieldValue": { "switch": true }
+    },
+    "nextConf": {
+      "show": true,
+      "confType": "NEXT",
+      "fieldValue": { "switch": true }
+    },
+    "editDmConf": {
+      "show": true,
+      "confType": "EDITDM",
+      "fieldValue": { "switch": true }
+    },
+    "smallWindowConf": {
+      "show": true,
+      "confType": "SMALLWINDOW",
+      "fieldValue": { "switch": true }
+    },
+    "shakeConf": {
+      "show": true,
+      "confType": "SHAKE",
+      "fieldValue": { "switch": true }
+    },
+    "outerDmConf": {
+      "show": true,
+      "confType": "OUTERDM",
+      "fieldValue": { "switch": true }
+    },
+    "innerDmDisable": {
+      "show": true,
+      "confType": "INNERDM",
+      "fieldValue": { "switch": true }
+    },
+    "innerDmConf": {
+      "show": true,
+      "confType": "PANORAMA",
+      "fieldValue": { "switch": true }
+    },
+    "dolbyConf": {
+      "show": true,
+      "confType": "DOLBY",
+      "fieldValue": { "switch": true }
+    },
+    "colorFilterConf": {
+      "show": true,
+      "confType": "COLORFILTER",
+      "fieldValue": { "switch": true }
+    },
+    "lossLessConf": {
+      "show": true,
+      "confType": "LOSSLESS",
+      "fieldValue": { "switch": true }
+    }
+  },
+  "chronos": {
+    "md5": "5699284525ce4eb7a374aa08b5937eb1",
+    "file": "http://i0.hdslb.com/bfs/app-static/d51f6704f877c7b8009ebb67c19aab089b33a7c9.zip"
+  },
+  "playArc": {
+    "backgroundPlayConf": { "isSupport": true, "unsupportScene": ["1"] },
+    "flipConf": { "isSupport": true },
+    "castConf": { "unsupportScene": ["1"] },
+    "feedbackConf": { "isSupport": true, "unsupportScene": ["1"] },
+    "subtitleConf": { "isSupport": true },
+    "playbackRateConf": { "isSupport": true, "unsupportScene": ["1"] },
+    "timeUpConf": { "isSupport": true, "unsupportScene": ["1"] },
+    "playbackModeConf": { "isSupport": true, "unsupportScene": ["1"] },
+    "scaleModeConf": { "isSupport": true },
+    "likeConf": { "isSupport": true },
+    "dislikeConf": { "isSupport": true },
+    "coinConf": { "isSupport": true },
+    "elecConf": { "isSupport": true },
+    "shareConf": { "isSupport": true },
+    "screenShotConf": { "isSupport": true },
+    "lockScreenConf": { "isSupport": true },
+    "recommendConf": { "isSupport": true },
+    "playbackSpeedConf": { "isSupport": true },
+    "definitionConf": { "isSupport": true },
+    "selectionsConf": {},
+    "nextConf": {},
+    "editDmConf": { "isSupport": true },
+    "smallWindowConf": { "isSupport": true, "unsupportScene": ["1"] },
+    "shakeConf": {},
+    "outerDmConf": { "isSupport": true },
+    "innerDmConf": { "isSupport": true },
+    "panoramaConf": {},
+    "dolbyConf": {},
+    "screenRecordingConf": { "isSupport": true },
+    "colorFilterConf": { "isSupport": true },
+    "lossLessConf": {}
+  }
+}

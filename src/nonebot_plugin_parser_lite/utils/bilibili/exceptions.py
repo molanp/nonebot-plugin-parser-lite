@@ -14,14 +14,6 @@ class BiliHelperException(Exception):
         return self.msg
 
 
-class CookieInvalidException(BiliHelperException):
-    """
-    Cookie 无效
-    """
-
-    pass
-
-
 class CookiesRefreshException(BiliHelperException):
     """
     Cookie 刷新失败

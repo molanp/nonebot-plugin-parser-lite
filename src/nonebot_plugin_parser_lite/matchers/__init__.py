@@ -114,7 +114,7 @@ def register_parser_matcher() -> None:
 
 
 @driver.on_shutdown
-async def close_httpx() -> None:
+async def close_http_clients() -> None:
     await asyncio.gather(
         *(parser.aclose() for parser in _ALL_PARSERS),
         DOWNLOADER.aclose(),

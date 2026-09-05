@@ -26,8 +26,6 @@ def parse_hm_to_minutes(value: str) -> int:
 
 
 class Config(BaseModel):
-    plite_bili_ck: str | None = None
-    """bilibili cookies"""
     plite_zhihu_ck: str | None = None
     """知乎 cookies"""
     plite_linuxdo_ck: str | None = None
@@ -132,11 +130,6 @@ class Config(BaseModel):
     def bili_video_quality(self) -> BiliVideoQuality:
         """B站视频清晰度"""
         return self.plite_bili_video_quality
-
-    @property
-    def bili_ck(self) -> str | None:
-        """bilibili cookies"""
-        return self.plite_bili_ck
 
     @property
     def zhihu_ck(self) -> str | None:

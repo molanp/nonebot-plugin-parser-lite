@@ -1,4 +1,4 @@
-from collections.abc import Coroutine
+from collections.abc import Coroutine, Sequence
 from typing import Any, Literal, Protocol, TypeVar, runtime_checkable
 
 from anyio import Path
@@ -454,7 +454,7 @@ class Creator:
     @staticmethod
     def comment(
         author: Author,
-        content: list[ContentItem],
+        content: Sequence[ContentItem],
         timestamp: int | None = None,
         stats: Stats | None = None,
         replies: list[Comment] | None = None,
@@ -477,7 +477,7 @@ class Creator:
             replies = []
         return Comment(
             author=author,
-            content=content,
+            content=list(content),
             timestamp=timestamp,
             stats=stats or Stats(),
             replies=replies,

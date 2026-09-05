@@ -1,0 +1,426 @@
+{
+  "code": 0,
+  "data": {
+    "actor": {
+      "info": "辉夜：夏吉优子\n酒寄彩叶：永濑安娜\n月见八千代：早见沙织\n帝彰：入野自由\n驹泽雷：内田雄马\n驹泽乃依：松冈祯丞\n绫䌷芦花：青山吉能\n谏山真实：小原好美\n不死：钉宫理惠\n忠犬宅公：菲鲁兹蓝\n乙事照琴：花江夏树",
+      "title": "角色声优"
+    },
+    "alias": "超时空辉夜姬,超时空辉耀姬,超辉耀姬",
+    "all_buttons": {
+      "watch_formal": "看正片"
+    },
+    "all_up_infos": {},
+    "areas": [
+      {
+        "id": 2,
+        "name": "日本"
+      }
+    ],
+    "badge": "独家",
+    "badge_info": {
+      "bg_color": "#00C0FF",
+      "bg_color_night": "#0B91BE",
+      "text": "独家"
+    },
+    "cover": "https://i0.hdslb.com/bfs/bangumi/image/e840f9073cae566f7bdc48bb41eca418617c93af.png",
+    "detail": "详情",
+    "dynamic_subtitle": "电线杆中的月亮公主",
+    "earphone_conf": {
+      "sp_phones": []
+    },
+    "enable_vt": false,
+    "evaluate": "在梦与希望汇聚的虚拟空间，少女们相遇又离别的舞台即将拉开帷幕。\n在不远的未来，在东京的重点高中学习的17岁女生酒寄彩叶过着半工半读的超忙碌生活。\n她每天的精神慰藉仅有网上虚拟空间「月夜见」的管理者兼人气主播的月见八千代。\n在「月夜见」，大家可以创造自己的分身，自由从事创作活动。彩叶一边追偶像八千代，一边通过对战游戏攒零花钱。\n一天，彩叶在回家路上见到了一根放出七彩光芒的游艺电线杆。其中出现的，居然是一个可爱的婴儿。\n彩叶把婴儿带回家，没想到它转眼间便长大，成了一个和彩叶年纪相仿的女孩子。\n「你难道…是辉夜公主吗？」\n长大后的辉夜公主任性妄为。彩叶答应了她的（任性）请求，帮助她开始了主播活动。\n彩叶作为制作人创作歌曲，辉夜则作为主播负责演唱，两人逐渐亲密起来。\n然而不祥的阴影已经迫近，要将辉夜带回月亮去……",
+    "follow_layer": {
+      "info": "关注UP主，再也不迷路(๑•̀ㅂ•́)",
+      "title": "追番成功"
+    },
+    "icon_font": {
+      "name": "playdata-square-line@500",
+      "text": "66.3万"
+    },
+    "link": "http://www.bilibili.com/bangumi/media/md305846190/",
+    "media_badge_info": {
+      "bg_color": "#00C0FF",
+      "bg_color_night": "#0B91BE",
+      "text": "独家"
+    },
+    "media_id": 305846190,
+    "mode": 2,
+    "modules": [
+      {
+        "data": {
+          "episodes": [
+            {
+              "aid": 115966650354037,
+              "badge": "会员",
+              "badge_info": {
+                "bg_color": "#FB7299",
+                "bg_color_night": "#D44E7D",
+                "text": "会员"
+              },
+              "badge_type": 0,
+              "bvid": "BV1aH6gBJEBr",
+              "cid": 41352760536,
+              "cover": "https://i0.hdslb.com/bfs/bangumi/image/3f0096b21dfac69482672963e410bcf006ac0956.png",
+              "dimension": {
+                "height": 1080,
+                "rotate": 0,
+                "width": 1920
+              },
+              "duration": 8408987,
+              "enable_vt": false,
+              "ep_id": 2782159,
+              "ep_index": 1,
+              "from": "bangumi",
+              "icon_font": {
+                "name": "playdata-square-line@500",
+                "text": ""
+              },
+              "id": 2782159,
+              "is_view_hide": false,
+              "link": "https://www.bilibili.com/bangumi/play/ep2782159?theme=movie",
+              "long_title": "",
+              "pub_time": 1769076000,
+              "pv": 0,
+              "release_date": "",
+              "report": {
+                "aid": "115966650354037",
+                "ep_title": "全片",
+                "epid": "2782159",
+                "position": "",
+                "season_id": "142945",
+                "season_type": "1",
+                "section_id": "308546",
+                "section_type": "0",
+                "style": "0"
+              },
+              "rights": {
+                "allow_dm": 1,
+                "allow_download": 0,
+                "area_limit": 0,
+                "cache_auth": 0
+              },
+              "section_index": 1,
+              "section_type": 0,
+              "share_copy": "《超辉夜姬！》全片 ",
+              "share_url": "https://www.bilibili.com/bangumi/play/ep2782159",
+              "short_link": "https://b23.tv/ep2782159",
+              "showDrmLoginDialog": false,
+              "show_title": "全片",
+              "skip": {
+                "ed": {
+                  "end": 0,
+                  "start": 0
+                },
+                "op": {
+                  "end": 0,
+                  "start": 0
+                }
+              },
+              "stat": {
+                "coin": 56340,
+                "danmakus": 0,
+                "likes": 62975,
+                "play": 0,
+                "reply": 10598,
+                "vt": 0
+              },
+              "stat_for_unity": {
+                "coin": 56340,
+                "danmaku": {
+                  "icon": "danmu-square-line@500",
+                  "pure_text": "",
+                  "text": "",
+                  "value": 0
+                },
+                "likes": 62975,
+                "reply": 10598,
+                "vt": {
+                  "icon": "playdata-square-line@500",
+                  "pure_text": "播放",
+                  "text": "",
+                  "value": 0
+                }
+              },
+              "status": 13,
+              "subtitle": "已观看66.3万次",
+              "title": "全片",
+              "vid": ""
+            }
+          ]
+        },
+        "id": 1,
+        "module_style": {
+          "hidden": 0,
+          "line": 1
+        },
+        "more": "",
+        "report": {
+          "season_id": "142945",
+          "season_type": "1",
+          "sec_title": "选集",
+          "section_id": "308546",
+          "section_type": "0"
+        },
+        "style": "positive",
+        "title": "选集"
+      }
+    ],
+    "new_ep": {
+      "desc": "已完结, 全1话",
+      "id": 2782159,
+      "is_new": 0,
+      "more": "",
+      "title": "全片"
+    },
+    "new_keep_activity_material": {
+      "activityId": 58
+    },
+    "origin_name": "超かぐや姫！",
+    "paster": {
+      "aid": 0,
+      "allow_jump": 0,
+      "cid": 0,
+      "duration": 0,
+      "type": 0,
+      "url": ""
+    },
+    "payment": {
+      "dialog": {},
+      "pay_tip": {
+        "primary": {
+          "angle_style": 0,
+          "bg_day_color": "#FB7299",
+          "bg_line_color": "#FB7299",
+          "bg_night_color": "#FB7299",
+          "bg_night_line_color": "#FB7299",
+          "icon": "http://i0.hdslb.com/bfs/bangumi/image/3bebac3d074e35aca845a4036ba2a8a0e658cb5d.png",
+          "order_report_params": {
+            "season_id": "142945",
+            "season_type": "1",
+            "season_status": "13"
+          },
+          "report": {
+            "click_event_id": "pgc.pgc-video-detail.vip-open-banner.0.click",
+            "extends": {
+              "season_id": "142945",
+              "season_type": "1",
+              "season_status": "13",
+              "vip_due_date": ""
+            },
+            "show_event_id": "pgc.pgc-video-detail.vip-open-banner.0.show"
+          },
+          "showTypeEnum": "ICON_TEXT",
+          "show_type": 2,
+          "text_color": "#FFFFFF",
+          "text_night_color": "#FFFFFF",
+          "title": "成为大会员观看",
+          "type": 1,
+          "url": "",
+          "url_open_type": 0,
+          "view_start_time": 0
+        }
+      },
+      "pay_type": {
+        "allow_ticket": 0
+      },
+      "price": "0",
+      "report_type": 0,
+      "tv_price": "0",
+      "vip_discount_price": "0",
+      "vip_promotion": ""
+    },
+    "play_strategy": {
+      "auto_play_toast": "即将播放：",
+      "recommend_show_strategy": 0,
+      "strategies": [
+        "common_section-formal_first_ep",
+        "common_section-common_section",
+        "common_section-next_season",
+        "formal-finish-next_season",
+        "formal-end-other_section",
+        "formal-end-next_season",
+        "ord"
+      ]
+    },
+    "producer": {
+      "list": [
+        {
+          "avatar": "https://i1.hdslb.com/bfs/face/040528a1ec634b9907ba3a9ba957819bb07def06.jpg",
+          "follower": 9026648,
+          "identity": {
+            "desc": "播出",
+            "type": 3
+          },
+          "is_follow": 0,
+          "mid": 928123,
+          "theme_type": 0,
+          "uname": "哔哩哔哩番剧",
+          "upper_type": 1,
+          "verify_type": 3,
+          "verify_type2": 1,
+          "vip_label": {
+            "label_theme": "ten_annual_vip",
+            "path": "http://i0.hdslb.com/bfs/vip/label_annual.png",
+            "text": "十年大会员"
+          },
+          "vip_status": 1,
+          "vip_type": 2
+        }
+      ],
+      "title": "相关UP主",
+      "total": 1
+    },
+    "producer_title": "相关UP主",
+    "publish": {
+      "is_finish": 1,
+      "is_started": 1,
+      "pub_time": "2026-01-22 18:00:00",
+      "pub_time_show": "敬请期待",
+      "release_date_show": "敬请期待",
+      "time_length_show": "已完结，全1话",
+      "unknow_pub_date": 1,
+      "update_info_desc": "已完结，全1话",
+      "weekday": 0
+    },
+    "rating": {
+      "count": 17377,
+      "score": 9.8
+    },
+    "record": "",
+    "refine_cover": "https://i0.hdslb.com/bfs/bangumi/image/7fa3f571f22a14f400f3c5aac0bf594ab55856e1.png",
+    "reserve": {
+      "episodes": [],
+      "tip": "资源更新后WiFi或免流环境下将自动下载"
+    },
+    "rights": {
+      "allow_bp": 0,
+      "allow_bp_rank": 0,
+      "allow_download": 0,
+      "allow_review": 1,
+      "area_limit": 0,
+      "ban_area_show": 1,
+      "can_watch": 1,
+      "copyright": "dujia",
+      "copyright_name": "独家",
+      "forbid_pre": 0,
+      "freya_white": 0,
+      "is_cover_show": 0,
+      "is_preview": 1,
+      "is_sponsor": 0,
+      "only_vip_download": 1,
+      "resource": "",
+      "watch_platform": 0
+    },
+    "season_id": 142945,
+    "season_title": "超辉夜姬！",
+    "series": {
+      "display_type": 0,
+      "series_id": 7995,
+      "series_title": "超辉夜姬！"
+    },
+    "share_copy": "《超辉夜姬！》电线杆中的月亮公主",
+    "share_url": "https://www.bilibili.com/bangumi/play/ss142945",
+    "short_link": "https://b23.tv/ss142945",
+    "show_season_type": 1,
+    "square_cover": "https://i0.hdslb.com/bfs/bangumi/image/2cad13348c5ee5d86c31486284f022fd783726e0.png",
+    "staff": {
+      "info": "导演：山下清悟\n主题曲：月见八千代（cv早见沙织）\n插曲提供：ryo（supercell）、yuigot、Aqu3ra、HoneyWorks、40mP、kz（livetune）\n编剧：夏生纱绘里、山下清悟\n月夜见角色设计：Hechima\n现实世界角色设计：永江彰浩\n演唱会导演：中山直哉\n美术导演：宍户太一\n色彩设计：广濑泉\n月夜见主题设计：东水溜、藤本金（Gokinjo）\n现实世界主题设计：刈谷仁美\nCG导演：町田政弥（StimulusImage）\nCG背景：草间彻也（QuunPlant）\n剪辑：木南凉太\n摄影导演：千叶大辅（Folium）\n音乐：Conisch\n音响导演：三好庆一郎\n策划·制片人：山本幸治\n出品：Colorido、Twinengine Partners\n制作：Studio Colorido、Studio Chromato",
+      "title": "制作信息"
+    },
+    "stat": {
+      "coins": 56340,
+      "danmakus": 23294,
+      "favorite": 48253,
+      "favorites": 111277,
+      "followers": "11.1万追番",
+      "likes": 62975,
+      "play": "66.3万播放",
+      "reply": 10598,
+      "share": 36597,
+      "views": 662919,
+      "vt": 0
+    },
+    "status": 13,
+    "styles": [
+      {
+        "id": 10010,
+        "name": "原创",
+        "url": "bilibili://pgc/common/index?style_id=10010&area=2"
+      },
+      {
+        "id": 10018,
+        "name": "奇幻",
+        "url": "bilibili://pgc/common/index?style_id=10018&area=2"
+      },
+      {
+        "id": 10040,
+        "name": "音乐",
+        "url": "bilibili://pgc/common/index?style_id=10040&area=2"
+      }
+    ],
+    "subtitle": "已观看66.3万次",
+    "test_switch": {
+      "channel_entrance_exp_action": 0,
+      "enable_ep_vt": false,
+      "follow_guide": false,
+      "hide_ep_vv_vt_dm": 1,
+      "is_merge_preview_section": false,
+      "is_ogv_fav_exp": true,
+      "mergeSeasonEpUpperExp": 1,
+      "movie_mark_action": 0,
+      "optimize_display_info_exp": 0,
+      "player_ip_community_exp": 0,
+      "pugv_feed_exp": {
+        "is_open": true,
+        "related_rcmd_card_hide_threshold": 8,
+        "related_rcmd_tip_title": "查看更多",
+        "section_id": -2,
+        "title": "更多推荐"
+      },
+      "short_space_title_exp": 0,
+      "was_freya_double": 0,
+      "was_hit_four_crowd": 1,
+      "was_ios_pip_exp": true,
+      "was_merge_exp": false,
+      "was_pugv_style_optimize": true
+    },
+    "title": "超辉夜姬！",
+    "total": 1,
+    "type": 1,
+    "type_desc": "2026 | 番剧 | 原创、奇幻、音乐",
+    "type_name": "番剧",
+    "up_info": {
+      "avatar": "https://i1.hdslb.com/bfs/face/040528a1ec634b9907ba3a9ba957819bb07def06.jpg",
+      "follower": 9026648,
+      "is_follow": 0,
+      "mid": 928123,
+      "pendant": {
+        "image": "",
+        "name": "",
+        "pid": 0
+      },
+      "theme_type": 0,
+      "uname": "哔哩哔哩番剧",
+      "verify_type": 3,
+      "vip_label": {
+        "label_theme": "ten_annual_vip",
+        "path": "http://i0.hdslb.com/bfs/vip/label_annual.png",
+        "text": "十年大会员"
+      },
+      "vip_status": 1,
+      "vip_type": 2
+    },
+    "user_status": {
+      "follow": 0,
+      "follow_bubble": 0,
+      "follow_status": 2,
+      "pay": 0,
+      "pay_for": 0,
+      "sponsor": 0,
+      "vip": 0,
+      "vip_frozen": 0
+    }
+  },
+  "message": "success"
+}

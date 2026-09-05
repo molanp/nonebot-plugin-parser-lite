@@ -1,0 +1,548 @@
+{
+  "item": {
+    "card_type": "forward",
+    "item_type": "av",
+    "modules": [
+      {
+        "module_type": "module_top",
+        "module_top": {
+          "tp_list": [
+            {
+              "type": "wait",
+              "wait": {
+                "addition_icon": "https://i0.hdslb.com/bfs/feed-admin/cd2c0336016c2a1b44dc7b2d1a30f51ac2e75974.png",
+                "addition_text": "已经添加至稍后再看",
+                "no_addition_icon": "https://i0.hdslb.com/bfs/feed-admin/cd2c0336016c2a1b44dc7b2d1a30f51ac2e75974.png",
+                "no_addition_text": "稍后再看",
+                "id": "117205010225182"
+              }
+            },
+            {
+              "type": "report",
+              "default": {
+                "icon": "https://i0.hdslb.com/bfs/app/63650970553f374b4c6a4a573e0ea19f75e85395.png",
+                "title": "举报",
+                "uri": "bilibili://following/report?dynamicId=1243791489236992037&uid=66938743&title=%E9%B8%A1%E6%8E%92%E7%AC%AC%E4%B8%80%E7%BE%8E%E5%B0%91%E5%A5%B3%E6%81%8B%3A%20%E5%8A%A8%E6%80%81"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "module_type": "module_author",
+        "module_author": {
+          "mid": "66938743",
+          "ptime_label_text": "2026年9月3日 10:26",
+          "author": {
+            "mid": "66938743",
+            "name": "鸡排第一美少女恋",
+            "face": "https://i1.hdslb.com/bfs/face/8a4ef6f95825c20d713ef077fe3607b86f6dcde6.jpg",
+            "official": {
+              "type": -1
+            },
+            "vip": {
+              "Type": 2,
+              "status": 1,
+              "due_date": "1801238400000",
+              "label": {
+                "path": "http://i0.hdslb.com/bfs/vip/label_annual.png",
+                "text": "年度大会员",
+                "label_theme": "annual_vip"
+              },
+              "avatar_subscript": 1,
+              "nickname_color": "#FB7299"
+            },
+            "uri": "bilibili://space/66938743?defaultTab=dynamic",
+            "pendant": {
+              "pid": "1718601217001",
+              "name": "星引擎party闪亮启航 头像框",
+              "image": "https://i1.hdslb.com/bfs/garb/open/d0e02b689a8c6d0c99e256cc2d779d83c9f5e9ae.png"
+            },
+            "nameplate": {},
+            "level": 5,
+            "avatar": {
+              "container_size": {
+                "width": 1.375,
+                "height": 1.375
+              },
+              "fallback_layers": {
+                "layers": [
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 2,
+                        "axis_x": 0.6875,
+                        "axis_y": 0.6875
+                      },
+                      "size_spec": {
+                        "width": 0.787,
+                        "height": 0.787
+                      },
+                      "render_spec": {
+                        "opacity": 1.0
+                      }
+                    },
+                    "layer_config": {
+                      "tags": {
+                        "AVATAR_LAYER": {}
+                      },
+                      "is_critical": true,
+                      "layer_mask": {
+                        "general_spec": {
+                          "pos_spec": {
+                            "coordinate_pos": 2,
+                            "axis_x": 0.6875,
+                            "axis_y": 0.6875
+                          },
+                          "size_spec": {
+                            "width": 0.787,
+                            "height": 0.787
+                          },
+                          "render_spec": {
+                            "opacity": 1.0
+                          }
+                        },
+                        "mask_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": {
+                              "day": {
+                                "argb": "#FF000000"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 1,
+                          "placeholder": 6,
+                          "remote": {
+                            "url": "https://i1.hdslb.com/bfs/face/8a4ef6f95825c20d713ef077fe3607b86f6dcde6.jpg",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 2,
+                        "axis_x": 0.6875,
+                        "axis_y": 0.6875
+                      },
+                      "size_spec": {
+                        "width": 1.375,
+                        "height": 1.375
+                      },
+                      "render_spec": {
+                        "opacity": 1.0
+                      }
+                    },
+                    "layer_config": {
+                      "tags": {
+                        "PENDENT_LAYER": {}
+                      }
+                    },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 1,
+                          "remote": {
+                            "url": "https://i1.hdslb.com/bfs/garb/open/d0e02b689a8c6d0c99e256cc2d779d83c9f5e9ae.png",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 0.8059999999999999,
+                        "axis_y": 0.8226666666666665
+                      },
+                      "size_spec": {
+                        "width": 0.35,
+                        "height": 0.35
+                      },
+                      "render_spec": {
+                        "opacity": 1.0
+                      }
+                    },
+                    "layer_config": {
+                      "tags": {
+                        "ICON_LAYER": {}
+                      }
+                    },
+                    "resource": {
+                      "res_type": 5,
+                      "res_native_draw": {
+                        "draw_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": {
+                              "is_dark_mode_aware": true,
+                              "day": {
+                                "argb": "#FFFFFFFF"
+                              },
+                              "night": {
+                                "argb": "#FF17181A"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 0.831,
+                        "axis_y": 0.8476666666666666
+                      },
+                      "size_spec": {
+                        "width": 0.3,
+                        "height": 0.3
+                      },
+                      "render_spec": {
+                        "opacity": 1.0
+                      }
+                    },
+                    "layer_config": {
+                      "tags": {
+                        "ICON_LAYER": {}
+                      }
+                    },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 2,
+                          "local": "LOCAL_RES_ICON_VIP"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "is_critical_group": true
+              },
+              "mid": "66938743"
+            }
+          },
+          "decorate_card": {
+            "id": "69184",
+            "card_url": "https://i0.hdslb.com/bfs/garb/open/7552605786068c620b88222b726475a5642086e5.png",
+            "jump_url": "https://www.bilibili.com/h5/mall/digital-card/home?act_id=102438&lottery_id=0&hybrid_set_header=2&anchor_task=1&navhide=1&f_source=garb&from=post&window_params=%7B%22type%22%3A2%2C%22mid%22%3A66938743%7D",
+            "fan": {
+              "is_fan": 1,
+              "number": 732,
+              "number_str": "000732",
+              "color": "#E5B261"
+            }
+          },
+          "relation": {
+            "status": "relation_status_nofollow",
+            "title": "未关注"
+          },
+          "show_follow": true
+        }
+      },
+      {
+        "module_type": "module_desc",
+        "module_desc": {
+          "desc": [
+            {
+              "text": "[星引擎party闪亮启航 表情包_贴贴]",
+              "type": "desc_type_emoji",
+              "uri": "https://i0.hdslb.com/bfs/garb/e6af0302cab0bf3479f1aa39f56a016ec607070e.png",
+              "orig_text": "[星引擎party闪亮启航 表情包_贴贴]",
+              "emoji_size": 2,
+              "emoji_size_spec": {
+                "width": "46"
+              }
+            },
+            {
+              "text": "我来帮你~\n(消化奖品)\n(黑幕我！）",
+              "type": "desc_type_text",
+              "orig_text": "我来帮你~\n(消化奖品)\n(黑幕我！）"
+            }
+          ],
+          "text": "[星引擎party闪亮启航 表情包_贴贴]我来帮你~\n(消化奖品)\n(黑幕我！）"
+        }
+      },
+      {
+        "module_type": "module_dynamic",
+        "module_dynamic": {
+          "type": "mdl_dyn_forward",
+          "dyn_forward": {
+            "item": {
+              "card_type": "av",
+              "modules": [
+                {
+                  "module_type": "module_author_forward",
+                  "module_author_forward": {
+                    "title": [
+                      {
+                        "text": "@好姐妹葛之葉千岁",
+                        "url": "bilibili://space/1065743758?defaultTab=dynamic"
+                      }
+                    ],
+                    "uid": "1065743758",
+                    "ptime_label_text": "22小时前 · 与他人联合创作",
+                    "show_follow": true,
+                    "face_url": "https://i1.hdslb.com/bfs/face/43c2113cd1ea7d3bf1364f74dfbfdcf8c768c03b.jpg",
+                    "relation": {
+                      "status": "relation_status_nofollow",
+                      "title": "未关注"
+                    },
+                    "tp_list": [
+                      {
+                        "type": "report",
+                        "default": {
+                          "icon": "https://i0.hdslb.com/bfs/app/63650970553f374b4c6a4a573e0ea19f75e85395.png",
+                          "title": "举报",
+                          "uri": "bilibili://following/report?dynamicId=1243784823416291461&uid=1065743758&title=%E5%A5%BD%E5%A7%90%E5%A6%B9%E8%91%9B%E4%B9%8B%E8%91%89%E5%8D%83%E5%B2%81%3A%20%E8%A7%86%E9%A2%91"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "module_type": "module_dynamic",
+                  "module_dynamic": {
+                    "dyn_archive": {
+                      "title": "【星趴x魔裁】帮帮我恋恋大人!/HELP ME RENSAMAAA!",
+                      "cover": "http://i2.hdslb.com/bfs/archive/541c43481f379a6eccff3b57f21e5b8236d180d3.jpg",
+                      "uri": "bilibili://video/117205010225182?aid=117205010225182&cid=41539274091&player_height=2160&player_preload=%7B%22expire_time%22%3A1788514252%2C%22cid%22%3A41539274091%2C%22quality%22%3A16%2C%22file_info%22%3A%7B%2216%22%3A%7B%22infos%22%3A%5B%7B%22filesize%22%3A4501549%2C%22timelength%22%3A60033%7D%5D%7D%7D%2C%22video_codecid%22%3A7%2C%22video_project%22%3Atrue%2C%22url%22%3A%22http%3A%2F%2Fupos-sz-302ppio.bilivideo.com%2Fupgcxcode%2F91%2F40%2F41539274091%2F41539274091-1-16.mp4%3Fe%3Dig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026oi%3D2067146228%5Cu0026platform%3Dandroid_tv_yst%5Cu0026mid%3D0%5Cu0026trid%3D298aa2d927cd447c9308bd1a60938b3U%5Cu0026nbs%3D1%5Cu0026gen%3Dplayurlv3%5Cu0026os%3D302ppio%5Cu0026og%3Dhw%5Cu0026uipk%3D5%5Cu0026deadline%3D1788517852%5Cu0026upsig%3D5b486960fa43ca9c12f95db91526c886%5Cu0026uparams%3De%2Coi%2Cplatform%2Cmid%2Ctrid%2Cnbs%2Cgen%2Cos%2Cog%2Cuipk%2Cdeadline%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D600206%5Cu0026lrs%3D14%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026agrr%3D1%5Cu0026buvid%3D%5Cu0026build%3D7320200%5Cu0026orderid%3D0%2C3%22%2C%22accept_formats%22%3A%5B%7B%22quality%22%3A64%2C%22format%22%3A%22mp4720%22%2C%22description%22%3A%22%E9%AB%98%E6%B8%85%20720P%22%2C%22new_description%22%3A%22720P%20%E5%87%86%E9%AB%98%E6%B8%85%22%2C%22display_desc%22%3A%22720P%22%2C%22need_login%22%3Atrue%7D%2C%7B%22quality%22%3A16%2C%22format%22%3A%22mp4%22%2C%22description%22%3A%22%E6%B5%81%E7%95%85%20360P%22%2C%22new_description%22%3A%22360P%20%E6%B5%81%E7%95%85%22%2C%22display_desc%22%3A%22360P%22%7D%5D%2C%22backup_url%22%3A%5B%22http%3A%2F%2Fupos-sz-estghw.bilivideo.com%2Fupgcxcode%2F91%2F40%2F41539274091%2F41539274091-1-16.mp4%3Fe%3Dig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026platform%3Dandroid_tv_yst%5Cu0026mid%3D0%5Cu0026uipk%3D5%5Cu0026trid%3D298aa2d927cd447c9308bd1a60938b3U%5Cu0026deadline%3D1788517852%5Cu0026gen%3Dplayurlv3%5Cu0026og%3Dhw%5Cu0026oi%3D2067146228%5Cu0026nbs%3D1%5Cu0026os%3Destghw%5Cu0026upsig%3D96d90a065883cd46aa4a7b0e9771bc9e%5Cu0026uparams%3De%2Cplatform%2Cmid%2Cuipk%2Ctrid%2Cdeadline%2Cgen%2Cog%2Coi%2Cnbs%2Cos%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D600206%5Cu0026lrs%3D14%5Cu0026agrr%3D1%5Cu0026buvid%3D%5Cu0026build%3D7320200%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026orderid%3D1%2C3%22%2C%22http%3A%2F%2Fupos-sz-mirrorhw.bilivideo.com%2Fupgcxcode%2F91%2F40%2F41539274091%2F41539274091-1-16.mp4%3Fe%3Dig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026platform%3Dandroid_tv_yst%5Cu0026nbs%3D1%5Cu0026trid%3D298aa2d927cd447c9308bd1a60938b3U%5Cu0026gen%3Dplayurlv3%5Cu0026os%3Dhwbv%5Cu0026oi%3D2067146228%5Cu0026mid%3D0%5Cu0026uipk%3D5%5Cu0026deadline%3D1788517852%5Cu0026og%3Dhw%5Cu0026upsig%3Dffa1b427ca1aae2d51e30283bbe83f46%5Cu0026uparams%3De%2Cplatform%2Cnbs%2Ctrid%2Cgen%2Cos%2Coi%2Cmid%2Cuipk%2Cdeadline%2Cog%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D600206%5Cu0026lrs%3D14%5Cu0026agrr%3D1%5Cu0026buvid%3D%5Cu0026build%3D7320200%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026orderid%3D2%2C3%22%5D%2C%22union_player%22%3A%7B%22biz_type%22%3A1%2C%22dimension%22%3A%7B%22width%22%3A3840%2C%22height%22%3A2160%7D%2C%22aid%22%3A117205010225182%7D%2C%22extra_info%22%3A%7B%7D%7D&player_rotate=0&player_width=3840",
+                      "cover_left_text_1": "01:01",
+                      "cover_left_text_2": "1.7万播放",
+                      "cover_left_text_3": "5弹幕",
+                      "avid": "117205010225182",
+                      "cid": "41539274091",
+                      "media_type": "MediaTypeUGC",
+                      "dimension": {
+                        "height": "2160",
+                        "width": "3840"
+                      },
+                      "badge": [
+                        {
+                          "text": "合作",
+                          "text_color": "#FFFFFF",
+                          "text_color_night": "#E5E5E5",
+                          "bg_color": "#FB7299",
+                          "bg_color_night": "#BB5B76",
+                          "border_color": "#FB7299",
+                          "border_color_night": "#BB5B76",
+                          "bg_style": 1
+                        }
+                      ],
+                      "can_play": true,
+                      "play_icon": "https://i0.hdslb.com/bfs/feed-admin/2269afa7897830b397797ebe5f032b899b405c67.png",
+                      "duration": "61",
+                      "bvid": "BV1KWt96eEKf"
+                    }
+                  }
+                },
+                {
+                  "module_type": "module_stat_forward",
+                  "module_stat_forward": {
+                    "like": "2559",
+                    "reply": "975",
+                    "like_info": {},
+                    "no_comment_text": "这条动态已被封印，当前不可评论╮(๑•́ ₃•̀๑)╭",
+                    "no_forward_text": "这条动态已被封印，当前不可转发╮(๑•́ ₃•̀๑)╭"
+                  }
+                }
+              ],
+              "extend": {
+                "dyn_id_str": "1243784823416291461",
+                "business_id": "117205010225182",
+                "orig_name": "好姐妹葛之葉千岁",
+                "orig_img_url": "http://i2.hdslb.com/bfs/archive/541c43481f379a6eccff3b57f21e5b8236d180d3.jpg",
+                "orig_desc": [
+                  {
+                    "text": "【星趴x魔裁】帮帮我恋恋大人!/HELP ME RENSAMAAA!",
+                    "type": "desc_type_text",
+                    "orig_text": "【星趴x魔裁】帮帮我恋恋大人!/HELP ME RENSAMAAA!"
+                  }
+                ],
+                "share_type": "3",
+                "share_scene": "dynamic",
+                "is_fast_share": true,
+                "dyn_type": "8",
+                "uid": "1065743758",
+                "card_url": "bilibili://video/117205010225182?aid=117205010225182&cid=41539274091&player_height=2160&player_preload=%7B%22expire_time%22%3A1788514252%2C%22cid%22%3A41539274091%2C%22quality%22%3A16%2C%22file_info%22%3A%7B%2216%22%3A%7B%22infos%22%3A%5B%7B%22filesize%22%3A4501549%2C%22timelength%22%3A60033%7D%5D%7D%7D%2C%22video_codecid%22%3A7%2C%22video_project%22%3Atrue%2C%22url%22%3A%22http%3A%2F%2Fupos-sz-302ppio.bilivideo.com%2Fupgcxcode%2F91%2F40%2F41539274091%2F41539274091-1-16.mp4%3Fe%3Dig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026oi%3D2067146228%5Cu0026platform%3Dandroid_tv_yst%5Cu0026mid%3D0%5Cu0026trid%3D298aa2d927cd447c9308bd1a60938b3U%5Cu0026nbs%3D1%5Cu0026gen%3Dplayurlv3%5Cu0026os%3D302ppio%5Cu0026og%3Dhw%5Cu0026uipk%3D5%5Cu0026deadline%3D1788517852%5Cu0026upsig%3D5b486960fa43ca9c12f95db91526c886%5Cu0026uparams%3De%2Coi%2Cplatform%2Cmid%2Ctrid%2Cnbs%2Cgen%2Cos%2Cog%2Cuipk%2Cdeadline%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D600206%5Cu0026lrs%3D14%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026agrr%3D1%5Cu0026buvid%3D%5Cu0026build%3D7320200%5Cu0026orderid%3D0%2C3%22%2C%22accept_formats%22%3A%5B%7B%22quality%22%3A64%2C%22format%22%3A%22mp4720%22%2C%22description%22%3A%22%E9%AB%98%E6%B8%85%20720P%22%2C%22new_description%22%3A%22720P%20%E5%87%86%E9%AB%98%E6%B8%85%22%2C%22display_desc%22%3A%22720P%22%2C%22need_login%22%3Atrue%7D%2C%7B%22quality%22%3A16%2C%22format%22%3A%22mp4%22%2C%22description%22%3A%22%E6%B5%81%E7%95%85%20360P%22%2C%22new_description%22%3A%22360P%20%E6%B5%81%E7%95%85%22%2C%22display_desc%22%3A%22360P%22%7D%5D%2C%22backup_url%22%3A%5B%22http%3A%2F%2Fupos-sz-estghw.bilivideo.com%2Fupgcxcode%2F91%2F40%2F41539274091%2F41539274091-1-16.mp4%3Fe%3Dig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026platform%3Dandroid_tv_yst%5Cu0026mid%3D0%5Cu0026uipk%3D5%5Cu0026trid%3D298aa2d927cd447c9308bd1a60938b3U%5Cu0026deadline%3D1788517852%5Cu0026gen%3Dplayurlv3%5Cu0026og%3Dhw%5Cu0026oi%3D2067146228%5Cu0026nbs%3D1%5Cu0026os%3Destghw%5Cu0026upsig%3D96d90a065883cd46aa4a7b0e9771bc9e%5Cu0026uparams%3De%2Cplatform%2Cmid%2Cuipk%2Ctrid%2Cdeadline%2Cgen%2Cog%2Coi%2Cnbs%2Cos%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D600206%5Cu0026lrs%3D14%5Cu0026agrr%3D1%5Cu0026buvid%3D%5Cu0026build%3D7320200%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026orderid%3D1%2C3%22%2C%22http%3A%2F%2Fupos-sz-mirrorhw.bilivideo.com%2Fupgcxcode%2F91%2F40%2F41539274091%2F41539274091-1-16.mp4%3Fe%3Dig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026platform%3Dandroid_tv_yst%5Cu0026nbs%3D1%5Cu0026trid%3D298aa2d927cd447c9308bd1a60938b3U%5Cu0026gen%3Dplayurlv3%5Cu0026os%3Dhwbv%5Cu0026oi%3D2067146228%5Cu0026mid%3D0%5Cu0026uipk%3D5%5Cu0026deadline%3D1788517852%5Cu0026og%3Dhw%5Cu0026upsig%3Dffa1b427ca1aae2d51e30283bbe83f46%5Cu0026uparams%3De%2Cplatform%2Cnbs%2Ctrid%2Cgen%2Cos%2Coi%2Cmid%2Cuipk%2Cdeadline%2Cog%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D600206%5Cu0026lrs%3D14%5Cu0026agrr%3D1%5Cu0026buvid%3D%5Cu0026build%3D7320200%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026orderid%3D2%2C3%22%5D%2C%22union_player%22%3A%7B%22biz_type%22%3A1%2C%22dimension%22%3A%7B%22width%22%3A3840%2C%22height%22%3A2160%7D%2C%22aid%22%3A117205010225182%7D%2C%22extra_info%22%3A%7B%7D%7D&player_rotate=0&player_width=3840",
+                "orig_face": "https://i1.hdslb.com/bfs/face/43c2113cd1ea7d3bf1364f74dfbfdcf8c768c03b.jpg",
+                "reply": {
+                  "uri": "bilibili://video/117205010225182?aid=117205010225182&cid=41539274091&player_height=2160&player_rotate=0&player_width=3840",
+                  "params": [
+                    {
+                      "key": "comment_on",
+                      "value": "1"
+                    },
+                    {
+                      "key": "comment_state",
+                      "value": "1"
+                    },
+                    {
+                      "key": "reply_id",
+                      "value": "-1"
+                    },
+                    {
+                      "key": "biz_type",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "only_fans_property": {
+                  "has_privilege": true
+                },
+                "feature_gate": {}
+              }
+            }
+          }
+        }
+      },
+      {
+        "module_type": "module_bottom",
+        "module_buttom": {
+          "module_stat": {
+            "like": "110",
+            "reply": "10",
+            "like_info": {
+              "animation": {}
+            },
+            "no_comment_text": "这条动态已被封印，当前不可评论╮(๑•́ ₃•̀๑)╭",
+            "no_forward_text": "这条动态已被封印，当前不可转发╮(๑•́ ₃•̀๑)╭"
+          },
+          "comment_box": true,
+          "comment_box_msg": "点我发评论",
+          "interaction_icons": [
+            "ICON_FORWARD",
+            "ICON_COMMENT",
+            "ICON_LIKE"
+          ]
+        }
+      }
+    ],
+    "extend": {
+      "dyn_id_str": "1243791489236992037",
+      "business_id": "1243791489236992037",
+      "orig_dyn_id_str": "1243784823416291461",
+      "orig_name": "好姐妹葛之葉千岁",
+      "orig_img_url": "http://i2.hdslb.com/bfs/archive/541c43481f379a6eccff3b57f21e5b8236d180d3.jpg",
+      "orig_desc": [
+        {
+          "text": "【星趴x魔裁】帮帮我恋恋大人!/HELP ME RENSAMAAA!",
+          "type": "desc_type_text",
+          "orig_text": "【星趴x魔裁】帮帮我恋恋大人!/HELP ME RENSAMAAA!"
+        }
+      ],
+      "desc": [
+        {
+          "text": "​//",
+          "type": "desc_type_text",
+          "orig_text": "​//"
+        },
+        {
+          "text": "@鸡排第一美少女恋",
+          "type": "desc_type_aite",
+          "uri": "bilibili://space/66938743?defaultTab=dynamic",
+          "rid": "66938743",
+          "orig_text": "@鸡排第一美少女恋"
+        },
+        {
+          "text": ":",
+          "type": "desc_type_text",
+          "orig_text": ":"
+        },
+        {
+          "text": "[星引擎party闪亮启航 表情包_贴贴]",
+          "type": "desc_type_emoji",
+          "uri": "https://i0.hdslb.com/bfs/garb/e6af0302cab0bf3479f1aa39f56a016ec607070e.png",
+          "orig_text": "[星引擎party闪亮启航 表情包_贴贴]",
+          "emoji_size": 2,
+          "emoji_size_spec": {
+            "width": "46"
+          }
+        },
+        {
+          "text": "我来帮你~\n(消化奖品)\n(黑幕我！）",
+          "type": "desc_type_text",
+          "orig_text": "我来帮你~\n(消化奖品)\n(黑幕我！）"
+        }
+      ],
+      "orig_dyn_type": "av",
+      "share_type": "3",
+      "share_scene": "dynamic",
+      "is_fast_share": true,
+      "dyn_type": "1",
+      "uid": "66938743",
+      "orig_face": "https://i1.hdslb.com/bfs/face/43c2113cd1ea7d3bf1364f74dfbfdcf8c768c03b.jpg",
+      "reply": {},
+      "opus_summary": {
+        "summary": {
+          "para_type": "TEXT",
+          "para_format": {},
+          "text": {
+            "nodes": [
+              {
+                "node_type": "EMOTE",
+                "raw_text": "[星引擎party闪亮启航 表情包_贴贴]",
+                "emote": {
+                  "raw_text": {
+                    "words": "[星引擎party闪亮启航 表情包_贴贴]",
+                    "font_size": 17.0,
+                    "color": {
+                      "color_day": "#2F3238",
+                      "color_night": "#D0D3D7"
+                    }
+                  },
+                  "emote_url": "https://i0.hdslb.com/bfs/garb/e6af0302cab0bf3479f1aa39f56a016ec607070e.png",
+                  "emote_width": {
+                    "width": 46.0,
+                    "emoji_size": 2
+                  }
+                }
+              },
+              {
+                "node_type": "WORDS",
+                "raw_text": "我来帮你~\n(消化奖品)\n(黑幕我！）",
+                "word": {
+                  "words": "我来帮你~\n(消化奖品)\n(黑幕我！）",
+                  "font_size": 17.0,
+                  "color": {
+                    "color_day": "#2F3238",
+                    "color_night": "#D0D3D7"
+                  },
+                  "style": {}
+                }
+              }
+            ]
+          }
+        },
+        "summary_jump_btn_text": "全文"
+      },
+      "only_fans_property": {
+        "has_privilege": true
+      },
+      "feature_gate": {}
+    }
+  }
+}
