@@ -1,0 +1,401 @@
+{
+  "code": 0,
+  "message": "OK",
+  "ttl": 1,
+  "data": {
+    "card": {
+      "avatar": {
+        "container_size": { "width": 1.5, "height": 1.5 },
+        "layers": [
+          {
+            "layers": [
+              {
+                "visible": true,
+                "general_spec": {
+                  "pos_spec": {
+                    "coordinate_pos": 2,
+                    "axis_x": 0.75,
+                    "axis_y": 0.75
+                  },
+                  "size_spec": { "width": 1.05, "height": 1.05 },
+                  "render_spec": { "opacity": 1 }
+                },
+                "layer_config": {
+                  "tags": { "AVATAR_LAYER": {} },
+                  "is_critical": true
+                },
+                "resource": {
+                  "res_type": 5,
+                  "res_native_draw": {
+                    "draw_src": {
+                      "src_type": 3,
+                      "draw": {
+                        "draw_type": 1,
+                        "fill_mode": 1,
+                        "color_config": {
+                          "is_dark_mode_aware": true,
+                          "day": { "argb": "#FFFFFFFF" },
+                          "night": { "argb": "#FF17181A" }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "visible": true,
+                "general_spec": {
+                  "pos_spec": {
+                    "coordinate_pos": 2,
+                    "axis_x": 0.75,
+                    "axis_y": 0.75
+                  },
+                  "size_spec": { "width": 1, "height": 1 },
+                  "render_spec": { "opacity": 1 }
+                },
+                "layer_config": {
+                  "tags": { "AVATAR_LAYER": {} },
+                  "is_critical": true,
+                  "layer_mask": {
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 2,
+                        "axis_x": 0.75,
+                        "axis_y": 0.75
+                      },
+                      "size_spec": { "width": 1, "height": 1 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "mask_src": {
+                      "src_type": 3,
+                      "draw": {
+                        "draw_type": 1,
+                        "fill_mode": 1,
+                        "color_config": { "day": { "argb": "#FF000000" } }
+                      }
+                    }
+                  }
+                },
+                "resource": {
+                  "res_type": 3,
+                  "res_image": {
+                    "image_src": {
+                      "src_type": 1,
+                      "placeholder": 6,
+                      "remote": {
+                        "url": "https://i0.hdslb.com/bfs/face/6096e0266926c3094217c44b52475b342a7aabbd.jpg",
+                        "bfs_style": "widget-layer-avatar"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "visible": true,
+                "general_spec": {
+                  "pos_spec": {
+                    "coordinate_pos": 2,
+                    "axis_x": 0.75,
+                    "axis_y": 0.75
+                  },
+                  "size_spec": { "width": 1.05, "height": 1.05 },
+                  "render_spec": { "opacity": 1 }
+                },
+                "layer_config": {
+                  "tags": {
+                    "LIVE_ANIME_CFG": {
+                      "config_type": 4,
+                      "live_anime_config": {
+                        "is_live": true,
+                        "config": {
+                          "width": 58,
+                          "height": 18,
+                          "offset_y": 2,
+                          "border_width": 2
+                        },
+                        "items": [
+                          {
+                            "color": {
+                              "is_dark_mode_aware": true,
+                              "day": { "argb": "#FFFF6699" },
+                              "night": { "argb": "#FFD44E7D" }
+                            },
+                            "start_ratio": 1,
+                            "end_ratio": 2.5,
+                            "start_stroke": 0.011,
+                            "start_opacity": 1
+                          },
+                          {
+                            "color": {
+                              "is_dark_mode_aware": true,
+                              "day": { "argb": "#FFFF6699" },
+                              "night": { "argb": "#FFD44E7D" }
+                            },
+                            "start_ratio": 1,
+                            "end_ratio": 2.5,
+                            "start_stroke": 0.011,
+                            "start_opacity": 1,
+                            "phase": "500"
+                          }
+                        ],
+                        "border_config": [
+                          {
+                            "color": {
+                              "is_dark_mode_aware": true,
+                              "day": { "argb": "#FFFF6699" },
+                              "night": { "argb": "#FFD44E7D" }
+                            },
+                            "border_width": 2,
+                            "ratio": 1
+                          },
+                          {
+                            "color": {
+                              "is_dark_mode_aware": true,
+                              "day": { "argb": "#FFFFFFFF" },
+                              "night": { "argb": "#FF17181A" }
+                            },
+                            "border_width": 2,
+                            "ratio": 0.9524
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "is_critical": true,
+                  "allow_over_paint": true
+                },
+                "resource": { "res_type": 1 }
+              }
+            ],
+            "is_critical_group": true
+          }
+        ],
+        "fallback_layers": {
+          "layers": [
+            {
+              "visible": true,
+              "general_spec": {
+                "pos_spec": {
+                  "coordinate_pos": 2,
+                  "axis_x": 0.75,
+                  "axis_y": 0.75
+                },
+                "size_spec": { "width": 1.05, "height": 1.05 },
+                "render_spec": { "opacity": 1 }
+              },
+              "layer_config": {
+                "tags": { "AVATAR_LAYER": {} },
+                "is_critical": true
+              },
+              "resource": {
+                "res_type": 5,
+                "res_native_draw": {
+                  "draw_src": {
+                    "src_type": 3,
+                    "draw": {
+                      "draw_type": 1,
+                      "fill_mode": 1,
+                      "color_config": {
+                        "is_dark_mode_aware": true,
+                        "day": { "argb": "#FFFFFFFF" },
+                        "night": { "argb": "#FF17181A" }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "visible": true,
+              "general_spec": {
+                "pos_spec": {
+                  "coordinate_pos": 2,
+                  "axis_x": 0.75,
+                  "axis_y": 0.75
+                },
+                "size_spec": { "width": 1, "height": 1 },
+                "render_spec": { "opacity": 1 }
+              },
+              "layer_config": {
+                "tags": { "AVATAR_LAYER": {} },
+                "is_critical": true,
+                "layer_mask": {
+                  "general_spec": {
+                    "pos_spec": {
+                      "coordinate_pos": 2,
+                      "axis_x": 0.75,
+                      "axis_y": 0.75
+                    },
+                    "size_spec": { "width": 1, "height": 1 },
+                    "render_spec": { "opacity": 1 }
+                  },
+                  "mask_src": {
+                    "src_type": 3,
+                    "draw": {
+                      "draw_type": 1,
+                      "fill_mode": 1,
+                      "color_config": { "day": { "argb": "#FF000000" } }
+                    }
+                  }
+                }
+              },
+              "resource": {
+                "res_type": 3,
+                "res_image": {
+                  "image_src": {
+                    "src_type": 1,
+                    "placeholder": 6,
+                    "remote": {
+                      "url": "https://i0.hdslb.com/bfs/face/6096e0266926c3094217c44b52475b342a7aabbd.jpg",
+                      "bfs_style": "widget-layer-avatar"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "visible": true,
+              "general_spec": {
+                "pos_spec": {
+                  "coordinate_pos": 1,
+                  "axis_x": 0.975,
+                  "axis_y": 0.975
+                },
+                "size_spec": { "width": 0.3, "height": 0.3 },
+                "render_spec": { "opacity": 1 }
+              },
+              "layer_config": { "tags": { "ICON_LAYER": {} } },
+              "resource": {
+                "res_type": 5,
+                "res_native_draw": {
+                  "draw_src": {
+                    "src_type": 3,
+                    "draw": {
+                      "draw_type": 1,
+                      "fill_mode": 1,
+                      "color_config": {
+                        "is_dark_mode_aware": true,
+                        "day": { "argb": "#FFFFFFFF" },
+                        "night": { "argb": "#FF17181A" }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "visible": true,
+              "general_spec": {
+                "pos_spec": { "coordinate_pos": 1, "axis_x": 1, "axis_y": 1 },
+                "size_spec": { "width": 0.25, "height": 0.25 },
+                "render_spec": { "opacity": 1 }
+              },
+              "layer_config": { "tags": { "ICON_LAYER": {} } },
+              "resource": {
+                "res_type": 3,
+                "res_image": { "image_src": { "src_type": 2, "local": 3 } }
+              }
+            }
+          ],
+          "is_critical_group": true
+        },
+        "mid": "678612"
+      },
+      "mid": "678612",
+      "name": "h46",
+      "handle": "",
+      "approve": false,
+      "rank": "",
+      "face": "https://i0.hdslb.com/bfs/face/6096e0266926c3094217c44b52475b342a7aabbd.jpg",
+      "DisplayRank": "",
+      "regtime": 0,
+      "spacesta": 0,
+      "birthday": "",
+      "place": "",
+      "description": "",
+      "article": 0,
+      "attentions": null,
+      "fans": 134527,
+      "friend": 0,
+      "attention": 1035,
+      "sign": "可爱对吧？但是是男主播。喜欢的宝宝点点关注谢谢！",
+      "level_info": {
+        "current_level": 6,
+        "current_min": 0,
+        "current_exp": 0,
+        "next_exp": null,
+        "identity": 1,
+        "senior_inquiry": { "inquiry_text": "", "inquiry_url": "" }
+      },
+      "pendant": {
+        "pid": 0,
+        "name": "",
+        "image": "",
+        "expire": 0,
+        "image_enhance": "",
+        "image_enhance_frame": "",
+        "n_pid": 0
+      },
+      "nameplate": {
+        "nid": 0,
+        "name": "",
+        "image": "",
+        "image_small": "",
+        "level": "",
+        "condition": ""
+      },
+      "official_verify": {
+        "type": 0,
+        "desc": "bilibili 知名虚拟UP主",
+        "role": 1,
+        "title": "bilibili 知名虚拟UP主",
+        "icon": "https://i0.hdslb.com/bfs/activity-plat/static/20230828/e3b8ebec8e86f060b930a2c0536bb88b/72wejSxl9Z.png",
+        "splice_title": "bilibili UP主认证：bilibili 知名虚拟UP主"
+      },
+      "profession_verify": { "icon": "", "show_desc": "" },
+      "vip": {
+        "vipType": 1,
+        "vipDueDate": 1783699200000,
+        "dueRemark": "",
+        "accessStatus": 0,
+        "vipStatus": 0,
+        "vipStatusWarn": "",
+        "themeType": 0,
+        "label": {
+          "path": "",
+          "text": "",
+          "label_theme": "",
+          "text_color": "",
+          "bg_style": 1,
+          "bg_color": "",
+          "border_color": "",
+          "image": "https://i0.hdslb.com/bfs/vip/d7b702ef65a976b20ed854cbd04cb9e27341bb79.png",
+          "label_id": 0,
+          "label_goto": ""
+        }
+      },
+      "silence": 0,
+      "control": 0,
+      "end_time": 0,
+      "silence_url": "",
+      "likes": { "like_num": 931094, "skr_tip": "视频、专栏、动态累计获赞" },
+      "pr_info": {},
+      "relation": { "status": 1 },
+      "is_deleted": 0,
+      "honours": {
+        "colour": { "dark": "#CE8620", "normal": "#F0900B" },
+        "tags": []
+      },
+      "profession": {},
+      "school": {},
+      "space_tag": [],
+      "face_nft_new": 0,
+      "has_face_nft": false,
+      "nft_id": "",
+      "nft_face_icon": null,
+      "digital_id": "",
+      "digital_type": -2,
+      "has_digital_asset": false
+    }
+  }
+}
