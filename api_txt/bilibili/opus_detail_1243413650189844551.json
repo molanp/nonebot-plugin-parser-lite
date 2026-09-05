@@ -1,6 +1,7 @@
 {
-  "item": {
-    "card_type": "draw",
+  "opus_item": {
+    "opus_id": "1243413650189844551",
+    "oid": "407849433",
     "modules": [
       {
         "module_type": "module_top",
@@ -19,46 +20,27 @@
               "default": {
                 "icon": "https://i0.hdslb.com/bfs/app/63650970553f374b4c6a4a573e0ea19f75e85395.png",
                 "title": "举报",
-                "uri": "bilibili://following/report?dynamicId=1243562786544418818&uid=1344099355&title=%E7%95%A5nd%3A%20%E5%9B%BE%E7%89%87"
+                "uri": "bilibili://following/report?dynamicId=1243413650189844551&uid=3546954038511957&title=%E5%90%89%E6%98%9F%E6%B4%BE%E5%AF%B9%3A%20%E5%9B%BE%E7%89%87"
               }
             }
           ],
           "author": {
-            "mid": "1344099355",
-            "ptime_label_text": "2026年9月3日 03:38",
+            "mid": "3546954038511957",
+            "ptime_label_text": "2026年9月2日 18:00",
             "author": {
-              "mid": "1344099355",
-              "name": "略nd",
-              "face": "https://i1.hdslb.com/bfs/face/1e17ed6e7c3fe0c46d9d0d22a85b169e6b4179ef.jpg",
-              "official": {},
+              "mid": "3546954038511957",
+              "name": "吉星派对",
+              "face": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
+              "official": {
+                "type": 1
+              },
               "vip": {
-                "Type": 2,
-                "status": 1,
-                "due_date": "1803657600000",
-                "label": {
-                  "path": "http://i0.hdslb.com/bfs/vip/label_annual.png",
-                  "text": "年度大会员",
-                  "label_theme": "annual_vip"
-                },
-                "avatar_subscript": 1,
-                "nickname_color": "#FB7299"
+                "label": {}
               },
-              "live": {
-                "is_living": 1,
-                "uri": "bilibili://live/31882558",
-                "live_state": "live_live"
-              },
-              "uri": "bilibili://space/1344099355?defaultTab=dynamic",
+              "uri": "bilibili://space/3546954038511957?defaultTab=dynamic",
               "pendant": {},
-              "nameplate": {
-                "nid": "1",
-                "name": "黄金殿堂",
-                "image": "https://i1.hdslb.com/bfs/face/82896ff40fcb4e7c7259cb98056975830cb55695.png",
-                "image_small": "https://i1.hdslb.com/bfs/face/627e342851dfda6fe7380c2fa0cbd7fae2e61533.png",
-                "level": "稀有勋章",
-                "condition": "单个自制视频总播放数>=100万，数据次日更新"
-              },
-              "level": 6,
+              "nameplate": {},
+              "level": 4,
               "avatar": {
                 "container_size": {
                   "width": 1.35,
@@ -75,11 +57,11 @@
                           "axis_y": 0.675
                         },
                         "size_spec": {
-                          "width": 1.0,
-                          "height": 1.0
+                          "width": 1,
+                          "height": 1
                         },
                         "render_spec": {
-                          "opacity": 1.0
+                          "opacity": 1
                         }
                       },
                       "layer_config": {
@@ -95,11 +77,11 @@
                               "axis_y": 0.675
                             },
                             "size_spec": {
-                              "width": 1.0,
-                              "height": 1.0
+                              "width": 1,
+                              "height": 1
                             },
                             "render_spec": {
-                              "opacity": 1.0
+                              "opacity": 1
                             }
                           },
                           "mask_src": {
@@ -123,7 +105,7 @@
                             "src_type": 1,
                             "placeholder": 6,
                             "remote": {
-                              "url": "https://i1.hdslb.com/bfs/face/1e17ed6e7c3fe0c46d9d0d22a85b169e6b4179ef.jpg",
+                              "url": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
                               "bfs_style": "widget-layer-avatar"
                             }
                           }
@@ -143,7 +125,7 @@
                           "height": 0.35
                         },
                         "render_spec": {
-                          "opacity": 1.0
+                          "opacity": 1
                         }
                       },
                       "layer_config": {
@@ -186,7 +168,7 @@
                           "height": 0.3
                         },
                         "render_spec": {
-                          "opacity": 1.0
+                          "opacity": 1
                         }
                       },
                       "layer_config": {
@@ -199,7 +181,7 @@
                         "res_image": {
                           "image_src": {
                             "src_type": 2,
-                            "local": "LOCAL_RES_ICON_PERSONAL_VERIFY"
+                            "local": "LOCAL_RES_ICON_ENTERPRISE_VERIFY"
                           }
                         }
                       }
@@ -207,57 +189,36 @@
                   ],
                   "is_critical_group": true
                 },
-                "mid": "1344099355"
+                "mid": "3546954038511957"
               }
             },
             "relation": {
-              "status": "relation_status_follow",
-              "is_follow": 1,
-              "title": "已关注"
+              "status": "relation_status_nofollow",
+              "title": "未关注"
             },
-            "ptime_location_text": "IP属地：广东"
-          },
-          "hidden_nav_bar": true
+            "show_follow": true
+          }
         }
       },
       {
         "module_type": "module_author",
         "module_author": {
-          "mid": "1344099355",
-          "ptime_label_text": "2026年9月3日 03:38",
+          "mid": "3546954038511957",
+          "ptime_label_text": "2026年9月2日 18:00",
           "author": {
-            "mid": "1344099355",
-            "name": "略nd",
-            "face": "https://i1.hdslb.com/bfs/face/1e17ed6e7c3fe0c46d9d0d22a85b169e6b4179ef.jpg",
-            "official": {},
+            "mid": "3546954038511957",
+            "name": "吉星派对",
+            "face": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
+            "official": {
+              "type": 1
+            },
             "vip": {
-              "Type": 2,
-              "status": 1,
-              "due_date": "1803657600000",
-              "label": {
-                "path": "http://i0.hdslb.com/bfs/vip/label_annual.png",
-                "text": "年度大会员",
-                "label_theme": "annual_vip"
-              },
-              "avatar_subscript": 1,
-              "nickname_color": "#FB7299"
+              "label": {}
             },
-            "live": {
-              "is_living": 1,
-              "uri": "bilibili://live/31882558",
-              "live_state": "live_live"
-            },
-            "uri": "bilibili://space/1344099355?defaultTab=dynamic",
+            "uri": "bilibili://space/3546954038511957?defaultTab=dynamic",
             "pendant": {},
-            "nameplate": {
-              "nid": "1",
-              "name": "黄金殿堂",
-              "image": "https://i1.hdslb.com/bfs/face/82896ff40fcb4e7c7259cb98056975830cb55695.png",
-              "image_small": "https://i1.hdslb.com/bfs/face/627e342851dfda6fe7380c2fa0cbd7fae2e61533.png",
-              "level": "稀有勋章",
-              "condition": "单个自制视频总播放数>=100万，数据次日更新"
-            },
-            "level": 6,
+            "nameplate": {},
+            "level": 4,
             "avatar": {
               "container_size": {
                 "width": 1.35,
@@ -274,11 +235,11 @@
                         "axis_y": 0.675
                       },
                       "size_spec": {
-                        "width": 1.0,
-                        "height": 1.0
+                        "width": 1,
+                        "height": 1
                       },
                       "render_spec": {
-                        "opacity": 1.0
+                        "opacity": 1
                       }
                     },
                     "layer_config": {
@@ -294,11 +255,11 @@
                             "axis_y": 0.675
                           },
                           "size_spec": {
-                            "width": 1.0,
-                            "height": 1.0
+                            "width": 1,
+                            "height": 1
                           },
                           "render_spec": {
-                            "opacity": 1.0
+                            "opacity": 1
                           }
                         },
                         "mask_src": {
@@ -322,7 +283,7 @@
                           "src_type": 1,
                           "placeholder": 6,
                           "remote": {
-                            "url": "https://i1.hdslb.com/bfs/face/1e17ed6e7c3fe0c46d9d0d22a85b169e6b4179ef.jpg",
+                            "url": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
                             "bfs_style": "widget-layer-avatar"
                           }
                         }
@@ -342,7 +303,7 @@
                         "height": 0.35
                       },
                       "render_spec": {
-                        "opacity": 1.0
+                        "opacity": 1
                       }
                     },
                     "layer_config": {
@@ -385,7 +346,7 @@
                         "height": 0.3
                       },
                       "render_spec": {
-                        "opacity": 1.0
+                        "opacity": 1
                       }
                     },
                     "layer_config": {
@@ -398,7 +359,7 @@
                       "res_image": {
                         "image_src": {
                           "src_type": 2,
-                          "local": "LOCAL_RES_ICON_PERSONAL_VERIFY"
+                          "local": "LOCAL_RES_ICON_ENTERPRISE_VERIFY"
                         }
                       }
                     }
@@ -406,45 +367,59 @@
                 ],
                 "is_critical_group": true
               },
-              "mid": "1344099355"
+              "mid": "3546954038511957"
             }
           },
           "relation": {
-            "status": "relation_status_follow",
-            "is_follow": 1,
-            "title": "已关注"
+            "status": "relation_status_nofollow",
+            "title": "未关注"
           },
-          "ptime_location_text": "IP属地：广东"
+          "show_follow": true
         }
       },
       {
-        "module_type": "module_desc",
-        "module_desc": {
-          "desc": [
-            {
-              "text": "买到了yunayu",
-              "type": "desc_type_text",
-              "orig_text": "买到了yunayu"
+        "module_type": "module_paragraph",
+        "module_paragraph": {
+          "paragraph": {
+            "para_type": "TEXT",
+            "para_format": {},
+            "text": {
+              "nodes": [
+                {
+                  "node_type": "WORDS",
+                  "raw_text": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
+                  "word": {
+                    "words": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
+                    "font_size": 17,
+                    "color": {
+                      "color_day": "#2F3238",
+                      "color_night": "#D0D3D7"
+                    }
+                  }
+                }
+              ]
             }
-          ],
-          "text": "买到了yunayu"
+          }
         }
       },
       {
-        "module_type": "module_dynamic",
-        "module_dynamic": {
-          "type": "mdl_dyn_draw",
-          "dyn_draw": {
-            "items": [
-              {
-                "src": "http://i0.hdslb.com/bfs/new_dyn/75b7e3c9a557015ec55fd45a38a819f01344099355.jpg",
-                "width": "941",
-                "height": "1046",
-                "size": 223.31
-              }
-            ],
-            "id": "407915513",
-            "is_big_cover": true
+        "module_type": "module_paragraph",
+        "module_paragraph": {
+          "paragraph": {
+            "para_type": "PICTURES",
+            "pic": {
+              "pics": {
+                "items": [
+                  {
+                    "src": "http://i0.hdslb.com/bfs/new_dyn/3a3b9385dc0bfeea97ba532575395f863546954038511957.png",
+                    "width": "1920",
+                    "height": "1080",
+                    "size": 2465.0137
+                  }
+                ]
+              },
+              "style": "NINE_CELL"
+            }
           }
         }
       },
@@ -452,9 +427,9 @@
         "module_type": "module_bottom",
         "module_buttom": {
           "module_stat": {
-            "repost": "1",
-            "like": "1145",
-            "reply": "31",
+            "repost": "3",
+            "like": "572",
+            "reply": "452",
             "like_info": {
               "animation": {}
             },
@@ -463,32 +438,28 @@
           },
           "comment_box": true,
           "comment_box_msg": "点我发评论",
-          "interaction_icons": [
-            "ICON_FORWARD",
-            "ICON_COMMENT",
-            "ICON_LIKE"
-          ]
+          "interaction_icons": ["ICON_FORWARD", "ICON_COMMENT", "ICON_LIKE"]
         }
       }
     ],
     "extend": {
-      "dyn_id_str": "1243562786544418818",
-      "business_id": "407915513",
-      "orig_name": "略nd",
-      "orig_img_url": "http://i0.hdslb.com/bfs/new_dyn/75b7e3c9a557015ec55fd45a38a819f01344099355.jpg",
+      "dyn_id_str": "1243413650189844551",
+      "business_id": "407849433",
+      "orig_name": "吉星派对",
+      "orig_img_url": "http://i0.hdslb.com/bfs/new_dyn/3a3b9385dc0bfeea97ba532575395f863546954038511957.png",
       "orig_desc": [
         {
-          "text": "买到了yunayu",
+          "text": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
           "type": "desc_type_text",
-          "orig_text": "买到了yunayu"
+          "orig_text": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！"
         }
       ],
       "share_type": "3",
       "share_scene": "dynamic",
       "is_fast_share": true,
       "dyn_type": "2",
-      "uid": "1344099355",
-      "orig_face": "https://i1.hdslb.com/bfs/face/1e17ed6e7c3fe0c46d9d0d22a85b169e6b4179ef.jpg",
+      "uid": "3546954038511957",
+      "orig_face": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
       "reply": {},
       "opus_summary": {
         "summary": {
@@ -498,10 +469,10 @@
             "nodes": [
               {
                 "node_type": "WORDS",
-                "raw_text": "买到了yunayu",
+                "raw_text": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
                 "word": {
-                  "words": "买到了yunayu",
-                  "font_size": 17.0,
+                  "words": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
+                  "font_size": 17,
                   "color": {
                     "color_day": "#2F3238",
                     "color_night": "#D0D3D7"
@@ -515,10 +486,10 @@
         "summary_jump_btn_text": "全文",
         "covers": [
           {
-            "src": "http://i0.hdslb.com/bfs/new_dyn/75b7e3c9a557015ec55fd45a38a819f01344099355.jpg",
-            "width": "941",
-            "height": "1046",
-            "size": 223.31
+            "src": "http://i0.hdslb.com/bfs/new_dyn/3a3b9385dc0bfeea97ba532575395f863546954038511957.png",
+            "width": "1920",
+            "height": "1080",
+            "size": 2465.0137
           }
         ]
       },

@@ -1,3 +1,4 @@
+from .bilibili.app.archive.middleware.v1 import preload_pb2
 from .bilibili.app.dynamic.v2 import opus_pb2
 from .client import GRPC_CLIENT
 from .credential import Credential
@@ -25,6 +26,7 @@ class Opus:
                 share_id="dt.opus-detail.0.0.pv",
                 share_mode=3,
                 local_time=8,
+                player_args=preload_pb2.PlayerArgs(qn=32, fnval=400),
             )
             access_token = self.credential.access_token if self.credential else ""
             self.info = await GRPC_CLIENT.request(

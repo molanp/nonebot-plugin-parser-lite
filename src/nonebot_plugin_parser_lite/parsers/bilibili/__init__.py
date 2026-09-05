@@ -11,6 +11,7 @@ from nonebot import logger
 from ...exception import DownloadException, TipException
 from ...utils.bilibili.a2v import bv2av
 from ...utils.bilibili.bangumi import Bangumi
+from ...utils.bilibili.bilibili.app.dynamic.v2 import dynamic_pb2
 from ...utils.bilibili.bilibili.app.view.v1 import view_pb2
 from ...utils.bilibili.bilibili.main.community.reply.v1 import reply_pb2
 from ...utils.bilibili.client import HEADERS
@@ -444,8 +445,8 @@ class BilibiliParser(BaseParser):
         dynamic = Dynamic(dynamic_id, await self.credential)
         logger.debug(f"B站解析 动态链接 原始：{dynamic}")
 
-        # 纯专栏：直接走 opus 逻辑
-        if await dynamic.is_article():
+        # 图文/专栏类型统一走 Opus 逻辑
+        if await dynamic.is_opus():
             return await self._parse_opus_obj(dynamic.turn_to_opus())
 
         dynamic_info_data = await dynamic.get_info()
@@ -467,12 +468,21 @@ class BilibiliParser(BaseParser):
         if result.author.id:
             await self.raise_if_in_black_list(int(result.author.id))
 
-        comment_type = (
-            CommentResourceType.DYNAMIC_DRAW
-            if dynamic_info_data.item.card_type == 7
-            else CommentResourceType.DYNAMIC
-        )
-        comments = await self._fetch_comments(int(dynamic_id), comment_type)
+        comment_oid = int(dynamic_id)
+        comment_type = CommentResourceType.DYNAMIC
+        if dynamic_info_data.item.card_type == dynamic_pb2.av:
+            for module in dynamic_info_data.item.modules:
+                if module.WhichOneof("module_item") != "module_dynamic":
+                    continue
+                module_dynamic = module.module_dynamic
+                if module_dynamic.WhichOneof("module_item") != "dyn_archive":
+                    continue
+                if module_dynamic.dyn_archive.avid:
+                    comment_oid = module_dynamic.dyn_archive.avid
+                    comment_type = CommentResourceType.VIDEO
+                break
+
+        comments = await self._fetch_comments(comment_oid, comment_type)
         if comments:
             logger.debug(f"成功获取 {len(comments)} 条动态评论")
         else:
@@ -556,9 +566,7 @@ class BilibiliParser(BaseParser):
 
         result.title = title or None
         oid = item.oid or item.opus_id
-        result.comments = await self._fetch_comments(
-            int(oid), CommentResourceType.ARTICLE
-        )
+        result.comments = await self._fetch_comments(int(oid), CommentResourceType.OPUS)
         return result
 
     async def parse_live(self, room_id: int):

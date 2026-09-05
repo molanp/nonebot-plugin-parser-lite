@@ -1,0 +1,411 @@
+{
+  "item": {
+    "card_type": "av",
+    "modules": [
+      {
+        "module_type": "module_top",
+        "module_top": {
+          "tp_list": [
+            {
+              "type": "report",
+              "default": {
+                "icon": "https://i0.hdslb.com/bfs/app/63650970553f374b4c6a4a573e0ea19f75e85395.png",
+                "title": "举报",
+                "uri": "bilibili://following/report?dynamicId=1243613364040499219&uid=3546795384769164&title=%E5%88%B9%E9%82%A3%E8%A7%82%E5%AF%9F%E5%AE%A4%3A%20%E8%A7%86%E9%A2%91"
+              }
+            }
+          ],
+          "author": {
+            "mid": "3546795384769164",
+            "ptime_label_text": "2026年9月3日 06:55",
+            "author": {
+              "mid": "3546795384769164",
+              "name": "刹那观察室",
+              "face": "https://i0.hdslb.com/bfs/face/7ace7c839e2b0345f5cb521f124599b61d13c353.jpg",
+              "official": { "type": -1 },
+              "vip": {
+                "Type": 2,
+                "status": 1,
+                "due_date": "1818259200000",
+                "label": {
+                  "path": "http://i0.hdslb.com/bfs/vip/label_annual.png",
+                  "text": "年度大会员",
+                  "label_theme": "annual_vip"
+                },
+                "avatar_subscript": 1,
+                "nickname_color": "#FB7299"
+              },
+              "uri": "bilibili://space/3546795384769164?defaultTab=dynamic",
+              "pendant": {},
+              "nameplate": {
+                "nid": "8",
+                "name": "知名偶像",
+                "image": "https://i1.hdslb.com/bfs/face/27a952195555e64508310e366b3e38bd4cd143fc.png",
+                "image_small": "https://i2.hdslb.com/bfs/face/0497be49e08357bf05bca56e33a0637a273a7610.png",
+                "level": "稀有勋章",
+                "condition": "所有自制视频总播放数>=100万，数据次日更新"
+              },
+              "level": 6,
+              "avatar": {
+                "container_size": { "width": 1.35, "height": 1.35 },
+                "fallback_layers": {
+                  "layers": [
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 2,
+                          "axis_x": 0.675,
+                          "axis_y": 0.675
+                        },
+                        "size_spec": { "width": 1, "height": 1 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": {
+                        "tags": { "AVATAR_LAYER": {} },
+                        "is_critical": true,
+                        "layer_mask": {
+                          "general_spec": {
+                            "pos_spec": {
+                              "coordinate_pos": 2,
+                              "axis_x": 0.675,
+                              "axis_y": 0.675
+                            },
+                            "size_spec": { "width": 1, "height": 1 },
+                            "render_spec": { "opacity": 1 }
+                          },
+                          "mask_src": {
+                            "src_type": 3,
+                            "draw": {
+                              "draw_type": 1,
+                              "fill_mode": 1,
+                              "color_config": { "day": { "argb": "#FF000000" } }
+                            }
+                          }
+                        }
+                      },
+                      "resource": {
+                        "res_type": 3,
+                        "res_image": {
+                          "image_src": {
+                            "src_type": 1,
+                            "placeholder": 6,
+                            "remote": {
+                              "url": "https://i0.hdslb.com/bfs/face/7ace7c839e2b0345f5cb521f124599b61d13c353.jpg",
+                              "bfs_style": "widget-layer-avatar"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 1,
+                          "axis_x": 0.85,
+                          "axis_y": 0.85
+                        },
+                        "size_spec": { "width": 0.35, "height": 0.35 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": { "tags": { "ICON_LAYER": {} } },
+                      "resource": {
+                        "res_type": 5,
+                        "res_native_draw": {
+                          "draw_src": {
+                            "src_type": 3,
+                            "draw": {
+                              "draw_type": 1,
+                              "fill_mode": 1,
+                              "color_config": {
+                                "is_dark_mode_aware": true,
+                                "day": { "argb": "#FFFFFFFF" },
+                                "night": { "argb": "#FF17181A" }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 1,
+                          "axis_x": 0.875,
+                          "axis_y": 0.875
+                        },
+                        "size_spec": { "width": 0.3, "height": 0.3 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": { "tags": { "ICON_LAYER": {} } },
+                      "resource": {
+                        "res_type": 3,
+                        "res_image": {
+                          "image_src": {
+                            "src_type": 1,
+                            "placeholder": 1,
+                            "remote": {
+                              "url": "http://i0.hdslb.com/bfs/vip/dbe23f4ede5c120f11e18630cdd023010bce03b3.png@80w_80h_1c.webp",
+                              "bfs_style": "widget-layer-avatar"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "is_critical_group": true
+                },
+                "mid": "3546795384769164"
+              }
+            },
+            "decorate_card": {
+              "id": "1769661130001",
+              "card_url": "https://i0.hdslb.com/bfs/garb/a887a117803f1e5dce63a9f1e2db377dcbf3a465.png",
+              "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1769661130001&isdiy=0&part=card&from=post&f_source=garb&vmid=3546795384769164&native.theme=1&navhide=1",
+              "fan": {}
+            },
+            "relation": {
+              "status": "relation_status_nofollow",
+              "title": "未关注"
+            },
+            "show_follow": true
+          }
+        }
+      },
+      {
+        "module_type": "module_author",
+        "module_author": {
+          "mid": "3546795384769164",
+          "ptime_label_text": "2026年9月3日 06:55",
+          "author": {
+            "mid": "3546795384769164",
+            "name": "刹那观察室",
+            "face": "https://i0.hdslb.com/bfs/face/7ace7c839e2b0345f5cb521f124599b61d13c353.jpg",
+            "official": { "type": -1 },
+            "vip": {
+              "Type": 2,
+              "status": 1,
+              "due_date": "1818259200000",
+              "label": {
+                "path": "http://i0.hdslb.com/bfs/vip/label_annual.png",
+                "text": "年度大会员",
+                "label_theme": "annual_vip"
+              },
+              "avatar_subscript": 1,
+              "nickname_color": "#FB7299"
+            },
+            "uri": "bilibili://space/3546795384769164?defaultTab=dynamic",
+            "pendant": {},
+            "nameplate": {
+              "nid": "8",
+              "name": "知名偶像",
+              "image": "https://i1.hdslb.com/bfs/face/27a952195555e64508310e366b3e38bd4cd143fc.png",
+              "image_small": "https://i2.hdslb.com/bfs/face/0497be49e08357bf05bca56e33a0637a273a7610.png",
+              "level": "稀有勋章",
+              "condition": "所有自制视频总播放数>=100万，数据次日更新"
+            },
+            "level": 6,
+            "avatar": {
+              "container_size": { "width": 1.35, "height": 1.35 },
+              "fallback_layers": {
+                "layers": [
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 2,
+                        "axis_x": 0.675,
+                        "axis_y": 0.675
+                      },
+                      "size_spec": { "width": 1, "height": 1 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": {
+                      "tags": { "AVATAR_LAYER": {} },
+                      "is_critical": true,
+                      "layer_mask": {
+                        "general_spec": {
+                          "pos_spec": {
+                            "coordinate_pos": 2,
+                            "axis_x": 0.675,
+                            "axis_y": 0.675
+                          },
+                          "size_spec": { "width": 1, "height": 1 },
+                          "render_spec": { "opacity": 1 }
+                        },
+                        "mask_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": { "day": { "argb": "#FF000000" } }
+                          }
+                        }
+                      }
+                    },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 1,
+                          "placeholder": 6,
+                          "remote": {
+                            "url": "https://i0.hdslb.com/bfs/face/7ace7c839e2b0345f5cb521f124599b61d13c353.jpg",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 0.85,
+                        "axis_y": 0.85
+                      },
+                      "size_spec": { "width": 0.35, "height": 0.35 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": { "tags": { "ICON_LAYER": {} } },
+                    "resource": {
+                      "res_type": 5,
+                      "res_native_draw": {
+                        "draw_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": {
+                              "is_dark_mode_aware": true,
+                              "day": { "argb": "#FFFFFFFF" },
+                              "night": { "argb": "#FF17181A" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 0.875,
+                        "axis_y": 0.875
+                      },
+                      "size_spec": { "width": 0.3, "height": 0.3 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": { "tags": { "ICON_LAYER": {} } },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 1,
+                          "placeholder": 1,
+                          "remote": {
+                            "url": "http://i0.hdslb.com/bfs/vip/dbe23f4ede5c120f11e18630cdd023010bce03b3.png@80w_80h_1c.webp",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "is_critical_group": true
+              },
+              "mid": "3546795384769164"
+            }
+          },
+          "decorate_card": {
+            "id": "1769661130001",
+            "card_url": "https://i0.hdslb.com/bfs/garb/a887a117803f1e5dce63a9f1e2db377dcbf3a465.png",
+            "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1769661130001&isdiy=0&part=card&from=post&f_source=garb&vmid=3546795384769164&native.theme=1&navhide=1",
+            "fan": {}
+          },
+          "relation": {
+            "status": "relation_status_nofollow",
+            "title": "未关注"
+          },
+          "show_follow": true
+        }
+      },
+      {
+        "module_type": "module_desc",
+        "module_desc": {
+          "desc": [
+            {
+              "text": "【9月3日刹那晨读】罚临街窗外晒东西？；吉林“戒烟大赛”；手机涨价为何",
+              "type": "desc_type_text",
+              "orig_text": "【9月3日刹那晨读】罚临街窗外晒东西？；吉林“戒烟大赛”；手机涨价为何"
+            }
+          ],
+          "text": "【9月3日刹那晨读】罚临街窗外晒东西？；吉林“戒烟大赛”；手机涨价为何"
+        }
+      },
+      {
+        "module_type": "module_dynamic",
+        "module_dynamic": {
+          "dyn_archive": {
+            "title": "【9月3日刹那晨读】罚临街窗外晒东西？；吉林“戒烟大赛”；手机涨价为何",
+            "cover": "http://i0.hdslb.com/bfs/archive/34676ce0cb41ae4fa34facbbf64933c1cfe69531.jpg",
+            "uri": "bilibili://video/117202728519626?aid=117202728519626&cid=41531412083&player_height=1080&player_preload=%7B%22expire_time%22%3A1788583415%2C%22cid%22%3A41531412083%2C%22quality%22%3A32%2C%22file_info%22%3A%7B%2216%22%3A%7B%22infos%22%3A%5B%7B%22filesize%22%3A20650112%2C%22timelength%22%3A623537%7D%5D%7D%2C%2232%22%3A%7B%22infos%22%3A%5B%7B%22filesize%22%3A31945316%2C%22timelength%22%3A623536%7D%5D%7D%2C%2264%22%3A%7B%22infos%22%3A%5B%7B%22filesize%22%3A52983903%2C%22timelength%22%3A623536%7D%5D%7D%2C%2280%22%3A%7B%22infos%22%3A%5B%7B%22filesize%22%3A116206494%2C%22timelength%22%3A623536%7D%5D%7D%7D%2C%22video_codecid%22%3A7%2C%22video_project%22%3Atrue%2C%22dash%22%3A%7B%22video%22%3A%5B%7B%22id%22%3A32%2C%22base_url%22%3A%22http%3A%2F%2F61.147.236.2%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30032.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026og%3Dhw%5Cu0026platform%3Dandroid_hd%5Cu0026mid%3D0%5Cu0026nbs%3D1%5Cu0026gen%3Dplayurlv3%5Cu0026os%3Dbcache%5Cu0026uipk%3D5%5Cu0026deadline%3D1788587015%5Cu0026oi%3D1781184249%5Cu0026trid%3D0000a8c5f2dfab294ffab92e8bd678a1442U%5Cu0026upsig%3D49748233a5e4f6357fe814e2c95546ce%5Cu0026uparams%3De%2Cog%2Cplatform%2Cmid%2Cnbs%2Cgen%2Cos%2Cuipk%2Cdeadline%2Coi%2Ctrid%5Cu0026cdnid%3D4309%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D410212%5Cu0026lrs%3D12%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026orderid%3D0%2C3%22%2C%22bandwidth%22%3A409841%2C%22codecid%22%3A7%2C%22size%22%3A31945316%2C%22frame_rate%22%3A%2230.000%22%2C%22backup_url%22%3A%5B%22http%3A%2F%2Fupos-sz-mirror08c.bilivideo.com%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30032.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026og%3Dhw%5Cu0026oi%3D1781184249%5Cu0026trid%3Da8c5f2dfab294ffab92e8bd678a1442U%5Cu0026uipk%3D5%5Cu0026mid%3D0%5Cu0026gen%3Dplayurlv3%5Cu0026os%3D08cbv%5Cu0026nbs%3D1%5Cu0026platform%3Dandroid_hd%5Cu0026deadline%3D1788587015%5Cu0026upsig%3D1ea914ea322bad3b25810dff48c580b5%5Cu0026uparams%3De%2Cog%2Coi%2Ctrid%2Cuipk%2Cmid%2Cgen%2Cos%2Cnbs%2Cplatform%2Cdeadline%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D410212%5Cu0026lrs%3D12%5Cu0026f%3DU_0_0%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026dl%3D0%5Cu0026orderid%3D1%2C3%22%2C%22http%3A%2F%2Fupos-sz-mirror08c.bilivideo.com%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30032.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026platform%3Dandroid_hd%5Cu0026gen%3Dplayurlv3%5Cu0026os%3D08cbv%5Cu0026mid%3D0%5Cu0026deadline%3D1788587015%5Cu0026oi%3D1781184249%5Cu0026trid%3Da8c5f2dfab294ffab92e8bd678a1442U%5Cu0026og%3Dhw%5Cu0026nbs%3D1%5Cu0026uipk%3D5%5Cu0026upsig%3D33d9cddc1003efc708d46674659728d5%5Cu0026uparams%3De%2Cplatform%2Cgen%2Cos%2Cmid%2Cdeadline%2Coi%2Ctrid%2Cog%2Cnbs%2Cuipk%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D410212%5Cu0026lrs%3D12%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026orderid%3D2%2C3%22%5D%2C%22audio_id%22%3A30216%7D%2C%7B%22id%22%3A32%2C%22base_url%22%3A%22http%3A%2F%2F58.19.152.22%3A4480%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30033.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026uipk%3D5%5Cu0026platform%3Dandroid_hd%5Cu0026trid%3D0000a8c5f2dfab294ffab92e8bd678a1442U%5Cu0026gen%3Dplayurlv3%5Cu0026og%3Dhw%5Cu0026mid%3D0%5Cu0026deadline%3D1788587015%5Cu0026oi%3D1781184249%5Cu0026nbs%3D1%5Cu0026os%3Dmcdn%5Cu0026upsig%3D246ef0f406190e40e3e50145ed4d0338%5Cu0026uparams%3De%2Cuipk%2Cplatform%2Ctrid%2Cgen%2Cog%2Cmid%2Cdeadline%2Coi%2Cnbs%2Cos%5Cu0026mcdnid%3D50061263%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D255579%5Cu0026lrs%3D12%5Cu0026prs%3D2%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026orderid%3D0%2C3%22%2C%22bandwidth%22%3A255340%2C%22codecid%22%3A12%2C%22size%22%3A19903248%2C%22frame_rate%22%3A%2230.000%22%2C%22backup_url%22%3A%5B%22http%3A%2F%2Fupos-sz-mirrorcos.bilivideo.com%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30033.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026gen%3Dplayurlv3%5Cu0026og%3Dcos%5Cu0026uipk%3D5%5Cu0026platform%3Dandroid_hd%5Cu0026mid%3D0%5Cu0026oi%3D1781184249%5Cu0026trid%3Da8c5f2dfab294ffab92e8bd678a1442U%5Cu0026nbs%3D1%5Cu0026os%3Dcosbv%5Cu0026deadline%3D1788587015%5Cu0026upsig%3D737b3a18920a85042494e11b099460c0%5Cu0026uparams%3De%2Cgen%2Cog%2Cuipk%2Cplatform%2Cmid%2Coi%2Ctrid%2Cnbs%2Cos%2Cdeadline%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D255579%5Cu0026lrs%3D12%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026orderid%3D1%2C3%22%2C%22http%3A%2F%2Fupos-sz-mirrorcos.bilivideo.com%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30033.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026trid%3Da8c5f2dfab294ffab92e8bd678a1442U%5Cu0026nbs%3D1%5Cu0026gen%3Dplayurlv3%5Cu0026os%3Dcosbv%5Cu0026uipk%3D5%5Cu0026platform%3Dandroid_hd%5Cu0026mid%3D0%5Cu0026deadline%3D1788587015%5Cu0026oi%3D1781184249%5Cu0026og%3Dcos%5Cu0026upsig%3D5f7eea8a22f9486ba687a6c8778fc95e%5Cu0026uparams%3De%2Ctrid%2Cnbs%2Cgen%2Cos%2Cuipk%2Cplatform%2Cmid%2Cdeadline%2Coi%2Cog%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D255579%5Cu0026lrs%3D12%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026orderid%3D2%2C3%22%5D%2C%22audio_id%22%3A30216%7D%5D%2C%22audio%22%3A%5B%7B%22id%22%3A30216%2C%22base_url%22%3A%22http%3A%2F%2F113.0.124.163%3A8000%2Fv1%2Fresource%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30216.m4s%3Fagrr%3D0%5Cu0026build%3D1450000%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026bvc%3Dvod%5Cu0026bw%3D65637%5Cu0026cdnid%3D4285%5Cu0026deadline%3D1788587015%5Cu0026dl%3D0%5Cu0026e%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026f%3DU_0_0%5Cu0026gen%3Dplayurlv3%5Cu0026lrs%3D12%5Cu0026mid%3D0%5Cu0026nbs%3D1%5Cu0026nettype%3D1%5Cu0026og%3Dhw%5Cu0026oi%3D1781184249%5Cu0026orderid%3D0%252C3%5Cu0026os%3Dbcache%5Cu0026platform%3Dandroid_hd%5Cu0026sign%3D058edf%5Cu0026traceid%3DtrjCNGTvrgDtPw_0_U_h%5Cu0026trid%3D0000a8c5f2dfab294ffab92e8bd678a1442U%5Cu0026uipk%3D5%5Cu0026uparams%3De%252Cmid%252Cdeadline%252Coi%252Cos%252Cplatform%252Cgen%252Cog%252Ctrid%252Cnbs%252Cuipk%5Cu0026upsig%3D5b14a4dc40f834177afca40ebfd70be6%22%2C%22bandwidth%22%3A65562%2C%22size%22%3A5111494%2C%22backup_url%22%3A%5B%22http%3A%2F%2F61.147.236.8%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30216.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026mid%3D0%5Cu0026deadline%3D1788587015%5Cu0026oi%3D1781184249%5Cu0026os%3Dbcache%5Cu0026platform%3Dandroid_hd%5Cu0026gen%3Dplayurlv3%5Cu0026og%3Dhw%5Cu0026trid%3D0000a8c5f2dfab294ffab92e8bd678a1442U%5Cu0026nbs%3D1%5Cu0026uipk%3D5%5Cu0026upsig%3D5b14a4dc40f834177afca40ebfd70be6%5Cu0026uparams%3De%2Cmid%2Cdeadline%2Coi%2Cos%2Cplatform%2Cgen%2Cog%2Ctrid%2Cnbs%2Cuipk%5Cu0026cdnid%3D4285%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D65637%5Cu0026lrs%3D12%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026orderid%3D0%2C3%22%2C%22http%3A%2F%2Fupos-sz-mirrorcos.bilivideo.com%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30216.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026trid%3Da8c5f2dfab294ffab92e8bd678a1442U%5Cu0026uipk%3D5%5Cu0026platform%3Dandroid_hd%5Cu0026deadline%3D1788587015%5Cu0026oi%3D1781184249%5Cu0026gen%3Dplayurlv3%5Cu0026og%3Dhw%5Cu0026nbs%3D1%5Cu0026mid%3D0%5Cu0026os%3Dcosbv%5Cu0026upsig%3D90494670b325de6f2528a00937fdf210%5Cu0026uparams%3De%2Ctrid%2Cuipk%2Cplatform%2Cdeadline%2Coi%2Cgen%2Cog%2Cnbs%2Cmid%2Cos%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D65637%5Cu0026lrs%3D12%5Cu0026build%3D1450000%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026orderid%3D1%2C3%22%5D%7D%2C%7B%22id%22%3A30232%2C%22base_url%22%3A%22http%3A%2F%2F116.196.140.7%3A8000%2Fv1%2Fresource%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30232.m4s%3Fagrr%3D0%5Cu0026build%3D1450000%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026bvc%3Dvod%5Cu0026bw%3D89688%5Cu0026deadline%3D1788587015%5Cu0026dl%3D0%5Cu0026e%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026f%3DU_0_0%5Cu0026gen%3Dplayurlv3%5Cu0026lrs%3D12%5Cu0026mcdnid%3D50060846%5Cu0026mid%3D0%5Cu0026nbs%3D1%5Cu0026nettype%3D1%5Cu0026og%3Dcos%5Cu0026oi%3D1781184249%5Cu0026orderid%3D0%252C3%5Cu0026os%3Dmcdn%5Cu0026platform%3Dandroid_hd%5Cu0026prs%3D2%5Cu0026sign%3Dbfe3a4%5Cu0026traceid%3DtrsMLMwJbxIOtO_0_U_h%5Cu0026trid%3D0000a8c5f2dfab294ffab92e8bd678a1442U%5Cu0026uipk%3D5%5Cu0026uparams%3De%252Cgen%252Cos%252Cdeadline%252Cnbs%252Cuipk%252Cplatform%252Cog%252Cmid%252Coi%252Ctrid%5Cu0026upsig%3D47bdebf1fe09d8920aedb83169cf9e43%22%2C%22bandwidth%22%3A89593%2C%22size%22%3A6984506%2C%22backup_url%22%3A%5B%22http%3A%2F%2F58.19.152.24%3A4480%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30232.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026gen%3Dplayurlv3%5Cu0026os%3Dmcdn%5Cu0026deadline%3D1788587015%5Cu0026nbs%3D1%5Cu0026uipk%3D5%5Cu0026platform%3Dandroid_hd%5Cu0026og%3Dcos%5Cu0026mid%3D0%5Cu0026oi%3D1781184249%5Cu0026trid%3D0000a8c5f2dfab294ffab92e8bd678a1442U%5Cu0026upsig%3D47bdebf1fe09d8920aedb83169cf9e43%5Cu0026uparams%3De%2Cgen%2Cos%2Cdeadline%2Cnbs%2Cuipk%2Cplatform%2Cog%2Cmid%2Coi%2Ctrid%5Cu0026mcdnid%3D50060846%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D89688%5Cu0026lrs%3D12%5Cu0026prs%3D2%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026orderid%3D0%2C3%22%2C%22http%3A%2F%2Fupos-sz-mirrorhw.bilivideo.com%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30232.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026uipk%3D5%5Cu0026mid%3D0%5Cu0026deadline%3D1788587015%5Cu0026oi%3D1781184249%5Cu0026trid%3Da8c5f2dfab294ffab92e8bd678a1442U%5Cu0026nbs%3D1%5Cu0026gen%3Dplayurlv3%5Cu0026os%3Dhwbv%5Cu0026platform%3Dandroid_hd%5Cu0026og%3Dhw%5Cu0026upsig%3D3f885b58fb6ac97e43ab9e95c9bf5f07%5Cu0026uparams%3De%2Cuipk%2Cmid%2Cdeadline%2Coi%2Ctrid%2Cnbs%2Cgen%2Cos%2Cplatform%2Cog%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D89688%5Cu0026lrs%3D12%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026agrr%3D0%5Cu0026orderid%3D1%2C3%22%5D%7D%2C%7B%22id%22%3A30280%2C%22base_url%22%3A%22http%3A%2F%2F113.6.91.160%3A8000%2Fv1%2Fresource%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30280.m4s%3Fagrr%3D0%5Cu0026build%3D1450000%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026bvc%3Dvod%5Cu0026bw%3D151128%5Cu0026cdnid%3D4284%5Cu0026deadline%3D1788587015%5Cu0026dl%3D0%5Cu0026e%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026f%3DU_0_0%5Cu0026gen%3Dplayurlv3%5Cu0026lrs%3D12%5Cu0026mid%3D0%5Cu0026nbs%3D1%5Cu0026nettype%3D1%5Cu0026og%3Dcos%5Cu0026oi%3D1781184249%5Cu0026orderid%3D0%252C3%5Cu0026os%3Dbcache%5Cu0026platform%3Dandroid_hd%5Cu0026sign%3Da5c08c%5Cu0026traceid%3DtrYeAiDCcNWpnY_0_U_h%5Cu0026trid%3D0000a8c5f2dfab294ffab92e8bd678a1442U%5Cu0026uipk%3D5%5Cu0026uparams%3De%252Cplatform%252Cdeadline%252Cos%252Cog%252Ctrid%252Cuipk%252Cmid%252Coi%252Cgen%252Cnbs%5Cu0026upsig%3D1f84c4c7d64d0bd05d63206dbcd052bd%22%2C%22bandwidth%22%3A150981%2C%22size%22%3A11769147%2C%22backup_url%22%3A%5B%22http%3A%2F%2F61.147.236.7%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30280.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026platform%3Dandroid_hd%5Cu0026deadline%3D1788587015%5Cu0026os%3Dbcache%5Cu0026og%3Dcos%5Cu0026trid%3D0000a8c5f2dfab294ffab92e8bd678a1442U%5Cu0026uipk%3D5%5Cu0026mid%3D0%5Cu0026oi%3D1781184249%5Cu0026gen%3Dplayurlv3%5Cu0026nbs%3D1%5Cu0026upsig%3D1f84c4c7d64d0bd05d63206dbcd052bd%5Cu0026uparams%3De%2Cplatform%2Cdeadline%2Cos%2Cog%2Ctrid%2Cuipk%2Cmid%2Coi%2Cgen%2Cnbs%5Cu0026cdnid%3D4284%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D151128%5Cu0026lrs%3D12%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026orderid%3D0%2C3%22%2C%22http%3A%2F%2Fupos-sz-mirrorcos.bilivideo.com%2Fupgcxcode%2F83%2F20%2F41531412083%2F41531412083_qe1-1-30280.m4s%3Fe%3Dig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859IB_%5Cu0026trid%3Da8c5f2dfab294ffab92e8bd678a1442U%5Cu0026nbs%3D1%5Cu0026uipk%3D5%5Cu0026mid%3D0%5Cu0026og%3Dcos%5Cu0026oi%3D1781184249%5Cu0026platform%3Dandroid_hd%5Cu0026deadline%3D1788587015%5Cu0026gen%3Dplayurlv3%5Cu0026os%3Dcosbv%5Cu0026upsig%3D8161537fff82cb1ea760e41a9eb98fc7%5Cu0026uparams%3De%2Ctrid%2Cnbs%2Cuipk%2Cmid%2Cog%2Coi%2Cplatform%2Cdeadline%2Cgen%2Cos%5Cu0026bvc%3Dvod%5Cu0026nettype%3D1%5Cu0026bw%3D151128%5Cu0026lrs%3D12%5Cu0026agrr%3D0%5Cu0026buvid%3DXY362474DB984E460CBFB672F0A2514DDAE1B%5Cu0026build%3D1450000%5Cu0026dl%3D0%5Cu0026f%3DU_0_0%5Cu0026orderid%3D1%2C3%22%5D%7D%5D%7D%2C%22fnval%22%3A400%2C%22accept_formats%22%3A%5B%7B%22quality%22%3A112%2C%22format%22%3A%22hdflv2%22%2C%22description%22%3A%22%E9%AB%98%E6%B8%85%201080P%2B%22%2C%22new_description%22%3A%221080P%20%E9%AB%98%E7%A0%81%E7%8E%87%22%2C%22display_desc%22%3A%221080P%22%2C%22superscript%22%3A%22%E9%AB%98%E7%A0%81%E7%8E%87%22%2C%22need_vip%22%3Atrue%2C%22need_login%22%3Atrue%7D%2C%7B%22quality%22%3A80%2C%22format%22%3A%22flv%22%2C%22description%22%3A%22%E9%AB%98%E6%B8%85%201080P%22%2C%22new_description%22%3A%221080P%20%E9%AB%98%E6%B8%85%22%2C%22display_desc%22%3A%221080P%22%2C%22need_login%22%3Atrue%7D%2C%7B%22quality%22%3A64%2C%22format%22%3A%22flv720%22%2C%22description%22%3A%22%E9%AB%98%E6%B8%85%20720P%22%2C%22new_description%22%3A%22720P%20%E5%87%86%E9%AB%98%E6%B8%85%22%2C%22display_desc%22%3A%22720P%22%2C%22need_login%22%3Atrue%7D%2C%7B%22quality%22%3A32%2C%22format%22%3A%22flv480%22%2C%22description%22%3A%22%E6%B8%85%E6%99%B0%20480P%22%2C%22new_description%22%3A%22480P%20%E6%A0%87%E6%B8%85%22%2C%22display_desc%22%3A%22480P%22%7D%2C%7B%22quality%22%3A16%2C%22format%22%3A%22mp4%22%2C%22description%22%3A%22%E6%B5%81%E7%95%85%20360P%22%2C%22new_description%22%3A%22360P%20%E6%B5%81%E7%95%85%22%2C%22display_desc%22%3A%22360P%22%7D%5D%2C%22union_player%22%3A%7B%22biz_type%22%3A1%2C%22dimension%22%3A%7B%22width%22%3A1918%2C%22height%22%3A1080%7D%2C%22aid%22%3A117202728519626%7D%2C%22extra_info%22%3A%7B%7D%7D&player_rotate=0&player_width=1918",
+            "cover_left_text_1": "10:24",
+            "cover_left_text_2": "2.3万播放",
+            "cover_left_text_3": "901弹幕",
+            "avid": "117202728519626",
+            "cid": "41531412083",
+            "media_type": "MediaTypeUGC",
+            "dimension": { "height": "1080", "width": "1918" },
+            "can_play": true,
+            "play_icon": "https://i0.hdslb.com/bfs/feed-admin/2269afa7897830b397797ebe5f032b899b405c67.png",
+            "duration": "624",
+            "bvid": "BV12RtS6dEAL"
+          }
+        }
+      },
+      {
+        "module_type": "module_bottom",
+        "module_buttom": {
+          "module_stat": {
+            "repost": "6",
+            "like": "1666",
+            "reply": "320",
+            "like_info": { "animation": {} },
+            "no_comment_text": "这条动态已被封印，当前不可评论╮(๑•́ ₃•̀๑)╭",
+            "no_forward_text": "这条动态已被封印，当前不可转发╮(๑•́ ₃•̀๑)╭"
+          },
+          "comment_box": true,
+          "comment_box_msg": "点我发评论",
+          "interaction_icons": ["ICON_FORWARD", "ICON_COMMENT", "ICON_LIKE"]
+        }
+      }
+    ],
+    "extend": {
+      "dyn_id_str": "1243613364040499219",
+      "business_id": "117202728519626",
+      "orig_name": "刹那观察室",
+      "orig_img_url": "http://i0.hdslb.com/bfs/archive/34676ce0cb41ae4fa34facbbf64933c1cfe69531.jpg",
+      "orig_desc": [
+        {
+          "text": "【9月3日刹那晨读】罚临街窗外晒东西？；吉林“戒烟大赛”；手机涨价为何",
+          "type": "desc_type_text",
+          "orig_text": "【9月3日刹那晨读】罚临街窗外晒东西？；吉林“戒烟大赛”；手机涨价为何"
+        }
+      ],
+      "share_type": "3",
+      "share_scene": "dynamic",
+      "is_fast_share": true,
+      "dyn_type": "8",
+      "uid": "3546795384769164",
+      "orig_face": "https://i0.hdslb.com/bfs/face/7ace7c839e2b0345f5cb521f124599b61d13c353.jpg",
+      "reply": {},
+      "only_fans_property": { "has_privilege": true },
+      "feature_gate": {}
+    }
+  }
+}

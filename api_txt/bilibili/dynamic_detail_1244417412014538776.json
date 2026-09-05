@@ -1,0 +1,330 @@
+{
+  "item": {
+    "card_type": "draw",
+    "modules": [
+      {
+        "module_type": "module_top",
+        "module_top": {
+          "tp_list": [
+            {
+              "type": "share",
+              "share": {
+                "icon": "https://i0.hdslb.com/bfs/feed-admin/361a2b0466d7cd76660f9fc25ca9a62dbf20a969.png",
+                "title": "生成长图",
+                "channel_name": "LONG CHART"
+              }
+            },
+            {
+              "type": "report",
+              "default": {
+                "icon": "https://i0.hdslb.com/bfs/app/63650970553f374b4c6a4a573e0ea19f75e85395.png",
+                "title": "举报",
+                "uri": "bilibili://following/report?dynamicId=1244417412014538776&uid=389609547&title=oldyezi%3A%20%E5%9B%BE%E7%89%87"
+              }
+            }
+          ],
+          "author": {
+            "mid": "389609547",
+            "ptime_label_text": "2026年9月5日 10:55",
+            "author": {
+              "mid": "389609547",
+              "name": "oldyezi",
+              "face": "https://i0.hdslb.com/bfs/face/8de03cf84f3ff63d087b951533437c3910e90275.jpg",
+              "official": { "type": -1 },
+              "vip": { "label": {} },
+              "uri": "bilibili://space/389609547?defaultTab=dynamic",
+              "pendant": {},
+              "nameplate": {},
+              "level": 6,
+              "avatar": {
+                "container_size": { "width": 1.35, "height": 1.35 },
+                "fallback_layers": {
+                  "layers": [
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 2,
+                          "axis_x": 0.675,
+                          "axis_y": 0.675
+                        },
+                        "size_spec": { "width": 1, "height": 1 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": {
+                        "tags": { "AVATAR_LAYER": {} },
+                        "is_critical": true,
+                        "layer_mask": {
+                          "general_spec": {
+                            "pos_spec": {
+                              "coordinate_pos": 2,
+                              "axis_x": 0.675,
+                              "axis_y": 0.675
+                            },
+                            "size_spec": { "width": 1, "height": 1 },
+                            "render_spec": { "opacity": 1 }
+                          },
+                          "mask_src": {
+                            "src_type": 3,
+                            "draw": {
+                              "draw_type": 1,
+                              "fill_mode": 1,
+                              "color_config": { "day": { "argb": "#FF000000" } }
+                            }
+                          }
+                        }
+                      },
+                      "resource": {
+                        "res_type": 3,
+                        "res_image": {
+                          "image_src": {
+                            "src_type": 1,
+                            "placeholder": 6,
+                            "remote": {
+                              "url": "https://i0.hdslb.com/bfs/face/8de03cf84f3ff63d087b951533437c3910e90275.jpg",
+                              "bfs_style": "widget-layer-avatar"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "is_critical_group": true
+                },
+                "mid": "389609547"
+              }
+            },
+            "relation": {
+              "status": "relation_status_nofollow",
+              "title": "未关注"
+            },
+            "show_follow": true
+          },
+          "hidden_nav_bar": true
+        }
+      },
+      {
+        "module_type": "module_paragraph",
+        "module_paragraph": {
+          "paragraph": {
+            "para_type": "TEXT",
+            "para_format": {},
+            "text": {
+              "nodes": [
+                {
+                  "node_type": "WORDS",
+                  "raw_text": "吃什么？🍽️",
+                  "word": {
+                    "words": "吃什么？🍽️",
+                    "font_size": 22,
+                    "color": {
+                      "color_day": "#2F3238",
+                      "color_night": "#D0D3D7"
+                    },
+                    "style": { "bold": true }
+                  }
+                }
+              ]
+            }
+          },
+          "is_article_title": true
+        }
+      },
+      {
+        "module_type": "module_author",
+        "module_author": {
+          "mid": "389609547",
+          "ptime_label_text": "2026年9月5日 10:55",
+          "author": {
+            "mid": "389609547",
+            "name": "oldyezi",
+            "face": "https://i0.hdslb.com/bfs/face/8de03cf84f3ff63d087b951533437c3910e90275.jpg",
+            "official": { "type": -1 },
+            "vip": { "label": {} },
+            "uri": "bilibili://space/389609547?defaultTab=dynamic",
+            "pendant": {},
+            "nameplate": {},
+            "level": 6,
+            "avatar": {
+              "container_size": { "width": 1.35, "height": 1.35 },
+              "fallback_layers": {
+                "layers": [
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 2,
+                        "axis_x": 0.675,
+                        "axis_y": 0.675
+                      },
+                      "size_spec": { "width": 1, "height": 1 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": {
+                      "tags": { "AVATAR_LAYER": {} },
+                      "is_critical": true,
+                      "layer_mask": {
+                        "general_spec": {
+                          "pos_spec": {
+                            "coordinate_pos": 2,
+                            "axis_x": 0.675,
+                            "axis_y": 0.675
+                          },
+                          "size_spec": { "width": 1, "height": 1 },
+                          "render_spec": { "opacity": 1 }
+                        },
+                        "mask_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": { "day": { "argb": "#FF000000" } }
+                          }
+                        }
+                      }
+                    },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 1,
+                          "placeholder": 6,
+                          "remote": {
+                            "url": "https://i0.hdslb.com/bfs/face/8de03cf84f3ff63d087b951533437c3910e90275.jpg",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "is_critical_group": true
+              },
+              "mid": "389609547"
+            }
+          },
+          "relation": {
+            "status": "relation_status_nofollow",
+            "title": "未关注"
+          },
+          "show_follow": true
+        }
+      },
+      {
+        "module_type": "module_desc",
+        "module_desc": {
+          "desc": [
+            {
+              "text": "分享图片",
+              "type": "desc_type_text",
+              "orig_text": "分享图片"
+            }
+          ],
+          "text": "分享图片"
+        }
+      },
+      {
+        "module_type": "module_dynamic",
+        "module_dynamic": {
+          "type": "mdl_dyn_draw",
+          "dyn_draw": {
+            "items": [
+              {
+                "src": "http://i0.hdslb.com/bfs/new_dyn/1cad6720ba3731ffee9a9a94445bf369389609547.jpg",
+                "width": "1909",
+                "height": "2003",
+                "size": 1949.45
+              }
+            ],
+            "id": "408139193",
+            "is_big_cover": true
+          }
+        }
+      },
+      {
+        "module_type": "module_bottom",
+        "module_buttom": {
+          "module_stat": {
+            "like": "286",
+            "reply": "21",
+            "like_info": { "animation": {} },
+            "no_comment_text": "这条动态已被封印，当前不可评论╮(๑•́ ₃•̀๑)╭",
+            "no_forward_text": "这条动态已被封印，当前不可转发╮(๑•́ ₃•̀๑)╭"
+          },
+          "comment_box": true,
+          "comment_box_msg": "点我发评论",
+          "interaction_icons": ["ICON_FORWARD", "ICON_COMMENT", "ICON_LIKE"]
+        }
+      }
+    ],
+    "extend": {
+      "dyn_id_str": "1244417412014538776",
+      "business_id": "408139193",
+      "orig_name": "oldyezi",
+      "orig_img_url": "http://i0.hdslb.com/bfs/new_dyn/1cad6720ba3731ffee9a9a94445bf369389609547.jpg",
+      "orig_desc": [
+        {
+          "text": "吃什么？🍽️",
+          "type": "desc_type_text",
+          "orig_text": "吃什么？🍽️"
+        }
+      ],
+      "share_type": "3",
+      "share_scene": "dynamic",
+      "is_fast_share": true,
+      "dyn_type": "2",
+      "uid": "389609547",
+      "orig_face": "https://i0.hdslb.com/bfs/face/8de03cf84f3ff63d087b951533437c3910e90275.jpg",
+      "reply": {},
+      "opus_summary": {
+        "title": {
+          "para_type": "TEXT",
+          "para_format": {},
+          "text": {
+            "nodes": [
+              {
+                "node_type": "WORDS",
+                "raw_text": "吃什么？🍽️",
+                "word": {
+                  "words": "吃什么？🍽️",
+                  "font_size": 17,
+                  "color": { "color_day": "#2F3238", "color_night": "#D0D3D7" },
+                  "style": { "bold": true }
+                }
+              }
+            ]
+          }
+        },
+        "summary": {
+          "para_type": "TEXT",
+          "para_format": {},
+          "text": {
+            "nodes": [
+              {
+                "node_type": "WORDS",
+                "raw_text": "分享图片",
+                "word": {
+                  "words": "分享图片",
+                  "font_size": 17,
+                  "color": { "color_day": "#2F3238", "color_night": "#D0D3D7" },
+                  "style": {}
+                }
+              }
+            ]
+          }
+        },
+        "summary_jump_btn_text": "全文",
+        "covers": [
+          {
+            "src": "http://i0.hdslb.com/bfs/new_dyn/1cad6720ba3731ffee9a9a94445bf369389609547.jpg",
+            "width": "1909",
+            "height": "2003",
+            "size": 1949.45
+          }
+        ]
+      },
+      "only_fans_property": { "has_privilege": true },
+      "feature_gate": {}
+    }
+  }
+}
