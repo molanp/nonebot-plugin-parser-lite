@@ -13,7 +13,9 @@ class CommentResourceType(IntEnum):
     VIDEO = 1
     """视频"""
     OPUS = 11
-    """图文"""
+    """图文动态"""
+    ARTICLE = 12
+    """专栏文章"""
     DYNAMIC = 17
     """动态"""
 

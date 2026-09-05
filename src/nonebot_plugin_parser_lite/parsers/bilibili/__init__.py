@@ -11,7 +11,7 @@ from nonebot import logger
 from ...exception import DownloadException, TipException
 from ...utils.bilibili.a2v import bv2av
 from ...utils.bilibili.bangumi import Bangumi
-from ...utils.bilibili.bilibili.app.dynamic.v2 import dynamic_pb2
+from ...utils.bilibili.bilibili.app.dynamic.v2 import dynamic_pb2, opus_pb2
 from ...utils.bilibili.bilibili.app.view.v1 import view_pb2
 from ...utils.bilibili.bilibili.main.community.reply.v1 import reply_pb2
 from ...utils.bilibili.client import HEADERS
@@ -55,7 +55,8 @@ from .dynamic import (
     _append_opus_summary,
     _append_paragraph,
     _apply_stat,
-    _description_items,
+    # _description_items,
+    _parse_timestamp,
     build_dynamic,
 )
 from .favlist import FavData
@@ -456,12 +457,6 @@ class BilibiliParser(BaseParser):
             author=self.create_author(name=""),
             url=f"https://t.bilibili.com/{dynamic_id}",
             content=[],
-            extra={
-                "type": "dynamic",
-                "type_tag": "动态",
-                "type_icon": "fa-bolt",
-                "content_id": dynamic_id,
-            },
         )
         build_dynamic(result, dynamic_info_data)
 
@@ -521,12 +516,6 @@ class BilibiliParser(BaseParser):
             url=f"https://www.bilibili.com/opus/{item.opus_id or item.oid}",
             content=[],
             author=self.create_author(name=""),
-            extra={
-                "type": "opus",
-                "type_tag": "图文",
-                "type_icon": "fa-file-pen",
-                "content_id": str(item.opus_id or item.oid),
-            },
         )
         title = ""
         for module in item.modules:
@@ -538,10 +527,12 @@ class BilibiliParser(BaseParser):
                     avatar_url=author.author.face or None,
                     id=str(author.mid),
                 )
+                if result.timestamp is None:
+                    result.timestamp = _parse_timestamp(author.ptime_label_text)
                 if author.mid:
                     await self.raise_if_in_black_list(author.mid)
-            elif kind == "module_desc":
-                result.content.extend(_description_items(module.module_desc))
+            # elif kind == "module_desc":
+            #     result.content.extend(_description_items(module.module_desc))
             elif kind == "module_dynamic":
                 _append_dynamic_payload(result, module.module_dynamic, set())
             elif kind == "module_opus_summary":
@@ -566,7 +557,12 @@ class BilibiliParser(BaseParser):
 
         result.title = title or None
         oid = item.oid or item.opus_id
-        result.comments = await self._fetch_comments(int(oid), CommentResourceType.OPUS)
+        comment_type = (
+            CommentResourceType.ARTICLE
+            if item.opus_type == opus_pb2.OPUS_TYPE_ARTICLE
+            else CommentResourceType.OPUS
+        )
+        result.comments = await self._fetch_comments(int(oid), comment_type)
         return result
 
     async def parse_live(self, room_id: int):
@@ -596,24 +592,11 @@ class BilibiliParser(BaseParser):
 
         url = f"https://www.bilibili.com/blackboard/live/live-activity-player.html?enterTheRoom=0&cid={room_id}"
 
-        extra_data = {
-            "type": "live",
-            "type_tag": "直播",
-            "type_icon": "fa-tower-broadcast",
-            "content_id": f"ROOM{room_id}",
-            "live_info": {
-                "level": "0",
-                "level_color": "0",
-                "score": "0",
-            },
-        }
-
         return self.result(
             url=url,
             title=room_data.title,
             content=contents,
             author=author,
-            extra=extra_data,
         )
 
     async def parse_favlist(self, fav_id: int):
