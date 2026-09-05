@@ -788,20 +788,10 @@ class BilibiliParser(BaseParser):
                 f"replies={len(data.replies)}, merged={len(merged)}",
             )
             # upper 置顶评论始终首位，其余按 like 数降序排序
-            if merged:
-                if has_upper and len(merged) > 1:
-                    head = merged[0]
-                    tail = merged[1:]
-                    tail.sort(
-                        key=lambda item: item.like,
-                        reverse=True,
-                    )
-                    merged = [head, *tail]
-                else:
-                    merged.sort(
-                        key=lambda item: item.like,
-                        reverse=True,
-                    )
+            if merged and (has_upper and len(merged) > 1):
+                head = merged[0]
+                tail = merged[1:]
+                merged = [head, *tail]
             return self._process_reply_list(merged[: pconfig.max_comments])
 
         except Exception as e:
