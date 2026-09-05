@@ -1,0 +1,234 @@
+{
+  "item": {
+    "card_type": "live_rcmd",
+    "modules": [
+      {
+        "module_type": "module_top",
+        "module_top": {
+          "tp_list": [
+            {
+              "type": "report",
+              "default": {
+                "icon": "https://i0.hdslb.com/bfs/app/63650970553f374b4c6a4a573e0ea19f75e85395.png",
+                "title": "举报",
+                "uri": "bilibili://following/report?dynamicId=1244209892054532105&uid=38740404&title=%E4%B8%80%E6%9C%A8%E6%9E%9C%3A%20%E5%8A%A8%E6%80%81"
+              }
+            }
+          ],
+          "author": {
+            "mid": "38740404",
+            "ptime_label_text": "2026年9月4日 21:29",
+            "author": {
+              "mid": "38740404",
+              "name": "一木果",
+              "face": "https://i0.hdslb.com/bfs/face/17ea0b669f917331f80af8edcace3539f44ec99a.jpg",
+              "official": { "type": -1 },
+              "vip": { "Type": 1, "due_date": "1626451200000", "label": {} },
+              "live": {
+                "is_living": 1,
+                "uri": "bilibili://live/14327505",
+                "live_state": "live_live"
+              },
+              "uri": "bilibili://space/38740404?defaultTab=dynamic",
+              "pendant": {},
+              "nameplate": {},
+              "level": 6,
+              "avatar": {
+                "container_size": { "width": 1.35, "height": 1.35 },
+                "fallback_layers": {
+                  "layers": [
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 2,
+                          "axis_x": 0.675,
+                          "axis_y": 0.675
+                        },
+                        "size_spec": { "width": 1, "height": 1 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": {
+                        "tags": { "AVATAR_LAYER": {} },
+                        "is_critical": true,
+                        "layer_mask": {
+                          "general_spec": {
+                            "pos_spec": {
+                              "coordinate_pos": 2,
+                              "axis_x": 0.675,
+                              "axis_y": 0.675
+                            },
+                            "size_spec": { "width": 1, "height": 1 },
+                            "render_spec": { "opacity": 1 }
+                          },
+                          "mask_src": {
+                            "src_type": 3,
+                            "draw": {
+                              "draw_type": 1,
+                              "fill_mode": 1,
+                              "color_config": { "day": { "argb": "#FF000000" } }
+                            }
+                          }
+                        }
+                      },
+                      "resource": {
+                        "res_type": 3,
+                        "res_image": {
+                          "image_src": {
+                            "src_type": 1,
+                            "placeholder": 6,
+                            "remote": {
+                              "url": "https://i0.hdslb.com/bfs/face/17ea0b669f917331f80af8edcace3539f44ec99a.jpg",
+                              "bfs_style": "widget-layer-avatar"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "is_critical_group": true
+                },
+                "mid": "38740404"
+              }
+            },
+            "relation": {
+              "status": "relation_status_nofollow",
+              "title": "未关注"
+            },
+            "show_follow": true
+          }
+        }
+      },
+      {
+        "module_type": "module_author",
+        "module_author": {
+          "mid": "38740404",
+          "ptime_label_text": "2026年9月4日 21:29",
+          "author": {
+            "mid": "38740404",
+            "name": "一木果",
+            "face": "https://i0.hdslb.com/bfs/face/17ea0b669f917331f80af8edcace3539f44ec99a.jpg",
+            "official": { "type": -1 },
+            "vip": { "Type": 1, "due_date": "1626451200000", "label": {} },
+            "live": {
+              "is_living": 1,
+              "uri": "bilibili://live/14327505",
+              "live_state": "live_live"
+            },
+            "uri": "bilibili://space/38740404?defaultTab=dynamic",
+            "pendant": {},
+            "nameplate": {},
+            "level": 6,
+            "avatar": {
+              "container_size": { "width": 1.35, "height": 1.35 },
+              "fallback_layers": {
+                "layers": [
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 2,
+                        "axis_x": 0.675,
+                        "axis_y": 0.675
+                      },
+                      "size_spec": { "width": 1, "height": 1 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": {
+                      "tags": { "AVATAR_LAYER": {} },
+                      "is_critical": true,
+                      "layer_mask": {
+                        "general_spec": {
+                          "pos_spec": {
+                            "coordinate_pos": 2,
+                            "axis_x": 0.675,
+                            "axis_y": 0.675
+                          },
+                          "size_spec": { "width": 1, "height": 1 },
+                          "render_spec": { "opacity": 1 }
+                        },
+                        "mask_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": { "day": { "argb": "#FF000000" } }
+                          }
+                        }
+                      }
+                    },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 1,
+                          "placeholder": 6,
+                          "remote": {
+                            "url": "https://i0.hdslb.com/bfs/face/17ea0b669f917331f80af8edcace3539f44ec99a.jpg",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "is_critical_group": true
+              },
+              "mid": "38740404"
+            }
+          },
+          "relation": {
+            "status": "relation_status_nofollow",
+            "title": "未关注"
+          },
+          "show_follow": true
+        }
+      },
+      {
+        "module_type": "module_dynamic",
+        "module_dynamic": {
+          "type": "mdl_dyn_live_rcmd",
+          "dyn_live_rcmd": {
+            "content": "{\"type\":1,\"live_play_info\":{\"room_id\":14327505,\"uid\":38740404,\"live_status\":1,\"room_type\":0,\"play_type\":0,\"title\":\"bilibili主播的直播间\",\"cover\":\"https://i0.hdslb.com/bfs/live-key-frame/keyframe09051140000014327505ezbw67.jpg\",\"online\":205,\"area_id\":820,\"area_name\":\"兴趣\",\"parent_area_id\":14,\"parent_area_name\":\"聊天室\",\"live_screen_type\":1,\"live_start_time\":1788527988,\"link\":\"https://live.bilibili.com/14327505?accept_quality=%5B10000%5D\\u0026all_special_types=%5B71%5D\\u0026area_id=820\\u0026av1_current_qn=0\\u0026broadcast_type=1\\u0026current_qn=10000\\u0026current_quality=10000\\u0026expected_hdr_type=0\\u0026expected_qn=0\\u0026h264_current_qn=10000\\u0026h264_media_info=%7B%22height%22%3A960%2C%22width%22%3A540%2C%22realtime_avg_bw%22%3A71640%7D\\u0026h264_session=http%3A%2F%2F114.230.222.18%2Flive-bvc%2F473220%2Flive_n2cac_SCHGxQb_5wjsw.flv%3Fexpires%3D1788583416%26pt%3Dandroid%26deadline%3D1788583416%26len%3D0%26oi%3D1781184249%26platform%3Dandroid%26qn%3D10000%26trid%3D100060ebd1a030b3fc2e28e51214526a9b8f%26uipk%3D100%26uipv%3D100%26nbs%3D1%26bmt%3D2%26uparams%3Dcdn%2Cdeadline%2Clen%2Coi%2Cplatform%2Cqn%2Ctrid%2Cuipk%2Cuipv%2Cnbs%2Cbmt%26cdn%3Dcn-gotcha01%26upsig%3Df3a1ed0032be036fa7e09900d35ff334%26site%3D54aac98f0133070e59b2dd75a3c61811%26free_type%3D0%26mid%3D0%26sche%3Dban%26sid%3Dcn-jsyz-ct-03-17%26chash%3D1%26sg%3Dlr%26trace%3D8388633%26isp%3Dct%26rg%3DCentral%26pv%3DHenan%26hdr_type%3D0%26suffix%3Dorigin%26sl%3D1%26deploy_env%3Dprod%26pp%3Dsrt%26source%3Dpuv3_batch%26media_type%3D0%26p2p_type%3D0%26codec%3D0%26origin_bitrate%3D562%26score%3D1%26sk%3Dab27b7653b0e050c0dcb8037233e061f%26hot_cdn%3D0%26info_source%3Dorigin%26vd%3Dnc%26zoneid_l%3D151388161%26sid_l%3Dstream_name_cold%26src%3Dpuv3%26order%3D1\\u0026h265_current_qn=0\\u0026is_room_feed=1\\u0026keyframe=https%3A%2F%2Fi0.hdslb.com%2Fbfs%2Flive-key-frame%2Fkeyframe09051140000014327505ezbw67.jpg\\u0026live_play_network=other\\u0026master_url=\\u0026p2p_type=0\\u0026parent_area_id=14\\u0026playurl_av1=\\u0026playurl_h264=http%3A%2F%2F114.230.222.18%2Flive-bvc%2F473220%2Flive_n2cac_SCHGxQb_5wjsw.flv%3Fexpires%3D1788583416%26pt%3Dandroid%26deadline%3D1788583416%26len%3D0%26oi%3D1781184249%26platform%3Dandroid%26qn%3D10000%26trid%3D100060ebd1a030b3fc2e28e51214526a9b8f%26uipk%3D100%26uipv%3D100%26nbs%3D1%26bmt%3D2%26uparams%3Dcdn%2Cdeadline%2Clen%2Coi%2Cplatform%2Cqn%2Ctrid%2Cuipk%2Cuipv%2Cnbs%2Cbmt%26cdn%3Dcn-gotcha01%26upsig%3Df3a1ed0032be036fa7e09900d35ff334%26site%3D54aac98f0133070e59b2dd75a3c61811%26free_type%3D0%26mid%3D0%26sche%3Dban%26sid%3Dcn-jsyz-ct-03-17%26chash%3D1%26sg%3Dlr%26trace%3D8388633%26isp%3Dct%26rg%3DCentral%26pv%3DHenan%26hdr_type%3D0%26suffix%3Dorigin%26sl%3D1%26deploy_env%3Dprod%26pp%3Dsrt%26source%3Dpuv3_batch%26media_type%3D0%26p2p_type%3D0%26codec%3D0%26origin_bitrate%3D562%26score%3D1%26sk%3Dab27b7653b0e050c0dcb8037233e061f%26hot_cdn%3D0%26info_source%3Dorigin%26vd%3Dnc%26zoneid_l%3D151388161%26sid_l%3Dstream_name_cold%26src%3Dpuv3%26order%3D1\\u0026playurl_h265=\\u0026qn_desc_more_ab=1\\u0026quality_description=%5B%7B%22qn%22%3A10000%2C%22desc%22%3A%22%E5%8E%9F%E7%94%BB%22%2C%22hdr_type%22%3A0%2C%22media_base_desc%22%3A%7B%22detail_desc%22%3A%7B%22desc%22%3A%22720P+%E5%8E%9F%E7%94%BB%22%7D%2C%22brief_desc%22%3A%7B%22desc%22%3A%22720P%22%2C%22badge%22%3A%22%E5%8E%9F%E7%94%BB%22%7D%7D%7D%5D\",\"live_id\":736028201932463825,\"pendants\":{\"list\":null},\"watched_show\":{\"switch\":true,\"num\":58,\"text_small\":\"58\",\"text_large\":\"58人看过\",\"icon\":\"https://i0.hdslb.com/bfs/live/a725a9e61242ef44d764ac911691a7ce07f36c1d.png\",\"icon_location\":\"\",\"icon_web\":\"https://i0.hdslb.com/bfs/live/8d9d0f33ef8bf6f308742752d13dd0df731df19c.png\"},\"room_paid_type\":0},\"live_record_info\":null}"
+          }
+        }
+      },
+      {
+        "module_type": "module_bottom",
+        "module_buttom": {
+          "module_stat": {
+            "like": "1",
+            "like_info": { "animation": {} },
+            "no_comment_text": "这条动态已被封印，当前不可评论╮(๑•́ ₃•̀๑)╭",
+            "no_forward_text": "这条动态已被封印，当前不可转发╮(๑•́ ₃•̀๑)╭"
+          },
+          "comment_box": true,
+          "comment_box_msg": "点我发评论",
+          "interaction_icons": ["ICON_FORWARD", "ICON_COMMENT", "ICON_LIKE"]
+        }
+      }
+    ],
+    "extend": {
+      "dyn_id_str": "1244209892054532105",
+      "business_id": "736028201932463825",
+      "orig_name": "一木果",
+      "orig_img_url": "https://i0.hdslb.com/bfs/live-key-frame/keyframe09051140000014327505ezbw67.jpg",
+      "orig_desc": [
+        {
+          "text": "bilibili主播的直播间",
+          "type": "desc_type_text",
+          "orig_text": "bilibili主播的直播间"
+        }
+      ],
+      "share_type": "3",
+      "share_scene": "dynamic",
+      "is_fast_share": true,
+      "dyn_type": "4308",
+      "uid": "38740404",
+      "orig_face": "https://i0.hdslb.com/bfs/face/17ea0b669f917331f80af8edcace3539f44ec99a.jpg",
+      "reply": {},
+      "only_fans_property": { "has_privilege": true },
+      "feature_gate": {}
+    }
+  }
+}

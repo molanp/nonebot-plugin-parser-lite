@@ -1,0 +1,642 @@
+{
+  "opus_item": {
+    "opus_id": "1243410482662998019",
+    "oid": "407866446",
+    "modules": [
+      {
+        "module_type": "module_top",
+        "module_top": {
+          "tp_list": [
+            {
+              "type": "share",
+              "share": {
+                "icon": "https://i0.hdslb.com/bfs/feed-admin/361a2b0466d7cd76660f9fc25ca9a62dbf20a969.png",
+                "title": "生成长图",
+                "channel_name": "LONG CHART"
+              }
+            },
+            {
+              "type": "report",
+              "default": {
+                "icon": "https://i0.hdslb.com/bfs/app/63650970553f374b4c6a4a573e0ea19f75e85395.png",
+                "title": "举报",
+                "uri": "bilibili://following/report?dynamicId=1243410482662998019&uid=67079745&title=%E7%8E%84%E7%A6%BB199%3A%20%E5%9B%BE%E7%89%87"
+              }
+            }
+          ],
+          "author": {
+            "mid": "67079745",
+            "ptime_label_text": "2026年9月2日 17:47",
+            "author": {
+              "mid": "67079745",
+              "name": "玄离199",
+              "face": "https://i0.hdslb.com/bfs/face/8a70069e1dc9ab89c1d688c2cefd3596864315ea.jpg",
+              "official": {},
+              "vip": {
+                "Type": 2,
+                "status": 1,
+                "due_date": "1797350400000",
+                "label": {
+                  "path": "http://i0.hdslb.com/bfs/vip/label_annual.png",
+                  "text": "年度大会员",
+                  "label_theme": "annual_vip"
+                },
+                "avatar_subscript": 1,
+                "nickname_color": "#FB7299"
+              },
+              "uri": "bilibili://space/67079745?defaultTab=dynamic",
+              "pendant": {
+                "pid": "455",
+                "name": "请吃红小豆",
+                "image": "https://i0.hdslb.com/bfs/face/3f84f9f0e34153971f6ebd62790eaf5b4490d3d5.png"
+              },
+              "nameplate": {
+                "nid": "90",
+                "name": "有爱萌新",
+                "image": "https://i2.hdslb.com/bfs/face/51ca16136e570938450bca360f28761ceb609f33.png",
+                "image_small": "https://i1.hdslb.com/bfs/face/9abfa4769357f85937782c2dbc40fafda4f57217.png",
+                "level": "普通勋章",
+                "condition": "当前持有粉丝勋章最高等级>=5级"
+              },
+              "level": 6,
+              "nft_info": {
+                "region_type": "nft_region_mainlang",
+                "region_icon": "https://i0.hdslb.com/bfs/activity-plat/static/20220506/334553dd7c506a92b88eaf4d59ac8b4d/j8AeXAkEul.gif",
+                "region_show_status": "nft_show_zoominmainlang"
+              },
+              "avatar": {
+                "container_size": { "width": 1.65, "height": 1.65 },
+                "fallback_layers": {
+                  "layers": [
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 2,
+                          "axis_x": 0.825,
+                          "axis_y": 0.825
+                        },
+                        "size_spec": { "width": 0.94, "height": 0.94 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": {
+                        "tags": { "AVATAR_LAYER": {} },
+                        "is_critical": true,
+                        "layer_mask": {
+                          "general_spec": {
+                            "pos_spec": {
+                              "coordinate_pos": 2,
+                              "axis_x": 0.825,
+                              "axis_y": 0.825
+                            },
+                            "size_spec": { "width": 0.94, "height": 0.94 },
+                            "render_spec": { "opacity": 1 }
+                          },
+                          "mask_src": {
+                            "src_type": 3,
+                            "draw": {
+                              "draw_type": 1,
+                              "fill_mode": 1,
+                              "color_config": { "day": { "argb": "#FF000000" } }
+                            }
+                          }
+                        }
+                      },
+                      "resource": {
+                        "res_type": 3,
+                        "res_image": {
+                          "image_src": {
+                            "src_type": 1,
+                            "placeholder": 6,
+                            "remote": {
+                              "url": "https://i0.hdslb.com/bfs/face/8a70069e1dc9ab89c1d688c2cefd3596864315ea.jpg",
+                              "bfs_style": "widget-layer-avatar"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 2,
+                          "axis_x": 0.825,
+                          "axis_y": 0.825
+                        },
+                        "size_spec": { "width": 1.65, "height": 1.65 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": { "tags": { "PENDENT_LAYER": {} } },
+                      "resource": {
+                        "res_type": 3,
+                        "res_image": {
+                          "image_src": {
+                            "src_type": 1,
+                            "remote": {
+                              "url": "https://i0.hdslb.com/bfs/face/3f84f9f0e34153971f6ebd62790eaf5b4490d3d5.png",
+                              "bfs_style": "widget-layer-avatar"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 1,
+                          "axis_x": 1.0450000000000002,
+                          "axis_y": 1.0616666666666668
+                        },
+                        "size_spec": { "width": 0.325, "height": 0.325 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": { "tags": { "ICON_LAYER": {} } },
+                      "resource": {
+                        "res_type": 5,
+                        "res_native_draw": {
+                          "draw_src": {
+                            "src_type": 3,
+                            "draw": {
+                              "draw_type": 1,
+                              "fill_mode": 1,
+                              "color_config": {
+                                "is_dark_mode_aware": true,
+                                "day": { "argb": "#FFFFFFFF" },
+                                "night": { "argb": "#FF17181A" }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 1,
+                          "axis_x": 1.07,
+                          "axis_y": 1.0866666666666667
+                        },
+                        "size_spec": { "width": 0.275, "height": 0.275 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": { "tags": { "ICON_LAYER": {} } },
+                      "resource": {
+                        "res_type": 3,
+                        "res_image": {
+                          "image_src": {
+                            "src_type": 2,
+                            "local": "LOCAL_RES_ICON_PERSONAL_VERIFY"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 1,
+                          "axis_x": 0.7449999999999999,
+                          "axis_y": 1.0616666666666668
+                        },
+                        "size_spec": { "width": 0.325, "height": 0.325 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": { "tags": { "ICON_LAYER": {} } },
+                      "resource": {
+                        "res_type": 5,
+                        "res_native_draw": {
+                          "draw_src": {
+                            "src_type": 3,
+                            "draw": {
+                              "draw_type": 1,
+                              "fill_mode": 1,
+                              "color_config": {
+                                "is_dark_mode_aware": true,
+                                "day": { "argb": "#FFFFFFFF" },
+                                "night": { "argb": "#FF17181A" }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 1,
+                          "axis_x": 0.7699999999999999,
+                          "axis_y": 1.0866666666666667
+                        },
+                        "size_spec": { "width": 0.275, "height": 0.275 },
+                        "render_spec": { "opacity": 1 }
+                      },
+                      "layer_config": { "tags": { "ICON_LAYER": {} } },
+                      "resource": {
+                        "res_type": 4,
+                        "res_animation": {
+                          "webp_src": {
+                            "src_type": 1,
+                            "placeholder": 5,
+                            "remote": {
+                              "url": "https://i0.hdslb.com/bfs/activity-plat/static/20220506/334553dd7c506a92b88eaf4d59ac8b4d/j8AeXAkEul.gif",
+                              "bfs_style": "widget-layer-avatar"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "is_critical_group": true
+                },
+                "mid": "67079745"
+              }
+            },
+            "decorate_card": {
+              "id": "1684059343001",
+              "card_url": "https://i0.hdslb.com/bfs/garb/658934676a8d82f98e8b734b57bc3100a03dca8b.png",
+              "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1684059343001&isdiy=0&part=card&from=post&f_source=garb&vmid=67079745&native.theme=1&navhide=1",
+              "fan": {
+                "is_fan": 1,
+                "number": 2062,
+                "number_str": "002062",
+                "color": "#F34B3E"
+              }
+            },
+            "relation": {
+              "status": "relation_status_nofollow",
+              "title": "未关注"
+            },
+            "show_follow": true
+          }
+        }
+      },
+      {
+        "module_type": "module_author",
+        "module_author": {
+          "mid": "67079745",
+          "ptime_label_text": "2026年9月2日 17:47",
+          "author": {
+            "mid": "67079745",
+            "name": "玄离199",
+            "face": "https://i0.hdslb.com/bfs/face/8a70069e1dc9ab89c1d688c2cefd3596864315ea.jpg",
+            "official": {},
+            "vip": {
+              "Type": 2,
+              "status": 1,
+              "due_date": "1797350400000",
+              "label": {
+                "path": "http://i0.hdslb.com/bfs/vip/label_annual.png",
+                "text": "年度大会员",
+                "label_theme": "annual_vip"
+              },
+              "avatar_subscript": 1,
+              "nickname_color": "#FB7299"
+            },
+            "uri": "bilibili://space/67079745?defaultTab=dynamic",
+            "pendant": {
+              "pid": "455",
+              "name": "请吃红小豆",
+              "image": "https://i0.hdslb.com/bfs/face/3f84f9f0e34153971f6ebd62790eaf5b4490d3d5.png"
+            },
+            "nameplate": {
+              "nid": "90",
+              "name": "有爱萌新",
+              "image": "https://i2.hdslb.com/bfs/face/51ca16136e570938450bca360f28761ceb609f33.png",
+              "image_small": "https://i1.hdslb.com/bfs/face/9abfa4769357f85937782c2dbc40fafda4f57217.png",
+              "level": "普通勋章",
+              "condition": "当前持有粉丝勋章最高等级>=5级"
+            },
+            "level": 6,
+            "nft_info": {
+              "region_type": "nft_region_mainlang",
+              "region_icon": "https://i0.hdslb.com/bfs/activity-plat/static/20220506/334553dd7c506a92b88eaf4d59ac8b4d/j8AeXAkEul.gif",
+              "region_show_status": "nft_show_zoominmainlang"
+            },
+            "avatar": {
+              "container_size": { "width": 1.65, "height": 1.65 },
+              "fallback_layers": {
+                "layers": [
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 2,
+                        "axis_x": 0.825,
+                        "axis_y": 0.825
+                      },
+                      "size_spec": { "width": 0.94, "height": 0.94 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": {
+                      "tags": { "AVATAR_LAYER": {} },
+                      "is_critical": true,
+                      "layer_mask": {
+                        "general_spec": {
+                          "pos_spec": {
+                            "coordinate_pos": 2,
+                            "axis_x": 0.825,
+                            "axis_y": 0.825
+                          },
+                          "size_spec": { "width": 0.94, "height": 0.94 },
+                          "render_spec": { "opacity": 1 }
+                        },
+                        "mask_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": { "day": { "argb": "#FF000000" } }
+                          }
+                        }
+                      }
+                    },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 1,
+                          "placeholder": 6,
+                          "remote": {
+                            "url": "https://i0.hdslb.com/bfs/face/8a70069e1dc9ab89c1d688c2cefd3596864315ea.jpg",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 2,
+                        "axis_x": 0.825,
+                        "axis_y": 0.825
+                      },
+                      "size_spec": { "width": 1.65, "height": 1.65 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": { "tags": { "PENDENT_LAYER": {} } },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 1,
+                          "remote": {
+                            "url": "https://i0.hdslb.com/bfs/face/3f84f9f0e34153971f6ebd62790eaf5b4490d3d5.png",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 1.0450000000000002,
+                        "axis_y": 1.0616666666666668
+                      },
+                      "size_spec": { "width": 0.325, "height": 0.325 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": { "tags": { "ICON_LAYER": {} } },
+                    "resource": {
+                      "res_type": 5,
+                      "res_native_draw": {
+                        "draw_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": {
+                              "is_dark_mode_aware": true,
+                              "day": { "argb": "#FFFFFFFF" },
+                              "night": { "argb": "#FF17181A" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 1.07,
+                        "axis_y": 1.0866666666666667
+                      },
+                      "size_spec": { "width": 0.275, "height": 0.275 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": { "tags": { "ICON_LAYER": {} } },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 2,
+                          "local": "LOCAL_RES_ICON_PERSONAL_VERIFY"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 0.7449999999999999,
+                        "axis_y": 1.0616666666666668
+                      },
+                      "size_spec": { "width": 0.325, "height": 0.325 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": { "tags": { "ICON_LAYER": {} } },
+                    "resource": {
+                      "res_type": 5,
+                      "res_native_draw": {
+                        "draw_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": {
+                              "is_dark_mode_aware": true,
+                              "day": { "argb": "#FFFFFFFF" },
+                              "night": { "argb": "#FF17181A" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 0.7699999999999999,
+                        "axis_y": 1.0866666666666667
+                      },
+                      "size_spec": { "width": 0.275, "height": 0.275 },
+                      "render_spec": { "opacity": 1 }
+                    },
+                    "layer_config": { "tags": { "ICON_LAYER": {} } },
+                    "resource": {
+                      "res_type": 4,
+                      "res_animation": {
+                        "webp_src": {
+                          "src_type": 1,
+                          "placeholder": 5,
+                          "remote": {
+                            "url": "https://i0.hdslb.com/bfs/activity-plat/static/20220506/334553dd7c506a92b88eaf4d59ac8b4d/j8AeXAkEul.gif",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "is_critical_group": true
+              },
+              "mid": "67079745"
+            }
+          },
+          "decorate_card": {
+            "id": "1684059343001",
+            "card_url": "https://i0.hdslb.com/bfs/garb/658934676a8d82f98e8b734b57bc3100a03dca8b.png",
+            "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1684059343001&isdiy=0&part=card&from=post&f_source=garb&vmid=67079745&native.theme=1&navhide=1",
+            "fan": {
+              "is_fan": 1,
+              "number": 2062,
+              "number_str": "002062",
+              "color": "#F34B3E"
+            }
+          },
+          "relation": {
+            "status": "relation_status_nofollow",
+            "title": "未关注"
+          },
+          "show_follow": true
+        }
+      },
+      {
+        "module_type": "module_paragraph",
+        "module_paragraph": {
+          "paragraph": {
+            "para_type": "TEXT",
+            "para_format": {},
+            "text": {
+              "nodes": [
+                {
+                  "node_type": "WORDS",
+                  "raw_text": "上月的互动榜，上榜的可以评论区留言领大会员～",
+                  "word": {
+                    "words": "上月的互动榜，上榜的可以评论区留言领大会员～",
+                    "font_size": 17,
+                    "color": {
+                      "color_day": "#2F3238",
+                      "color_night": "#D0D3D7"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "module_type": "module_paragraph",
+        "module_paragraph": {
+          "paragraph": {
+            "para_type": "PICTURES",
+            "pic": {
+              "pics": {
+                "items": [
+                  {
+                    "src": "http://i0.hdslb.com/bfs/new_dyn/9a63608d36db7809068183bf1e94287167079745.jpg",
+                    "width": "750",
+                    "height": "1426",
+                    "size": 138.55
+                  }
+                ]
+              },
+              "style": "NINE_CELL"
+            }
+          }
+        }
+      },
+      {
+        "module_type": "module_bottom",
+        "module_buttom": {
+          "module_stat": {
+            "like": "314",
+            "reply": "21",
+            "like_info": { "animation": {} },
+            "no_comment_text": "这条动态已被封印，当前不可评论╮(๑•́ ₃•̀๑)╭",
+            "no_forward_text": "这条动态已被封印，当前不可转发╮(๑•́ ₃•̀๑)╭"
+          },
+          "comment_box": true,
+          "comment_box_msg": "点我发评论",
+          "interaction_icons": ["ICON_FORWARD", "ICON_COMMENT", "ICON_LIKE"]
+        }
+      }
+    ],
+    "extend": {
+      "dyn_id_str": "1243410482662998019",
+      "business_id": "407866446",
+      "orig_name": "玄离199",
+      "orig_img_url": "http://i0.hdslb.com/bfs/new_dyn/9a63608d36db7809068183bf1e94287167079745.jpg",
+      "orig_desc": [
+        {
+          "text": "上月的互动榜，上榜的可以评论区留言领大会员～",
+          "type": "desc_type_text",
+          "orig_text": "上月的互动榜，上榜的可以评论区留言领大会员～"
+        }
+      ],
+      "share_type": "3",
+      "share_scene": "dynamic",
+      "is_fast_share": true,
+      "dyn_type": "2",
+      "uid": "67079745",
+      "orig_face": "https://i0.hdslb.com/bfs/face/8a70069e1dc9ab89c1d688c2cefd3596864315ea.jpg",
+      "reply": {},
+      "opus_summary": {
+        "summary": {
+          "para_type": "TEXT",
+          "para_format": {},
+          "text": {
+            "nodes": [
+              {
+                "node_type": "WORDS",
+                "raw_text": "上月的互动榜，上榜的可以评论区留言领大会员～",
+                "word": {
+                  "words": "上月的互动榜，上榜的可以评论区留言领大会员～",
+                  "font_size": 17,
+                  "color": { "color_day": "#2F3238", "color_night": "#D0D3D7" },
+                  "style": {}
+                }
+              }
+            ]
+          }
+        },
+        "summary_jump_btn_text": "全文",
+        "covers": [
+          {
+            "src": "http://i0.hdslb.com/bfs/new_dyn/9a63608d36db7809068183bf1e94287167079745.jpg",
+            "width": "750",
+            "height": "1426",
+            "size": 138.55
+          }
+        ]
+      },
+      "only_fans_property": { "has_privilege": true },
+      "feature_gate": {}
+    }
+  }
+}

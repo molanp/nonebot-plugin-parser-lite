@@ -4,11 +4,11 @@ import re
 from typing import Any
 from urllib.parse import urlsplit
 
-from yarl import URL
-
 from .a2v import av2bv, bv2av
+from .bilibili.app.playurl.v1 import playurl_pb2
+from .bilibili.app.view.v1 import view_pb2
 from .cdn import choose_cdn_domain, normalize_cdn_domain
-from .client import HTTP_CLIENT
+from .client import GRPC_CLIENT, HTTP_CLIENT
 from .credential import Credential
 from .exceptions import BiliHelperException
 from .sign import encWbi, getWbiKeys
@@ -18,9 +18,12 @@ class BiliVideoQuality(IntEnum):
     """
     视频的视频流分辨率枚举
 
+    :cvar _144P: 流畅 144P
+    :cvar _240P: 流畅 240P
     :cvar _360P: 流畅 360P
     :cvar _480P: 清晰 480P
-    :cvar _720P: 高清 720P60
+    :cvar _720P: 高清 720P
+    :cvar _720P_PLUS: 高清 720P 高码率
     :cvar _1080P: 高清 1080P
     :cvar AI_REPAIR: 智能修复（人工智能修复画质）
     :cvar _1080P_PLUS: 高清 1080P 高码率
@@ -31,9 +34,12 @@ class BiliVideoQuality(IntEnum):
     :cvar _8K: 超高清 8K
     """
 
+    _144P = 5
+    _240P = 6
     _360P = 16
     _480P = 32
     _720P = 64
+    _720P_PLUS = 74
     _1080P = 80
     AI_REPAIR = 100
     _1080P_PLUS = 112
@@ -60,14 +66,13 @@ class BiliVideoCodecs(str, Enum):
     UNKNOWN = "unknown"
 
     @classmethod
-    def from_codec(cls, codec: str) -> "BiliVideoCodecs":
-        """根据返回的 codec 字符串推断枚举值"""
-        codec = codec.lower()
-        if any(k in codec for k in ("hev", "hvc1", "hev1")):
-            return cls.HEV
-        if any(k in codec for k in ("avc",)):
-            return cls.AVC
-        return cls.AV1 if any(k in codec for k in ("av1", "av01")) else cls.UNKNOWN
+    def from_codecid(cls, codecid: int) -> "BiliVideoCodecs":
+        """根据返回的 codec_id 推断枚举值"""
+        return {
+            7: cls.AVC,
+            12: cls.HEV,
+            13: cls.AV1,
+        }.get(codecid, cls.UNKNOWN)
 
 
 class BiliAudioQuality(IntEnum):
@@ -115,27 +120,30 @@ class Video:
             self.bvid = av2bv(aid)
         else:
             raise BiliHelperException("请至少提供 bvid 和 aid 中的其中一个参数")
-        self.credential: Credential = credential or Credential()
-        self.info: dict[str, Any] | None = None
+        self.credential = credential
+        self.info: view_pb2.ViewReply | None = None
 
-    async def get_info(self) -> dict[str, Any]:
+    async def get_info(self) -> view_pb2.ViewReply:
         """
         获取视频信息。
 
         :return: 调用 API 返回的结果。
         """
         if not self.info:
-            result = (
-                await HTTP_CLIENT.get(
-                    url="https://api.bilibili.com/x/web-interface/view",
-                    params={"bvid": self.bvid, "aid": self.aid},
-                    cookies=self.credential.get_cookies(),
-                )
-            ).json()
-            if result["code"] != 0:
-                raise BiliHelperException(result)
-            self.info = result["data"]
-            assert self.info
+            from .bilibili.app.view.v1 import view_pb2
+            from .client import GRPC_CLIENT
+
+            req = view_pb2.ViewReq(bvid=self.bvid)
+            access_token = self.credential.access_token if self.credential else ""
+            self.info = await GRPC_CLIENT.request(
+                "/bilibili.app.view.v1.View/View",
+                req,
+                view_pb2.ViewReply,
+                access_token=access_token,
+                user_mid=self.credential.mid
+                if self.credential and access_token
+                else None,
+            )
         return self.info
 
     async def get_up_mid(self) -> int:
@@ -145,7 +153,7 @@ class Video:
         :return: up_mid
         """
         info = await self.get_info()
-        return info["owner"]["mid"]
+        return info.arc.author.mid
 
     async def is_episode(self) -> bool:
         """
@@ -154,15 +162,7 @@ class Video:
         :return: 是否是番剧
         """
         info = await self.get_info()
-        if redirect_url := info.get("redirect_url"):
-            url = URL(redirect_url)
-            if (
-                url.host == "www.bilibili.com"
-                and len(url.parts) >= 3
-                and (url.parts[1] == "bangumi" and url.parts[2] == "play")
-            ):
-                return True
-        return False
+        return info.HasField("season")
 
     async def get_cid(self, page_index: int) -> int:
         """
@@ -177,20 +177,20 @@ class Video:
             raise BiliHelperException("分 p 号必须大于或等于 0")
 
         info = await self.get_info()
-        pages = info["pages"]
+        pages = info.pages
 
         if len(pages) <= page_index:
             raise BiliHelperException("不存在该分 p")
 
-        page = pages[page_index]
-        return page["cid"]
+        page = pages[page_index].page
+        return page.cid
 
     async def get_download_url(
         self,
         page_index: int | None = None,
         cid: int | None = None,
-        html5: bool = False,
-    ) -> dict:
+        prefer_codecs: list[BiliVideoCodecs] | None = None,
+    ) -> playurl_pb2.PlayViewReply:
         """
         获取视频下载信息
 
@@ -200,44 +200,44 @@ class Video:
 
         :param page_index: 分 P 号，从 0 开始, defaults to None
         :param cid: 分 P 的 ID, defaults to None
-        :param html5: 是否选择移动端 HTML5 播放流（仅支持 MP4 格式）此时获得的媒体流访问无需鉴权, defaults to False
         :raises BiliHelperException: 传参有误
         :return: 调用 API 返回的结果
-        """  # noqa: E501
+        """
         if cid is None:
             if page_index is None:
                 raise BiliHelperException("page_index 和 cid 至少提供一个")
 
             cid = await self.get_cid(page_index)
 
-        params = {
-            "qn": "127",
-            "fnval": 4048,
-            "fnver": 0,
-            "fourk": 1,
-            "gaia_source": "pre-load",
-            "isGaiaAvoided": "true",
-            "avid": self.aid,
-            "bvid": self.bvid,
-            "cid": cid,
-            "platform": "pc",
-            "from_client": "BROWSER",
-            "web_location": 1315873,
-            "try_look": 1,
-        }
-        if html5:
-            params["platform"] = "html5"
-            params["high_quality"] = "1"
-        result = (
-            await HTTP_CLIENT.get(
-                url="https://api.bilibili.com/x/player/wbi/playurl",
-                params=encWbi(params, *(await getWbiKeys())),
-                cookies=self.credential.get_cookies(),
-            )
-        ).json()
-        if result["code"] != 0:
-            raise BiliHelperException(result)
-        return result["data"]
+        match prefer_codecs[0] if prefer_codecs else None:
+            case "hev":
+                prefer_codec_type = playurl_pb2.CODE265
+            case "avc":
+                prefer_codec_type = playurl_pb2.CODE264
+            case "av01":
+                prefer_codec_type = playurl_pb2.CODEAV1
+            case _:
+                prefer_codec_type = playurl_pb2.NOCODE
+        req = playurl_pb2.PlayViewReq(
+            aid=self.aid,
+            cid=cid,
+            qn=127,
+            fnval=4048,
+            fourk=True,
+            spmid="main.ugc-video-detail.0.0",
+            from_spmid="main.my-history.0.0",
+            prefer_codec_type=prefer_codec_type,
+            download=0,
+            force_host=2,
+        )
+        access_token = self.credential.access_token if self.credential else ""
+        return await GRPC_CLIENT.request(
+            "/bilibili.app.playurl.v1.PlayURL/PlayView",
+            req,
+            playurl_pb2.PlayViewReply,
+            access_token=access_token,
+            user_mid=self.credential.mid if self.credential and access_token else None,
+        )
 
     async def get_ai_conclusion(
         self,
@@ -269,11 +269,12 @@ class Video:
             "up_mid": up_mid or await self.get_up_mid(),
             "web_location": "333.788",
         }
+
         result = (
             await HTTP_CLIENT.get(
                 url="https://api.bilibili.com/x/web-interface/view/conclusion/get",
                 params=encWbi(params, *(await getWbiKeys())),
-                cookies=self.credential.get_cookies(),
+                cookies=self.credential.get_cookies() if self.credential else None,
             )
         ).json()
         if result["code"] != 0:
@@ -419,15 +420,43 @@ class VideoDownloadURLDataDetecter:
     该解析器会自动清洗 PCDN 链接
     """
 
-    def __init__(self, data: dict):
+    def __init__(self, data: playurl_pb2.PlayViewReply):
         """
         用于解析 `Video.get_download_url` 返回结果的解析器
 
         该解析器会自动清洗 PCDN 链接
 
-        :param data: `Video.get_download_url` 返回的原始数据
+        :param data: `Video.get_download_url` 返回的 protobuf 响应
         """
-        self.__data = data.get("video_info") or data
+        self.__data = data.video_info
+
+    @staticmethod
+    def _append_audio_stream(
+        streams: list[AudioStreamDownloadURL],
+        url: str,
+        backup_url: list[str],
+        quality_id: int,
+        min_quality: BiliAudioQuality,
+        max_quality: BiliAudioQuality,
+        accepted_qualities: list[BiliAudioQuality],
+    ) -> None:
+        if not url:
+            return
+        try:
+            quality = BiliAudioQuality(quality_id)
+        except ValueError:
+            return
+        if not (min_quality.value <= quality.value <= max_quality.value):
+            return
+        if quality not in accepted_qualities:
+            return
+        streams.append(
+            AudioStreamDownloadURL(
+                url=url,
+                audio_quality=quality,
+                backup_url=backup_url,
+            )
+        )
 
     def detect_best_streams(
         self,
@@ -480,39 +509,41 @@ class VideoDownloadURLDataDetecter:
                 BiliVideoCodecs.AVC,
                 BiliVideoCodecs.HEV,
             ]
-        # FLV / MP4 情况
-        if "durl" in self.__data.keys():
-            url = self.__data["durl"][0]["url"]
-            backup_url = self.__data["durl"][0]["backup_url"]
-
-            if self.__data["format"].startswith("flv"):
-                video_stream = FLVStreamDownloadURL(
-                    url=url,
-                    backup_url=backup_url,
-                )
-            else:
-                video_stream = MP4StreamDownloadURL(
-                    url=url,
-                    backup_url=backup_url,
-                )
-
-            return sanitize_stream_urls(
-                video_stream,
-                None,
-                cdn_region=cdn_region,
-                cdn_domain=cdn_domain,
-            )
-
-        # DASH 正常情况
-        videos_data = self.__data["dash"]["video"]
-        audios_data = self.__data["dash"].get("audio")
-        flac_data = self.__data["dash"].get("flac")
-        dolby_data = self.__data["dash"].get("dolby")
-
         # 收集所有候选视频流
         video_streams: list[VideoStreamDownloadURL] = []
-        for video_data in videos_data:
-            vq = BiliVideoQuality(video_data["id"])
+        for stream in self.__data.stream_list:
+            content_kind = stream.WhichOneof("content")
+            if content_kind == "dash_video":
+                video_data = stream.dash_video
+                url = video_data.base_url
+                backup_url = list(video_data.backup_url)
+                codecid = video_data.codecid
+            elif content_kind == "segment_video" and stream.segment_video.segment:
+                segment = stream.segment_video.segment[0]
+                url = segment.url
+                backup_url = list(segment.backup_url)
+                if stream.stream_info.format.startswith("flv"):
+                    return sanitize_stream_urls(
+                        FLVStreamDownloadURL(url=url, backup_url=backup_url),
+                        None,
+                        cdn_region=cdn_region,
+                        cdn_domain=cdn_domain,
+                    )
+                if stream.stream_info.format.startswith("mp4"):
+                    return sanitize_stream_urls(
+                        MP4StreamDownloadURL(url=url, backup_url=backup_url),
+                        None,
+                        cdn_region=cdn_region,
+                        cdn_domain=cdn_domain,
+                    )
+                codecid = self.__data.video_codecid
+            else:
+                continue
+
+            try:
+                vq = BiliVideoQuality(stream.stream_info.quality)
+            except ValueError:
+                continue
 
             # HDR / 杜比过滤
             if (vq == BiliVideoQuality.HDR and no_hdr) or (
@@ -528,56 +559,53 @@ class VideoDownloadURLDataDetecter:
                     continue
 
             # 编码过滤
-            codecs_str: str = video_data["codecs"]
-            video_stream_codecs = BiliVideoCodecs.from_codec(codecs_str)
+            video_stream_codecs = BiliVideoCodecs.from_codecid(codecid)
             if video_stream_codecs not in codecs:
                 continue
             video_streams.append(
                 VideoStreamDownloadURL(
-                    url=video_data["base_url"],
+                    url=url,
                     video_quality=vq,
                     video_codecs=video_stream_codecs,
-                    backup_url=video_data["backup_url"],
+                    backup_url=backup_url,
                 )
             )
 
         # 收集所有候选音频流
         audio_streams: list[AudioStreamDownloadURL] = []
-        if audios_data:
-            for audio_data in audios_data:
-                aq = BiliAudioQuality(audio_data["id"])
-                if not (audio_min_quality.value <= aq.value <= audio_max_quality.value):
-                    continue
-                if aq not in audio_accepted_qualities:
-                    continue
-                audio_streams.append(
-                    AudioStreamDownloadURL(
-                        url=audio_data["base_url"],
-                        audio_quality=aq,
-                        backup_url=audio_data["backup_url"],
-                    )
-                )
-
-        if flac_data and (not no_hires) and flac_data["audio"]:
-            audio = flac_data["audio"]
-            aq = BiliAudioQuality(audio["id"])
-            audio_streams.append(
-                AudioStreamDownloadURL(
-                    url=audio["base_url"],
-                    audio_quality=aq,
-                    backup_url=audio["backup_url"],
-                )
+        for audio in self.__data.dash_audio:
+            self._append_audio_stream(
+                audio_streams,
+                audio.baseUrl,
+                list(audio.backup_url),
+                audio.id,
+                audio_min_quality,
+                audio_max_quality,
+                audio_accepted_qualities,
             )
 
-        if dolby_data and (not no_dolby_audio) and dolby_data["audio"]:
-            audio = dolby_data["audio"][0]
-            aq = BiliAudioQuality(audio["id"])
-            audio_streams.append(
-                AudioStreamDownloadURL(
-                    url=audio["base_url"],
-                    audio_quality=aq,
-                    backup_url=audio["backup_url"],
-                )
+        if not no_hires and self.__data.HasField("loss_less_item"):
+            audio = self.__data.loss_less_item.audio
+            self._append_audio_stream(
+                audio_streams,
+                audio.baseUrl,
+                list(audio.backup_url),
+                audio.id,
+                audio_min_quality,
+                audio_max_quality,
+                audio_accepted_qualities,
+            )
+
+        if not no_dolby_audio and self.__data.HasField("dolby"):
+            audio = self.__data.dolby.audio
+            self._append_audio_stream(
+                audio_streams,
+                audio.baseUrl,
+                list(audio.backup_url),
+                audio.id,
+                audio_min_quality,
+                audio_max_quality,
+                audio_accepted_qualities,
             )
 
         # 选择最优视频流：基于评分的 key 函数

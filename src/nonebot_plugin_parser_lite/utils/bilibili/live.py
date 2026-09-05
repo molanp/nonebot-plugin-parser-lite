@@ -1,7 +1,6 @@
 from typing import Any
 
 from .client import HTTP_CLIENT
-from .credential import Credential
 from .exceptions import BiliHelperException
 
 
@@ -10,13 +9,11 @@ class LiveRoom:
     直播类，获取各种直播间的操作均在里边
     """
 
-    def __init__(self, room_display_id: int, credential: Credential | None = None):
+    def __init__(self, room_display_id: int):
         """
         :param room_display_id: 房间展示 ID（即 URL 中的 ID）
-        :param credential: 凭证, defaults to None
         """
         self.room_display_id = room_display_id
-        self.credential: Credential = credential or Credential()
 
     async def get_room_info(self) -> dict[str, Any]:
         """
@@ -26,9 +23,8 @@ class LiveRoom:
         """
         result = (
             await HTTP_CLIENT.get(
-                url="https://api.live.bilibili.com/xlive/web-room/v1/index/getInfoByRoom",
+                url="https://api.live.bilibili.com/room/v1/Room/get_info",
                 params={"room_id": self.room_display_id},
-                cookies=self.credential.get_cookies(),
             )
         ).json()
         if result["code"] != 0:

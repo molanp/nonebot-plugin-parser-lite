@@ -370,7 +370,7 @@ class Renderer:
         :raise DurationLimitException: 媒体时长超过配置的最大限制时抛出
         :raise DownloadException: 重试多次仍失败时抛出
         """
-        if not isinstance(cont, (VideoContent, AudioContent)):
+        if not isinstance(cont, VideoContent | AudioContent):
             return
         if cont.duration > pconfig.duration_maximum:
             raise DurationLimitException(cont.duration)
@@ -492,9 +492,9 @@ class Renderer:
             # 按 content 顺序遍历
             for item in pr.content:
                 if isinstance(item, str):
-                    # 文本：缓冲，遇到媒体或结束时 flush
-                    if text := item.strip():
-                        append_text(text)
+                    # 文本：保留接口返回的空白和换行，段落边界由原始文本控制。
+                    if item:
+                        append_text(item)
                 elif isinstance(item, StickerContent):
                     append_text(item.desc or "[表情]")
                 elif isinstance(item, MediaContent) and item.need_send:

@@ -36,7 +36,10 @@ def static_checks(root: Path) -> None:
             errors.append(
                 f"{path.relative_to(root)} is still present in the standalone tree"
             )
+    generated_bilibili = package / "utils/bilibili/bilibili"
     for path in package.rglob("*.py"):
+        if generated_bilibili in path.parents:
+            continue
         if path.is_symlink() and not path.exists():
             continue
         try:

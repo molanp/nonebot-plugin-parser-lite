@@ -1,0 +1,502 @@
+{
+  "opus_item": {
+    "opus_id": "1243413650189844551",
+    "oid": "407849433",
+    "modules": [
+      {
+        "module_type": "module_top",
+        "module_top": {
+          "tp_list": [
+            {
+              "type": "share",
+              "share": {
+                "icon": "https://i0.hdslb.com/bfs/feed-admin/361a2b0466d7cd76660f9fc25ca9a62dbf20a969.png",
+                "title": "生成长图",
+                "channel_name": "LONG CHART"
+              }
+            },
+            {
+              "type": "report",
+              "default": {
+                "icon": "https://i0.hdslb.com/bfs/app/63650970553f374b4c6a4a573e0ea19f75e85395.png",
+                "title": "举报",
+                "uri": "bilibili://following/report?dynamicId=1243413650189844551&uid=3546954038511957&title=%E5%90%89%E6%98%9F%E6%B4%BE%E5%AF%B9%3A%20%E5%9B%BE%E7%89%87"
+              }
+            }
+          ],
+          "author": {
+            "mid": "3546954038511957",
+            "ptime_label_text": "2026年9月2日 18:00",
+            "author": {
+              "mid": "3546954038511957",
+              "name": "吉星派对",
+              "face": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
+              "official": {
+                "type": 1
+              },
+              "vip": {
+                "label": {}
+              },
+              "uri": "bilibili://space/3546954038511957?defaultTab=dynamic",
+              "pendant": {},
+              "nameplate": {},
+              "level": 4,
+              "avatar": {
+                "container_size": {
+                  "width": 1.35,
+                  "height": 1.35
+                },
+                "fallback_layers": {
+                  "layers": [
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 2,
+                          "axis_x": 0.675,
+                          "axis_y": 0.675
+                        },
+                        "size_spec": {
+                          "width": 1,
+                          "height": 1
+                        },
+                        "render_spec": {
+                          "opacity": 1
+                        }
+                      },
+                      "layer_config": {
+                        "tags": {
+                          "AVATAR_LAYER": {}
+                        },
+                        "is_critical": true,
+                        "layer_mask": {
+                          "general_spec": {
+                            "pos_spec": {
+                              "coordinate_pos": 2,
+                              "axis_x": 0.675,
+                              "axis_y": 0.675
+                            },
+                            "size_spec": {
+                              "width": 1,
+                              "height": 1
+                            },
+                            "render_spec": {
+                              "opacity": 1
+                            }
+                          },
+                          "mask_src": {
+                            "src_type": 3,
+                            "draw": {
+                              "draw_type": 1,
+                              "fill_mode": 1,
+                              "color_config": {
+                                "day": {
+                                  "argb": "#FF000000"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "resource": {
+                        "res_type": 3,
+                        "res_image": {
+                          "image_src": {
+                            "src_type": 1,
+                            "placeholder": 6,
+                            "remote": {
+                              "url": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
+                              "bfs_style": "widget-layer-avatar"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 1,
+                          "axis_x": 0.85,
+                          "axis_y": 0.85
+                        },
+                        "size_spec": {
+                          "width": 0.35,
+                          "height": 0.35
+                        },
+                        "render_spec": {
+                          "opacity": 1
+                        }
+                      },
+                      "layer_config": {
+                        "tags": {
+                          "ICON_LAYER": {}
+                        }
+                      },
+                      "resource": {
+                        "res_type": 5,
+                        "res_native_draw": {
+                          "draw_src": {
+                            "src_type": 3,
+                            "draw": {
+                              "draw_type": 1,
+                              "fill_mode": 1,
+                              "color_config": {
+                                "is_dark_mode_aware": true,
+                                "day": {
+                                  "argb": "#FFFFFFFF"
+                                },
+                                "night": {
+                                  "argb": "#FF17181A"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "visible": true,
+                      "general_spec": {
+                        "pos_spec": {
+                          "coordinate_pos": 1,
+                          "axis_x": 0.875,
+                          "axis_y": 0.875
+                        },
+                        "size_spec": {
+                          "width": 0.3,
+                          "height": 0.3
+                        },
+                        "render_spec": {
+                          "opacity": 1
+                        }
+                      },
+                      "layer_config": {
+                        "tags": {
+                          "ICON_LAYER": {}
+                        }
+                      },
+                      "resource": {
+                        "res_type": 3,
+                        "res_image": {
+                          "image_src": {
+                            "src_type": 2,
+                            "local": "LOCAL_RES_ICON_ENTERPRISE_VERIFY"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "is_critical_group": true
+                },
+                "mid": "3546954038511957"
+              }
+            },
+            "relation": {
+              "status": "relation_status_nofollow",
+              "title": "未关注"
+            },
+            "show_follow": true
+          }
+        }
+      },
+      {
+        "module_type": "module_author",
+        "module_author": {
+          "mid": "3546954038511957",
+          "ptime_label_text": "2026年9月2日 18:00",
+          "author": {
+            "mid": "3546954038511957",
+            "name": "吉星派对",
+            "face": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
+            "official": {
+              "type": 1
+            },
+            "vip": {
+              "label": {}
+            },
+            "uri": "bilibili://space/3546954038511957?defaultTab=dynamic",
+            "pendant": {},
+            "nameplate": {},
+            "level": 4,
+            "avatar": {
+              "container_size": {
+                "width": 1.35,
+                "height": 1.35
+              },
+              "fallback_layers": {
+                "layers": [
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 2,
+                        "axis_x": 0.675,
+                        "axis_y": 0.675
+                      },
+                      "size_spec": {
+                        "width": 1,
+                        "height": 1
+                      },
+                      "render_spec": {
+                        "opacity": 1
+                      }
+                    },
+                    "layer_config": {
+                      "tags": {
+                        "AVATAR_LAYER": {}
+                      },
+                      "is_critical": true,
+                      "layer_mask": {
+                        "general_spec": {
+                          "pos_spec": {
+                            "coordinate_pos": 2,
+                            "axis_x": 0.675,
+                            "axis_y": 0.675
+                          },
+                          "size_spec": {
+                            "width": 1,
+                            "height": 1
+                          },
+                          "render_spec": {
+                            "opacity": 1
+                          }
+                        },
+                        "mask_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": {
+                              "day": {
+                                "argb": "#FF000000"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 1,
+                          "placeholder": 6,
+                          "remote": {
+                            "url": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
+                            "bfs_style": "widget-layer-avatar"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 0.85,
+                        "axis_y": 0.85
+                      },
+                      "size_spec": {
+                        "width": 0.35,
+                        "height": 0.35
+                      },
+                      "render_spec": {
+                        "opacity": 1
+                      }
+                    },
+                    "layer_config": {
+                      "tags": {
+                        "ICON_LAYER": {}
+                      }
+                    },
+                    "resource": {
+                      "res_type": 5,
+                      "res_native_draw": {
+                        "draw_src": {
+                          "src_type": 3,
+                          "draw": {
+                            "draw_type": 1,
+                            "fill_mode": 1,
+                            "color_config": {
+                              "is_dark_mode_aware": true,
+                              "day": {
+                                "argb": "#FFFFFFFF"
+                              },
+                              "night": {
+                                "argb": "#FF17181A"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "visible": true,
+                    "general_spec": {
+                      "pos_spec": {
+                        "coordinate_pos": 1,
+                        "axis_x": 0.875,
+                        "axis_y": 0.875
+                      },
+                      "size_spec": {
+                        "width": 0.3,
+                        "height": 0.3
+                      },
+                      "render_spec": {
+                        "opacity": 1
+                      }
+                    },
+                    "layer_config": {
+                      "tags": {
+                        "ICON_LAYER": {}
+                      }
+                    },
+                    "resource": {
+                      "res_type": 3,
+                      "res_image": {
+                        "image_src": {
+                          "src_type": 2,
+                          "local": "LOCAL_RES_ICON_ENTERPRISE_VERIFY"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "is_critical_group": true
+              },
+              "mid": "3546954038511957"
+            }
+          },
+          "relation": {
+            "status": "relation_status_nofollow",
+            "title": "未关注"
+          },
+          "show_follow": true
+        }
+      },
+      {
+        "module_type": "module_paragraph",
+        "module_paragraph": {
+          "paragraph": {
+            "para_type": "TEXT",
+            "para_format": {},
+            "text": {
+              "nodes": [
+                {
+                  "node_type": "WORDS",
+                  "raw_text": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
+                  "word": {
+                    "words": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
+                    "font_size": 17,
+                    "color": {
+                      "color_day": "#2F3238",
+                      "color_night": "#D0D3D7"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "module_type": "module_paragraph",
+        "module_paragraph": {
+          "paragraph": {
+            "para_type": "PICTURES",
+            "pic": {
+              "pics": {
+                "items": [
+                  {
+                    "src": "http://i0.hdslb.com/bfs/new_dyn/3a3b9385dc0bfeea97ba532575395f863546954038511957.png",
+                    "width": "1920",
+                    "height": "1080",
+                    "size": 2465.0137
+                  }
+                ]
+              },
+              "style": "NINE_CELL"
+            }
+          }
+        }
+      },
+      {
+        "module_type": "module_bottom",
+        "module_buttom": {
+          "module_stat": {
+            "repost": "3",
+            "like": "572",
+            "reply": "452",
+            "like_info": {
+              "animation": {}
+            },
+            "no_comment_text": "这条动态已被封印，当前不可评论╮(๑•́ ₃•̀๑)╭",
+            "no_forward_text": "这条动态已被封印，当前不可转发╮(๑•́ ₃•̀๑)╭"
+          },
+          "comment_box": true,
+          "comment_box_msg": "点我发评论",
+          "interaction_icons": ["ICON_FORWARD", "ICON_COMMENT", "ICON_LIKE"]
+        }
+      }
+    ],
+    "extend": {
+      "dyn_id_str": "1243413650189844551",
+      "business_id": "407849433",
+      "orig_name": "吉星派对",
+      "orig_img_url": "http://i0.hdslb.com/bfs/new_dyn/3a3b9385dc0bfeea97ba532575395f863546954038511957.png",
+      "orig_desc": [
+        {
+          "text": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
+          "type": "desc_type_text",
+          "orig_text": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！"
+        }
+      ],
+      "share_type": "3",
+      "share_scene": "dynamic",
+      "is_fast_share": true,
+      "dyn_type": "2",
+      "uid": "3546954038511957",
+      "orig_face": "https://i0.hdslb.com/bfs/face/53ec9bfcbb9185f279a2e0bc9af87cc81eca2d87.jpg",
+      "reply": {},
+      "opus_summary": {
+        "summary": {
+          "para_type": "TEXT",
+          "para_format": {},
+          "text": {
+            "nodes": [
+              {
+                "node_type": "WORDS",
+                "raw_text": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
+                "word": {
+                  "words": "吉星派对×魔法少女的魔女裁判 限时联动角色【远野汉娜】登场！",
+                  "font_size": 17,
+                  "color": {
+                    "color_day": "#2F3238",
+                    "color_night": "#D0D3D7"
+                  },
+                  "style": {}
+                }
+              }
+            ]
+          }
+        },
+        "summary_jump_btn_text": "全文",
+        "covers": [
+          {
+            "src": "http://i0.hdslb.com/bfs/new_dyn/3a3b9385dc0bfeea97ba532575395f863546954038511957.png",
+            "width": "1920",
+            "height": "1080",
+            "size": 2465.0137
+          }
+        ]
+      },
+      "only_fans_property": {
+        "has_privilege": true
+      },
+      "feature_gate": {}
+    }
+  }
+}

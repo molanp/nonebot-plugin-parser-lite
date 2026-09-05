@@ -4,7 +4,7 @@ import time
 from typing import Any
 from urllib.parse import quote, urlencode
 
-from .client import HTTP_CLIENT
+from .client import APPKEY, APPSEC, HTTP_CLIENT
 
 # fmt: off
 mixinKeyEncTab = [
@@ -17,8 +17,6 @@ mixinKeyEncTab = [
 
 IMG_KEY, SUB_KEY = "", ""
 WBI_KEY_EXPIRE = 0
-APPKEY = "4409e2ce8ffd12b8"
-APPSEC = "59b43e04ad6965f34319062b478f83dd"
 
 
 def getMixinKey(orig: str):

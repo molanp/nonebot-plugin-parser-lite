@@ -195,7 +195,10 @@ def write_pyproject(root: Path, requirements: list[str], version: str) -> None:
 
 def audit(root: Path) -> None:
     violations: list[str] = []
+    generated_bilibili = root / PACKAGE / "utils/bilibili/bilibili"
     for path in (root / PACKAGE).rglob("*.py"):
+        if generated_bilibili in path.parents:
+            continue
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         for node in ast.walk(tree):
             modules: list[str] = []

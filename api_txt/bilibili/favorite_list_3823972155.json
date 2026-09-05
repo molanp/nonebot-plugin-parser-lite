@@ -1,0 +1,267 @@
+{
+  "code": 0,
+  "message": "OK",
+  "ttl": 1,
+  "data": {
+    "info": {
+      "id": 3823972155,
+      "fid": 38239721,
+      "mid": 1344099355,
+      "attr": 22,
+      "title": "何意味",
+      "cover": "http://i2.hdslb.com/bfs/archive/74f318f40dd4af0c3cae94559f8d75a1f88a7bfa.jpg",
+      "upper": {
+        "mid": 1344099355,
+        "name": "略nd",
+        "face": "https://i1.hdslb.com/bfs/face/1e17ed6e7c3fe0c46d9d0d22a85b169e6b4179ef.jpg",
+        "followed": false,
+        "vip_type": 2,
+        "vip_statue": 1
+      },
+      "cover_type": 2,
+      "cnt_info": {
+        "collect": 1,
+        "play": 12,
+        "thumb_up": 8,
+        "share": 0
+      },
+      "type": 11,
+      "intro": "",
+      "ctime": 1766086659,
+      "mtime": 1766086659,
+      "state": 0,
+      "fav_state": 0,
+      "like_state": 0,
+      "media_count": 6,
+      "is_top": false,
+      "is_kid_playlist": false,
+      "kid_playlist_desc": ""
+    },
+    "medias": [
+      {
+        "id": 115017429028658,
+        "type": 2,
+        "title": "啊啊啊～嘿呀！😡",
+        "cover": "http://i2.hdslb.com/bfs/archive/74f318f40dd4af0c3cae94559f8d75a1f88a7bfa.jpg",
+        "intro": "-",
+        "page": 1,
+        "duration": 27,
+        "upper": {
+          "mid": 474836638,
+          "name": "C0aLMEMEs",
+          "face": "https://i1.hdslb.com/bfs/face/241f67699fb788678401b769f4b7d0ee3b274686.jpg",
+          "jump_link": ""
+        },
+        "attr": 0,
+        "cnt_info": {
+          "collect": 4410,
+          "play": 179735,
+          "danmaku": 40,
+          "vt": 0,
+          "play_switch": 0,
+          "reply": 0,
+          "view_text_1": "18万"
+        },
+        "link": "bilibili://video/115017429028658",
+        "ctime": 1755026739,
+        "pubtime": 1755026770,
+        "fav_time": 1776335856,
+        "bv_id": "BV1wRtfzZEu6",
+        "bvid": "BV1wRtfzZEu6",
+        "season": null,
+        "ogv": null,
+        "ugc": {
+          "first_cid": 31654611222
+        },
+        "media_list_link": "bilibili://music/playlist/playpage/5168071455?page_type=3&oid=115017429028658&otype=2"
+      },
+      {
+        "id": 116101354620807,
+        "type": 2,
+        "title": "创意工坊之俄罗斯五星通缉",
+        "cover": "http://i2.hdslb.com/bfs/archive/63efcb3a743c0fbc4c7bf18d76d443b839bc0624.jpg",
+        "intro": "网",
+        "page": 1,
+        "duration": 91,
+        "upper": {
+          "mid": 628259704,
+          "name": "昔年Emot",
+          "face": "https://i1.hdslb.com/bfs/face/31465691cbe5f93d5d99a36185d50fb40bb28e8d.jpg",
+          "jump_link": ""
+        },
+        "attr": 0,
+        "cnt_info": {
+          "collect": 12873,
+          "play": 568242,
+          "danmaku": 402,
+          "vt": 0,
+          "play_switch": 0,
+          "reply": 0,
+          "view_text_1": "56.8万"
+        },
+        "link": "bilibili://video/116101354620807",
+        "ctime": 1771566251,
+        "pubtime": 1771566251,
+        "fav_time": 1772376565,
+        "bv_id": "BV1UsZ6B6EdG",
+        "bvid": "BV1UsZ6B6EdG",
+        "season": null,
+        "ogv": null,
+        "ugc": {
+          "first_cid": 36172859127
+        },
+        "media_list_link": "bilibili://music/playlist/playpage/5168071455?page_type=3&oid=116101354620807&otype=2"
+      },
+      {
+        "id": 116029850260979,
+        "type": 2,
+        "title": "已失效视频",
+        "cover": "http://i0.hdslb.com/bfs/archive/be27fd62c99036dce67efface486fb0a88ffed06.jpg",
+        "intro": "⁣",
+        "page": 1,
+        "duration": 26,
+        "upper": {
+          "mid": 1480142565,
+          "name": "智能仿生魂",
+          "face": "https://i0.hdslb.com/bfs/face/f8594f6a2cfc4f8d21ab77452cd8f65fb3d74616.jpg",
+          "jump_link": ""
+        },
+        "attr": 9,
+        "cnt_info": {
+          "collect": 9024,
+          "play": 508431,
+          "danmaku": 130,
+          "vt": 0,
+          "play_switch": 0,
+          "reply": 0,
+          "view_text_1": "50.8万"
+        },
+        "link": "bilibili://video/116029850260979",
+        "ctime": 1770475286,
+        "pubtime": 1770475286,
+        "fav_time": 1770748691,
+        "bv_id": "BV1zJF4zsE85",
+        "bvid": "BV1zJF4zsE85",
+        "season": null,
+        "ogv": null,
+        "ugc": {
+          "first_cid": 36216114981
+        },
+        "media_list_link": "bilibili://music/playlist/playpage/5168071455?page_type=3&oid=116029850260979&otype=2"
+      },
+      {
+        "id": 115638186017218,
+        "type": 2,
+        "title": "我拯救",
+        "cover": "http://i2.hdslb.com/bfs/archive/cf09c97596c2c16626d092a8c3bca6b727e46e95.jpg",
+        "intro": "BGM: VXLLAIN, iGRES, ENXK - Crystal Skies (Sped Up)\n视频出处:筑梦者大师 @dreamrunnerz_seafoo",
+        "page": 1,
+        "duration": 21,
+        "upper": {
+          "mid": 5328814,
+          "name": "Id丨OT",
+          "face": "https://i1.hdslb.com/bfs/face/2e4d556a4a61ca41ae2dc86340b78480a61599b5.jpg",
+          "jump_link": ""
+        },
+        "attr": 0,
+        "cnt_info": {
+          "collect": 7208,
+          "play": 977524,
+          "danmaku": 657,
+          "vt": 0,
+          "play_switch": 0,
+          "reply": 0,
+          "view_text_1": "97.8万"
+        },
+        "link": "bilibili://video/115638186017218",
+        "ctime": 1764498892,
+        "pubtime": 1764498892,
+        "fav_time": 1766585974,
+        "bv_id": "BV12RSvBKEUa",
+        "bvid": "BV12RSvBKEUa",
+        "season": null,
+        "ogv": null,
+        "ugc": {
+          "first_cid": 34390933799
+        },
+        "media_list_link": "bilibili://music/playlist/playpage/5168071455?page_type=3&oid=115638186017218&otype=2"
+      },
+      {
+        "id": 1351188439,
+        "type": 2,
+        "title": "你朋友得了抑郁症？给他拉黑删除！多跟积极向上的人交流",
+        "cover": "http://i1.hdslb.com/bfs/archive/bfdef816325e64ed9fb2bf2cd9dc52e93006c8e6.jpg",
+        "intro": "-",
+        "page": 1,
+        "duration": 37,
+        "upper": {
+          "mid": 593794039,
+          "name": "紫雲龙-帝者战神",
+          "face": "https://i1.hdslb.com/bfs/face/fa358c2a5d7c53dcaa2d9990878cfe026e614ed5.jpg",
+          "jump_link": ""
+        },
+        "attr": 0,
+        "cnt_info": {
+          "collect": 1424,
+          "play": 220484,
+          "danmaku": 599,
+          "vt": 0,
+          "play_switch": 0,
+          "reply": 0,
+          "view_text_1": "22万"
+        },
+        "link": "bilibili://video/1351188439",
+        "ctime": 1708857926,
+        "pubtime": 1708857994,
+        "fav_time": 1766522322,
+        "bv_id": "BV14z421X7Bg",
+        "bvid": "BV14z421X7Bg",
+        "season": null,
+        "ogv": null,
+        "ugc": {
+          "first_cid": 1450752461
+        },
+        "media_list_link": "bilibili://music/playlist/playpage/5168071455?page_type=3&oid=1351188439&otype=2"
+      },
+      {
+        "id": 115729856727432,
+        "type": 2,
+        "title": "为什么你会感到麻木而不是悲伤",
+        "cover": "http://i2.hdslb.com/bfs/archive/2af1f4c65810924f7a3ca1f80e9efbf74cd3dbc6.jpg",
+        "intro": "https://www.youtube.com/watch?v=OuphEFTc3o4\n2025-12-14\n并非每个人都会经历这种情况。但如果你曾感到不堪重负、压抑过久，或是承载着超出处理能力的重负，本视频将为你解析情绪麻木（numbness）出现的缘由。",
+        "page": 1,
+        "duration": 583,
+        "upper": {
+          "mid": 503223247,
+          "name": "英语猪深度访谈",
+          "face": "https://i1.hdslb.com/bfs/face/1484e306f97fc8cfa457210725ffc88f5c61ec4b.jpg",
+          "jump_link": ""
+        },
+        "attr": 0,
+        "cnt_info": {
+          "collect": 11366,
+          "play": 179339,
+          "danmaku": 336,
+          "vt": 0,
+          "play_switch": 0,
+          "reply": 0,
+          "view_text_1": "17.9万"
+        },
+        "link": "bilibili://video/115729856727432",
+        "ctime": 1765897671,
+        "pubtime": 1765981500,
+        "fav_time": 1766086662,
+        "bv_id": "BV1znqaBUEkf",
+        "bvid": "BV1znqaBUEkf",
+        "season": null,
+        "ogv": null,
+        "ugc": {
+          "first_cid": 34781007219
+        },
+        "media_list_link": "bilibili://music/playlist/playpage/5168071455?page_type=3&oid=115729856727432&otype=2"
+      }
+    ],
+    "has_more": false,
+    "ttl": 1788576347
+  }
+}

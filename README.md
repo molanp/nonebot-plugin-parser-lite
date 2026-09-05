@@ -107,7 +107,7 @@ uv add --requirements requirements.txt
 >
 > 插件会自动使用系统环境中的http系统代理进行网络请求
 
-下面的内容可以粘贴到 `.env`  或 `.env.dev` / `.env.prod` 等文件
+下面的内容可以粘贴到 `.env` 或 `.env.dev` / `.env.prod` 等文件
 
 <details>
 <summary>配置项</summary>
@@ -115,13 +115,6 @@ uv add --requirements requirements.txt
 ```bash
 # [可选] nonebot2 内置配置，若服务器上传带宽太低或报错发送消息超时，建议调高，防止超时
 API_TIMEOUT=100
-
-# [可选] B 站 cookie, 必须含有 SESSDATA 项，可附加 B 站 AI 总结功能
-# 获取方式（觉得麻烦可以看最下面的指令扫码登陆）
-# B站网页打开开发者工具，切换到网络标签页，刷新后点击一个类型为`fetch`的网络请求复制请求头中 Cookie 的全部内容
-# 若希望cookie会自动刷新,请进入控制台，输入 window.localStorage.ac_time_value 并执行即可获取其值。
-# 然后按照如下格式填写，xxxx为你的 Cookie 内容, abc 为 ac_time_value 的值
-plite_bili_ck="xxxxxxxxxx;ac_time_value=abc"
 
 # [可选] 允许的 B 站视频编码，越靠前的编码优先级越高
 # 可选 "avc"(H.264，体积较大), "hev"(HEVC), "av01"(AV1), "unknown"(未知)
