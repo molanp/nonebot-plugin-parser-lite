@@ -4,7 +4,7 @@ from msgspec.json import Decoder
 
 from ...creator import Creator
 from ...data import ContentItem
-from ...utils.format import format_num
+from ...utils.format import format_num, html_to_text, replace_anchor_hrefs
 
 
 class CommunityUserItem(Struct):
@@ -61,7 +61,11 @@ class Post(Struct):
 
     @property
     def text(self):
-        return BeautifulSoup(self.html, "html.parser").get_text() if self.html else ""
+        if not self.html:
+            return ""
+        soup = BeautifulSoup(self.html, "html.parser")
+        replace_anchor_hrefs(soup, "https://news.wmpvp.com/")
+        return html_to_text(soup)
 
     @property
     def timestamp(self) -> int:

@@ -6,6 +6,7 @@ from msgspec import Struct
 
 from ...creator import Creator
 from ...data import ContentItem
+from ...utils.format import html_to_text, replace_anchor_hrefs
 
 
 class PostType(IntEnum):
@@ -72,7 +73,8 @@ class Post(Struct):
     @property
     def text(self) -> str:
         soup = BeautifulSoup(self.content, "html.parser")
-        return soup.get_text(strip=True)
+        replace_anchor_hrefs(soup, "https://www.lofter.com/")
+        return html_to_text(soup)
 
     @property
     def medias(self) -> list[ContentItem]:

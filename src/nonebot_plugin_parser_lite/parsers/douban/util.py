@@ -5,6 +5,12 @@ from bs4.element import NavigableString, Tag
 
 from ...creator import Creator
 from ...data import ContentItem
+from ...utils.format import (
+    HTML_NEWLINE_TAGS,
+    anchor_text,
+    append_html_text,
+    clean_clank,
+)
 
 
 def parse_rich_content(html: str) -> list[ContentItem]:
@@ -18,30 +24,21 @@ def parse_rich_content(html: str) -> list[ContentItem]:
             buffer.append(item)
         else:
             if buffer:
-                text_block = "".join(buffer)
-                lines = [line.rstrip() for line in text_block.splitlines()]
-                if normalized := "\n".join(lines).strip():
-                    result.append(normalized)
+                append_html_text(result, buffer)
                 buffer.clear()
             result.append(item)
 
     if buffer:
-        text_block = "".join(buffer)
-        lines = [line.rstrip() for line in text_block.splitlines()]
-        if normalized := "\n".join(lines).strip():
-            result.append(normalized)
+        append_html_text(result, buffer)
 
     return result
 
 
 def _iter_media_and_text(soup: BeautifulSoup):
+    seen_anchors: set[int] = set()
     for element in soup.descendants:
         if isinstance(element, Tag):
-            if element.name == "p":
-                yield "\n"
-                continue
-
-            if element.name == "br":
+            if element.name in HTML_NEWLINE_TAGS:
                 yield "\n"
                 continue
 
@@ -55,7 +52,15 @@ def _iter_media_and_text(soup: BeautifulSoup):
                     )
 
         elif isinstance(element, NavigableString):
-            if text := str(element).strip():
+            anchor = element.find_parent("a")
+            if anchor is not None and id(anchor) not in seen_anchors:
+                seen_anchors.add(id(anchor))
+                if text := anchor_text(anchor, "https://m.douban.com/"):
+                    yield text
+                continue
+            if anchor is not None:
+                continue
+            if text := clean_clank(str(element)):
                 yield text
 
 

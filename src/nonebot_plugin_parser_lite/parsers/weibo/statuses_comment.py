@@ -8,7 +8,11 @@ from msgspec import Struct, field
 from msgspec.json import Decoder
 
 from ...creator import Creator
-from ...utils.format import replace_placeholder_to_sticker
+from ...utils.format import (
+    html_to_text,
+    replace_anchor_hrefs,
+    replace_placeholder_to_sticker,
+)
 
 WEIBO_PATTERN = re.compile(r"\[(?P<name>[^]]+)\]")
 
@@ -85,7 +89,8 @@ class StatusesComment(Struct):
             else:
                 img.decompose()
 
-        result = soup.get_text(strip=True)
+        replace_anchor_hrefs(soup, "https://weibo.com/")
+        result = html_to_text(soup)
         return result or self.text
 
     @property

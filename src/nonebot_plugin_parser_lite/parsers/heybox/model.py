@@ -9,7 +9,13 @@ from msgspec import Struct, field
 from ...constants import STICKER_CDN
 from ...creator import Creator
 from ...data import ContentItem
-from ...utils.format import replace_placeholder_to_sticker
+from ...utils.format import (
+    HTML_NEWLINE_TAGS,
+    append_html_text,
+    clean_clank,
+    replace_anchor_hrefs,
+    replace_placeholder_to_sticker,
+)
 
 HEYBOX_PATTERN = re.compile(r"\[(?P<name>[^]]+)\]")
 
@@ -156,12 +162,18 @@ def extract_from_html(html: str) -> list[ContentItem]:
     """
 
     soup = BeautifulSoup(html, "html.parser")
+    replace_anchor_hrefs(soup, "https://www.xiaoheihe.cn/")
 
     # 忽略 <noscript> 中的内容，避免重复或无效的占位文本干扰顺序
     for noscript in soup.find_all("noscript"):
         noscript.decompose()
 
     result: list[ContentItem] = []
+    text_buffer: list[str] = []
+
+    def flush_text() -> None:
+        append_html_text(result, text_buffer)
+        text_buffer.clear()
 
     for element in soup.descendants:
         # 处理图片标签
@@ -171,14 +183,19 @@ def extract_from_html(html: str) -> list[ContentItem]:
                 or element.get("data-actualsrc")
                 or element.get("data-default-watermark-src")
             ):
+                flush_text()
                 result.append(
                     Creator.image(
                         url=str(src),
                     )
                 )
+        elif isinstance(element, Tag) and element.name in HTML_NEWLINE_TAGS:
+            text_buffer.append("\n")
         # 处理纯文本节点
         elif isinstance(element, NavigableString):
-            if text := str(element).strip():
-                result.append(text)
+            if text := clean_clank(str(element)):
+                text_buffer.append(text)
+
+    flush_text()
 
     return result

@@ -1,12 +1,19 @@
-from collections.abc import Callable
+from collections.abc import Callable, MutableSequence, Sequence
 import re
 from typing import Final, Literal
+from urllib.parse import urljoin
+
+from bs4 import BeautifulSoup
+from bs4.element import NavigableString, Tag
 
 from ..constants import STICKER_CDN
 from ..creator import Creator
 from ..data import ContentItem
 
 DEFAULT_PLACEHOLDER_PATTERN: Final = re.compile(r"\[(?P<name>[^]]+)\]")
+HTML_NEWLINE_TAGS: Final = frozenset(
+    {"p", "br", "h1", "h2", "h3", "h4", "h5", "h6", "li", "blockquote", "pre", "hr"}
+)
 
 
 def replace_placeholder_to_sticker(
@@ -64,3 +71,56 @@ def format_num(num: int | None) -> str:
     if num is None:
         return "-"
     return str(num) if num < 10000 else f"{num / 10000:.1f}万"
+
+
+def clean_clank(value: str) -> str | None:
+    """清理文本中的空白符号(包括换行)"""
+    text = re.sub(r"\s+", " ", value).strip()
+    return text or None
+
+
+def append_html_text(
+    result: MutableSequence[ContentItem], buffer: Sequence[str]
+) -> None:
+    """合并连续 HTML 文本，并保留标签产生的换行"""
+    if not buffer:
+        return
+    if normalized := "".join(buffer).strip():
+        result.append(normalized)
+
+
+def html_to_text(root: BeautifulSoup | Tag) -> str:
+    """按 HTML 标签语义提取文本"""
+    parts: list[str] = []
+    for element in root.descendants:
+        if isinstance(element, Tag):
+            if element.name in HTML_NEWLINE_TAGS:
+                parts.append("\n")
+        elif isinstance(element, NavigableString):
+            if text := clean_clank(str(element)):
+                parts.append(text)
+    return "".join(parts).strip()
+
+
+def anchor_text(element: Tag, base_url: str) -> str | None:
+    """提取链接的显示文本和链接"""
+    if element.find("img"):
+        return None
+    label = element.get_text(" ", strip=True)
+    if not label:
+        return None
+    href = element.get("href")
+    if not isinstance(href, str) or not href:
+        return label
+    if href.startswith("#"):
+        return label
+
+    url = urljoin(base_url, href)
+    return f"{label} ({url})"
+
+
+def replace_anchor_hrefs(root: BeautifulSoup | Tag, base_url: str) -> None:
+    """将正文中的链接替换为 ``显示文本 (完整地址)``"""
+    for element in root.find_all("a"):
+        if text := anchor_text(element, base_url):
+            element.replace_with(text)

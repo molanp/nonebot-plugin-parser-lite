@@ -5,6 +5,7 @@ from msgspec import Struct, field
 
 from ...creator import Creator
 from ...data import ContentItem
+from ...utils.format import html_to_text, replace_anchor_hrefs
 
 
 class BlogInfo(Struct):
@@ -52,7 +53,8 @@ class Comment(Struct):
         - 对纯文本中的表情名称进行搜索，拆分成 文本 + StickerContent
         """
         soup = BeautifulSoup(self.raw, "html.parser")
-        text = soup.get_text(strip=True)
+        replace_anchor_hrefs(soup, "https://www.lofter.com/")
+        text = html_to_text(soup)
 
         # 没有表情或文本为空：直接返回纯文本
         if not text or not self.emotes:

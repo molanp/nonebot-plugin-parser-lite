@@ -3,6 +3,8 @@ import re
 from bs4 import BeautifulSoup, Comment, Tag
 from bs4.element import NavigableString, PageElement
 
+from ...utils.format import HTML_NEWLINE_TAGS, clean_clank
+
 _CARD_ICON_RE = re.compile(r"timeline_card_small_([a-z0-9]+)", re.I)
 
 _ENTITY_CARD_LABELS = {
@@ -35,14 +37,16 @@ def weibo_long_html_to_raw(html: str) -> str:
         if isinstance(node, Comment):
             return
         if isinstance(node, NavigableString):
-            parts.append(str(node))
+            if text := clean_clank(str(node)):
+                parts.append(text)
             return
         if not isinstance(node, Tag):
             return
 
-        if node.name == "br":
+        if node.name in HTML_NEWLINE_TAGS:
             parts.append("\n")
-            return
+            if node.name == "br":
+                return
 
         if node.name == "img":
             if alt := _attr_str(node.get("alt")):
@@ -52,7 +56,7 @@ def weibo_long_html_to_raw(html: str) -> str:
         if node.name == "a":
             surl = node.find("span", class_="surl-text")
             if isinstance(surl, Tag):
-                title = surl.get_text(strip=True)
+                title = clean_clank(surl.get_text(" ", strip=True)) or ""
                 if title and (label := _entity_label_from_card(node)):
                     parts.append(f"#{title}[{label}]#")
                     return
@@ -60,9 +64,14 @@ def weibo_long_html_to_raw(html: str) -> str:
                 if data_url.startswith(("http://t.cn/", "https://t.cn/")):
                     parts.append(data_url)
                     return
-                parts.append(title or node.get_text())
+                parts.append(title or clean_clank(node.get_text(" ", strip=True)) or "")
                 return
-            parts.append(node.get_text())
+            label = clean_clank(node.get_text(" ", strip=True)) or ""
+            href = _attr_str(node.get("href"))
+            if href and label.strip() and label.strip() != href:
+                parts.append(f"{label} ({href})")
+            else:
+                parts.append(label or href)
             return
 
         for child in node.children:

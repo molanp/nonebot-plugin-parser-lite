@@ -6,7 +6,11 @@ from msgspec.json import Decoder
 
 from ...creator import Creator
 from ...data import ImageContent
-from ...utils.format import replace_placeholder_to_sticker
+from ...utils.format import (
+    html_to_text,
+    replace_anchor_hrefs,
+    replace_placeholder_to_sticker,
+)
 
 ZHIHU_PATTERN = re.compile(r"\[(?P<name>[^]]+)\]")
 
@@ -65,7 +69,8 @@ class Comment(Struct):
                 continue
             images.append(Creator.image(href))
 
-        text = soup.get_text()
+        replace_anchor_hrefs(soup, "https://www.zhihu.com/")
+        text = html_to_text(soup)
         parts = replace_placeholder_to_sticker(text, ZHIHU_PATTERN, "zhihu")
         return parts + images
 
