@@ -84,7 +84,7 @@ class StreamDownloader:
         use_curl_cffi: bool = False,
     ) -> UniResponse:
         """
-        发送 HEAD 请求并返回响应对象。
+        发送 HEAD 请求并返回响应对象
 
         :param url: 目标资源地址
         :param ext_headers: 额外请求头
@@ -335,7 +335,7 @@ class StreamDownloader:
 
             # 编码响应的 Content-Length 是压缩传输体大小，而 aiter_bytes()
             # 返回解码后的文件内容，不能用前者校验后者。正常情况下
-            # Accept-Encoding: identity 会避免进入此兼容分支。
+            # Accept-Encoding: identity 会避免进入此兼容分支
             content_length = (
                 None if zipped_content else response.headers.get("content-length")
             )
@@ -600,7 +600,7 @@ class StreamDownloader:
         downloaded_bytes: int,
     ) -> None:
         """
-        校验 ts 汇总大小，并根据 ffmpeg 是否可用输出最终 mp4 文件。
+        校验 ts 汇总大小，并根据 ffmpeg 是否可用输出最终 mp4 文件
         """
         # 校验文件大小 (防止空文件送给 FFmpeg)
         if downloaded_bytes < 1024:

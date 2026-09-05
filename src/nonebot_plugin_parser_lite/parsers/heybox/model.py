@@ -151,7 +151,7 @@ def extract_from_html(html: str) -> list[ContentItem]:
     """
     从 HTML 内容中按顺序提取纯文本和图片
 
-    :param html: 包含知乎内容的 HTML 字符串。
+    :param html: 包含知乎内容的 HTML 字符串
     :return: 由纯文本字符串和 ContentItem 对象组成的列表
     """
 

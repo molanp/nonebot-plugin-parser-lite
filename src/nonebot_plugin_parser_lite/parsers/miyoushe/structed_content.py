@@ -40,8 +40,8 @@ class CustomEmoticon(Struct):
 
 
 class InsertObject(Struct):
-    """大一统结构体：包含所有可能出现的单键对象。
-    没有出现的键在反序列化时会自动赋值为 None。
+    """大一统结构体：包含所有可能出现的单键对象
+    没有出现的键在反序列化时会自动赋值为 None
     """
 
     vod: Video | None = None

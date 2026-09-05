@@ -125,9 +125,9 @@ class Video:
 
     async def get_info(self) -> view_pb2.ViewReply:
         """
-        获取视频信息。
+        获取视频信息
 
-        :return: 调用 API 返回的结果。
+        :return: 调用 API 返回的结果
         """
         if not self.info:
             from .bilibili.app.view.v1 import view_pb2
@@ -148,7 +148,7 @@ class Video:
 
     async def get_up_mid(self) -> int:
         """
-        获取视频 up 主的 mid。
+        获取视频 up 主的 mid
 
         :return: up_mid
         """
@@ -194,7 +194,7 @@ class Video:
         """
         获取视频下载信息
 
-        返回结果可以传入 `VideoDownloadURLDataDetecter` 进行解析。
+        返回结果可以传入 `VideoDownloadURLDataDetecter` 进行解析
 
         page_index 和 cid 至少提供其中一个，其中 cid 优先级最高
 
@@ -378,7 +378,7 @@ def sanitize_stream_urls(
     AudioStreamDownloadURL | None,
 ]:
     """
-    基于 PCDN 规则清洗视频/音频流 URL，尽量避免使用 PCDN 节点。
+    基于 PCDN 规则清洗视频/音频流 URL，尽量避免使用 PCDN 节点
 
     逻辑：
 

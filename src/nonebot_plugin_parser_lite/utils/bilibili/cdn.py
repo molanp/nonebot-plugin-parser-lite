@@ -12,7 +12,7 @@ from .client import HTTP_CLIENT
 CDN_DATA_URL: Final[str] = "https://kanda-akihito-kun.github.io/ccb/api/cdn.json"
 CDN_DATA_PATH: Final[Path] = data_dir / "bilibili_cdn.json"
 
-# 在线列表不可用时仍可使用的稳定官方镜像。
+# 在线列表不可用时仍可使用的稳定官方镜像
 DEFAULT_CDN_DOMAINS: Final[dict[str, tuple[str, ...]]] = {
     "zh": ("upos-sz-mirrorcos.bilivideo.com",),
     "en": ("upos-sz-mirroraliov.bilivideo.com",),

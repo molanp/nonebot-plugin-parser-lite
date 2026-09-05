@@ -53,8 +53,8 @@ class Comment(Struct):
         """
         解析评论文本与图片：
 
-        - 文本部分：保留原始文字与表情占位符（例如 `[捂脸]`），并转换为贴纸。
-        - 图片部分：识别 `<a class="comment_img" href="...">` 并提取为图片媒体。
+        - 文本部分：保留原始文字与表情占位符（例如 `[捂脸]`），并转换为贴纸
+        - 图片部分：识别 `<a class="comment_img" href="...">` 并提取为图片媒体
         """
         soup = BeautifulSoup(self.raw_content, "html.parser")
 

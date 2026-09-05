@@ -34,7 +34,7 @@ def _get_tweet_result(item: dict) -> dict | None:
 
 
 def _iter_timeline_tweet_results(node: dict):
-    """提取 TimelineItem 和 TimelineModule.items 中的 Tweet。"""
+    """提取 TimelineItem 和 TimelineModule.items 中的 Tweet"""
     if tweet_result := _get_tweet_result(node):
         yield tweet_result
         return

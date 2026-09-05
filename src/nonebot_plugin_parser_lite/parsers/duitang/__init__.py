@@ -92,9 +92,9 @@ class DuiTangParser(BaseParser):
         """
         调用堆糖接口获取图集详情数据，并将结果转换为 AtlasData 对象
 
-        :param atlas_id: 图集 ID。
-        :return: 转换后的图集详情数据。
-        :raise ValueError: 当接口返回 message 不为 "success" 时抛出。
+        :param atlas_id: 图集 ID
+        :return: 转换后的图集详情数据
+        :raise ValueError: 当接口返回 message 不为 "success" 时抛出
         """
         response = await self.httpx.get(
             "https://www.duitang.com/napi/vienna/atlas/detail/",
@@ -113,9 +113,9 @@ class DuiTangParser(BaseParser):
         """
         调用堆糖接口获取博客图集详情数据，并将结果转换为 BlogData 对象
 
-        :param blog_id: 图集 ID。
-        :return: 转换后的博客图集详情数据。
-        :raise ValueError: 当接口返回 message 不为 "success" 时抛出。
+        :param blog_id: 图集 ID
+        :return: 转换后的博客图集详情数据
+        :raise ValueError: 当接口返回 message 不为 "success" 时抛出
         """
         response = await self.httpx.get(
             "https://www.duitang.com/napi/blog/with_instance_tag/detail/",
@@ -140,13 +140,13 @@ class DuiTangParser(BaseParser):
         limit: int = 5,
     ) -> CommentData:
         """
-        调用堆糖接口获取图集评论数据。该方法支持限制返回条数，用于构建评论列表。
+        调用堆糖接口获取图集评论数据该方法支持限制返回条数，用于构建评论列表
 
-        :param subject_id: 图集 ID，作为评论主体 ID。
-        :param subject_type: 图集类型，作为评论主体类型。
-        :param limit: 拉取的评论条数上限。
-        :return: 转换后的评论数据对象。
-        :raise ValueError: 当接口返回 message 不为 "success" 时抛出。
+        :param subject_id: 图集 ID，作为评论主体 ID
+        :param subject_type: 图集类型，作为评论主体类型
+        :param limit: 拉取的评论条数上限
+        :return: 转换后的评论数据对象
+        :raise ValueError: 当接口返回 message 不为 "success" 时抛出
         """
         response = await self.httpx.get(
             "https://www.duitang.com/napi/vienna/comment/list/",
@@ -166,10 +166,10 @@ class DuiTangParser(BaseParser):
 
     def _build_comments(self, comment_data: CommentData) -> list[Comment]:
         """
-        根据堆糖评论数据构建评论及其子回复。该方法会处理评论的文字、图片和基础统计信息。
+        根据堆糖评论数据构建评论及其子回复。该方法会处理评论的文字、图片和基础统计信息
 
-        :param comment_data: 已转换的评论数据对象。
-        :return: Comment 实例列表。
+        :param comment_data: 已转换的评论数据对象
+        :return: Comment 实例列表
         """
         comments: list[Comment] = []
 

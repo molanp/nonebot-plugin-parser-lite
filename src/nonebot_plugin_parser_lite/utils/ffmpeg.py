@@ -53,7 +53,7 @@ class FFmpeg:
 
     @classmethod
     async def exec_probe(cls, cmd: list[str]) -> bytes:
-        """执行 ffprobe 命令并返回标准输出。
+        """执行 ffprobe 命令并返回标准输出
 
         :param cmd: 不包含 'ffprobe' 本身的命令参数列表
         """
@@ -185,7 +185,7 @@ class FFmpeg:
 
     @staticmethod
     def _build_live_inputs(video_path: Path, image_path: Path, loop: int) -> list[str]:
-        # 多读取一轮可避免部分可变帧率素材在末段 trim 时缺最后一帧。
+        # 多读取一轮可避免部分可变帧率素材在末段 trim 时缺最后一帧
         return [
             "-stream_loop",
             str(loop),
@@ -385,7 +385,7 @@ class FFmpeg:
     @classmethod
     async def remux_to_mp4(cls, input_path: Path, output_path: Path) -> Path:
         """
-        将 ts / fmp4 等容器转封装为 mp4，不重编码。
+        将 ts / fmp4 等容器转封装为 mp4，不重编码
         """
         cmd = [
             "-y",
@@ -508,7 +508,7 @@ class FFmpeg:
         cls, audio_path: Path, file_name: str | None = None
     ) -> Path:
         """
-        将任意音视频文件转码为 mp3。
+        将任意音视频文件转码为 mp3
 
         :param audio_path: 输入音频文件路径
         :param file_name: 输出文件名（不含扩展名），为空时根据输入路径生成稳定名称

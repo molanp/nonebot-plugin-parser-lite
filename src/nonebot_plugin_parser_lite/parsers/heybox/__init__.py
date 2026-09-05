@@ -91,10 +91,10 @@ class HeyBoxParser(BaseParser):
 
     def _build_comments(self, data: BaseResult) -> list[Comment]:
         """
-        根据小黑盒返回的数据构建评论和子回复列表。该方法会处理根评论和其下的所有子评论。
+        根据小黑盒返回的数据构建评论和子回复列表。该方法会处理根评论和其下的所有子评论
 
-        :param data: 已转换好的帖子结果数据。
-        :return: Comment 列表。
+        :param data: 已转换好的帖子结果数据
+        :return: Comment 列表
         """
         comments: list[Comment] = []
 

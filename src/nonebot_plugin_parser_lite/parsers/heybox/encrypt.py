@@ -92,8 +92,8 @@ def _interleave_js(arr: list[str]) -> str:
 
 def get_hkey(time: int) -> str:
     """
-    精确还原 hkey&nonce.js 的 getHkey 内部逻辑。
-    注意：函数签名里 (e, t, n) 在脚本里被立即覆盖，不真正使用入参。
+    精确还原 hkey&nonce.js 的 getHkey 内部逻辑
+    注意：函数签名里 (e, t, n) 在脚本里被立即覆盖，不真正使用入参
     """
     e = PATH  # e = path;
     t = time + 1  # t = time + 1;

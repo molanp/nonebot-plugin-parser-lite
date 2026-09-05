@@ -44,12 +44,12 @@ class Comment(Struct):
     @property
     def content(self) -> list[ContentItem]:
         """
-        将 Lofter 评论内容解析为 [文本/贴纸] 序列。
+        将 Lofter 评论内容解析为 [文本/贴纸] 序列
 
         规则：
         - raw 是 HTML，可能包含表情占位，如 [doge] 等；
         - emotes 列表提供了 name -> url 的映射；
-        - 对纯文本中的表情名称进行搜索，拆分成 文本 + StickerContent。
+        - 对纯文本中的表情名称进行搜索，拆分成 文本 + StickerContent
         """
         soup = BeautifulSoup(self.raw, "html.parser")
         text = soup.get_text(strip=True)

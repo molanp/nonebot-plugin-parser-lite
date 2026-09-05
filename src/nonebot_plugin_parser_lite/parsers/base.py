@@ -208,7 +208,7 @@ class BaseParser:
 
     @final
     async def parse(self, keyword: str, searched: MatchWithParams) -> ParseResult:
-        """解析 URL 提取信息。
+        """解析 URL 提取信息
 
         :param keyword: 关键词
         :param searched: 正则表达式匹配对象，由平台对应的模式匹配得到

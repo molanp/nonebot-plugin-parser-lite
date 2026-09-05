@@ -14,7 +14,7 @@ TEST_PACKAGE = "_parser_lite_downloader_test"
 
 
 class AsyncPathStub:
-    """只供下载器单元测试使用，避免依赖 anyio 的工作线程。"""
+    """只供下载器单元测试使用，避免依赖 anyio 的工作线程"""
 
     def __init__(self, path):
         self._path = Path(path)
@@ -59,7 +59,7 @@ class AsyncPathStub:
 
 
 class AsyncFileStub:
-    """aiofiles.open 的同步测试替身。"""
+    """aiofiles.open 的同步测试替身"""
 
     def __init__(self, path, mode):
         self._file = open(Path(path), mode)

@@ -49,10 +49,10 @@ class Dynamic:
 
     async def is_opus(self) -> bool:
         """
-        判断动态详情是否应使用 Opus 接口渲染。
+        判断动态详情是否应使用 Opus 接口渲染
 
         DynDetail 将图文和专栏分别标记为 ``draw``、``article``，两者
-        都需要继续请求 OpusDetail；转发等其他动态类型则保留动态渲染。
+        都需要继续请求 OpusDetail；转发等其他动态类型则保留动态渲染
 
         :return: 是否应使用 Opus 接口
         """
@@ -62,7 +62,7 @@ class Dynamic:
 
     def turn_to_opus(self) -> Opus:
         """
-        将需要 Opus 渲染的动态转换为 Opus 对象。
+        将需要 Opus 渲染的动态转换为 Opus 对象
 
         :return: 图文对象
         """

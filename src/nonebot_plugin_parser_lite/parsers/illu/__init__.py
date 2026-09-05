@@ -133,11 +133,11 @@ class IlluParser(BaseParser):
         type: BizType,
     ) -> list[Comment]:
         """
-        根据 objectId 与类型拉取评论列表。
+        根据 objectId 与类型拉取评论列表
 
         :param objectId: 文章或绘图的 objectId
         :param type: BizType.Article 或 BizType.Drawing
-        :return: Comment 实例列表。
+        :return: Comment 实例列表
         """
         router = Detail.CommentList.value
         resp = await self.httpx.post(

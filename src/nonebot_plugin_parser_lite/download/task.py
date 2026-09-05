@@ -69,7 +69,7 @@ class DownloadTaskWrapper(Awaitable[T], Generic[T]):
 def auto_task(
     func: Callable[P, Coroutine[Any, Any, T]],
 ) -> Callable[P, DownloadTaskWrapper[T]]:
-    """装饰器：返回惰性的下载包装器，并挂载 url / ext_headers 属性。
+    """装饰器：返回惰性的下载包装器，并挂载 url / ext_headers 属性
 
     约束（运行时检查）：
     - 被修饰函数签名必须包含：

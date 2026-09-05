@@ -114,8 +114,8 @@ async def _yield_video_box(tag: Tag, content_type: str):
 
 async def _iter_media_and_text(soup: BeautifulSoup, content_type: str):
     """
-    按 DOM 顺序依次产出文本 / 图片 / 视频等内容。
-    这是一个 async 生成器，方便内部按需 await。
+    按 DOM 顺序依次产出文本 / 图片 / 视频等内容
+    这是一个 async 生成器，方便内部按需 await
     """
     skip_parent: Tag | None = None
 

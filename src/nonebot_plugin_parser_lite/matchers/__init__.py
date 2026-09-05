@@ -306,14 +306,14 @@ class LazyManager:
 
 class BvReplyMergeExtension(Extension):
     """
-    将消息事件中的回复内容合并到当前消息中，并在解析前尝试从文本/短链接中抽取 BV 参数。
+    将消息事件中的回复内容合并到当前消息中，并在解析前尝试从文本/短链接中抽取 BV 参数
 
     行为：
     - message_provider: 把「当前消息 + 回复消息」合成一个 UniMessage
     - before_parse: 若命令参数中未显式提供 BV，则尝试
         1. 从合成文本中直接匹配 BV；
         2. 若无 BV，则从文本中取第一个 URL并展开，随后从最终 URL 中匹配 BV
-       解析成功后，将 BV 字符串填入 argv 中对应位置。
+       解析成功后，将 BV 字符串填入 argv 中对应位置
     """
 
     cache: "LRU[str, UniMessage]" = LRU(20)

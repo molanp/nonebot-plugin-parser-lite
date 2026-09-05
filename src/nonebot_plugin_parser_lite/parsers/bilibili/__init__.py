@@ -499,7 +499,7 @@ class BilibiliParser(BaseParser):
         return await self._parse_opus_obj(bili_opus)
 
     async def _parse_opus_obj(self, bili_opus: Opus):
-        """渲染 OpusDetail protobuf 返回的模块。"""
+        """渲染 OpusDetail protobuf 返回的模块"""
         response = await bili_opus.get_info()
         if not response.HasField("opus_item"):
             raise ParseException("获取图文信息失败")
@@ -658,7 +658,7 @@ class BilibiliParser(BaseParser):
         VideoStreamDownloadURL | FLVStreamDownloadURL | MP4StreamDownloadURL,
         AudioStreamDownloadURL | None,
     ]:
-        """获取最佳视频和音频下载流，并保留备用 CDN 地址。
+        """获取最佳视频和音频下载流，并保留备用 CDN 地址
 
         :param bvid: bvid
         :param avid: avid

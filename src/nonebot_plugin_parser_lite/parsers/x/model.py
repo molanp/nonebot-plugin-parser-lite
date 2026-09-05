@@ -352,7 +352,7 @@ def _utf16_length(text: str) -> int:
 
 
 def _utf16_offset_to_index(text: str, offset: int) -> int:
-    """将 Draft.js 的 UTF-16 偏移量映射为 Python 字符串索引。"""
+    """将 Draft.js 的 UTF-16 偏移量映射为 Python 字符串索引"""
     offset = max(offset, 0)
     code_units = 0
     for index, char in enumerate(text):

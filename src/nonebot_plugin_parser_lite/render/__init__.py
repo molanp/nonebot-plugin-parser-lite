@@ -82,13 +82,13 @@ def _find_text_split_end(text: str, start: int, max_len: int) -> int:
 
 
 def split_text_by_length_with_punct(text: str, max_len: int) -> list[str]:
-    """按长度切分文本，优先在标点符号处断句。
+    """按长度切分文本，优先在标点符号处断句
 
     规则：
     1. 遍历文本，当前段长度超过 max_len 时：
        - 尝试在当前段中最后一个标点符号后断句；
-       - 若找不到合适标点，则在 max_len 处硬切。
-    2. 支持中英文常用标点。
+       - 若找不到合适标点，则在 max_len 处硬切
+    2. 支持中英文常用标点
 
     :param text: 原始文本
     :param max_len: 每段最大长度
@@ -151,7 +151,7 @@ class _ForwardText:
 
         for part in self.parts:
             if part.protected:
-                # 受保护块可以超过软拆分阈值，但不会在块内部切开。
+                # 受保护块可以超过软拆分阈值，但不会在块内部切开
                 if (
                     current
                     and current != prefix
@@ -248,7 +248,7 @@ class Renderer:
     async def send_content(
         self, result: ParseResult
     ) -> AsyncGenerator[UniMessage[Any], None]:
-        """发送媒体内容消息。
+        """发送媒体内容消息
 
         将解析结果中的媒体内容拆分为：
         - 需要立即发送的音视频（逐条 yield）
@@ -492,9 +492,8 @@ class Renderer:
             # 按 content 顺序遍历
             for item in pr.content:
                 if isinstance(item, str):
-                    # 文本：保留接口返回的空白和换行，段落边界由原始文本控制。
-                    if item:
-                        append_text(item)
+                    # 文本：保留接口返回的空白和换行，段落边界由原始文本控制
+                    append_text(item)
                 elif isinstance(item, StickerContent):
                     append_text(item.desc or "[表情]")
                 elif isinstance(item, MediaContent) and item.need_send:

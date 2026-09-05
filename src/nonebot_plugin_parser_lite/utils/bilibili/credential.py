@@ -175,7 +175,7 @@ async def get_buvid() -> tuple[str, str]:
     """
     获取 buvid3 和 buvid4
 
-    :return: 第 0 项为 buvid3，第 1 项为 buvid4。
+    :return: 第 0 项为 buvid3，第 1 项为 buvid4
     """
     global __buvid3, __buvid4
     if not __buvid3 or not __buvid4:
