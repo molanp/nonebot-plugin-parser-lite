@@ -118,7 +118,7 @@ def anchor_text(element: Tag, base_url: str) -> str | None:
 
 
 def replace_anchor_hrefs(root: BeautifulSoup | Tag, base_url: str) -> None:
-    """将正文中的链接替换为 ``显示文本 (完整地址)``。"""
+    """将正文中的链接替换为 ``显示文本 (完整地址)``"""
     for element in root.find_all("a"):
         if text := anchor_text(element, base_url):
             element.replace_with(text)
