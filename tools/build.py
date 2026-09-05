@@ -1,7 +1,6 @@
 import os
 import site
 import subprocess
-import sys
 
 
 def build():
@@ -23,9 +22,7 @@ def build():
     print(f"找到 {len(proto_files)} 个 .proto 文件...")  # noqa: T201
 
     cmd = [
-        sys.executable,
-        "-m",
-        "grpc_tools.protoc",
+        "protoc",
         "-I.",
         f"-I{site_packages}",
         "--python_out=.",
