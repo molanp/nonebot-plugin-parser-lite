@@ -1,5 +1,5 @@
 import asyncio
-from collections.abc import AsyncGenerator
+from collections.abc import AsyncGenerator, Iterable
 from typing import ClassVar
 
 import aiofiles
@@ -537,9 +537,7 @@ class BilibiliParser(BaseParser):
                 ):
                     title = _text_node_plain_text(summary.title.text.nodes)
             elif kind == "module_paragraph":
-                _append_paragraph(
-                    result, module.module_paragraph, paragraph_break=True
-                )
+                _append_paragraph(result, module.module_paragraph, paragraph_break=True)
             elif kind == "module_stat":
                 _apply_stat(result, module.module_stat)
             elif kind == "module_buttom":
@@ -773,7 +771,7 @@ class BilibiliParser(BaseParser):
             merged: list[reply_pb2.ReplyInfo] = []
             seen_rpids: set[int] = set()
 
-            def _append_unique(src) -> None:
+            def _append_unique(src: Iterable[reply_pb2.ReplyInfo]) -> None:
                 for item in src:
                     if not item.id or item.id in seen_rpids:
                         continue
@@ -791,10 +789,20 @@ class BilibiliParser(BaseParser):
                 f"replies={len(data.replies)}, merged={len(merged)}",
             )
             # upper 置顶评论始终首位，其余按 like 数降序排序
-            if merged and (has_upper and len(merged) > 1):
-                head = merged[0]
-                tail = merged[1:]
-                merged = [head, *tail]
+            if merged:
+                if has_upper and len(merged) > 1:
+                    head = merged[0]
+                    tail = merged[1:]
+                    tail.sort(
+                        key=lambda item: item.like,
+                        reverse=True,
+                    )
+                    merged = [head, *tail]
+                else:
+                    merged.sort(
+                        key=lambda item: item.like,
+                        reverse=True,
+                    )
             return self._process_reply_list(merged[: pconfig.max_comments])
 
         except Exception as e:
