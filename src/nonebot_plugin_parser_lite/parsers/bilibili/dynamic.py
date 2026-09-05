@@ -98,6 +98,10 @@ def _text_node_items(
             if emote.emote_url:
                 desc = emote.raw_text.words if emote.HasField("raw_text") else None
                 items.append(Creator.sticker(emote.emote_url, "small", desc))
+            elif emote.HasField("raw_text"):
+                text_buffer.append(emote.raw_text.words)
+            elif node.raw_text:
+                text_buffer.append(node.raw_text)
         elif kind == "word":
             if node.word.words:
                 text_buffer.append(node.word.words)
@@ -109,6 +113,22 @@ def _text_node_items(
     return items
 
 
+def _text_node_plain_text(nodes: Iterable[dynamic_pb2.TextNode]) -> str:
+    """提取文本节点中的原始文字，并保留节点携带的换行。"""
+    parts: list[str] = []
+    for node in nodes:
+        kind = node.WhichOneof("text")
+        if kind == "word":
+            parts.append(node.word.words)
+        elif kind == "link":
+            parts.append(_link_text(node))
+        elif kind == "emote" and node.emote.HasField("raw_text"):
+            parts.append(node.emote.raw_text.words)
+        elif node.raw_text:
+            parts.append(node.raw_text)
+    return "".join(parts)
+
+
 def _link_text(node: dynamic_pb2.TextNode) -> str:
     if node.link.show_text.words:
         return node.link.show_text.words
@@ -116,19 +136,32 @@ def _link_text(node: dynamic_pb2.TextNode) -> str:
 
 
 def _append_paragraph(
-    result: ParseResult, module_paragraph: dynamic_pb2.ModuleParagraph
+    result: ParseResult,
+    module_paragraph: dynamic_pb2.ModuleParagraph,
+    *,
+    paragraph_break: bool = False,
 ) -> None:
     if not module_paragraph.HasField("paragraph"):
         return
     paragraph = module_paragraph.paragraph
     content_type = paragraph.WhichOneof("content")
     if content_type == "text":
-        result.content.extend(_text_node_items(paragraph.text.nodes))
+        if module_paragraph.is_article_title:
+            if result.title is None:
+                result.title = _text_node_plain_text(paragraph.text.nodes) or None
+            return
+        items = _text_node_items(paragraph.text.nodes)
+        if paragraph_break:
+            items.append("\n")
+        result.content.extend(items)
     elif content_type == "pic":
         if paragraph.pic.HasField("pics"):
             for item in paragraph.pic.pics.items:
                 if item.src:
                     result.content.append(Creator.image(url=item.src))
+    elif content_type == "line" and paragraph.line.HasField("pic"):
+        if paragraph.line.pic.src:
+            result.content.append(Creator.image(url=paragraph.line.pic.src))
 
 
 def _append_opus_summary(

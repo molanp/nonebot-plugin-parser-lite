@@ -57,6 +57,7 @@ from .dynamic import (
     _apply_stat,
     # _description_items,
     _parse_timestamp,
+    _text_node_plain_text,
     build_dynamic,
 )
 from .favlist import FavData
@@ -534,20 +535,19 @@ class BilibiliParser(BaseParser):
                     summary.HasField("title")
                     and summary.title.WhichOneof("content") == "text"
                 ):
-                    title = "".join(
-                        node.word.words
-                        for node in summary.title.text.nodes
-                        if node.WhichOneof("text") == "word"
-                    )
+                    title = _text_node_plain_text(summary.title.text.nodes)
             elif kind == "module_paragraph":
-                _append_paragraph(result, module.module_paragraph)
+                _append_paragraph(
+                    result, module.module_paragraph, paragraph_break=True
+                )
             elif kind == "module_stat":
                 _apply_stat(result, module.module_stat)
             elif kind == "module_buttom":
                 if module.module_buttom.HasField("module_stat"):
                     _apply_stat(result, module.module_buttom.module_stat)
 
-        result.title = title or None
+        if title:
+            result.title = title
         oid = item.oid or item.opus_id
         comment_type = (
             CommentResourceType.ARTICLE
