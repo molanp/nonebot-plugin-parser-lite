@@ -76,7 +76,7 @@ def format_num(num: int | None) -> str:
 def clean_clank(value: str) -> str | None:
     """清理文本中的空白符号(包括换行)"""
     text = re.sub(r"\s+", " ", value).strip()
-    return text if text else None
+    return text or None
 
 
 def append_html_text(
@@ -106,15 +106,17 @@ def anchor_text(element: Tag, base_url: str) -> str | None:
     """提取链接的显示文本和链接"""
     if element.find("img"):
         return None
+    label = element.get_text(" ", strip=True)
+    if not label:
+        return None
     href = element.get("href")
     if not isinstance(href, str) or not href:
-        return None
+        return label
     if href.startswith("#"):
-        return None
+        return label
 
     url = urljoin(base_url, href)
-    label = element.get_text(" ", strip=True)
-    return f"{label} ({url})" if label else None
+    return f"{label} ({url})"
 
 
 def replace_anchor_hrefs(root: BeautifulSoup | Tag, base_url: str) -> None:
