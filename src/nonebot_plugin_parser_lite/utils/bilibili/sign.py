@@ -1,10 +1,23 @@
+from collections.abc import Mapping
 from functools import reduce
 from hashlib import md5
 import time
 from typing import Any
 from urllib.parse import quote, urlencode
 
-from .client import APPKEY, APPSEC, HTTP_CLIENT
+from .client import (
+    API_CHANNEL,
+    API_LOCALE,
+    API_STATISTICS,
+    APPKEY,
+    APPSEC,
+    BUILD,
+    HTTP_CLIENT,
+    MOBI_APP,
+    PLATFORM,
+)
+
+AppParameter = str | int | float | bool
 
 # fmt: off
 mixinKeyEncTab = [
@@ -56,8 +69,28 @@ async def getWbiKeys() -> tuple[str, str]:
     return IMG_KEY, SUB_KEY
 
 
-def enc_sign(params: dict[str, Any]) -> dict:
-    params["appkey"] = APPKEY
-    params = dict(sorted(params.items()))
+def enc_sign(
+    params: Mapping[str, AppParameter],
+) -> dict[str, AppParameter]:
+    params = dict(sorted({**params, "appkey": APPKEY}.items()))
     params["sign"] = md5((urlencode(params) + APPSEC).encode("utf-8")).hexdigest()
     return params
+
+
+def enc_app_sign(
+    params: Mapping[str, AppParameter],
+) -> dict[str, AppParameter]:
+    """补全客户端公共参数并生成签名"""
+    return enc_sign(
+        {
+            "build": BUILD,
+            "c_locale": API_LOCALE,
+            "channel": API_CHANNEL,
+            "mobi_app": MOBI_APP,
+            "platform": PLATFORM,
+            "s_locale": API_LOCALE,
+            "statistics": API_STATISTICS,
+            "ts": int(time.time()),
+            **params,
+        }
+    )

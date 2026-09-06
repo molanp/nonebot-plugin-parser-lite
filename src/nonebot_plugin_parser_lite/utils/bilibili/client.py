@@ -4,7 +4,6 @@ import struct
 from typing import TypeVar, cast
 import uuid
 
-from curl_cffi import AsyncSession
 from google.protobuf.message import Message
 import httpx
 
@@ -194,14 +193,16 @@ class BiliGRPCClient:
         await self._client.aclose()
 
 
-HTTP_CLIENT = AsyncSession(
-    impersonate="chrome146",
+HTTP_CLIENT = httpx.AsyncClient(
     timeout=30.0,
     verify=True,
     trust_env=True,
     headers=HEADERS,
-    allow_redirects=True,
-    max_clients=40,
+    follow_redirects=True,
+    limits=httpx.Limits(
+        max_connections=40,
+        max_keepalive_connections=40,
+    ),
 )
 GRPC_CLIENT = BiliGRPCClient()
 

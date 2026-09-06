@@ -1,24 +1,90 @@
-from typing import Any
+from msgspec import Struct, convert
 
 from .client import HTTP_CLIENT
 from .exceptions import BiliHelperException
+
+
+class FavoriteUpper(Struct):
+    """收藏夹创建者"""
+
+    mid: int
+    name: str
+    face: str
+
+
+class FavoriteItem(Struct):
+    """收藏夹中的视频"""
+
+    title: str
+    cover: str
+    intro: str
+    link: str
+
+    @property
+    def url(self) -> str:
+        """视频网页地址"""
+        return self.link.replace("bilibili://video/", "https://bilibili.com/video/av")
+
+    @property
+    def desc(self) -> str:
+        """用于渲染的视频描述"""
+        return f"标题: {self.title}\n简介: {self.intro}\n链接: {self.url}"
+
+    @property
+    def avid(self) -> int:
+        """视频 avid"""
+        return int(self.link.split("/")[-1])
+
+
+class FavoriteInfo(Struct):
+    """收藏夹基础信息"""
+
+    title: str
+    cover: str
+    upper: FavoriteUpper
+    """收藏夹创建者"""
+    ctime: int
+    """创建时间戳"""
+    mtime: int
+    """最后修改时间戳"""
+    media_count: int
+    """收藏夹内媒体总数"""
+    intro: str
+
+
+class FavoriteListContent(Struct):
+    """收藏夹内容分页结果"""
+
+    info: FavoriteInfo
+    medias: list[FavoriteItem] | None
+    """当前页视频；风控或空收藏夹时可能为 ``None``"""
+    has_more: bool
+    """是否还有下一页"""
+
+    @property
+    def title(self) -> str:
+        return f"收藏夹 - {self.info.title}"
+
+    @property
+    def cover(self) -> str:
+        return self.info.cover
+
+    @property
+    def desc(self) -> str:
+        return f"简介: {self.info.intro}"
+
+    @property
+    def timestamp(self) -> int:
+        return self.info.ctime
 
 
 async def get_video_favorite_list_content(
     media_id: int,
     page: int = 1,
     keyword: str = "",
-) -> dict:
-    """
-    获取视频收藏夹列表内容，也可用于搜索收藏夹内容
-
-    :param media_id: 收藏夹 ID
-    :param page: 页码, defaults to 1
-    :param keyword: 搜索关键词, defaults to ""
-    :raises BiliHelperError: _description_
-    :return: _description_
-    """
-    params: dict[str, Any] = {
+) -> FavoriteListContent:
+    """获取视频收藏夹内容，也可用于搜索收藏夹"""
+    params: dict[str, int | str] = {
         "media_id": media_id,
         "pn": page,
         "ps": 20,
@@ -34,4 +100,4 @@ async def get_video_favorite_list_content(
     ).json()
     if result["code"] != 0:
         raise BiliHelperException(result)
-    return result["data"]
+    return convert(result["data"], FavoriteListContent)

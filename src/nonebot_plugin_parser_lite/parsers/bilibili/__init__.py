@@ -23,10 +23,10 @@ from ...utils.bilibili.exceptions import (
     CookiesRefreshException,
 )
 from ...utils.bilibili.favorite_list import get_video_favorite_list_content
-from ...utils.bilibili.live import LiveRoom
+from ...utils.bilibili.live import LiveRoom, LiveStatus
 from ...utils.bilibili.login import QrCodeLogin, QrCodeLoginEvents
 from ...utils.bilibili.opus import Opus
-from ...utils.bilibili.user import get_black_list, get_user_info
+from ...utils.bilibili.user import User, get_black_list
 from ...utils.bilibili.video import (
     AudioStreamDownloadURL,
     FLVStreamDownloadURL,
@@ -49,7 +49,6 @@ from ..base import (
     handle,
     pconfig,
 )
-from .bangumi import BangumiInfo
 from .dynamic import (
     _append_dynamic_payload,
     _append_opus_summary,
@@ -60,8 +59,6 @@ from .dynamic import (
     _text_node_plain_text,
     build_dynamic,
 )
-from .favlist import FavData
-from .live import RoomData
 from .size import probe_source_size
 from .video import AIConclusion
 
@@ -173,8 +170,7 @@ class BilibiliParser(BaseParser):
     async def _parse_bangumi(self, searched: MatchWithParams):
         ep_id = searched.get("ep_id")
         season_id = searched.get("season_id")
-        bangumi = await Bangumi(ep_id=ep_id, season_id=season_id).get_info()
-        bangumi_info = convert(bangumi, BangumiInfo)
+        bangumi_info = await Bangumi(ep_id=ep_id, season_id=season_id).get_info()
 
         def format_stat(value: int) -> str:
             return format_num(value)
@@ -563,25 +559,33 @@ class BilibiliParser(BaseParser):
 
         room = LiveRoom(room_display_id=room_id)
         logger.debug(f"B站直播解析原始：{room}")
-        info_dict = await room.get_room_info()
-
-        room_data = convert(info_dict, RoomData)
+        room_data = await room.get_room_info()
 
         await self.raise_if_in_black_list(room_data.uid)
-
         content: list[ContentItem] = []
-        # 下载封面
-        if cover := room_data.cover:
+        match room_data.live_status:
+            case LiveStatus.LIVE:
+                content.append("直播中\n")
+            case LiveStatus.OFFLINE:
+                content.append("未开播\n")
+            case LiveStatus.ROUND:
+                content.append("轮播中\n")
+        content.extend(
+            [
+                f"分区: {room_data.area_name} | {room_data.parent_area_name}\n",
+                room_data.description,
+            ]
+        )
+        if cover := room_data.user_cover:
             content.append(self.create_graphic(cover))
 
-        # 下载关键帧
         if keyframe := room_data.keyframe:
             content.append(self.create_graphic(keyframe))
 
         try:
-            user_info = await get_user_info(room_data.uid)
+            user_info = await User(room_data.uid).get_info()
         except BiliHelperException as error:
-            logger.warning(f"获取直播主播资料失败: {error}")
+            logger.exception(f"获取直播主播资料失败: {error}")
             user_info = None
         author = self.create_author(
             name=user_info.name if user_info else str(room_data.uid),
@@ -597,6 +601,7 @@ class BilibiliParser(BaseParser):
             title=room_data.title,
             content=content,
             author=author,
+            timestamp=room_data.timestamp,
         )
 
     async def parse_favlist(self, fav_id: int):
@@ -606,12 +611,10 @@ class BilibiliParser(BaseParser):
         """
 
         # 只会取一页，20 个
-        fav_dict = await get_video_favorite_list_content(fav_id)
-
-        if fav_dict["medias"] is None:
+        favdata = await get_video_favorite_list_content(fav_id)
+        medias = favdata.medias
+        if medias is None:
             raise ParseException("收藏夹内容为空, 或被风控")
-
-        favdata = convert(fav_dict, FavData)
 
         await self.raise_if_in_black_list(favdata.info.upper.mid)
 
@@ -624,9 +627,7 @@ class BilibiliParser(BaseParser):
                 id=str(favdata.info.upper.mid),
                 avatar_cache_key=f"bilibili:{favdata.info.upper.mid}",
             ),
-            content=[
-                self.create_graphic(fav.cover, fav.desc) for fav in favdata.medias
-            ],
+            content=[self.create_graphic(fav.cover, fav.desc) for fav in medias],
             url=f"https://space.bilibili.com/{favdata.info.upper.mid}/favlist?fid={fav_id}",
         )
 

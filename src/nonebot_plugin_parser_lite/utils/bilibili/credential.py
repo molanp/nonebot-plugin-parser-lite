@@ -15,6 +15,8 @@ from .sign import enc_sign
 class Credential:
     """
     凭证类，用于各种请求操作的验证
+
+    所有的凭证都是可选的，除非你想要一些需要登录才能看的内容
     """
 
     def __init__(
@@ -470,7 +472,7 @@ async def _active_buvid(buvid3: str, buvid4: str):
     headers["Referer"] = "https://www.bilibili.com/"
     resp = await HTTP_CLIENT.post(
         url="https://api.bilibili.com/x/internal/gaia-gateway/ExClimbWuzhi",
-        data=payload,
+        content=payload,
         headers=headers,
         cookies={
             "buvid3": buvid3,
