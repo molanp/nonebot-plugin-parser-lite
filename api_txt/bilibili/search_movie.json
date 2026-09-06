@@ -1,0 +1,113 @@
+{
+  "code": 0,
+  "message": "OK",
+  "ttl": 1,
+  "data": {
+    "trackid": "15075531973462656677",
+    "qv_id": "",
+    "pages": 1,
+    "page": 1,
+    "total": 1,
+    "exp_str": "100010#5500#6699",
+    "keyword": "",
+    "result_is_recommend": 0,
+    "items": [
+      {
+        "trackid": "15075531973462656677",
+        "title": "流浪地球2",
+        "cover": "https://i0.hdslb.com/bfs/bangumi/image/4ee5e1cea45fb742c77d17c1b2d115f09508a878.png",
+        "uri": "https://www.bilibili.com/bangumi/play/ss44847/?trackid=15075531973462656677",
+        "param": "28480858",
+        "goto": "movie",
+        "ptime": 1674316800,
+        "season_id": 44847,
+        "season_type": 2,
+        "season_type_name": "电影",
+        "media_type": 2,
+        "style": "科幻/冒险/灾难",
+        "styles": "2023 | 电影 | 中国大陆",
+        "styles_v2": "2023 | 中国大陆",
+        "style_label": {
+          "text": "大会员",
+          "text_color": "#FB7299",
+          "text_color_night": "#D44E7D",
+          "bg_color": "#FB7299",
+          "bg_color_night": "#D44E7D",
+          "border_color": "#FB7299",
+          "border_color_night": "#D44E7D",
+          "bg_style": 2
+        },
+        "cv": "吴京/刘德华/李雪健/沙溢/宁理/王智/朱颜曼滋",
+        "rating": 9.8,
+        "vote": 43679,
+        "area": "中国大陆",
+        "staff": "导演: 郭帆\n编剧: 杨治学,龚格尔,郭帆,叶濡畅",
+        "author_prefix": "",
+        "pub_time": "",
+        "badge": "电影",
+        "label": "演员：吴京/刘德华/李雪健/沙溢/宁理/王智/朱颜曼滋",
+        "watch_button": {
+          "title": "立即观看",
+          "link": "https://www.bilibili.com/bangumi/play/ep744327?theme=movie&trackid=15075531973462656677"
+        },
+        "follow_button": {
+          "icon": "http://i0.hdslb.com/bfs/bangumi/154b6898d2b2c20c21ccef9e41fcf809b518ebb4.png",
+          "texts": {
+            "0": "追剧",
+            "1": "已追剧"
+          },
+          "status_report": "cinema"
+        },
+        "selection_style": "grid",
+        "is_sug_style_exp": 0,
+        "badges": [
+          {
+            "text": "大会员",
+            "text_color": "#FFFFFF",
+            "text_color_night": "#E5E5E5",
+            "bg_color": "#FB7299",
+            "bg_color_night": "#D44E7D",
+            "border_color": "#FB7299",
+            "border_color_night": "#D44E7D",
+            "bg_style": 1
+          }
+        ],
+        "badges_v2": [
+          {
+            "text": "电影",
+            "text_color": "#FFFFFF",
+            "text_color_night": "#FFFFFF",
+            "bg_color": "#FF6699",
+            "bg_color_night": "#D44E7D",
+            "bg_style": 1
+          }
+        ],
+        "more_search_type": 0,
+        "share_from": "",
+        "auto_expand": false,
+        "bubbles": null,
+        "business": "",
+        "message_id": 0,
+        "like_state": 0,
+        "like_number": 0,
+        "card_style": 0,
+        "show_follow_button": 0,
+        "aspect_ratio": 0,
+        "pedia_card_ui": null,
+        "cover_type": 0,
+        "up_uri": "",
+        "row": 0,
+        "reply_text": "",
+        "is_more": false,
+        "user_card_desc": "",
+        "inline_title_style": 0,
+        "cover_badge": null,
+        "ShortOGVInfo": {
+          "AppId": "",
+          "SeasonId": 0,
+          "EpisodeId": 0
+        }
+      }
+    ]
+  }
+}
