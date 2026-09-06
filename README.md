@@ -252,4 +252,6 @@ npm run build:css
 - [zly2006/zhihu-plus-plus](https://github.com/zly2006/zhihu-plus-plus) 知乎解析参考
 - [Uesugi Hanako](https://github.com/negichan) 渲染模板设计和部分签名算法
 - [soloxiaoye2022](https://github.com/soloxiaoye2022) 部分签名算法
+- [nemo2011/bilibili-api (RIP)](https://github.com/Nemo2011/bilibili-api) 部分接口参考
+- [10miaomiao/bilimiao2](https://github.com/10miaomiao/bilimiao2) biliProtobuf 数据和接口参考
 - 致2026年的你们
